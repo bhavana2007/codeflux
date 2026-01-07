@@ -9,10 +9,55 @@
     "when": "Use on sorted arrays/strings when searching for pairs/windows with a target relation.",
     "complexity": "Time: O(n) | Space: O(1)"
   },
+  "detect": "Data is ordered (often sorted) and you need a pair/window that meets a target relation.",
+  "mistakes": [
+    "Using two pointers on unsorted data without a plan",
+    "Moving the wrong pointer when the sum is too large/small",
+    "Not stopping when pointers cross"
+  ],
+  "tips": "If sum too small, move left forward; if too large, move right backward. Works best on sorted inputs.",
+  "problems": [
+    "Two Sum II - Input Array Is Sorted (LC 167)",
+    "3Sum (LC 15)",
+    "Container With Most Water (LC 11)"
+  ],
+  "video": "https://www.youtube.com/watch?v=EYeR-_1NRlQ",
   "defaultInputs": {
     "array": "[2, 3, 4, 7, 11]",
     "target": "9"
   },
+  "codeByLanguage": {
+    "javascript": [
+      { "line": 0, "code": "function twoSumSorted(arr, target) {" },
+      { "line": 1, "code": "  let l = 0, r = arr.length - 1;" },
+      { "line": 2, "code": "  while (l < r) {" },
+      { "line": 3, "code": "    const sum = arr[l] + arr[r];" },
+      { "line": 4, "code": "    if (sum === target) return [l, r];" },
+      { "line": 5, "code": "    if (sum < target) l++;" },
+      { "line": 6, "code": "    else r--;" },
+      { "line": 7, "code": "  }" },
+      { "line": 8, "code": "  return [-1, -1];" },
+      { "line": 9, "code": "}" }
+    ],
+    "python": [
+      { "line": 0, "code": "def two_sum_sorted(arr, target):" },
+      { "line": 1, "code": "    l, r = 0, len(arr) - 1" },
+      { "line": 2, "code": "    while l < r:" },
+      { "line": 3, "code": "        s = arr[l] + arr[r]" },
+      { "line": 4, "code": "        if s == target:" },
+      { "line": 5, "code": "            return [l, r]" },
+      { "line": 6, "code": "        if s < target:" },
+      { "line": 7, "code": "            l += 1" },
+      { "line": 8, "code": "        else:" },
+      { "line": 9, "code": "            r -= 1" },
+      { "line": 10, "code": "    return [-1, -1]" }
+    ]
+  },
+  "quiz": [
+    { "question": "When sum < target, move:", "options": ["Left pointer right", "Right pointer left", "Both outward"], "correct": 0, "explanation": "Increase the sum by moving left forward on sorted data." },
+    { "question": "Works best on:", "options": ["Unsorted arrays", "Sorted/ordered data", "Random strings only"], "correct": 1, "explanation": "Two pointers leverages ordering." },
+    { "question": "Stop when:", "options": ["Pointers cross", "Left == 0", "Right == len-1"], "correct": 0, "explanation": "Loop ends when l >= r." }
+  ],
   "codeSteps": [
     { "line": 0, "code": "function twoSumSorted(arr, target) {" },
     { "line": 1, "code": "  let l = 0, r = arr.length - 1;" },

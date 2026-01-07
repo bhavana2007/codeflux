@@ -9,9 +9,49 @@
     "when": "Use when you need the max sum of any contiguous subarray.",
     "complexity": "Time: O(n) | Space: O(1)"
   },
+  "detect": "Find maximum subarray sum; contiguous and can include negatives.",
+  "mistakes": [
+    "Resetting to 0 instead of current element when cur+arr[i] is worse",
+    "Not initializing best/cur with first element",
+    "Assuming empty subarray is allowed when negatives exist"
+  ],
+  "tips": "Initialize with first element. At each step, cur = max(arr[i], cur+arr[i]); best = max(best, cur).",
+  "problems": [
+    "Maximum Subarray (LC 53)",
+    "Maximum Sum Circular Subarray (LC 918)",
+    "Best Time to Buy and Sell Stock (LC 121) — variant with gains"
+  ],
+  "video": "https://www.youtube.com/watch?v=VMtyGnNcdPw",
   "defaultInputs": {
     "array": "[-2, 1, -3, 4, -1, 2, 1, -5, 4]"
   },
+  "codeByLanguage": {
+    "javascript": [
+      { "line": 0, "code": "function kadane(arr) {" },
+      { "line": 1, "code": "  let best = arr[0];" },
+      { "line": 2, "code": "  let cur = arr[0];" },
+      { "line": 3, "code": "  for (let i = 1; i < arr.length; i++) {" },
+      { "line": 4, "code": "    cur = Math.max(arr[i], cur + arr[i]);" },
+      { "line": 5, "code": "    best = Math.max(best, cur);" },
+      { "line": 6, "code": "  }" },
+      { "line": 7, "code": "  return best;" },
+      { "line": 8, "code": "}" }
+    ],
+    "python": [
+      { "line": 0, "code": "def kadane(arr):" },
+      { "line": 1, "code": "    best = arr[0]" },
+      { "line": 2, "code": "    cur = arr[0]" },
+      { "line": 3, "code": "    for i in range(1, len(arr)):" },
+      { "line": 4, "code": "        cur = max(arr[i], cur + arr[i])" },
+      { "line": 5, "code": "        best = max(best, cur)" },
+      { "line": 6, "code": "    return best" }
+    ]
+  },
+  "quiz": [
+    { "question": "Kadane’s updates cur as:", "options": ["cur + arr[i]", "max(arr[i], cur + arr[i])", "arr[i] only"], "correct": 1, "explanation": "Choose between extending or restarting." },
+    { "question": "Initialization uses:", "options": ["0", "First element", "Infinity"], "correct": 1, "explanation": "Seed with first element to handle all-negative arrays." },
+    { "question": "Time complexity:", "options": ["O(n)", "O(n log n)", "O(n^2)"], "correct": 0, "explanation": "Single pass." }
+  ],
   "codeSteps": [
     { "line": 0, "code": "function kadane(arr) {" },
     { "line": 1, "code": "  let best = arr[0];" },

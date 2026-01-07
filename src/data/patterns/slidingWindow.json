@@ -9,10 +9,52 @@
     "when": "Use when the problem involves contiguous elements and an optimization goal (max, min, or target sum).",
     "complexity": "Time: O(n) | Space: O(1)"
   },
+  "detect": "You need best/first/longest/shortest subarray or substring with contiguous elements and a target/constraint.",
+  "mistakes": [
+    "Forgetting to shrink the window when it exceeds constraints",
+    "Not handling window initialization before reaching size k",
+    "Off-by-one when removing the left element"
+  ],
+  "tips": "Track window boundaries explicitly (left/right). Update answer only when window is valid, then slide by removing left.",
+  "problems": [
+    "Maximum Average Subarray I (LeetCode 643)",
+    "Longest Substring Without Repeating Characters (LC 3)",
+    "Minimum Size Subarray Sum (LC 209)"
+  ],
+  "video": "https://www.youtube.com/watch?v=GcW4mgmgSbw",
   "defaultInputs": {
     "array": "[2, 1, 5, 1, 3, 2]",
     "k": "3"
   },
+  "codeByLanguage": {
+    "javascript": [
+      { "line": 0, "code": "function slidingWindow(arr, k) {" },
+      { "line": 1, "code": "  let windowSum = 0;" },
+      { "line": 2, "code": "  for (let i = 0; i < arr.length; i++) {" },
+      { "line": 3, "code": "    windowSum += arr[i];" },
+      { "line": 4, "code": "    if (i >= k - 1) {" },
+      { "line": 5, "code": "      // Process the window..." },
+      { "line": 6, "code": "      windowSum -= arr[i - (k - 1)];" },
+      { "line": 7, "code": "    }" },
+      { "line": 8, "code": "  }" },
+      { "line": 9, "code": "}" }
+    ],
+    "python": [
+      { "line": 0, "code": "def sliding_window(arr, k):" },
+      { "line": 1, "code": "    window_sum = 0" },
+      { "line": 2, "code": "    for i in range(len(arr)):" },
+      { "line": 3, "code": "        window_sum += arr[i]" },
+      { "line": 4, "code": "        if i >= k - 1:" },
+      { "line": 5, "code": "            # process the window..." },
+      { "line": 6, "code": "            window_sum -= arr[i - (k - 1)]" },
+      { "line": 7, "code": "    return window_sum" }
+    ]
+  },
+  "quiz": [
+    { "question": "When do you shrink the window?", "options": ["When i < k-1", "When i >= k-1", "Never"], "correct": 1, "explanation": "Only shrink after the window reaches size k." },
+    { "question": "Time complexity of sliding window?", "options": ["O(n)", "O(n log n)", "O(n^2)"], "correct": 0, "explanation": "Each element enters/leaves the window once." },
+    { "question": "What gets subtracted when sliding?", "options": ["Current element", "Leftmost element exiting", "Middle element"], "correct": 1, "explanation": "You remove the element that just left the window." }
+  ],
   "codeSteps": [
     { "line": 0, "code": "function slidingWindow(arr, k) {" },
     { "line": 1, "code": "  let windowSum = 0;" },

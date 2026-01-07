@@ -9,10 +9,47 @@
     "when": "Use when you need to detect duplicates or count items quickly with O(1) lookups.",
     "complexity": "Time: O(n) | Space: O(n)"
   },
+  "detect": "You need fast membership/frequency checks; duplicates or counts matter more than order.",
+  "mistakes": [
+    "Using array.indexOf in loops instead of a hash map",
+    "Not initializing missing keys to 0 before increment",
+    "Forgetting that object keys stringify; use Map for non-string keys"
+  ],
+  "tips": "Use Map for numeric keys; default with (get(key) || 0) + 1. Hashing shines when order isn’t critical.",
+  "problems": [
+    "Contains Duplicate (LC 217)",
+    "Valid Anagram (LC 242)",
+    "Top K Frequent Elements (LC 347)"
+  ],
+  "video": "https://www.youtube.com/watch?v=3Zv-s9UUrFM",
   "defaultInputs": {
     "array": "[1, 2, 2, 3, 4, 4, 4]",
     "targetFrequency": "2"
   },
+  "codeByLanguage": {
+    "javascript": [
+      { "line": 0, "code": "function buildFreq(arr) {" },
+      { "line": 1, "code": "  const freq = new Map();" },
+      { "line": 2, "code": "  for (const num of arr) {" },
+      { "line": 3, "code": "    freq.set(num, (freq.get(num) || 0) + 1);" },
+      { "line": 4, "code": "  }" },
+      { "line": 5, "code": "  return freq;" },
+      { "line": 6, "code": "}" }
+    ],
+    "python": [
+      { "line": 0, "code": "from collections import defaultdict" },
+      { "line": 1, "code": "def build_freq(arr):" },
+      { "line": 2, "code": "    freq = defaultdict(int)" },
+      { "line": 3, "code": "    for num in arr:" },
+      { "line": 4, "code": "        freq[num] += 1" },
+      { "line": 5, "code": "    return freq" }
+    ]
+  },
+  "quiz": [
+    { "question": "Hash map lookups are:", "options": ["O(n)", "O(log n)", "O(1) expected"], "correct": 2, "explanation": "Hashing gives expected O(1) for insert/lookup." },
+    { "question": "Good default increment pattern:", "options": ["freq[key]++ without init", "(freq.get(key) || 0) + 1", "Sort first"], "correct": 1, "explanation": "Use a default of 0 when key is missing." },
+    { "question": "When to prefer Map over object?", "options": ["String keys only", "When keys aren’t strings or need stable iteration", "Never"], "correct": 1, "explanation": "Map handles non-string keys and predictable iteration." }
+  ],
   "codeSteps": [
     { "line": 0, "code": "function buildFreq(arr) {" },
     { "line": 1, "code": "  const freq = new Map();" },

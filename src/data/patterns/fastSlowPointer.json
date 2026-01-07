@@ -9,10 +9,52 @@
     "when": "Use on linked lists or sequences where detecting cycles or midpoints matters.",
     "complexity": "Time: O(n) | Space: O(1)"
   },
+  "detect": "You need to detect a cycle or find a midpoint with two moving references.",
+  "mistakes": [
+    "Not checking fast and fast.next before advancing",
+    "Assuming meeting means start of cycle (need second pass for entry)",
+    "Applying to arrays when random access suffices"
+  ],
+  "tips": "Advance slow by 1 and fast by 2; if they meet, there’s a cycle. Guard fast/fast.next on each loop.",
+  "problems": [
+    "Linked List Cycle (LC 141)",
+    "Linked List Cycle II (LC 142)",
+    "Middle of the Linked List (LC 876)"
+  ],
+  "video": "https://www.youtube.com/watch?v=gBTe7lFR3vc",
   "defaultInputs": {
     "array": "[3, 2, 0, -4]",
     "hasCycle": "true"
   },
+  "codeByLanguage": {
+    "javascript": [
+      { "line": 0, "code": "function hasCycle(head) {" },
+      { "line": 1, "code": "  let slow = head;" },
+      { "line": 2, "code": "  let fast = head;" },
+      { "line": 3, "code": "  while (fast && fast.next) {" },
+      { "line": 4, "code": "    slow = slow.next;" },
+      { "line": 5, "code": "    fast = fast.next.next;" },
+      { "line": 6, "code": "    if (slow === fast) return true;" },
+      { "line": 7, "code": "  }" },
+      { "line": 8, "code": "  return false;" },
+      { "line": 9, "code": "}" }
+    ],
+    "python": [
+      { "line": 0, "code": "def has_cycle(head):" },
+      { "line": 1, "code": "    slow = fast = head" },
+      { "line": 2, "code": "    while fast and fast.next:" },
+      { "line": 3, "code": "        slow = slow.next" },
+      { "line": 4, "code": "        fast = fast.next.next" },
+      { "line": 5, "code": "        if slow is fast:" },
+      { "line": 6, "code": "            return True" },
+      { "line": 7, "code": "    return False" }
+    ]
+  },
+  "quiz": [
+    { "question": "Fast moves:", "options": ["1 step", "2 steps", "3 steps"], "correct": 1, "explanation": "Fast advances two nodes per loop." },
+    { "question": "Cycle detected when:", "options": ["Values repeat", "Pointers meet", "Length is even"], "correct": 1, "explanation": "Meeting indicates a cycle." },
+    { "question": "Guard each loop with:", "options": ["slow only", "fast and fast.next", "head only"], "correct": 1, "explanation": "Check fast and fast.next to avoid null access." }
+  ],
   "codeSteps": [
     { "line": 0, "code": "function hasCycle(head) {" },
     { "line": 1, "code": "  let slow = head;" },
