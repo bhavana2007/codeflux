@@ -78,7 +78,7 @@ const quizForPattern = (pattern = {}) => {
   return basics;
 };
 
-const FloatingNotepad = ({ patternId }) => {
+const FloatingNotepad = ({ patternId, onClose }) => {
   const [note, setNote] = useState("");
   const [dragging, setDragging] = useState(false);
   const [pos, setPos] = useState({ x: 24, y: 120 });
@@ -119,10 +119,13 @@ const FloatingNotepad = ({ patternId }) => {
       className="fixed z-40 w-72 shadow-2xl"
     >
       <div
-        className="bg-gray-900 text-white px-3 py-2 rounded-t-lg cursor-move flex items-center gap-2"
+        className="bg-gray-900 text-white px-3 py-2 rounded-t-lg cursor-move flex items-center justify-between gap-2"
         onMouseDown={onMouseDown}
       >
-        <StickyNote size={16} /> Notes
+        <div className="flex items-center gap-2"><StickyNote size={16} /> Notes</div>
+        <button onClick={(e) => { e.stopPropagation(); if (onClose) onClose(); }} className="text-white opacity-80 hover:opacity-100">
+          <X size={16} />
+        </button>
       </div>
       <textarea
         value={note}
@@ -256,7 +259,7 @@ const PatternCardsPage = ({ patterns, onPatternSelect, onBack }) => {
             </div>
           ))}
         </div>
-        {openNoteFor && <FloatingNotepad patternId={openNoteFor} />}
+        {openNoteFor && <FloatingNotepad patternId={openNoteFor} onClose={() => setOpenNoteFor(null)} />}
       </div>
     </div>
   );
@@ -278,39 +281,43 @@ const PatternOverview = ({ pattern, onContinue, onBack }) => (
         <div className="bg-gray-100 p-4 rounded-lg font-mono text-sm">{pattern.overview?.complexity}</div>
         {pattern.detect && (
           <div className="bg-blue-50 border border-blue-100 text-blue-900 p-4 rounded-lg text-sm">
-            <strong>How to detect:</strong> {pattern.detect}
+            <strong>How to recognize this pattern:</strong>
+            <div className="mt-1 text-gray-700">{pattern.detect}</div>
           </div>
         )}
         {pattern.mistakes && pattern.mistakes.length > 0 && (
           <div className="bg-red-50 border border-red-100 text-red-900 p-4 rounded-lg text-sm space-y-2">
             <strong>Common mistakes:</strong>
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="list-disc list-inside space-y-1 mt-2">
               {pattern.mistakes.map((m, idx) => <li key={idx}>{m}</li>)}
             </ul>
           </div>
         )}
         {pattern.tips && (
           <div className="bg-green-50 border border-green-100 text-green-900 p-4 rounded-lg text-sm">
-            <strong>Tips:</strong> {pattern.tips}
+            <strong>Quick tips:</strong>
+            <div className="mt-1 text-gray-700">{pattern.tips}</div>
           </div>
         )}
+
         <div className="grid gap-3 md:grid-cols-2">
           {pattern.problems && (
             <div className="bg-gray-50 border border-gray-100 p-3 rounded-lg text-sm">
-              <div className="font-semibold mb-1">Suggested LeetCode</div>
-              <ul className="list-disc list-inside space-y-1">
-                {pattern.problems.map((p, idx) => {
+              <div className="font-semibold mb-2">Practice Problems</div>
+              <div className="space-y-2">
+                {pattern.problems.slice(0,5).map((p, idx) => {
                   const href = (typeof p === 'string' && p.startsWith('http'))
                     ? p
                     : `https://leetcode.com/problemset/all/?search=${encodeURIComponent(typeof p === 'string' ? p : JSON.stringify(p))}`;
                   const label = typeof p === 'string' ? p : JSON.stringify(p);
                   return (
-                    <li key={idx}>
+                    <div key={idx} className="flex items-center justify-between">
                       <a className="text-blue-600 underline" href={href} target="_blank" rel="noreferrer">{label}</a>
-                    </li>
+                      <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">{pattern.difficulty || 'Varies'}</span>
+                    </div>
                   );
                 })}
-              </ul>
+              </div>
             </div>
           )}
           {pattern.video && (
@@ -373,11 +380,16 @@ const TheoryPage = ({ pattern, inputs, onProceed, onBack }) => {
               <p>{pattern.tips}</p>
             </>
           )}
-          {algo && algo.length > 0 && (
+          {pattern.steps && pattern.steps.length > 0 && (
             <>
-              <h3>Algorithm / Steps</h3>
-              <ol className="list-decimal list-inside">
-                {Array.isArray(algo) ? algo.map((s, i) => <li key={i}>{typeof s === 'string' ? s : JSON.stringify(s)}</li>) : <li>{String(algo)}</li>}
+              <h3>Algorithm — step by step</h3>
+              <ol className="space-y-3 list-decimal list-inside">
+                {pattern.steps.map((s, i) => (
+                  <li key={i} className="bg-gray-50 p-3 rounded-lg">
+                    <div className="font-semibold">{s.popup || `Step ${i + 1}`}</div>
+                    <div className="text-sm text-gray-700 mt-1">{s.reason}</div>
+                  </li>
+                ))}
               </ol>
             </>
           )}
@@ -396,6 +408,7 @@ const VisualizationPage = ({ pattern, inputs, onBack }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [phase, setPhase] = useState("explain"); // "explain" | "apply"
+  const [showNotepad, setShowNotepad] = useState(false);
   const [showQuiz, setShowQuiz] = useState(false);
   const [quizSubmitted, setQuizSubmitted] = useState(false);
   const [quizSelections, setQuizSelections] = useState([]);
@@ -549,6 +562,9 @@ const VisualizationPage = ({ pattern, inputs, onBack }) => {
             <div className="flex flex-wrap gap-3">
               <button onClick={startAnimation} className="flex-1 bg-green-600 text-white py-3 rounded-lg font-bold">Start Animation</button>
               <button onClick={restart} className="bg-gray-200 px-6 py-3 rounded-lg"><RotateCcw /></button>
+              <button onClick={() => setShowNotepad((s) => !s)} className="bg-white border px-4 py-3 rounded-lg flex items-center gap-2">
+                <StickyNote size={16} /> Notes
+              </button>
               {phase === "explain" && (
                 <button onClick={revealStep} className="bg-blue-600 text-white px-4 py-3 rounded-lg font-semibold">
                   Reveal code & state
@@ -563,7 +579,7 @@ const VisualizationPage = ({ pattern, inputs, onBack }) => {
           </div>
         </div>
       </div>
-      {showQuiz && (
+        {showQuiz && (
         <div className="max-w-3xl mx-auto mt-8 bg-white shadow-lg border border-gray-100 rounded-xl p-6">
           <div className="flex items-center gap-2 mb-3 text-gray-800 font-bold text-lg">
             <MessageSquare size={18} /> Quick Check
@@ -618,8 +634,8 @@ const VisualizationPage = ({ pattern, inputs, onBack }) => {
             )}
           </div>
         </div>
-      )}
-      <FloatingNotepad patternId={pattern.id} />
+        )}
+        {showNotepad && <FloatingNotepad patternId={pattern.id} onClose={() => setShowNotepad(false)} />}
     </div>
   );
 };
