@@ -17,10 +17,11 @@
   ],
   "tips": "Use Map for numeric keys; default with (get(key) || 0) + 1. Hashing shines when order isn’t critical.",
   "problems": [
-    "Contains Duplicate (LC 217)",
-    "Valid Anagram (LC 242)",
-    "Top K Frequent Elements (LC 347)"
+    { "title": "Contains Duplicate (LC 217)", "link": "https://leetcode.com/problems/contains-duplicate/", "difficulty": "Easy" },
+    { "title": "Valid Anagram (LC 242)", "link": "https://leetcode.com/problems/valid-anagram/", "difficulty": "Easy" },
+    { "title": "Top K Frequent Elements (LC 347)", "link": "https://leetcode.com/problems/top-k-frequent-elements/", "difficulty": "Medium" }
   ],
+  "postQuestion": { "question": "What is a good default increment pattern?", "options": ["freq[key]++ without init", "(freq.get(key) || 0) + 1", "Sort first"], "correct": 1 },
   "video": "https://www.youtube.com/watch?v=3Zv-s9UUrFM",
   "defaultInputs": {
     "array": "[1, 2, 2, 3, 4, 4, 4]",

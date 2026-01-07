@@ -17,10 +17,11 @@
   ],
   "tips": "Track window boundaries explicitly (left/right). Update answer only when window is valid, then slide by removing left.",
   "problems": [
-    "Maximum Average Subarray I (LeetCode 643)",
-    "Longest Substring Without Repeating Characters (LC 3)",
-    "Minimum Size Subarray Sum (LC 209)"
+    { "title": "Maximum Average Subarray I (LC 643)", "link": "https://leetcode.com/problems/maximum-average-subarray-i/", "difficulty": "Easy" },
+    { "title": "Longest Substring Without Repeating Characters (LC 3)", "link": "https://leetcode.com/problems/longest-substring-without-repeating-characters/", "difficulty": "Medium" },
+    { "title": "Minimum Size Subarray Sum (LC 209)", "link": "https://leetcode.com/problems/minimum-size-subarray-sum/", "difficulty": "Medium" }
   ],
+  "postQuestion": { "question": "When should you shrink the window?", "options": ["Always", "When it exceeds constraints", "Never"], "correct": 1 }
   "video": "https://www.youtube.com/watch?v=GcW4mgmgSbw",
   "defaultInputs": {
     "array": "[2, 1, 5, 1, 3, 2]",

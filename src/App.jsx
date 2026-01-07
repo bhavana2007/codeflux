@@ -404,7 +404,96 @@ const TheoryPage = ({ pattern, inputs, onProceed, onBack }) => {
   );
 };
 
-const VisualizationPage = ({ pattern, inputs, onBack }) => {
+const PostVisualizationPage = ({ pattern, onProceed, onBack }) => {
+  return (
+    <div className="min-h-screen bg-gray-50 py-10 px-4 text-left">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 space-y-6">
+        <button onClick={onBack} className="text-blue-600 font-semibold">← Back</button>
+        <h2 className="text-4xl font-bold text-gray-800">Review & Practice</h2>
+        <div className="space-y-4 text-gray-700">
+          <div className="bg-blue-50 border border-blue-100 p-4 rounded text-sm">
+            <strong>How to recognize this pattern</strong>
+            <div className="mt-2">{pattern.detect}</div>
+          </div>
+          <div className="bg-red-50 border border-red-100 p-4 rounded text-sm">
+            <strong>Where students commonly make mistakes</strong>
+            <ul className="list-disc list-inside mt-2">
+              {pattern.mistakes && pattern.mistakes.map((m, i) => <li key={i}>{m}</li>)}
+            </ul>
+          </div>
+          <div className="bg-gray-50 border border-gray-100 p-4 rounded text-sm">
+            <strong>Practice Problems</strong>
+            <div className="mt-2 space-y-2">
+              {pattern.problems && pattern.problems.map((p, i) => (
+                <div key={i} className="flex items-center justify-between">
+                  <a className="text-blue-600 underline" href={p.link || `https://leetcode.com/problemset/all/?search=${encodeURIComponent(p.title)}`} target="_blank" rel="noreferrer">{p.title}</a>
+                  <span className="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-700">{p.difficulty || 'Varies'}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          {pattern.video && (
+            <div className="bg-gray-50 border border-gray-100 p-4 rounded text-sm">
+              <strong>Recommended video</strong>
+              <div className="mt-2"><a className="text-blue-600 underline" href={pattern.video} target="_blank" rel="noreferrer">Watch on YouTube</a></div>
+            </div>
+          )}
+        </div>
+        <div className="flex gap-3 mt-6">
+          <button onClick={onProceed} className="bg-indigo-600 text-white px-4 py-2 rounded-lg">Proceed to Quiz</button>
+          <button onClick={onBack} className="bg-white border px-4 py-2 rounded-lg">Back to Visualization</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const QuizPage = ({ pattern, onBack }) => {
+  const quiz = pattern.postQuestion ? [pattern.postQuestion] : (pattern.quiz || []);
+  const [selections, setSelections] = useState(Array(quiz.length).fill(null));
+  const [submitted, setSubmitted] = useState(false);
+  const [feedback, setFeedback] = useState('');
+
+  const submit = () => {
+    if (selections.some((s) => s === null)) { setFeedback('Answer the question to continue.'); return; }
+    const score = selections.reduce((acc, sel, idx) => acc + (sel === quiz[idx].correct ? 1 : 0), 0);
+    setSubmitted(true);
+    setFeedback(`You scored ${score}/${quiz.length}`);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-10 px-4 text-left">
+      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8 space-y-6">
+        <button onClick={onBack} className="text-blue-600 font-semibold">← Back</button>
+        <h2 className="text-2xl font-bold">Quick Check</h2>
+        <div className="space-y-4">
+          {quiz.map((q, qi) => (
+            <div key={qi} className="border p-3 rounded">
+              <div className="font-semibold mb-2">{q.question}</div>
+              <div className="space-y-2">
+                {q.options.map((opt, oi) => {
+                  const sel = selections[qi] === oi;
+                  return (
+                    <button key={oi} onClick={() => { if (submitted) return; const next = [...selections]; next[qi] = oi; setSelections(next); }} className={`w-full text-left px-4 py-2 rounded border ${sel ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+                      {opt}
+                    </button>
+                  );
+                })}
+              </div>
+              {submitted && q.explanation && <div className="mt-2 text-sm text-gray-600">Note: {q.explanation}</div>}
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center gap-3">
+          <button onClick={submit} className="bg-indigo-600 text-white px-4 py-2 rounded">Submit</button>
+          {feedback && <div className="text-sm font-semibold">{feedback}</div>}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const VisualizationPage = ({ pattern, inputs, onBack, onComplete }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [phase, setPhase] = useState("explain"); // "explain" | "apply"
@@ -448,7 +537,9 @@ const VisualizationPage = ({ pattern, inputs, onBack }) => {
       } else {
         setPatternProgress(pattern.id, 'completed');
         setIsPlaying(false);
-        setShowQuiz(true);
+        // navigate to post-visualization summary if provided
+        if (onComplete) onComplete();
+        else setShowQuiz(true);
       }
     }, delay);
     return () => clearTimeout(timer);
@@ -560,7 +651,8 @@ const VisualizationPage = ({ pattern, inputs, onBack }) => {
               </div>
             )}
             <div className="flex flex-wrap gap-3">
-              <button onClick={startAnimation} className="flex-1 bg-green-600 text-white py-3 rounded-lg font-bold">Start Animation</button>
+              <button onClick={startAnimation} className="bg-green-600 text-white py-3 px-4 rounded-lg font-bold">Start</button>
+              <button onClick={() => setIsPlaying(false)} className="bg-yellow-400 text-black py-3 px-4 rounded-lg">Pause</button>
               <button onClick={restart} className="bg-gray-200 px-6 py-3 rounded-lg"><RotateCcw /></button>
               <button onClick={() => setShowNotepad((s) => !s)} className="bg-white border px-4 py-3 rounded-lg flex items-center gap-2">
                 <StickyNote size={16} /> Notes
@@ -706,7 +798,16 @@ export default function App() {
           pattern={selected} 
           inputs={inputs} 
           onBack={() => setView('input')} 
+          onComplete={() => setView('post')}
         />
+      )}
+
+      {view === 'post' && (
+        <PostVisualizationPage pattern={selected} onProceed={() => setView('quiz')} onBack={() => setView('visualization')} />
+      )}
+
+      {view === 'quiz' && (
+        <QuizPage pattern={selected} onBack={() => setView('post')} />
       )}
     </div>
   );

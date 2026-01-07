@@ -17,10 +17,11 @@
   ],
   "tips": "Initialize with first element. At each step, cur = max(arr[i], cur+arr[i]); best = max(best, cur).",
   "problems": [
-    "Maximum Subarray (LC 53)",
-    "Maximum Sum Circular Subarray (LC 918)",
-    "Best Time to Buy and Sell Stock (LC 121) — variant with gains"
+    { "title": "Maximum Subarray (LC 53)", "link": "https://leetcode.com/problems/maximum-subarray/", "difficulty": "Easy" },
+    { "title": "Maximum Sum Circular Subarray (LC 918)", "link": "https://leetcode.com/problems/maximum-sum-circular-subarray/", "difficulty": "Hard" },
+    { "title": "Best Time to Buy and Sell Stock (LC 121)", "link": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/", "difficulty": "Easy" }
   ],
+  "postQuestion": { "question": "Kadane's should initialize best with:", "options": ["0", "First element", "Infinity"], "correct": 1 },
   "video": "https://www.youtube.com/watch?v=VMtyGnNcdPw",
   "defaultInputs": {
     "array": "[-2, 1, -3, 4, -1, 2, 1, -5, 4]"

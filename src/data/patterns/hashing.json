@@ -29,6 +29,12 @@
     { "line": 11, "code": "  return freq.size === 0;" },
     { "line": 12, "code": "}" }
   ],
+  "problems": [
+    { "title": "Valid Anagram (LC 242)", "link": "https://leetcode.com/problems/valid-anagram/", "difficulty": "Easy" },
+    { "title": "Group Anagrams (LC 49)", "link": "https://leetcode.com/problems/group-anagrams/", "difficulty": "Medium" },
+    { "title": "Valid Sudoku (LC 36)", "link": "https://leetcode.com/problems/valid-sudoku/", "difficulty": "Medium" }
+  ],
+  "postQuestion": { "question": "Why use a hash map for frequency?", "options": ["For O(1) lookups", "For sorting", "To use more memory"], "correct": 0 },
   "steps": [
     { "step": 0, "popup": "Check Lengths", "reason": "Different sizes cannot form an anagram." },
     { "step": 1, "popup": "Create Frequency Map", "reason": "Use a hash map to store counts in O(1) access time." },

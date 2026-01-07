@@ -17,10 +17,11 @@
   ],
   "tips": "If sum too small, move left forward; if too large, move right backward. Works best on sorted inputs.",
   "problems": [
-    "Two Sum II - Input Array Is Sorted (LC 167)",
-    "3Sum (LC 15)",
-    "Container With Most Water (LC 11)"
+    { "title": "Two Sum II - Input Array Is Sorted (LC 167)", "link": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/", "difficulty": "Easy" },
+    { "title": "3Sum (LC 15)", "link": "https://leetcode.com/problems/3sum/", "difficulty": "Medium" },
+    { "title": "Container With Most Water (LC 11)", "link": "https://leetcode.com/problems/container-with-most-water/", "difficulty": "Medium" }
   ],
+  "postQuestion": { "question": "When sum < target, which pointer moves?", "options": ["Left pointer right", "Right pointer left", "Both"], "correct": 0 }
   "video": "https://www.youtube.com/watch?v=EYeR-_1NRlQ",
   "defaultInputs": {
     "array": "[2, 3, 4, 7, 11]",

@@ -17,10 +17,11 @@
   ],
   "tips": "Build prefix with an extra 0 at the start. Range [l, r] is prefix[r+1] - prefix[l].",
   "problems": [
-    "Range Sum Query - Immutable (LC 303)",
-    "Subarray Sum Equals K (LC 560)",
-    "Find Pivot Index (LC 724)"
+    { "title": "Range Sum Query - Immutable (LC 303)", "link": "https://leetcode.com/problems/range-sum-query-immutable/", "difficulty": "Easy" },
+    { "title": "Subarray Sum Equals K (LC 560)", "link": "https://leetcode.com/problems/subarray-sum-equals-k/", "difficulty": "Medium" },
+    { "title": "Find Pivot Index (LC 724)", "link": "https://leetcode.com/problems/find-pivot-index/", "difficulty": "Easy" }
   ],
+  "postQuestion": { "question": "If the array changes frequently, should you use prefix sums?", "options": ["Yes, always", "No — recompute is expensive", "Only for very small arrays"], "correct": 1 }
   "video": "https://www.youtube.com/watch?v=Pwqo7iBnh_0",
   "defaultInputs": {
     "array": "[1, 2, 3, 4, 5]",

@@ -17,10 +17,11 @@
   ],
   "tips": "Advance slow by 1 and fast by 2; if they meet, there’s a cycle. Guard fast/fast.next on each loop.",
   "problems": [
-    "Linked List Cycle (LC 141)",
-    "Linked List Cycle II (LC 142)",
-    "Middle of the Linked List (LC 876)"
+    { "title": "Linked List Cycle (LC 141)", "link": "https://leetcode.com/problems/linked-list-cycle/", "difficulty": "Easy" },
+    { "title": "Linked List Cycle II (LC 142)", "link": "https://leetcode.com/problems/linked-list-cycle-ii/", "difficulty": "Medium" },
+    { "title": "Middle of the Linked List (LC 876)", "link": "https://leetcode.com/problems/middle-of-the-linked-list/", "difficulty": "Easy" }
   ],
+  "postQuestion": { "question": "What should you guard before advancing fast?", "options": ["fast only", "fast and fast.next", "slow only"], "correct": 1 },
   "video": "https://www.youtube.com/watch?v=gBTe7lFR3vc",
   "defaultInputs": {
     "array": "[3, 2, 0, -4]",
