@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Play, RotateCcw, MessageSquare, ExternalLink, ChevronRight, X, StickyNote } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // ==================== CONFIGURATION ====================
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY?.trim();
+// Log only presence (true/false) so key is never exposed in logs
+console.info(Boolean(import.meta.env.VITE_GEMINI_API_KEY));
 let genAIClient = null;
 const getGenAI = () => {
   if (!API_KEY) {
@@ -146,7 +148,7 @@ const GeminiTutor = ({ currentStep, codeSnippet, patternName }) => {
     setLoading(true);
     try {
       // v1beta currently serves the -001 suffix; latest alias is 404 in your project
-      const model = getGenAI().getGenerativeModel({ model: "gemini-1.5-flash-001" });
+      const model = getGenAI().getGenerativeModel({ model: "gemini-1.5-flash" });
       const prompt = `Tutor for ${patternName}. Step ${currentStep}: ${codeSnippet}. Question: ${query}`;
       const result = await model.generateContent(prompt);
       setResponse(result.response.text());
@@ -163,11 +165,11 @@ const GeminiTutor = ({ currentStep, codeSnippet, patternName }) => {
   const runHelloTest = async () => {
     setTestResponse("");
     setTestLoading(true);
-    // Safe runtime visibility: log only presence, not the key
-    console.info("Gemini key present:", Boolean(API_KEY));
+    // Safe runtime visibility: log only presence (true/false)
+    console.info(Boolean(API_KEY));
     try {
-      const model = getGenAI().getGenerativeModel({ model: "gemini-1.5-flash-001" });
-      const result = await model.generateContent("Say HELLO from Gemini");
+      const model = getGenAI().getGenerativeModel({ model: "gemini-1.5-flash" });
+      const result = await model.generateContent("Say hello from Gemini");
       console.info("Gemini test response object:", result?.response);
       setTestResponse(result?.response?.text?.() || "No text returned");
     } catch (err) {
@@ -220,32 +222,45 @@ const LandingPage = ({ onGetStarted }) => {
   );
 };
 
-const PatternCardsPage = ({ patterns, onPatternSelect, onBack }) => (
-  <div className="min-h-screen bg-gray-50 py-8 px-4 text-left">
-    <div className="max-w-6xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-4xl font-bold text-gray-800">DSA Patterns</h2>
-        <button onClick={onBack} className="text-blue-600 font-semibold">← Home</button>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {patterns.map((p) => (
-          <div key={p.id} onClick={() => onPatternSelect(p)} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all p-6 cursor-pointer border border-gray-200 hover:border-blue-400">
-            <div className="flex items-start justify-between gap-3 mb-2">
-              <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2"><StickyNote size={16} className="text-gray-400" />{p.name}</h3>
-              <span className={`${difficultyBadge(p.difficulty).bg} ${difficultyBadge(p.difficulty).text} px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide`}>
-                {p.difficulty || 'N/A'}
-              </span>
+const PatternCardsPage = ({ patterns, onPatternSelect, onBack }) => {
+  const [openNoteFor, setOpenNoteFor] = useState(null);
+  return (
+    <div className="min-h-screen bg-gray-50 py-8 px-4 text-left">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-4xl font-bold text-gray-800">DSA Patterns</h2>
+          <button onClick={onBack} className="text-blue-600 font-semibold">← Home</button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {patterns.map((p) => (
+            <div key={p.id} onClick={() => onPatternSelect(p)} className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all p-6 cursor-pointer border border-gray-200 hover:border-blue-400 relative">
+              <div className="flex items-start justify-between gap-3 mb-2">
+                <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">{p.name}</h3>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setOpenNoteFor(p.id); }}
+                    aria-label={`Open notes for ${p.name}`}
+                    className="p-1 rounded hover:bg-gray-100"
+                  >
+                    <StickyNote size={16} className="text-gray-500" />
+                  </button>
+                  <span className={`${difficultyBadge(p.difficulty).bg} ${difficultyBadge(p.difficulty).text} px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide`}>
+                    {p.difficulty || 'N/A'}
+                  </span>
+                </div>
+              </div>
+              <p className="text-gray-600 text-sm mb-4 line-clamp-2">{p.description}</p>
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-gray-400 font-bold uppercase">{getPatternProgress(p.id).replace('-', ' ')}</span>
+              </div>
             </div>
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{p.description}</p>
-            <div className="flex justify-between items-center">
-              <span className="text-xs text-gray-400 font-bold uppercase">{getPatternProgress(p.id).replace('-', ' ')}</span>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        {openNoteFor && <FloatingNotepad patternId={openNoteFor} />}
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const PatternOverview = ({ pattern, onContinue, onBack }) => (
   <div className="min-h-screen bg-gray-50 py-10 px-4 text-left">
@@ -284,7 +299,17 @@ const PatternOverview = ({ pattern, onContinue, onBack }) => (
             <div className="bg-gray-50 border border-gray-100 p-3 rounded-lg text-sm">
               <div className="font-semibold mb-1">Suggested LeetCode</div>
               <ul className="list-disc list-inside space-y-1">
-                {pattern.problems.map((p, idx) => <li key={idx}>{p}</li>)}
+                {pattern.problems.map((p, idx) => {
+                  const href = (typeof p === 'string' && p.startsWith('http'))
+                    ? p
+                    : `https://leetcode.com/problemset/all/?search=${encodeURIComponent(typeof p === 'string' ? p : JSON.stringify(p))}`;
+                  const label = typeof p === 'string' ? p : JSON.stringify(p);
+                  return (
+                    <li key={idx}>
+                      <a className="text-blue-600 underline" href={href} target="_blank" rel="noreferrer">{label}</a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}
@@ -321,8 +346,47 @@ const InputConfiguration = ({ pattern, onProceed, onBack }) => {
           </div>
         ))}
         <button onClick={() => onProceed(inputs)} className="w-full bg-blue-600 text-white py-3 rounded-lg mt-4 font-bold flex items-center justify-center gap-2">
-          Start Visualization <ChevronRight size={18}/>
+          Next: Theory & Algorithm <ChevronRight size={18}/>
         </button>
+      </div>
+    </div>
+  );
+};
+
+const TheoryPage = ({ pattern, inputs, onProceed, onBack }) => {
+  const algo = pattern.algorithm || pattern.steps || pattern.codeSteps || [];
+  return (
+    <div className="min-h-screen bg-gray-50 py-10 px-4 text-left">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 space-y-6">
+        <button onClick={onBack} className="text-blue-600 font-semibold">← Back</button>
+        <h2 className="text-4xl font-bold text-gray-800">Theory & Algorithm</h2>
+        <div className="prose text-gray-700">
+          <h3>What</h3>
+          <p>{pattern.overview?.what}</p>
+          <h3>When</h3>
+          <p>{pattern.overview?.when}</p>
+          <h3>Complexity</h3>
+          <pre className="bg-gray-100 p-3 rounded text-sm font-mono">{pattern.overview?.complexity}</pre>
+          {pattern.tips && (
+            <>
+              <h3>Tips</h3>
+              <p>{pattern.tips}</p>
+            </>
+          )}
+          {algo && algo.length > 0 && (
+            <>
+              <h3>Algorithm / Steps</h3>
+              <ol className="list-decimal list-inside">
+                {Array.isArray(algo) ? algo.map((s, i) => <li key={i}>{typeof s === 'string' ? s : JSON.stringify(s)}</li>) : <li>{String(algo)}</li>}
+              </ol>
+            </>
+          )}
+        </div>
+
+        <div className="flex gap-3 mt-6">
+          <button onClick={onProceed} className="bg-green-600 text-white px-4 py-2 rounded-lg">Proceed to Visualization</button>
+          <button onClick={onBack} className="bg-white border px-4 py-2 rounded-lg">Back to Inputs</button>
+        </div>
       </div>
     </div>
   );
@@ -612,11 +676,15 @@ export default function App() {
       {view === 'input' && (
         <InputConfiguration 
           pattern={selected} 
-          onProceed={(i) => { setInputs(i); setPatternProgress(selected.id, 'in-progress'); setView('visualization'); }} 
+          onProceed={(i) => { setInputs(i); setPatternProgress(selected.id, 'in-progress'); setView('theory'); }} 
           onBack={() => setView('overview')} 
         />
       )}
-      
+
+      {view === 'theory' && (
+        <TheoryPage pattern={selected} inputs={inputs} onProceed={() => setView('visualization')} onBack={() => setView('input')} />
+      )}
+
       {view === 'visualization' && (
         <VisualizationPage 
           pattern={selected} 
