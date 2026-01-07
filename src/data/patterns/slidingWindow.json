@@ -1,0 +1,65 @@
+{
+  "id": "slidingWindow",
+  "name": "Sliding Window",
+  "description": "Maintain a window that slides through a linear data structure to find a subarray/substring that satisfies a condition.",
+  "difficulty": "Medium",
+  "leetcode": "https://leetcode.com/problems/maximum-average-subarray-i/",
+  "overview": {
+    "what": "Sliding Window is a technique for finding a contiguous subarray that satisfies a specific condition in linear time.",
+    "when": "Use when the problem involves contiguous elements and an optimization goal (max, min, or target sum).",
+    "complexity": "Time: O(n) | Space: O(1)"
+  },
+  "defaultInputs": {
+    "array": "[2, 1, 5, 1, 3, 2]",
+    "k": "3"
+  },
+  "codeSteps": [
+    { "line": 0, "code": "function slidingWindow(arr, k) {" },
+    { "line": 1, "code": "  let windowSum = 0;" },
+    { "line": 2, "code": "  for (let i = 0; i < arr.length; i++) {" },
+    { "line": 3, "code": "    windowSum += arr[i];" },
+    { "line": 4, "code": "    if (i >= k - 1) {" },
+    { "line": 5, "code": "      // Process the window..." },
+    { "line": 6, "code": "      windowSum -= arr[i - (k - 1)];" },
+    { "line": 7, "code": "    }" },
+    { "line": 8, "code": "  }" },
+    { "line": 9, "code": "}" }
+  ],
+  "steps": [
+    {
+      "step": 0,
+      "popup": "Function Initialization",
+      "reason": "We prepare to traverse the array with a window of size 'k'."
+    },
+    {
+      "step": 1,
+      "popup": "Initialize Sum",
+      "reason": "We create a variable to track the current window's total."
+    },
+    {
+      "step": 2,
+      "popup": "Start Loop",
+      "reason": "The 'i' pointer moves forward, acting as the right edge of our window."
+    },
+    {
+      "step": 3,
+      "popup": "Add to Window",
+      "reason": "We add the current element to our running total."
+    },
+    {
+      "step": 4,
+      "popup": "Check Window Size",
+      "reason": "We check if we have gathered 'k' elements yet."
+    },
+    {
+      "step": 5,
+      "popup": "Valid Window Found",
+      "reason": "The window is now full. We can perform operations like finding the max sum."
+    },
+    {
+      "step": 6,
+      "popup": "Slide the Window",
+      "reason": "We subtract the leftmost element to maintain a window of size 'k'."
+    }
+  ]
+}
