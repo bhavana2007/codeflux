@@ -1,0 +1,33 @@
+{
+  "id": "kadanesAlgorithm",
+  "name": "Kadane’s Algorithm",
+  "description": "Find the maximum subarray sum in linear time using a running best.",
+  "difficulty": "Medium",
+  "leetcode": "https://leetcode.com/problems/maximum-subarray/",
+  "overview": {
+    "what": "Kadane’s keeps a current running sum and resets when it hurts the total.",
+    "when": "Use when you need the max sum of any contiguous subarray.",
+    "complexity": "Time: O(n) | Space: O(1)"
+  },
+  "defaultInputs": {
+    "array": "[-2, 1, -3, 4, -1, 2, 1, -5, 4]"
+  },
+  "codeSteps": [
+    { "line": 0, "code": "function kadane(arr) {" },
+    { "line": 1, "code": "  let best = arr[0];" },
+    { "line": 2, "code": "  let cur = arr[0];" },
+    { "line": 3, "code": "  for (let i = 1; i < arr.length; i++) {" },
+    { "line": 4, "code": "    cur = Math.max(arr[i], cur + arr[i]);" },
+    { "line": 5, "code": "    best = Math.max(best, cur);" },
+    { "line": 6, "code": "  }" },
+    { "line": 7, "code": "  return best;" },
+    { "line": 8, "code": "}" }
+  ],
+  "steps": [
+    { "step": 0, "popup": "Seed Values", "reason": "Start best and current with the first element." },
+    { "step": 1, "popup": "Iterate Array", "reason": "Walk through each remaining value." },
+    { "step": 2, "popup": "Extend or Restart", "reason": "Either continue the subarray or restart at current element." },
+    { "step": 3, "popup": "Update Best", "reason": "Track the global maximum subarray sum found so far." },
+    { "step": 4, "popup": "Return Answer", "reason": "After the loop, best holds the max subarray sum." }
+  ]
+}

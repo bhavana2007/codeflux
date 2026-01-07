@@ -1,0 +1,35 @@
+{
+  "id": "fastSlowPointer",
+  "name": "Fast & Slow Pointer",
+  "description": "Move two pointers at different speeds to detect cycles or middle elements.",
+  "difficulty": "Medium",
+  "leetcode": "https://leetcode.com/problems/linked-list-cycle/",
+  "overview": {
+    "what": "Use a fast pointer (2x) and a slow pointer (1x) to spot cycles or locate midpoints.",
+    "when": "Use on linked lists or sequences where detecting cycles or midpoints matters.",
+    "complexity": "Time: O(n) | Space: O(1)"
+  },
+  "defaultInputs": {
+    "array": "[3, 2, 0, -4]",
+    "hasCycle": "true"
+  },
+  "codeSteps": [
+    { "line": 0, "code": "function hasCycle(head) {" },
+    { "line": 1, "code": "  let slow = head;" },
+    { "line": 2, "code": "  let fast = head;" },
+    { "line": 3, "code": "  while (fast && fast.next) {" },
+    { "line": 4, "code": "    slow = slow.next;" },
+    { "line": 5, "code": "    fast = fast.next.next;" },
+    { "line": 6, "code": "    if (slow === fast) return true;" },
+    { "line": 7, "code": "  }" },
+    { "line": 8, "code": "  return false;" },
+    { "line": 9, "code": "}" }
+  ],
+  "steps": [
+    { "step": 0, "popup": "Initialize Pointers", "reason": "Start both slow and fast at the head node." },
+    { "step": 1, "popup": "Advance Slow", "reason": "Move slow one step each iteration." },
+    { "step": 2, "popup": "Advance Fast", "reason": "Move fast two steps; it will catch slow if a cycle exists." },
+    { "step": 3, "popup": "Cycle Check", "reason": "If fast and slow meet, a cycle is present." },
+    { "step": 4, "popup": "Termination", "reason": "If fast hits null, there is no cycle." }
+  ]
+}

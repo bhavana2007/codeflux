@@ -1,0 +1,31 @@
+{
+  "id": "hashingFrequency",
+  "name": "Hashing / Frequency",
+  "description": "Count occurrences with a hash map to answer membership and frequency queries fast.",
+  "difficulty": "Easy",
+  "leetcode": "https://leetcode.com/problems/contains-duplicate/",
+  "overview": {
+    "what": "Build a frequency map from elements to counts using an object or Map.",
+    "when": "Use when you need to detect duplicates or count items quickly with O(1) lookups.",
+    "complexity": "Time: O(n) | Space: O(n)"
+  },
+  "defaultInputs": {
+    "array": "[1, 2, 2, 3, 4, 4, 4]",
+    "targetFrequency": "2"
+  },
+  "codeSteps": [
+    { "line": 0, "code": "function buildFreq(arr) {" },
+    { "line": 1, "code": "  const freq = new Map();" },
+    { "line": 2, "code": "  for (const num of arr) {" },
+    { "line": 3, "code": "    freq.set(num, (freq.get(num) || 0) + 1);" },
+    { "line": 4, "code": "  }" },
+    { "line": 5, "code": "  return freq;" },
+    { "line": 6, "code": "}" }
+  ],
+  "steps": [
+    { "step": 0, "popup": "Create Map", "reason": "Initialize an empty Map to store counts." },
+    { "step": 1, "popup": "Traverse Elements", "reason": "Iterate through each number once." },
+    { "step": 2, "popup": "Update Count", "reason": "Increment existing count or initialize to 1." },
+    { "step": 3, "popup": "Finish Map", "reason": "After the loop, the map holds frequency of every value." }
+  ]
+}

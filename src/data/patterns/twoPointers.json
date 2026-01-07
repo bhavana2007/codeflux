@@ -1,0 +1,36 @@
+{
+  "id": "twoPointers",
+  "name": "Two Pointers",
+  "description": "Use a left and right pointer moving toward each other to find pairs efficiently.",
+  "difficulty": "Easy",
+  "leetcode": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+  "overview": {
+    "what": "Two pointers scan from opposite ends (or same direction) to exploit ordering or constraints.",
+    "when": "Use on sorted arrays/strings when searching for pairs/windows with a target relation.",
+    "complexity": "Time: O(n) | Space: O(1)"
+  },
+  "defaultInputs": {
+    "array": "[2, 3, 4, 7, 11]",
+    "target": "9"
+  },
+  "codeSteps": [
+    { "line": 0, "code": "function twoSumSorted(arr, target) {" },
+    { "line": 1, "code": "  let l = 0, r = arr.length - 1;" },
+    { "line": 2, "code": "  while (l < r) {" },
+    { "line": 3, "code": "    const sum = arr[l] + arr[r];" },
+    { "line": 4, "code": "    if (sum === target) return [l, r];" },
+    { "line": 5, "code": "    if (sum < target) l++;" },
+    { "line": 6, "code": "    else r--;" },
+    { "line": 7, "code": "  }" },
+    { "line": 8, "code": "  return [-1, -1];" },
+    { "line": 9, "code": "}" }
+  ],
+  "steps": [
+    { "step": 0, "popup": "Initialize Pointers", "reason": "Left starts at index 0, right at the end." },
+    { "step": 1, "popup": "Check Sum", "reason": "Add values at both pointers to compare with target." },
+    { "step": 2, "popup": "Found Pair?", "reason": "If sum equals target, return the indices." },
+    { "step": 3, "popup": "Need Bigger Sum", "reason": "If sum is too small, move left pointer right to increase." },
+    { "step": 4, "popup": "Need Smaller Sum", "reason": "If sum is too large, move right pointer left to decrease." },
+    { "step": 5, "popup": "No Pair", "reason": "If pointers cross, no valid pair exists." }
+  ]
+}

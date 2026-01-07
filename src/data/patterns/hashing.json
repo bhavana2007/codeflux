@@ -1,0 +1,40 @@
+{
+  "id": "hashing",
+  "name": "Hashing / Frequency",
+  "description": "Track counts or seen elements with a hash map to achieve O(1) lookups.",
+  "difficulty": "Easy",
+  "leetcode": "https://leetcode.com/problems/valid-anagram/",
+  "overview": {
+    "what": "Hashing stores frequencies or presence in a map for constant-time access.",
+    "when": "Use when you need to count occurrences, detect duplicates, or check membership quickly.",
+    "complexity": "Time: O(n) | Space: O(n)"
+  },
+  "defaultInputs": {
+    "array": "[\"a\",\"n\",\"a\",\"g\",\"r\",\"a\",\"m\"]",
+    "k": "1",
+    "compare": "\"nagaram\""
+  },
+  "codeSteps": [
+    { "line": 0, "code": "function isAnagram(s, t) {" },
+    { "line": 1, "code": "  if (s.length !== t.length) return false;" },
+    { "line": 2, "code": "  const freq = new Map();" },
+    { "line": 3, "code": "  for (const ch of s) {" },
+    { "line": 4, "code": "    freq.set(ch, (freq.get(ch) || 0) + 1);" },
+    { "line": 5, "code": "  }" },
+    { "line": 6, "code": "  for (const ch of t) {" },
+    { "line": 7, "code": "    if (!freq.has(ch)) return false;" },
+    { "line": 8, "code": "    freq.set(ch, freq.get(ch) - 1);" },
+    { "line": 9, "code": "    if (freq.get(ch) === 0) freq.delete(ch);" },
+    { "line": 10, "code": "  }" },
+    { "line": 11, "code": "  return freq.size === 0;" },
+    { "line": 12, "code": "}" }
+  ],
+  "steps": [
+    { "step": 0, "popup": "Check Lengths", "reason": "Different sizes cannot form an anagram." },
+    { "step": 1, "popup": "Create Frequency Map", "reason": "Use a hash map to store counts in O(1) access time." },
+    { "step": 2, "popup": "Count Source String", "reason": "Populate the map with character frequencies from s." },
+    { "step": 3, "popup": "Consume Target String", "reason": "Decrease counts using characters from t." },
+    { "step": 4, "popup": "Missing Character?", "reason": "If a char isn't found, it's not an anagram." },
+    { "step": 5, "popup": "All Counts Zero", "reason": "Empty map means perfect frequency match." }
+  ]
+}

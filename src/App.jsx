@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Play, RotateCcw, MessageSquare, ExternalLink, ChevronRight, X } from 'lucide-react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-
 // ==================== CONFIGURATION ====================
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-
-const genAI = new GoogleGenerativeAI(API_KEY);
-
-
-// Ensure these IDs match your filenames in src/data/patterns/ (e.g., slidingWindow.json)
-const ENABLED_PATTERN_IDS = ['slidingWindow']; 
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY?.trim();
+let genAIClient = null;
+const getGenAI = () => {
+  if (!API_KEY) {
+    throw new Error("Missing VITE_GEMINI_API_KEY. Add it to your .env.local and restart the dev server.");
+  }
+  if (!genAIClient) {
+    genAIClient = new GoogleGenerativeAI(API_KEY);
+  }
+  return genAIClient;
+};
 
 // ==================== UTILITY FUNCTIONS ====================
 const getPatternProgress = (id) => localStorage.getItem(`pattern_progress_${id}`) || 'yet-to-start';
@@ -27,11 +30,17 @@ const GeminiTutor = ({ currentStep, codeSnippet, patternName }) => {
     if (!query.trim()) return;
     setLoading(true);
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = getGenAI().getGenerativeModel({ model: "gemini-1.5-flash" });
       const prompt = `Tutor for ${patternName}. Step ${currentStep}: ${codeSnippet}. Question: ${query}`;
       const result = await model.generateContent(prompt);
       setResponse(result.response.text());
-    } catch (err) { setResponse("AI connection failed."); }
+    } catch (err) { 
+      console.error("Gemini Tutor error:", err);
+      const msg = err?.message?.includes("VITE_GEMINI_API_KEY")
+        ? "Missing or invalid VITE_GEMINI_API_KEY. Update your .env.local and restart."
+        : "AI connection failed.";
+      setResponse(msg); 
+    }
     finally { setLoading(false); }
   };
 
@@ -142,8 +151,9 @@ const VisualizationPage = ({ pattern, inputs, onBack }) => {
   const codeSteps = pattern.codeSteps || [];
   const vizSteps = pattern.steps || [];
 
-  const arr = JSON.parse(inputs.array || "[]");
-  const k = parseInt(inputs.k || "3");
+  const arrInput = inputs?.array;
+  const arr = arrInput ? JSON.parse(arrInput || "[]") : [];
+  const k = Number(inputs?.k || 1) || 1;
 
   useEffect(() => {
     let interval;
@@ -183,15 +193,17 @@ const VisualizationPage = ({ pattern, inputs, onBack }) => {
                 <p className="text-sm text-gray-600 mt-1">{vizSteps[currentStep].reason}</p>
               </div>
             )}
-            <div className="flex gap-3 mb-8 overflow-x-auto p-2">
-              {arr.map((val, idx) => (
-                <div key={idx} className={`w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-lg font-bold text-xl transition-all duration-300 ${
-                  idx >= currentStep - k + 1 && idx <= currentStep ? 'bg-blue-600 text-white scale-110 shadow-lg' : 'bg-gray-100 text-gray-400'
-                }`}>
-                  {val}
-                </div>
-              ))}
-            </div>
+            {arr.length > 0 && (
+              <div className="flex gap-3 mb-8 overflow-x-auto p-2">
+                {arr.map((val, idx) => (
+                  <div key={idx} className={`w-14 h-14 flex-shrink-0 flex items-center justify-center rounded-lg font-bold text-xl transition-all duration-300 ${
+                    idx >= currentStep - k + 1 && idx <= currentStep ? 'bg-blue-600 text-white scale-110 shadow-lg' : 'bg-gray-100 text-gray-400'
+                  }`}>
+                    {val}
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="flex gap-4">
               <button onClick={() => setIsPlaying(true)} className="flex-1 bg-green-600 text-white py-3 rounded-lg font-bold">Start Animation</button>
               <button onClick={() => setCurrentStep(0)} className="bg-gray-200 px-6 py-3 rounded-lg"><RotateCcw /></button>
@@ -215,13 +227,15 @@ export default function App() {
   useEffect(() => {
     const loadPatterns = async () => {
       try {
+        const patternModules = import.meta.glob('./data/patterns/*.json');
         const loaded = await Promise.all(
-          ENABLED_PATTERN_IDS.map(async (id) => {
-            const module = await import(`./data/patterns/${id}.json`);
-            return { ...module.default, id };
+          Object.entries(patternModules).map(async ([path, loader]) => {
+            const mod = await loader();
+            const idFromFile = path.split('/').pop().replace('.json', '');
+            return { id: mod.default?.id || idFromFile, ...mod.default };
           })
         );
-        setPatterns(loaded);
+        setPatterns(loaded.sort((a, b) => a.name.localeCompare(b.name)));
       } catch (err) { console.error("File loading error:", err); }
       finally { setLoading(false); }
     };
