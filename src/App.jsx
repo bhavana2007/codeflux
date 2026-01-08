@@ -305,14 +305,135 @@ const PatternOverview = ({ pattern, onContinue, onBack }) => (
   </div>
 );
 
+// Utility function to generate random examples based on pattern
+const generateRandomExamples = (pattern) => {
+  const examples = [];
+  
+  if (pattern.id === 'slidingWindow') {
+    // Generate different arrays and window sizes
+    examples.push({
+      label: "Example 1: Small window",
+      array: "[1, 3, 2, 6, -1, 4, 1, 8, 2]",
+      k: "3"
+    });
+    examples.push({
+      label: "Example 2: Larger window", 
+      array: "[2, 1, 5, 1, 3, 2, 4, 1, 2, 1]",
+      k: "4"
+    });
+    examples.push({
+      label: "Example 3: Edge case",
+      array: "[4, 2, 1, 7, 8, 1, 2, 8, 1, 0]",
+      k: "2"
+    });
+  } else if (pattern.id === 'twoPointers') {
+    // Generate sorted arrays with different targets
+    examples.push({
+      label: "Example 1: Simple case",
+      array: "[2, 7, 11, 15]",
+      target: "9"
+    });
+    examples.push({
+      label: "Example 2: Multiple pairs",
+      array: "[1, 2, 3, 4, 5, 6, 7]",
+      target: "8"
+    });
+    examples.push({
+      label: "Example 3: Larger numbers",
+      array: "[10, 20, 30, 40, 50, 60]",
+      target: "70"
+    });
+  } else if (pattern.id === 'kadanesAlgorithm') {
+    // Generate arrays with different patterns
+    examples.push({
+      label: "Example 1: Mixed positive/negative",
+      array: "[-2, 1, -3, 4, -1, 2, 1, -5, 4]"
+    });
+    examples.push({
+      label: "Example 2: All negative",
+      array: "[-8, -3, -6, -2, -5, -4]"
+    });
+    examples.push({
+      label: "Example 3: All positive",
+      array: "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
+    });
+  } else if (pattern.id === 'fastSlowPointer') {
+    // Generate arrays with cycles or linked list representations
+    examples.push({
+      label: "Example 1: Simple cycle",
+      array: "[3, 2, 0, -4]",
+      cycleStart: "1"
+    });
+    examples.push({
+      label: "Example 2: Longer cycle",
+      array: "[1, 2, 3, 4, 5, 6, 7, 8]",
+      cycleStart: "3"
+    });
+    examples.push({
+      label: "Example 3: No cycle",
+      array: "[1, 2, 3, 4, 5]",
+      cycleStart: "-1"
+    });
+  } else if (pattern.id === 'prefixSum') {
+    // Generate arrays for range sum queries
+    examples.push({
+      label: "Example 1: Range queries",
+      array: "[1, 3, 5, 7, 9, 11]",
+      queries: "[[1, 3], [2, 5], [0, 2]]"
+    });
+    examples.push({
+      label: "Example 2: Subarray sums",
+      array: "[-1, 2, -3, 4, -5, 6]",
+      queries: "[[0, 2], [3, 5], [1, 4]]"
+    });
+    examples.push({
+      label: "Example 3: Large range",
+      array: "[10, 20, 30, 40, 50, 60, 70]",
+      queries: "[[0, 6], [2, 4], [1, 3]]"
+    });
+  } else if (pattern.id === 'hashing') {
+    // Generate arrays/strings for frequency/hash problems
+    examples.push({
+      label: "Example 1: Frequency count",
+      array: "[1, 2, 2, 3, 3, 3, 4]"
+    });
+    examples.push({
+      label: "Example 2: String characters",
+      string: "hello world"
+    });
+    examples.push({
+      label: "Example 3: Mixed data",
+      array: "[5, 1, 5, 2, 1, 5, 3, 2]"
+    });
+  } else if (pattern.id === 'hashingFrequency') {
+    // Similar to hashing but focused on frequency
+    examples.push({
+      label: "Example 1: Top K frequent",
+      array: "[1, 1, 1, 2, 2, 3]",
+      k: "2"
+    });
+    examples.push({
+      label: "Example 2: Frequency sort",
+      array: "[4, 4, 4, 2, 2, 1, 1, 1, 1]"
+    });
+    examples.push({
+      label: "Example 3: Unique elements",
+      array: "[1, 2, 3, 4, 5, 6, 7]"
+    });
+  } else {
+    // Fallback to default examples
+    examples.push({ label: "Example 1", ...pattern.defaultInputs });
+    examples.push({ label: "Example 2", ...pattern.defaultInputs });
+    examples.push({ label: "Example 3", ...pattern.defaultInputs });
+  }
+  
+  return examples;
+};
+
 const InputConfiguration = ({ pattern, onProceed, onBack }) => {
   const [inputs, setInputs] = useState(pattern.defaultInputs);
 
-  const exampleInputs = pattern.exampleInputs || [
-    { label: "Example 1", ...pattern.defaultInputs },
-    { label: "Example 2", ...pattern.defaultInputs },
-    { label: "Example 3", ...pattern.defaultInputs }
-  ];
+  const exampleInputs = generateRandomExamples(pattern);
 
   const applyExample = (example) => {
     setInputs({ ...example });
