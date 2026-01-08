@@ -15,51 +15,181 @@ const difficultyBadge = (difficulty = "") => {
 };
 const quizForPattern = (pattern = {}) => {
   const name = pattern.name || "This pattern";
-  const basics = {
-    question: `What is the key idea of ${name}?`,
-    options: [
-      "Use brute force over all possibilities",
-      "Maintain a focused view (window/pointers/prefix) to optimize",
-      "Sort and binary search only"
+  
+  // Define question pools for each pattern
+  const questionPools = {
+    slidingWindow: [
+      {
+        question: "When should you shrink the sliding window?",
+        options: ["Always", "When constraint is violated", "Never - only expand", "Only at the end"],
+        correct: 1,
+      },
+      {
+        question: "What does the window size represent in sliding window?",
+        options: ["Current array length", "Maximum valid subarray found", "Number of elements being considered", "Index positions only"],
+        correct: 2,
+      },
+      {
+        question: "Sliding window is most useful for:",
+        options: ["Sorting algorithms", "Finding subarrays with constraints", "Binary search problems", "Tree traversals"],
+        correct: 1,
+      },
+      {
+        question: "What maintains the window boundaries?",
+        options: ["Single pointer", "Two pointers (left and right)", "Array indices only", "Hash map"],
+        correct: 1,
+      }
     ],
-    correct: 1,
+    twoPointers: [
+      {
+        question: "Two pointers work best when:",
+        options: ["Data is unsorted", "Data is sorted or has order", "Data contains duplicates only", "Data is random"],
+        correct: 1,
+      },
+      {
+        question: "In two pointers for sorted arrays, when sum > target:",
+        options: ["Move left pointer right", "Move right pointer left", "Move both pointers", "Do nothing"],
+        correct: 1,
+      },
+      {
+        question: "Two pointers can solve:",
+        options: ["Only sum problems", "Pair finding, palindrome checks, etc.", "Only sorting", "Only searching"],
+        correct: 1,
+      },
+      {
+        question: "When should you stop moving pointers?",
+        options: ["When pointers cross", "When sum equals target", "When one pointer reaches end", "Never stop"],
+        correct: 0,
+      }
+    ],
+    prefixSum: [
+      {
+        question: "Prefix sum allows range queries in:",
+        options: ["O(n) time", "O(log n) time", "O(1) time after preprocessing", "O(n²) time"],
+        correct: 2,
+      },
+      {
+        question: "Prefix sum is most useful for:",
+        options: ["Single element access", "Frequent range sum queries", "Sorting arrays", "Finding maximum element"],
+        correct: 1,
+      },
+      {
+        question: "What does prefix[i] store?",
+        options: ["Element at index i", "Sum from 0 to i-1", "Sum from 0 to i", "Difference between elements"],
+        correct: 2,
+      },
+      {
+        question: "Prefix sum preprocessing takes:",
+        options: ["O(1) time", "O(log n) time", "O(n) time", "O(n²) time"],
+        correct: 2,
+      }
+    ],
+    hashing: [
+      {
+        question: "Hashing provides average case:",
+        options: ["O(n) lookups", "O(log n) lookups", "O(1) lookups", "O(n²) lookups"],
+        correct: 2,
+      },
+      {
+        question: "Hashing is ideal for:",
+        options: ["Range queries", "Frequency counting", "Sorting", "Binary search"],
+        correct: 1,
+      },
+      {
+        question: "What happens in hash collisions?",
+        options: ["Program crashes", "Wrong results", "Handled by chaining/open addressing", "Data is lost"],
+        correct: 2,
+      },
+      {
+        question: "Hash maps are good for:",
+        options: ["Ordered data only", "Key-value lookups", "Sequential access", "Mathematical computations"],
+        correct: 1,
+      }
+    ],
+    kadanesAlgorithm: [
+      {
+        question: "Kadane's algorithm finds:",
+        options: ["Minimum subarray sum", "Maximum subarray sum", "Median of array", "Sorted subarray"],
+        correct: 1,
+      },
+      {
+        question: "Kadane's handles negative numbers by:",
+        options: ["Ignoring them", "Starting fresh when sum becomes negative", "Converting to positive", "Using absolute values"],
+        correct: 1,
+      },
+      {
+        question: "Kadane's time complexity is:",
+        options: ["O(n²)", "O(n log n)", "O(n)", "O(1)"],
+        correct: 2,
+      },
+      {
+        question: "Kadane's space complexity is:",
+        options: ["O(n)", "O(log n)", "O(1)", "O(n²)"],
+        correct: 2,
+      }
+    ],
+    fastSlowPointer: [
+      {
+        question: "Fast & slow pointers detect:",
+        options: ["Duplicates", "Sorted order", "Cycles in linked lists", "Maximum element"],
+        correct: 2,
+      },
+      {
+        question: "In cycle detection, fast moves:",
+        options: ["1 step at a time", "2 steps at a time", "3 steps at a time", "Same speed as slow"],
+        correct: 1,
+      },
+      {
+        question: "When fast and slow meet:",
+        options: ["Cycle is confirmed", "No cycle exists", "Array is sorted", "Maximum is found"],
+        correct: 0,
+      },
+      {
+        question: "This pattern also finds:",
+        options: ["Middle of linked list", "Duplicates in array", "Both A and B", "Neither"],
+        correct: 2,
+      }
+    ],
+    hashingFrequency: [
+      {
+        question: "Frequency counting is useful for:",
+        options: ["Finding unique elements", "Top K frequent items", "Both A and B", "Neither"],
+        correct: 2,
+      },
+      {
+        question: "Most frequent element can be found in:",
+        options: ["O(n²) time", "O(n log n) time", "O(n) time using hash map", "O(1) time"],
+        correct: 2,
+      },
+      {
+        question: "Frequency maps help with:",
+        options: ["Sorting", "Anagram detection", "Duplicate finding", "All of the above"],
+        correct: 3,
+      },
+      {
+        question: "Space complexity for frequency counting:",
+        options: ["O(1)", "O(log n)", "O(n)", "O(n²)"],
+        correct: 2,
+      }
+    ]
   };
-  if ((pattern.id || "").includes("prefix")) {
-    return {
-      question: "Prefix Sum lets you compute range sums in:",
-      options: ["O(n)", "O(log n)", "O(1) after O(n) prep"],
-      correct: 2,
-    };
-  }
-  if ((pattern.id || "").includes("two")) {
-    return {
-      question: "Two Pointers works best when data is:",
-      options: ["Unsorted only", "Sorted or ordered to leverage direction", "Random strings only"],
+
+  // Get the question pool for this pattern
+  const patternQuestions = questionPools[pattern.id] || [
+    {
+      question: `What is the key idea of ${name}?`,
+      options: [
+        "Use brute force over all possibilities",
+        "Maintain a focused view (window/pointers/prefix) to optimize",
+        "Sort and binary search only"
+      ],
       correct: 1,
-    };
-  }
-  if ((pattern.id || "").includes("hash")) {
-    return {
-      question: "Hashing helps by providing:",
-      options: ["O(n^2) lookups", "O(1) expected lookups for counts/membership", "Sorting for free"],
-      correct: 1,
-    };
-  }
-  if ((pattern.id || "").includes("kadane")) {
-    return {
-      question: "Kadane’s keeps track of:",
-      options: ["Min prefix only", "Max prefix only", "Current best subarray sum as you scan"],
-      correct: 2,
-    };
-  }
-  if ((pattern.id || "").includes("fastslow")) {
-    return {
-      question: "Fast & Slow pointers detect cycles by:",
-      options: ["Counting nodes", "Comparing values", "Letting fast lap slow until they meet"],
-      correct: 2,
-    };
-  }
-  return basics;
+    }
+  ];
+
+  // Return a random question from the pool
+  const randomIndex = Math.floor(Math.random() * patternQuestions.length);
+  return patternQuestions[randomIndex];
 };
 
 const FloatingNotepad = ({ patternId, onClose, isOpen }) => {
@@ -726,14 +856,7 @@ const VisualizationPage = ({ pattern, inputs, onBack, onComplete }) => {
   const codeByLanguage = useMemo(() => pattern.codeByLanguage || {}, [pattern.codeByLanguage]);
   const languages = useMemo(() => Object.keys(codeByLanguage).length ? Object.keys(codeByLanguage) : ["javascript"], [codeByLanguage]);
   
-  const [currentQuiz, setCurrentQuiz] = useState(() => {
-    const quizPool = pattern.quiz || [pattern.postQuestion].filter(Boolean) || [quizForPattern(pattern)];
-    if (quizPool.length > 0) {
-      const randomIndex = Math.floor(Math.random() * quizPool.length);
-      return quizPool[randomIndex];
-    }
-    return null;
-  });
+  const [currentQuiz, setCurrentQuiz] = useState(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [phase, setPhase] = useState("explain"); // "explain" | "apply"
@@ -765,6 +888,25 @@ const VisualizationPage = ({ pattern, inputs, onBack, onComplete }) => {
     setIsPlaying(false);
     setAutoVisualize(false);
   }, [selectedLang, codeByLanguage, pattern.codeSteps]);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  // Generate random quiz when quiz modal opens
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    if (showQuiz && !currentQuiz) {
+      const quizPool = pattern.quiz || [pattern.postQuestion].filter(Boolean) || [quizForPattern(pattern)];
+      if (quizPool.length > 0) {
+        const randomIndex = Math.floor(Math.random() * quizPool.length);
+        setCurrentQuiz(quizPool[randomIndex]);
+        setQuizSelections([null]);
+        setQuizSubmitted(false);
+        setQuizFeedback("");
+      }
+    } else if (!showQuiz && currentQuiz) {
+      // Reset quiz when modal closes
+      setCurrentQuiz(null);
+    }
+  }, [showQuiz, currentQuiz, pattern]);
   /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
