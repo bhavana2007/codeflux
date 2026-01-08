@@ -43,5 +43,6 @@
     { "step": 4, "popup": "Missing Character?", "reason": "If a char isn't found, it's not an anagram." },
     { "step": 5, "popup": "All Counts Zero", "reason": "Empty map means perfect frequency match." }
   ],
-  "video": "https://www.youtube.com/watch?v=2E54GqF0H4s"
+  "video": "https://www.youtube.com/watch?v=2E54GqF0H4s",
+  "preview": "/assets/previews/hash2.jpeg"
 }

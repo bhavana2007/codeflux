@@ -292,7 +292,7 @@ const LandingPage = ({ onGetStarted }) => {
   );
 };
 
-const VideoPreview = ({ patternId }) => {
+const VideoPreview = ({ pattern }) => {
   const [videoExists, setVideoExists] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef(null);
@@ -317,7 +317,13 @@ const VideoPreview = ({ patternId }) => {
 
   return (
     <div className="mb-4 bg-slate-700 rounded-lg border-2 border-dashed border-slate-600 relative overflow-hidden" style={{ minHeight: '120px' }}>
-      {videoExists ? (
+      {pattern.preview ? (
+        <img
+          src={pattern.preview}
+          alt={`${pattern.name} preview`}
+          className="w-full h-full object-cover rounded-lg"
+        />
+      ) : videoExists ? (
         <>
           <video
             ref={videoRef}
@@ -328,7 +334,7 @@ const VideoPreview = ({ patternId }) => {
             onMouseLeave={handleMouseLeave}
             onError={handleError}
           >
-            <source src={`/assets/videos/${patternId}.mp4`} type="video/mp4" />
+            <source src={`/assets/videos/${pattern.id}.mp4`} type="video/mp4" />
           </video>
           {!isHovered && (
             <div className="absolute inset-0 flex items-center justify-center">
@@ -377,7 +383,7 @@ const PatternCardsPage = ({ patterns, onPatternSelect, onBack }) => {
               </div>
               <p className="text-slate-300 text-sm mb-4 line-clamp-2">{p.description}</p>
 
-              <VideoPreview patternId={p.id} />
+              <VideoPreview pattern={p} />
 
               <div className="flex justify-between items-center">
                 <span className="text-xs text-slate-500 font-bold uppercase">{getPatternProgress(p.id).replace('-', ' ')}</span>
@@ -404,22 +410,30 @@ const PatternOverview = ({ pattern, onContinue, onBack }) => (
 
       {/* Intro animation/video */}
       <div className="mb-6">
-        <video
-          className="w-full max-w-md mx-auto rounded-lg shadow-lg border border-slate-600"
-          autoPlay
-          muted
-          loop
-          playsInline
-        >
-          <source src={`/assets/videos/${pattern.id}.mp4`} type="video/mp4" />
-          {/* Fallback */}
-          <div className="w-full h-48 bg-slate-700 rounded-lg flex items-center justify-center">
-            <div className="text-center text-slate-400">
-              <Play size={48} className="mx-auto mb-2" />
-              <p>Pattern Introduction</p>
+        {pattern.preview ? (
+          <img
+            src={pattern.preview}
+            alt={`${pattern.name} preview`}
+            className="w-full max-w-md mx-auto rounded-lg shadow-lg border border-slate-600"
+          />
+        ) : (
+          <video
+            className="w-full max-w-md mx-auto rounded-lg shadow-lg border border-slate-600"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src={`/assets/videos/${pattern.id}.mp4`} type="video/mp4" />
+            {/* Fallback */}
+            <div className="w-full h-48 bg-slate-700 rounded-lg flex items-center justify-center">
+              <div className="text-center text-slate-400">
+                <Play size={48} className="mx-auto mb-2" />
+                <p>Pattern Introduction</p>
+              </div>
             </div>
-          </div>
-        </video>
+          </video>
+        )}
       </div>
 
       <div className="space-y-4 text-slate-200">
@@ -1147,6 +1161,106 @@ const VisualizationPage = ({ pattern, inputs, onBack, onComplete }) => {
                         })}
                       </div>
                     )}
+
+                    {(pattern.id === 'hashing' || pattern.id === 'hashingFrequency') && phase === "apply" && (
+                      <div className="flex gap-4 mb-4 overflow-x-auto px-6">
+                        {arr.map((val, idx) => {
+                          const isCurrentPosition = idx === currentStep;
+                          const isProcessed = idx < currentStep;
+                          
+                          return (
+                            <div key={`hash-${idx}`} className="w-20 flex-shrink-0 flex flex-col items-center">
+                              {isCurrentPosition && (
+                                <div className="text-orange-400 text-3xl mb-1 animate-bounce">🔍</div>
+                              )}
+                              {isProcessed && (
+                                <div className="text-emerald-400 text-2xl mb-1">✅</div>
+                              )}
+                              {(isCurrentPosition || isProcessed) && (
+                                <div className="text-xs text-slate-300 font-semibold">
+                                  {isCurrentPosition ? 'Processing' : 'Hashed'}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {pattern.id === 'prefixSum' && phase === "apply" && (
+                      <div className="flex gap-4 mb-4 overflow-x-auto px-6">
+                        {arr.map((val, idx) => {
+                          const isCurrentPosition = idx === currentStep;
+                          const queryRange = pattern.defaultInputs?.queryRange ? JSON.parse(pattern.defaultInputs.queryRange) : [1, 3];
+                          const isInQueryRange = idx >= queryRange[0] && idx <= queryRange[1];
+                          
+                          return (
+                            <div key={`prefix-${idx}`} className="w-20 flex-shrink-0 flex flex-col items-center">
+                              {isCurrentPosition && (
+                                <div className="text-purple-400 text-3xl mb-1 animate-bounce">🔢</div>
+                              )}
+                              {isInQueryRange && (
+                                <div className="text-indigo-400 text-2xl mb-1">📊</div>
+                              )}
+                              {(isCurrentPosition || isInQueryRange) && (
+                                <div className="text-xs text-slate-300 font-semibold">
+                                  {isCurrentPosition ? 'Building' : 'Query Range'}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {pattern.id === 'kadanesAlgorithm' && phase === "apply" && (
+                      <div className="flex gap-4 mb-4 overflow-x-auto px-6">
+                        {arr.map((val, idx) => {
+                          const isCurrentPosition = idx === currentStep;
+                          const isInCurrentSubarray = idx <= currentStep && currentStep >= 0;
+                          
+                          return (
+                            <div key={`kadane-${idx}`} className="w-20 flex-shrink-0 flex flex-col items-center">
+                              {isCurrentPosition && (
+                                <div className="text-green-400 text-3xl mb-1 animate-bounce">🎯</div>
+                              )}
+                              {isInCurrentSubarray && !isCurrentPosition && (
+                                <div className="text-yellow-400 text-2xl mb-1">📍</div>
+                              )}
+                              {(isCurrentPosition || isInCurrentSubarray) && (
+                                <div className="text-xs text-slate-300 font-semibold">
+                                  {isCurrentPosition ? 'Current' : 'Subarray'}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Current position pointer arrows */}
+                    <div className="flex gap-4 mb-4 overflow-x-auto px-6">
+                      {arr.map((val, idx) => {
+                        const isCurrentPosition = idx === currentStep;
+                        const isInRange = idx >= currentStep - k + 1 && idx <= currentStep;
+                        
+                        return (
+                          <div key={`pointer-${idx}`} className="w-20 flex-shrink-0 flex flex-col items-center">
+                            {isCurrentPosition && (
+                              <div className="text-cyan-400 text-3xl mb-1 animate-bounce">👆</div>
+                            )}
+                            {isInRange && !isCurrentPosition && (
+                              <div className="text-blue-400 text-2xl mb-1">⬇️</div>
+                            )}
+                            {(isCurrentPosition || isInRange) && (
+                              <div className="text-xs text-slate-300 font-semibold">
+                                {isCurrentPosition ? 'Current' : 'In Range'}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
 
                     <div className="flex gap-4 overflow-x-auto p-6 bg-gradient-to-br from-slate-700/60 to-slate-600/60 backdrop-blur-md rounded-2xl border border-slate-600/30 shadow-inner min-h-[120px] items-center">
                       {arr.map((val, idx) => (
