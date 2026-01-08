@@ -22,7 +22,7 @@
     { "title": "Find Pivot Index (LC 724)", "link": "https://leetcode.com/problems/find-pivot-index/", "difficulty": "Easy" }
   ],
   "postQuestion": { "question": "If the array changes frequently, should you use prefix sums?", "options": ["Yes, always", "No — recompute is expensive", "Only for very small arrays"], "correct": 1 },
-  "video": "https://www.youtube.com/watch?v=MoAH0EcI7IQ",
+  "video": "https://www.youtube.com/watch?v=2cN0NN6z2JQ",
   "defaultInputs": {
     "array": "[1, 2, 3, 4, 5]",
     "queryRange": "[1, 3]"

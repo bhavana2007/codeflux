@@ -22,7 +22,7 @@
     { "title": "Top K Frequent Elements (LC 347)", "link": "https://leetcode.com/problems/top-k-frequent-elements/", "difficulty": "Medium" }
   ],
   "postQuestion": { "question": "What is a good default increment pattern?", "options": ["freq[key]++ without init", "(freq.get(key) || 0) + 1", "Sort first"], "correct": 1 },
-  "video": "https://www.youtube.com/watch?v=2E54GqF0H4s",
+  "video": "https://www.youtube.com/watch?v=9UOmXgG2g3A",
   "defaultInputs": {
     "array": "[1, 2, 2, 3, 4, 4, 4]",
     "targetFrequency": "2"

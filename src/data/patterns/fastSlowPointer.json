@@ -22,7 +22,7 @@
     { "title": "Middle of the Linked List (LC 876)", "link": "https://leetcode.com/problems/middle-of-the-linked-list/", "difficulty": "Easy" }
   ],
   "postQuestion": { "question": "What should you guard before advancing fast?", "options": ["fast only", "fast and fast.next", "slow only"], "correct": 1 },
-  "video": "https://www.youtube.com/watch?v=9YTjXqqJEFE",
+  "video": "https://www.youtube.com/watch?v=wjYnzkAhcNk",
   "defaultInputs": {
     "array": "[3, 2, 0, -4]",
     "hasCycle": "true"
