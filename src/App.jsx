@@ -1062,16 +1062,103 @@ const VisualizationPage = ({ pattern, inputs, onBack, onComplete }) => {
                 </div>
 
                 {arr.length > 0 && (
-                  <div className="flex gap-4 mb-8 overflow-x-auto p-6 bg-gradient-to-br from-slate-700/60 to-slate-600/60 backdrop-blur-md rounded-2xl border border-slate-600/30 shadow-inner min-h-[120px] items-center">
-                    {arr.map((val, idx) => (
-                      <div key={idx} className={`w-20 h-20 flex-shrink-0 flex items-center justify-center rounded-2xl font-bold text-2xl transition-all duration-500 shadow-xl border ${
-                        idx >= currentStep - k + 1 && idx <= currentStep
-                          ? 'bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 text-white scale-110 shadow-blue-500/50 border-blue-400/50'
-                          : 'bg-gradient-to-br from-slate-600 to-slate-500 text-slate-400 hover:from-slate-500 hover:to-slate-400 border-slate-500/50'
-                      }`}>
-                        {val}
+                  <div className="mb-8">
+                    {/* Pointer arrows for different patterns */}
+                    {pattern.id === 'twoPointers' && phase === "apply" && (
+                      <div className="flex gap-4 mb-4 overflow-x-auto px-6">
+                        {arr.map((val, idx) => {
+                          const stepData = vizSteps[currentStep];
+                          const leftPos = stepData?.left !== undefined ? stepData.left : null;
+                          const rightPos = stepData?.right !== undefined ? stepData.right : null;
+                          const showLeftArrow = leftPos === idx;
+                          const showRightArrow = rightPos === idx;
+                          
+                          return (
+                            <div key={`arrow-${idx}`} className="w-20 flex-shrink-0 flex flex-col items-center">
+                              {showLeftArrow && (
+                                <div className="text-blue-400 text-3xl mb-1 animate-bounce">⬅️</div>
+                              )}
+                              {showRightArrow && (
+                                <div className="text-red-400 text-3xl mb-1 animate-bounce">➡️</div>
+                              )}
+                              {(showLeftArrow || showRightArrow) && (
+                                <div className="text-xs text-slate-300 font-semibold">
+                                  {showLeftArrow && showRightArrow ? 'Both' : showLeftArrow ? 'Left' : 'Right'}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
                       </div>
-                    ))}
+                    )}
+
+                    {pattern.id === 'slidingWindow' && phase === "apply" && (
+                      <div className="flex gap-4 mb-4 overflow-x-auto px-6">
+                        {arr.map((val, idx) => {
+                          // For sliding window, highlight the current window
+                          const windowStart = Math.max(0, currentStep - k + 1);
+                          const windowEnd = currentStep;
+                          const showLeftArrow = idx === windowStart && windowStart >= 0;
+                          const showRightArrow = idx === windowEnd && windowEnd < arr.length;
+                          
+                          return (
+                            <div key={`arrow-${idx}`} className="w-20 flex-shrink-0 flex flex-col items-center">
+                              {showLeftArrow && (
+                                <div className="text-green-400 text-3xl mb-1 animate-bounce">⬅️</div>
+                              )}
+                              {showRightArrow && (
+                                <div className="text-orange-400 text-3xl mb-1 animate-bounce">➡️</div>
+                              )}
+                              {(showLeftArrow || showRightArrow) && (
+                                <div className="text-xs text-slate-300 font-semibold">
+                                  {showLeftArrow && showRightArrow ? 'Window' : showLeftArrow ? 'Start' : 'End'}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {pattern.id === 'fastSlowPointer' && phase === "apply" && (
+                      <div className="flex gap-4 mb-4 overflow-x-auto px-6">
+                        {arr.map((val, idx) => {
+                          // For fast slow pointer, show slow and fast pointers
+                          const slowPos = Math.floor(currentStep / 2); // Slow moves 1 step per 2 steps
+                          const fastPos = currentStep; // Fast moves 1 step per step
+                          const showSlowArrow = idx === slowPos && slowPos < arr.length;
+                          const showFastArrow = idx === fastPos && fastPos < arr.length;
+                          
+                          return (
+                            <div key={`arrow-${idx}`} className="w-20 flex-shrink-0 flex flex-col items-center">
+                              {showSlowArrow && (
+                                <div className="text-purple-400 text-3xl mb-1 animate-bounce">🐢</div>
+                              )}
+                              {showFastArrow && (
+                                <div className="text-yellow-400 text-3xl mb-1 animate-bounce">🐇</div>
+                              )}
+                              {(showSlowArrow || showFastArrow) && (
+                                <div className="text-xs text-slate-300 font-semibold">
+                                  {showSlowArrow && showFastArrow ? 'Both' : showSlowArrow ? 'Slow' : 'Fast'}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    <div className="flex gap-4 overflow-x-auto p-6 bg-gradient-to-br from-slate-700/60 to-slate-600/60 backdrop-blur-md rounded-2xl border border-slate-600/30 shadow-inner min-h-[120px] items-center">
+                      {arr.map((val, idx) => (
+                        <div key={idx} className={`w-20 h-20 flex-shrink-0 flex items-center justify-center rounded-2xl font-bold text-2xl transition-all duration-500 shadow-xl border ${
+                          idx >= currentStep - k + 1 && idx <= currentStep
+                            ? 'bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 text-white scale-110 shadow-blue-500/50 border-blue-400/50'
+                            : 'bg-gradient-to-br from-slate-600 to-slate-500 text-slate-400 hover:from-slate-500 hover:to-slate-400 border-slate-500/50'
+                        }`}>
+                          {val}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
 
