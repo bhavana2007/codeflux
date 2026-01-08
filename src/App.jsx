@@ -281,7 +281,7 @@ const PatternOverview = ({ pattern, onContinue, onBack }) => (
           loop
           playsInline
         >
-          <source src={`/assets/videos/${pattern.id}-intro.mp4`} type="video/mp4" />
+          <source src={`/assets/videos/${pattern.id}.mp4`} type="video/mp4" />
           {/* Fallback */}
           <div className="w-full h-48 bg-slate-700 rounded-lg flex items-center justify-center">
             <div className="text-center text-slate-400">
