@@ -42,5 +42,6 @@
     { "step": 3, "popup": "Consume Target String", "reason": "Decrease counts using characters from t." },
     { "step": 4, "popup": "Missing Character?", "reason": "If a char isn't found, it's not an anagram." },
     { "step": 5, "popup": "All Counts Zero", "reason": "Empty map means perfect frequency match." }
-  ]
+  ],
+  "video": "https://www.youtube.com/watch?v=9UOmXgG2g3A"
 }
