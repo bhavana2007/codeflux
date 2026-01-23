@@ -1,16 +1,89 @@
-# React + Vite
+**CodeFlux**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AI-Assisted Code Analysis and Repository Management Platform
 
-Currently, two official plugins are available:
+**Overview**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+CodeFlux is a developer-focused project designed to help analyze, organize, and understand code repositories more efficiently. The project explores how structured workflows and AI-assisted techniques can support better code navigation, readability, and repository insights.
 
-## React Compiler
+This project was built with the goal of strengthening practical software engineering skills such as version control usage, modular design, and working with real-world codebases.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Problem Statement**
 
-## Expanding the ESLint configuration
+Understanding unfamiliar or large codebases is often time-consuming, especially for students and early-stage developers. Navigating files, identifying structure, and extracting useful insights requires experience and systematic analysis.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+CodeFlux addresses this by:
+
+Organizing repository information in a structured manner
+
+Assisting in understanding code structure and components
+
+Improving accessibility to repository-level insights
+
+**Key Features**
+
+Repository analysis using structured workflows
+
+Code organization and navigation support
+
+Extraction of meaningful repository insights
+
+AI-assisted support to enhance understanding of existing codebases
+
+Technologies Used
+
+Programming Language: Python
+
+Version Control: Git, GitHub
+
+APIs: GitHub API
+
+Concepts Applied:
+
+Software project structuring
+
+Modular programming
+
+Code readability and maintainability
+
+Version control best practices
+
+**Learning Outcomes**
+
+Through this project, I gained hands-on experience in:
+
+Working with real-world repositories and version control systems
+
+Structuring a software project in a maintainable way
+
+Understanding and navigating unfamiliar codebases
+
+Applying AI-assisted tools responsibly to support software development
+
+Improving problem-solving and analytical thinking in software projects
+
+**Project Status**
+
+🟡 In Progress
+Planned improvements include:
+
+Enhanced repository insight extraction
+
+Improved modularization and documentation
+
+Additional automation features for code analysis
+
+**How to Run (Basic)**
+git clone https://github.com/bhavana2007/codeflux.git
+cd codeflux
+# Follow instructions in the project files to run individual modules
+
+**Disclaimer**
+
+This project uses AI-assisted tools as a learning aid. The primary focus is on understanding software engineering concepts, repository analysis, and project structuring rather than automated code generation.
+
+**Author**
+
+Kolli Bhavana
+B.Tech – Artificial Intelligence & Data Science
+Shri Vishnu Engineering College for Women
