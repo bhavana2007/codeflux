@@ -85,5 +85,5 @@ This project uses AI-assisted tools as a learning aid. The primary focus is on u
 **Author**
 
 Kolli Bhavana
-B.Tech – Artificial Intelligence & Data Science
+B.Tech – Artificial Intelligence & Machine Learning
 Shri Vishnu Engineering College for Women
