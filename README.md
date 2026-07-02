@@ -1,89 +1,313 @@
-**CodeFlux**
+<div align="center">
 
-AI-Assisted Code Analysis and Repository Management Platform
+<img src="assets/logo/logo.png" width="180"/>
 
-**Overview**
+# 🚀 CodeFlux
 
-CodeFlux is a developer-focused project designed to help analyze, organize, and understand code repositories more efficiently. The project explores how structured workflows and AI-assisted techniques can support better code navigation, readability, and repository insights.
+### Interactive DSA Learning Platform
 
-This project was built with the goal of strengthening practical software engineering skills such as version control usage, modular design, and working with real-world codebases.
+**Learn • Practice • Analyze • Master**
 
-**Problem Statement**
+A modern platform for mastering **Data Structures & Algorithms** through structured learning paths, interactive modules, visual explanations, quizzes, curated resources, and an intelligent AI learning assistant.
 
-Understanding unfamiliar or large codebases is often time-consuming, especially for students and early-stage developers. Navigating files, identifying structure, and extracting useful insights requires experience and systematic analysis.
+<p align="center">
 
-CodeFlux addresses this by:
+<a href="https://codeflux-nu.vercel.app/">
+<img src="https://img.shields.io/badge/🚀%20Live%20Demo-2962FF?style=for-the-badge"/>
+</a>
 
-Organizing repository information in a structured manner
+<a href="https://github.com/bhavana2007/CodeFlux">
+<img src="https://img.shields.io/badge/💻%20Source%20Code-181717?style=for-the-badge&logo=github"/>
+</a>
 
-Assisting in understanding code structure and components
+</p>
 
-Improving accessibility to repository-level insights
+<p align="center">
 
-**Key Features**
+<img src="https://img.shields.io/github/stars/bhavana2007/CodeFlux?style=for-the-badge"/>
+<img src="https://img.shields.io/github/forks/bhavana2007/CodeFlux?style=for-the-badge"/>
+<img src="https://img.shields.io/github/last-commit/bhavana2007/CodeFlux?style=for-the-badge"/>
 
-Repository analysis using structured workflows
+</p>
 
-Code organization and navigation support
+</div>
 
-Extraction of meaningful repository insights
+---
 
-AI-assisted support to enhance understanding of existing codebases
+# 📖 About CodeFlux
 
-Technologies Used
+CodeFlux is an interactive DSA learning platform designed to make technical interview preparation engaging, structured, and beginner-friendly.
 
-Programming Language: Python
+Instead of relying on scattered notes and random practice, learners follow organized learning paths, explore interactive modules, access curated learning resources, monitor their progress, and receive assistance from **Fluxy**, an AI-powered learning companion.
 
-Version Control: Git, GitHub
+The project focuses on delivering a modern learning experience with an intuitive user interface and structured educational content.
 
-APIs: GitHub API
+---
 
-Concepts Applied:
+# ✨ Features
 
-Software project structuring
+## 🎯 Structured Learning Paths
 
-Modular programming
+Choose a roadmap based on your current skill level.
 
-Code readability and maintainability
+- 🌱 Beginner Path
+- 🚀 Intermediate Path
+- ⚡ Advanced Path
+- 🔍 Google Interview Track
 
-Version control best practices
+---
 
-**Learning Outcomes**
+## 📚 Interactive DSA Modules
 
-Through this project, I gained hands-on experience in:
+Master important coding interview patterns including:
 
-Working with real-world repositories and version control systems
+- Arrays
+- Strings
+- Linked Lists
+- Stacks & Queues
+- Trees
+- Graphs
+- Binary Search
+- Sorting Algorithms
+- Sliding Window
+- Prefix Sum
+- Hash Maps
+- Two Pointer Pattern
+- Fast & Slow Pointer
 
-Structuring a software project in a maintainable way
+Every module provides
 
-Understanding and navigating unfamiliar codebases
+- 📖 Beginner-friendly explanations
+- 💻 Practice problems
+- 🎥 Video tutorials
+- 📝 Interactive quizzes
+- 🎯 Difficulty classification
 
-Applying AI-assisted tools responsibly to support software development
+---
 
-Improving problem-solving and analytical thinking in software projects
+## 📘 Rich Learning Experience
 
-**Project Status**
+Each module contains a dedicated learning page with
 
-🟡 In Progress
-Planned improvements include:
+- Concept overview
+- Pattern explanation
+- Interview insights
+- Practice questions
+- Video learning resources
+- Interactive quizzes
 
-Enhanced repository insight extraction
+making the learning process engaging and structured.
 
-Improved modularization and documentation
+---
 
-Additional automation features for code analysis
+## 📊 Progress Analytics
 
-**How to Run (Basic)**
-git clone https://github.com/bhavana2007/codeflux.git
-cd codeflux
-# Follow instructions in the project files to run individual modules
+Track your DSA journey with
 
-**Disclaimer**
+- Learning progress
+- Completed modules
+- Practice statistics
+- Performance overview
+- Personalized learning insights
 
-This project uses AI-assisted tools as a learning aid. The primary focus is on understanding software engineering concepts, repository analysis, and project structuring rather than automated code generation.
+---
 
-**Author**
+## 📖 Curated Resources
 
-Kolli Bhavana
-B.Tech – Artificial Intelligence & Machine Learning
-Shri Vishnu Engineering College for Women
+Access everything needed for interview preparation from one place.
+
+- Documentation
+- Video Tutorials
+- Cheat Sheets
+- Time Complexity Guide
+- Problem Solving Strategies
+- Interview Preparation Notes
+
+---
+
+## 🤖 Fluxy AI Assistant
+
+Fluxy is your learning companion inside CodeFlux.
+
+It helps users by
+
+- Answering DSA-related questions
+- Explaining concepts
+- Guiding learning paths
+- Assisting platform navigation
+- Making learning more interactive
+
+---
+
+# 📸 Application Screenshots
+
+## 🏠 Dashboard
+
+<p align="center">
+<img src="assets/screenshots/dashboard.png"/>
+</p>
+
+---
+
+## 🚀 Learning Paths
+
+<p align="center">
+<img src="assets/screenshots/learning-paths.png"/>
+</p>
+
+---
+
+## 📚 Interactive Modules
+
+<p align="center">
+<img src="assets/screenshots/modules.png"/>
+</p>
+
+---
+
+## 📖 Module Learning Page
+
+<p align="center">
+<img src="assets/screenshots/module-details.png"/>
+</p>
+
+---
+
+## 📚 Learning Resources
+
+<p align="center">
+<img src="assets/screenshots/resources.png"/>
+</p>
+
+---
+
+## 🤖 Fluxy AI Assistant
+
+<p align="center">
+<img src="assets/screenshots/fluxy-ai.png"/>
+</p>
+
+---
+
+# 🛠️ Tech Stack
+
+| Category | Technologies |
+|-----------|--------------|
+| Frontend | React, Vite |
+| Styling | Tailwind CSS |
+| Language | JavaScript |
+| Routing | React Router |
+| Icons | Lucide React |
+| Build Tool | Vite |
+
+---
+
+# 📂 Project Structure
+
+```text
+CodeFlux
+│
+├── assets
+│   ├── logo
+│   └── screenshots
+│
+├── public
+├── src
+│   ├── components
+│   ├── pages
+│   ├── hooks
+│   ├── utils
+│   └── assets
+│
+├── tests
+├── package.json
+└── README.md
+```
+
+---
+
+# 🚀 Getting Started
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/bhavana2007/CodeFlux.git
+```
+
+### Navigate to the Project
+
+```bash
+cd CodeFlux
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Start Development Server
+
+```bash
+npm run dev
+```
+
+The application will run on:
+
+```
+http://localhost:5173
+```
+
+---
+
+# 🌟 Highlights
+
+- Modern Responsive UI
+- Component-Based Architecture
+- Structured DSA Learning
+- Interactive Educational Content
+- AI Learning Assistant
+- Beginner-Friendly Experience
+- Clean & Scalable Codebase
+- Optimized User Experience
+
+---
+
+# 🚀 Future Enhancements
+
+- Daily Coding Challenges
+- Leaderboards
+- Gamification & Achievements
+- User Authentication
+- Cloud Progress Sync
+- AI-generated Learning Roadmaps
+- Mock Coding Interviews
+- Company-wise Interview Questions
+- Notes & Bookmarking
+- Dark / Light Theme
+
+---
+
+# 👩‍💻 Developer
+
+**Bhavana Kolli**
+
+AI & Machine Learning Student
+
+📧 bhavanakolli983@gmail.com
+
+🔗 LinkedIn  
+https://www.linkedin.com/in/bhavana-kolli-020b35368/
+
+🐙 GitHub  
+https://github.com/bhavana2007
+
+---
+
+<div align="center">
+
+### ⭐ If you found CodeFlux useful, don't forget to give it a Star!
+
+**Made with ❤️ by Bhavana Kolli**
+
+</div>
