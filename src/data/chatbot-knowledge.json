@@ -1,0 +1,24 @@
+﻿{
+    "navigation":  {
+                       "modules":  "Browse all 24 DSA modules",
+                       "learningPaths":  "7 structured paths: Beginner, Intermediate, Advanced, Google, Amazon, Microsoft, Meta",
+                       "sidebar":  "Click hamburger menu in top-left for Home, Modules, Learning Paths, and progress"
+                   },
+    "description":  "Comprehensive DSA learning platform with 24 modules, learning paths, videos, quizzes, and practice problems",
+    "appName":  "CodeFlux",
+    "features":  {
+                     "quizzes":  "Interactive quizzes with instant feedback",
+                     "walkthroughs":  "Step-by-step problem explanations",
+                     "progress":  "Track streak, active days, 90-day calendar",
+                     "videos":  "Multi-language tutorials (English, Telugu, Hindi)",
+                     "problems":  "Code editor with JavaScript, Python, Java, C support"
+                 },
+    "commonQuestions":  {
+                            "trackProgress":  "Open sidebar to see streak, active days, and activity calendar",
+                            "howToStart":  "Click hamburger menu, choose Modules or Learning Paths. Start with Beginner Path if new!",
+                            "logout":  "Open sidebar and click Sign Out at bottom",
+                            "walkthroughs":  "Find in Walkthrough tab - interactive step-by-step explanations",
+                            "whichPath":  "Beginner (30d) if new, Intermediate (45d) if basics known, Advanced (60d) for FAANG, or company tracks",
+                            "practice":  "Use Problems tab with built-in editor for JavaScript, Python, Java, or C"
+                        }
+}

@@ -1,0 +1,754 @@
+{
+  "id": "hashing",
+  "title": "Hashing & Hash Maps",
+  "description": "Discover the magic of O(1) lookups! Hash maps are your best friend for solving problems fast. Learn the tricks that top companies love to test! ⚡",
+  "difficulty": "beginner",
+  "order": 3,
+  "tags": [
+    "hash-map",
+    "hash-table",
+    "frequency",
+    "lookups",
+    "data-structures"
+  ],
+  "documentation": {
+    "content": "# Hashing & Hash Maps\n\n## Introduction\n\nHashing is a technique that maps data of arbitrary size to fixed-size values. Hash maps (or hash tables) use hashing to provide fast lookups, insertions, and deletions.\n\n## What is Hashing?\n\nHashing converts a key into an index in an array using a hash function. This allows for O(1) average-case time complexity for basic operations.\n\n## When to Use It\n\nUse hash maps when:\n- Need fast lookups by key\n- Counting frequencies of elements\n- Detecting duplicates\n- Checking membership\n- Storing key-value pairs\n- Need O(1) average access time\n\n## Hash Map Operations\n\n### Basic Operations\n- **Insert**: Add key-value pair - O(1) average\n- **Lookup**: Get value by key - O(1) average\n- **Delete**: Remove key-value pair - O(1) average\n- **Contains**: Check if key exists - O(1) average\n\n### Common Use Cases\n- Frequency counting\n- Anagram detection\n- Two sum problem\n- Group anagrams\n- First unique character\n\n## How It Works\n\n1. **Hash Function**: Converts key to array index\n2. **Storage**: Store value at computed index\n3. **Collision Handling**: Resolve when two keys hash to same index\n   - Chaining: Store multiple items at same index\n   - Open Addressing: Find next available slot\n\n## Time and Space Complexity\n\n- **Time Complexity**: \n  - Average: O(1) for insert, lookup, delete\n  - Worst: O(n) when many collisions\n- **Space Complexity**: O(n) for storing n elements\n\n## Common Mistakes\n\n- Not handling hash collisions properly\n- Using mutable objects as keys\n- Forgetting to check if key exists before accessing\n- Not considering worst-case O(n) time\n- Using hash map when order matters (use LinkedHashMap)\n\n## Pro Tips\n\n- Use hash maps for frequency counting\n- Check existence with `has()` or `in` operator\n- Initialize with default values to avoid checks\n- Consider memory usage for large datasets\n- Use Sets when you only need keys, not values\n\n## Hash Map vs Array\n\n| Feature | Hash Map | Array |\n|---------|----------|-------|\n| Access by index | No | Yes - O(1) |\n| Access by key | Yes - O(1) | No |\n| Ordered | No | Yes |\n| Memory | More | Less |\n| Use case | Key-value pairs | Sequential data |\n\n## Real-World Applications\n\n- Database indexing\n- Caching systems\n- Symbol tables in compilers\n- Spell checkers\n- Password verification\n- Duplicate detection\n- Frequency analysis\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "CeJJ4KjXi10",
+      "title": "Hash Maps - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "xqzOhXHXjY4",
+      "title": "Hash Maps - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "mFY2PyKqwz4",
+      "title": "Hash Maps - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the average time complexity for hash map lookups?",
+        "options": [
+          "O(n)",
+          "O(log n)",
+          "O(1)",
+          "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Hash maps provide O(1) average-case time complexity for lookups because they use a hash function to directly compute the index."
+      },
+      {
+        "id": "q2",
+        "question": "Why use a hash map for frequency counting?",
+        "options": [
+          "For sorting",
+          "For O(1) lookups and updates",
+          "To use more memory",
+          "For ordered iteration"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Hash maps are ideal for frequency counting because they allow O(1) time to check if an element exists and to increment its count."
+      },
+      {
+        "id": "q3",
+        "question": "What happens when two keys hash to the same index?",
+        "options": [
+          "Program crashes",
+          "One key is lost",
+          "Collision is handled by chaining or open addressing",
+          "Keys are merged"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Hash collisions are handled using techniques like chaining (storing multiple items at the same index) or open addressing (finding the next available slot)."
+      },
+      {
+        "id": "q4",
+        "question": "What is the space complexity of a hash map storing n elements?",
+        "options": [
+          "O(1)",
+          "O(log n)",
+          "O(n)",
+          "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "A hash map requires O(n) space to store n key-value pairs, plus some overhead for the underlying array structure."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "two-sum",
+      "title": "Two Sum",
+      "difficulty": "easy",
+      "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order.",
+      "constraints": [
+        "2 <= nums.length <= 10^4",
+        "-10^9 <= nums[i] <= 10^9",
+        "-10^9 <= target <= 10^9",
+        "Only one valid answer exists"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              2,
+              7,
+              11,
+              15
+            ],
+            "target": 9
+          },
+          "expectedOutput": [
+            0,
+            1
+          ],
+          "description": "nums[0] + nums[1] = 2 + 7 = 9"
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              2,
+              4
+            ],
+            "target": 6
+          },
+          "expectedOutput": [
+            1,
+            2
+          ],
+          "description": "nums[1] + nums[2] = 2 + 4 = 6"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              3,
+              3
+            ],
+            "target": 6
+          },
+          "expectedOutput": [
+            0,
+            1
+          ],
+          "description": "Same value used twice"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              5,
+              3,
+              7,
+              9
+            ],
+            "target": 10
+          },
+          "expectedOutput": [
+            1,
+            3
+          ],
+          "description": "5 + 7 = 12, but 3 + 7 = 10"
+        },
+        {
+          "input": {
+            "nums": [
+              -1,
+              -2,
+              -3,
+              -4,
+              -5
+            ],
+            "target": -8
+          },
+          "expectedOutput": [
+            2,
+            4
+          ],
+          "description": "Negative numbers: -3 + -5 = -8"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function twoSum(nums, target) {\n  // Your code here\n  // Use a hash map to store seen numbers and their indices\n  // For each number, check if (target - number) exists in map\n  \n}",
+        "python": "def two_sum(nums, target):\n    # Your code here\n    # Use a hash map to store seen numbers and their indices\n    # For each number, check if (target - number) exists in map\n    pass",
+        "java": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Your code here\n        // Use a HashMap to store seen numbers and their indices\n        // For each number, check if (target - number) exists in map\n        \n    }\n}",
+        "c": "int* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    // Your code here\n    // Note: C doesn't have built-in hash maps\n    // You can use a simple array or implement your own\n    \n}"
+      },
+      "solution": {
+        "javascript": "function twoSum(nums, target) {\n  const map = new Map();\n  \n  for (let i = 0; i < nums.length; i++) {\n    const complement = target - nums[i];\n    \n    if (map.has(complement)) {\n      return [map.get(complement), i];\n    }\n    \n    map.set(nums[i], i);\n  }\n  \n  return []; // No solution found\n}",
+        "python": "def two_sum(nums, target):\n    seen = {}\n    \n    for i, num in enumerate(nums):\n        complement = target - num\n        \n        if complement in seen:\n            return [seen[complement], i]\n        \n        seen[num] = i\n    \n    return []  # No solution found",
+        "java": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> map = new HashMap<>();\n        \n        for (int i = 0; i < nums.length; i++) {\n            int complement = target - nums[i];\n            \n            if (map.containsKey(complement)) {\n                return new int[]{map.get(complement), i};\n            }\n            \n            map.put(nums[i], i);\n        }\n        \n        return new int[]{}; // No solution found\n    }\n}",
+        "c": "int* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    // Simple O(n^2) solution for C\n    int* result = (int*)malloc(2 * sizeof(int));\n    *returnSize = 2;\n    \n    for (int i = 0; i < numsSize; i++) {\n        for (int j = i + 1; j < numsSize; j++) {\n            if (nums[i] + nums[j] == target) {\n                result[0] = i;\n                result[1] = j;\n                return result;\n            }\n        }\n    }\n    \n    *returnSize = 0;\n    return result; // No solution found\n}"
+      }
+    },
+    {
+      "id": "valid-anagram",
+      "title": "Valid Anagram",
+      "difficulty": "easy",
+      "description": "Given two strings s and t, return true if t is an anagram of s, and false otherwise.\n\nAn anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.",
+      "constraints": [
+        "1 <= s.length, t.length <= 5 * 10^4",
+        "s and t consist of lowercase English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "anagram",
+            "t": "nagaram"
+          },
+          "expectedOutput": true,
+          "description": "Both strings have same character frequencies"
+        },
+        {
+          "input": {
+            "s": "rat",
+            "t": "car"
+          },
+          "expectedOutput": false,
+          "description": "Different characters"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "listen",
+            "t": "silent"
+          },
+          "expectedOutput": true,
+          "description": "Classic anagram pair"
+        },
+        {
+          "input": {
+            "s": "hello",
+            "t": "world"
+          },
+          "expectedOutput": false,
+          "description": "Completely different"
+        },
+        {
+          "input": {
+            "s": "a",
+            "t": "a"
+          },
+          "expectedOutput": true,
+          "description": "Single character match"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function isAnagram(s, t) {\n  // Your code here\n  // Use a hash map to count character frequencies\n  // Compare frequencies of both strings\n  \n}",
+        "python": "def is_anagram(s, t):\n    # Your code here\n    # Use a hash map to count character frequencies\n    # Compare frequencies of both strings\n    pass",
+        "java": "class Solution {\n    public boolean isAnagram(String s, String t) {\n        // Your code here\n        // Use a HashMap to count character frequencies\n        // Compare frequencies of both strings\n        \n    }\n}",
+        "c": "bool isAnagram(char* s, char* t) {\n    // Your code here\n    // Use an array to count character frequencies\n    // Compare frequencies of both strings\n    \n}"
+      },
+      "solution": {
+        "javascript": "function isAnagram(s, t) {\n  if (s.length !== t.length) return false;\n  \n  const freq = new Map();\n  \n  // Count frequencies in s\n  for (const char of s) {\n    freq.set(char, (freq.get(char) || 0) + 1);\n  }\n  \n  // Decrease frequencies using t\n  for (const char of t) {\n    if (!freq.has(char)) return false;\n    freq.set(char, freq.get(char) - 1);\n    if (freq.get(char) === 0) freq.delete(char);\n  }\n  \n  return freq.size === 0;\n}",
+        "python": "def is_anagram(s, t):\n    if len(s) != len(t):\n        return False\n    \n    freq = {}\n    \n    # Count frequencies in s\n    for char in s:\n        freq[char] = freq.get(char, 0) + 1\n    \n    # Decrease frequencies using t\n    for char in t:\n        if char not in freq:\n            return False\n        freq[char] -= 1\n        if freq[char] == 0:\n            del freq[char]\n    \n    return len(freq) == 0",
+        "java": "class Solution {\n    public boolean isAnagram(String s, String t) {\n        if (s.length() != t.length()) return false;\n        \n        Map<Character, Integer> freq = new HashMap<>();\n        \n        // Count frequencies in s\n        for (char c : s.toCharArray()) {\n            freq.put(c, freq.getOrDefault(c, 0) + 1);\n        }\n        \n        // Decrease frequencies using t\n        for (char c : t.toCharArray()) {\n            if (!freq.containsKey(c)) return false;\n            freq.put(c, freq.get(c) - 1);\n            if (freq.get(c) == 0) freq.remove(c);\n        }\n        \n        return freq.isEmpty();\n    }\n}",
+        "c": "bool isAnagram(char* s, char* t) {\n    int lenS = strlen(s);\n    int lenT = strlen(t);\n    \n    if (lenS != lenT) return false;\n    \n    // Use array for lowercase letters\n    int freq[26] = {0};\n    \n    // Count frequencies in s\n    for (int i = 0; i < lenS; i++) {\n        freq[s[i] - 'a']++;\n    }\n    \n    // Decrease frequencies using t\n    for (int i = 0; i < lenT; i++) {\n        freq[t[i] - 'a']--;\n        if (freq[t[i] - 'a'] < 0) return false;\n    }\n    \n    // Check all frequencies are zero\n    for (int i = 0; i < 26; i++) {\n        if (freq[i] != 0) return false;\n    }\n    \n    return true;\n}"
+      }
+    },
+    {
+      "id": "two-sum",
+      "title": "Two Sum",
+      "difficulty": "easy",
+      "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft",
+        "Apple"
+      ],
+      "topicTags": [
+        "Array",
+        "Hash Table"
+      ],
+      "acceptanceRate": 49,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "constraints": [
+        "2 <= nums.length <= 10^4",
+        "-10^9 <= nums[i] <= 10^9",
+        "-10^9 <= target <= 10^9",
+        "Only one valid answer exists"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              2,
+              7,
+              11,
+              15
+            ],
+            "target": 9
+          },
+          "expectedOutput": [
+            0,
+            1
+          ],
+          "description": "nums[0] + nums[1] = 2 + 7 = 9"
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              2,
+              4
+            ],
+            "target": 6
+          },
+          "expectedOutput": [
+            1,
+            2
+          ],
+          "description": "nums[1] + nums[2] = 2 + 4 = 6"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              3,
+              3
+            ],
+            "target": 6
+          },
+          "expectedOutput": [
+            0,
+            1
+          ],
+          "description": "Same value twice"
+        },
+        {
+          "input": {
+            "nums": [
+              -1,
+              -2,
+              -3,
+              -4,
+              -5
+            ],
+            "target": -8
+          },
+          "expectedOutput": [
+            2,
+            4
+          ],
+          "description": "Negative numbers"
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              4,
+              3,
+              0
+            ],
+            "target": 0
+          },
+          "expectedOutput": [
+            0,
+            3
+          ],
+          "description": "Zero target"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a hash map to store numbers you've seen. For each number, check if (target - number) exists in the map."
+        },
+        {
+          "level": 2,
+          "text": "As you iterate, store each number with its index in a hash map. Before storing, check if the complement (target - current) exists."
+        },
+        {
+          "level": 3,
+          "text": "One pass solution: for each nums[i], check if (target - nums[i]) is in the map. If yes, return [map[target-nums[i]], i]. Otherwise, add nums[i] to map."
+        }
+      ],
+      "similarProblems": [
+        "three-sum",
+        "two-sum-ii"
+      ],
+      "starterCode": {
+        "javascript": "function twoSum(nums, target) {\n  // Your code here\n  // Use a hash map to store seen numbers\n  \n}",
+        "python": "def two_sum(nums, target):\n    # Your code here\n    # Use a hash map to store seen numbers\n    pass",
+        "java": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Your code here\n        // Use a hash map to store seen numbers\n        \n    }\n}",
+        "c": "int* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    // Your code here\n    // Use a hash map approach\n    \n}"
+      },
+      "solution": {
+        "javascript": "function twoSum(nums, target) {\n  const map = new Map();\n  \n  for (let i = 0; i < nums.length; i++) {\n    const complement = target - nums[i];\n    \n    if (map.has(complement)) {\n      return [map.get(complement), i];\n    }\n    \n    map.set(nums[i], i);\n  }\n  \n  return [];\n}",
+        "python": "def two_sum(nums, target):\n    seen = {}\n    \n    for i, num in enumerate(nums):\n        complement = target - num\n        \n        if complement in seen:\n            return [seen[complement], i]\n        \n        seen[num] = i\n    \n    return []",
+        "java": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        Map<Integer, Integer> map = new HashMap<>();\n        \n        for (int i = 0; i < nums.length; i++) {\n            int complement = target - nums[i];\n            \n            if (map.containsKey(complement)) {\n                return new int[] { map.get(complement), i };\n            }\n            \n            map.put(nums[i], i);\n        }\n        \n        return new int[] {};\n    }\n}",
+        "c": "int* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    *returnSize = 2;\n    int* result = (int*)malloc(2 * sizeof(int));\n    \n    for (int i = 0; i < numsSize; i++) {\n        for (int j = i + 1; j < numsSize; j++) {\n            if (nums[i] + nums[j] == target) {\n                result[0] = i;\n                result[1] = j;\n                return result;\n            }\n        }\n    }\n    \n    return result;\n}"
+      }
+    },
+    {
+      "id": "group-anagrams",
+      "title": "Group Anagrams",
+      "difficulty": "medium",
+      "description": "Given an array of strings strs, group the anagrams together. You can return the answer in any order.\n\nAn Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Facebook",
+        "Google"
+      ],
+      "topicTags": [
+        "Array",
+        "Hash Table",
+        "String",
+        "Sorting"
+      ],
+      "acceptanceRate": 67,
+      "timeComplexity": "O(n * k log k)",
+      "spaceComplexity": "O(n * k)",
+      "constraints": [
+        "1 <= strs.length <= 10^4",
+        "0 <= strs[i].length <= 100",
+        "strs[i] consists of lowercase English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "strs": [
+              "eat",
+              "tea",
+              "tan",
+              "ate",
+              "nat",
+              "bat"
+            ]
+          },
+          "expectedOutput": [
+            [
+              "bat"
+            ],
+            [
+              "nat",
+              "tan"
+            ],
+            [
+              "ate",
+              "eat",
+              "tea"
+            ]
+          ],
+          "description": "Group words that are anagrams of each other"
+        },
+        {
+          "input": {
+            "strs": [
+              ""
+            ]
+          },
+          "expectedOutput": [
+            [
+              ""
+            ]
+          ],
+          "description": "Single empty string"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "strs": [
+              "a"
+            ]
+          },
+          "expectedOutput": [
+            [
+              "a"
+            ]
+          ],
+          "description": "Single character"
+        },
+        {
+          "input": {
+            "strs": [
+              "abc",
+              "bca",
+              "cab",
+              "xyz",
+              "zyx",
+              "yxz"
+            ]
+          },
+          "expectedOutput": [
+            [
+              "abc",
+              "bca",
+              "cab"
+            ],
+            [
+              "xyz",
+              "zyx",
+              "yxz"
+            ]
+          ],
+          "description": "Two groups of anagrams"
+        },
+        {
+          "input": {
+            "strs": [
+              "",
+              ""
+            ]
+          },
+          "expectedOutput": [
+            [
+              "",
+              ""
+            ]
+          ],
+          "description": "Multiple empty strings"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Anagrams have the same characters when sorted. Use sorted string as a key in a hash map."
+        },
+        {
+          "level": 2,
+          "text": "Create a hash map where the key is the sorted version of each word, and the value is a list of words with that sorted form."
+        },
+        {
+          "level": 3,
+          "text": "For each word, sort it to get the key, then add the original word to the list at that key in the hash map."
+        }
+      ],
+      "similarProblems": [
+        "valid-anagram",
+        "find-all-anagrams"
+      ],
+      "starterCode": {
+        "javascript": "function groupAnagrams(strs) {\n  // Your code here\n  // Use sorted string as hash map key\n  \n}",
+        "python": "def group_anagrams(strs):\n    # Your code here\n    # Use sorted string as hash map key\n    pass",
+        "java": "class Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        // Your code here\n        // Use sorted string as hash map key\n        \n    }\n}",
+        "c": "char*** groupAnagrams(char** strs, int strsSize, int* returnSize, int** returnColumnSizes) {\n    // Your code here\n    // Use sorted string as hash map key\n    \n}"
+      },
+      "solution": {
+        "javascript": "function groupAnagrams(strs) {\n  const map = new Map();\n  \n  for (const str of strs) {\n    const sorted = str.split('').sort().join('');\n    \n    if (!map.has(sorted)) {\n      map.set(sorted, []);\n    }\n    \n    map.get(sorted).push(str);\n  }\n  \n  return Array.from(map.values());\n}",
+        "python": "def group_anagrams(strs):\n    from collections import defaultdict\n    \n    groups = defaultdict(list)\n    \n    for s in strs:\n        sorted_s = ''.join(sorted(s))\n        groups[sorted_s].append(s)\n    \n    return list(groups.values())",
+        "java": "class Solution {\n    public List<List<String>> groupAnagrams(String[] strs) {\n        Map<String, List<String>> map = new HashMap<>();\n        \n        for (String str : strs) {\n            char[] chars = str.toCharArray();\n            Arrays.sort(chars);\n            String sorted = new String(chars);\n            \n            if (!map.containsKey(sorted)) {\n                map.put(sorted, new ArrayList<>());\n            }\n            \n            map.get(sorted).add(str);\n        }\n        \n        return new ArrayList<>(map.values());\n    }\n}",
+        "c": "// Simplified C solution\nchar*** groupAnagrams(char** strs, int strsSize, int* returnSize, int** returnColumnSizes) {\n    // This is a complex problem in C due to dynamic memory management\n    // For interview purposes, explain the hash map approach\n    char*** result = (char***)malloc(strsSize * sizeof(char**));\n    *returnSize = 0;\n    *returnColumnSizes = (int*)malloc(strsSize * sizeof(int));\n    \n    // Implementation would require custom hash table in C\n    // Explain: sort each string, use as key, group strings with same sorted form\n    \n    return result;\n}"
+      }
+    },
+    {
+      "id": "longest-consecutive-sequence",
+      "title": "Longest Consecutive Sequence",
+      "difficulty": "medium",
+      "description": "Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.\n\nYou must write an algorithm that runs in O(n) time.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Facebook",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Array",
+        "Hash Table",
+        "Union Find"
+      ],
+      "acceptanceRate": 48,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "constraints": [
+        "0 <= nums.length <= 10^5",
+        "-10^9 <= nums[i] <= 10^9"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              100,
+              4,
+              200,
+              1,
+              3,
+              2
+            ]
+          },
+          "expectedOutput": 4,
+          "description": "The longest consecutive sequence is [1, 2, 3, 4]. Therefore its length is 4."
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              3,
+              7,
+              2,
+              5,
+              8,
+              4,
+              6,
+              0,
+              1
+            ]
+          },
+          "expectedOutput": 9,
+          "description": "The longest consecutive sequence is [0,1,2,3,4,5,6,7,8]"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": []
+          },
+          "expectedOutput": 0,
+          "description": "Empty array"
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single element"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              0,
+              1
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "Duplicates present"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a hash set for O(1) lookups. For each number, check if it's the start of a sequence (num-1 not in set)."
+        },
+        {
+          "level": 2,
+          "text": "Put all numbers in a set. For each number, if it's the start of a sequence, count how many consecutive numbers follow it."
+        },
+        {
+          "level": 3,
+          "text": "Only start counting from numbers where (num-1) is not in the set. This ensures each sequence is counted only once, giving O(n) time."
+        }
+      ],
+      "similarProblems": [
+        "binary-tree-longest-consecutive-sequence"
+      ],
+      "starterCode": {
+        "javascript": "function longestConsecutive(nums) {\n  // Your code here\n  // Use a hash set for O(1) lookups\n  \n}",
+        "python": "def longest_consecutive(nums):\n    # Your code here\n    # Use a hash set for O(1) lookups\n    pass",
+        "java": "class Solution {\n    public int longestConsecutive(int[] nums) {\n        // Your code here\n        // Use a hash set for O(1) lookups\n        \n    }\n}",
+        "c": "int longestConsecutive(int* nums, int numsSize) {\n    // Your code here\n    // Use a hash set approach\n    \n}"
+      },
+      "solution": {
+        "javascript": "function longestConsecutive(nums) {\n  if (nums.length === 0) return 0;\n  \n  const numSet = new Set(nums);\n  let maxLength = 0;\n  \n  for (const num of numSet) {\n    // Only start counting if this is the beginning of a sequence\n    if (!numSet.has(num - 1)) {\n      let currentNum = num;\n      let currentLength = 1;\n      \n      while (numSet.has(currentNum + 1)) {\n        currentNum++;\n        currentLength++;\n      }\n      \n      maxLength = Math.max(maxLength, currentLength);\n    }\n  }\n  \n  return maxLength;\n}",
+        "python": "def longest_consecutive(nums):\n    if not nums:\n        return 0\n    \n    num_set = set(nums)\n    max_length = 0\n    \n    for num in num_set:\n        # Only start counting if this is the beginning of a sequence\n        if num - 1 not in num_set:\n            current_num = num\n            current_length = 1\n            \n            while current_num + 1 in num_set:\n                current_num += 1\n                current_length += 1\n            \n            max_length = max(max_length, current_length)\n    \n    return max_length",
+        "java": "class Solution {\n    public int longestConsecutive(int[] nums) {\n        if (nums.length == 0) return 0;\n        \n        Set<Integer> numSet = new HashSet<>();\n        for (int num : nums) {\n            numSet.add(num);\n        }\n        \n        int maxLength = 0;\n        \n        for (int num : numSet) {\n            // Only start counting if this is the beginning of a sequence\n            if (!numSet.contains(num - 1)) {\n                int currentNum = num;\n                int currentLength = 1;\n                \n                while (numSet.contains(currentNum + 1)) {\n                    currentNum++;\n                    currentLength++;\n                }\n                \n                maxLength = Math.max(maxLength, currentLength);\n            }\n        }\n        \n        return maxLength;\n    }\n}",
+        "c": "int longestConsecutive(int* nums, int numsSize) {\n    if (numsSize == 0) return 0;\n    \n    // Sort the array first (not O(n) but simpler in C)\n    qsort(nums, numsSize, sizeof(int), compare);\n    \n    int maxLength = 1;\n    int currentLength = 1;\n    \n    for (int i = 1; i < numsSize; i++) {\n        if (nums[i] == nums[i-1]) continue; // Skip duplicates\n        \n        if (nums[i] == nums[i-1] + 1) {\n            currentLength++;\n        } else {\n            maxLength = (currentLength > maxLength) ? currentLength : maxLength;\n            currentLength = 1;\n        }\n    }\n    \n    return (currentLength > maxLength) ? currentLength : maxLength;\n}"
+      }
+    }
+  ],
+  "walkthrough": {
+    "title": "Two Sum",
+    "description": "Find two numbers in an array that add up to a target using hash map for O(n) solution",
+    "difficulty": "Easy",
+    "code": {
+      "javascript": "function twoSum(nums, target) {\n  const map = new Map();\n  \n  for (let i = 0; i < nums.length; i++) {\n    const complement = target - nums[i];\n    \n    if (map.has(complement)) {\n      return [map.get(complement), i];\n    }\n    \n    map.set(nums[i], i);\n  }\n  \n  return [];\n}",
+      "python": "def twoSum(nums, target):\n    seen = {}\n    \n    for i, num in enumerate(nums):\n        complement = target - num\n        \n        if complement in seen:\n            return [seen[complement], i]\n        \n        seen[num] = i\n    \n    return []",
+      "java": "public int[] twoSum(int[] nums, int target) {\n    Map<Integer, Integer> map = new HashMap<>();\n    \n    for (int i = 0; i < nums.length; i++) {\n        int complement = target - nums[i];\n        \n        if (map.containsKey(complement)) {\n            return new int[] {map.get(complement), i};\n        }\n        \n        map.put(nums[i], i);\n    }\n    \n    return new int[] {};\n}",
+      "c": "int* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    // Hash table implementation in C is complex\n    // Using nested loop O(n²) approach for simplicity\n    for (int i = 0; i < numsSize; i++) {\n        for (int j = i + 1; j < numsSize; j++) {\n            if (nums[i] + nums[j] == target) {\n                int* result = (int*)malloc(2 * sizeof(int));\n                result[0] = i;\n                result[1] = j;\n                *returnSize = 2;\n                return result;\n            }\n        }\n    }\n    *returnSize = 0;\n    return NULL;\n}"
+    },
+    "steps": [
+      {
+        "title": "Initialize Hash Map",
+        "explanation": "Create a hash map to store numbers we've seen and their indices.\\n\\nKey insight: Instead of checking every pair (O(n²)), we'll check if the complement exists in O(1) time!\\n\\nFor target=9 and nums=[2,7,11,15], when we see 2, we look for 7.",
+        "highlightLines": [
+          2
+        ],
+        "visualization": "nums = [2, 7, 11, 15], target = 9\\n\\nmap = {}\\n\\nWe'll build this map as we iterate!",
+        "insight": "Hash maps provide O(1) average lookup time, which is the key to optimizing from O(n²) to O(n)!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Calculate Complement",
+        "explanation": "For each number, calculate what value would sum with it to reach the target.\\n\\ncomplement = target - current number\\n\\nExample: target=9, current=2, complement=7\\nWe need to find if 7 exists in our map!",
+        "highlightLines": [
+          5
+        ],
+        "visualization": "i=0, nums[0]=2\\ntarget = 9\\ncomplement = 9 - 2 = 7\\n\\nQuestion: Have we seen 7 before?",
+        "insight": "This transforms the problem from 'find two numbers that sum to target' to 'find if complement exists'!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Check if Complement Exists",
+        "explanation": "Look up the complement in our hash map.\\n\\nIf found: We've found our pair! Return both indices.\\nIf not found: Continue to next number.\\n\\nThis is where the O(1) lookup saves us!",
+        "highlightLines": [
+          7,
+          8
+        ],
+        "visualization": "Iteration 1:\\nmap = {}, looking for 7\\n7 not in map ✗\\n\\nIteration 2:\\nmap = {2: 0}, looking for 2\\n2 in map ✓\\nFound pair: [0, 1]",
+        "insight": "We find the answer in a single pass! No need to check every possible pair.",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Store Current Number",
+        "explanation": "If we haven't found the complement, store the current number and its index in the map.\\n\\nThis builds our 'seen' database for future lookups.\\n\\nmap.set(number, index)",
+        "highlightLines": [
+          11
+        ],
+        "visualization": "After i=0:\\nmap = {2: 0}\\n\\nAfter i=1 (found answer):\\nmap = {2: 0}\\n(no need to add 7)",
+        "insight": "We only need to store numbers we've seen BEFORE the current one. This prevents using the same element twice!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Return Result or Empty",
+        "explanation": "If we find a pair, return immediately with both indices.\\n\\nIf we finish the loop without finding a pair, return empty array.\\n\\nTime: O(n) - single pass through array\\nSpace: O(n) - hash map stores up to n elements",
+        "highlightLines": [
+          8,
+          14
+        ],
+        "visualization": "Example trace for [2,7,11,15], target=9:\\n\\ni=0: map={}, add 2→0\\ni=1: map={2:0}, found 2! return [0,1]\\n\\nAnswer: indices [0, 1] → nums[0]+nums[1]=2+7=9 ✓",
+        "insight": "This is a classic space-time tradeoff: we use O(n) extra space to achieve O(n) time instead of O(n²)!",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      }
+    ]
+  }
+}

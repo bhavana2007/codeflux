@@ -1,0 +1,642 @@
+{
+  "id": "kadanes-algorithm",
+  "title": "Kadane's Algorithm",
+  "description": "Master Kadane's algorithm for finding the maximum sum subarray efficiently",
+  "difficulty": "intermediate",
+  "order": 10,
+  "tags": [
+    "arrays",
+    "dynamic-programming",
+    "optimization",
+    "subarray"
+  ],
+  "documentation": {
+    "content": "# Kadane's Algorithm\n\n## Introduction\n\nKadane's Algorithm is an efficient method to find the maximum sum of a contiguous subarray within a one-dimensional array of numbers. It's a classic example of dynamic programming.\n\n## What is Kadane's Algorithm?\n\nKadane's Algorithm solves the maximum subarray problem in linear time by maintaining a running sum and resetting it when it becomes negative.\n\n## When to Use It\n\nUse Kadane's Algorithm when:\n- Finding maximum sum subarray\n- Working with arrays containing positive and negative numbers\n- Need O(n) solution instead of O(n²) brute force\n- Solving problems involving contiguous sequences\n\n## How It Works\n\n1. **Initialize**: Set current_sum and max_sum to first element\n2. **Iterate**: For each element:\n   - Add element to current_sum\n   - Update max_sum if current_sum is larger\n   - If current_sum becomes negative, reset to 0\n3. **Return**: max_sum is the answer\n\n## Key Insight\n\nThe algorithm works because:\n- A negative sum can never help maximize the total\n- When sum becomes negative, it's better to start fresh\n- We keep track of the best sum seen so far\n\n## Time and Space Complexity\n\n- **Time Complexity**: O(n) - Single pass through array\n- **Space Complexity**: O(1) - Only two variables needed\n\n## Common Mistakes\n\n- Not handling all-negative arrays correctly\n- Forgetting to update max_sum before resetting current_sum\n- Confusing when to reset vs when to continue\n- Not initializing max_sum to first element\n\n## Pro Tips\n\n- For all-negative arrays, return the least negative number\n- Keep track of subarray indices if needed\n- Can be modified to find minimum sum subarray\n- Works with any numeric array\n\n## Variations\n\n- Maximum product subarray\n- Maximum sum circular subarray\n- Maximum sum with at most k elements\n- Maximum sum non-adjacent elements\n\n## Real-World Applications\n\n- Stock trading (maximum profit)\n- Signal processing (finding strongest signal)\n- Data analysis (finding best performing period)\n- Resource allocation\n- Pattern recognition\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "YU1hzUwMyO8",
+      "title": "Kadane's Algorithm - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "HCL4_bOd3-4",
+      "title": "Kadane's Algorithm - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "3w0GvvPxrMs",
+      "title": "Kadane's Algorithm - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What does Kadane's algorithm find?",
+        "options": [
+          "Minimum subarray sum",
+          "Maximum subarray sum",
+          "Median of array",
+          "Sorted subarray"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Kadane's algorithm finds the maximum sum of a contiguous subarray in linear time."
+      },
+      {
+        "id": "q2",
+        "question": "How does Kadane's algorithm handle negative sums?",
+        "options": [
+          "Ignores them completely",
+          "Starts fresh when sum becomes negative",
+          "Converts them to positive",
+          "Uses absolute values"
+        ],
+        "correctAnswer": 1,
+        "explanation": "When the running sum becomes negative, Kadane's algorithm resets it to 0 (or starts fresh), because a negative sum cannot contribute to a maximum."
+      },
+      {
+        "id": "q3",
+        "question": "What is the time complexity of Kadane's algorithm?",
+        "options": [
+          "O(n²)",
+          "O(n log n)",
+          "O(n)",
+          "O(1)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Kadane's algorithm runs in O(n) time as it makes a single pass through the array."
+      },
+      {
+        "id": "q4",
+        "question": "What is the space complexity of Kadane's algorithm?",
+        "options": [
+          "O(n)",
+          "O(log n)",
+          "O(1)",
+          "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Kadane's algorithm uses O(1) space as it only needs two variables: current_sum and max_sum."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "maximum-subarray",
+      "title": "Maximum Subarray Sum",
+      "difficulty": "medium",
+      "description": "Given an integer array, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.\n\nA subarray is a contiguous part of an array.",
+      "constraints": [
+        "1 <= nums.length <= 10^5",
+        "-10^4 <= nums[i] <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              -2,
+              1,
+              -3,
+              4,
+              -1,
+              2,
+              1,
+              -5,
+              4
+            ]
+          },
+          "expectedOutput": 6,
+          "description": "Subarray [4, -1, 2, 1] has the largest sum of 6"
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single element array"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              5,
+              4,
+              -1,
+              7,
+              8
+            ]
+          },
+          "expectedOutput": 23,
+          "description": "All elements sum to 23"
+        },
+        {
+          "input": {
+            "nums": [
+              -1,
+              -2,
+              -3,
+              -4
+            ]
+          },
+          "expectedOutput": -1,
+          "description": "All negative, return least negative"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": 15,
+          "description": "All positive numbers"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function maxSubArray(nums) {\n  // Your code here\n  // Use Kadane's algorithm\n  // Track current sum and maximum sum\n  \n}",
+        "python": "def max_sub_array(nums):\n    # Your code here\n    # Use Kadane's algorithm\n    # Track current sum and maximum sum\n    pass",
+        "java": "class Solution {\n    public int maxSubArray(int[] nums) {\n        // Your code here\n        // Use Kadane's algorithm\n        // Track current sum and maximum sum\n        \n    }\n}",
+        "c": "int maxSubArray(int* nums, int numsSize) {\n    // Your code here\n    // Use Kadane's algorithm\n    // Track current sum and maximum sum\n    \n}"
+      },
+      "solution": {
+        "javascript": "function maxSubArray(nums) {\n  let currentSum = nums[0];\n  let maxSum = nums[0];\n  \n  for (let i = 1; i < nums.length; i++) {\n    // Either extend existing subarray or start new one\n    currentSum = Math.max(nums[i], currentSum + nums[i]);\n    \n    // Update maximum if current is better\n    maxSum = Math.max(maxSum, currentSum);\n  }\n  \n  return maxSum;\n}",
+        "python": "def max_sub_array(nums):\n    current_sum = nums[0]\n    max_sum = nums[0]\n    \n    for i in range(1, len(nums)):\n        # Either extend existing subarray or start new one\n        current_sum = max(nums[i], current_sum + nums[i])\n        \n        # Update maximum if current is better\n        max_sum = max(max_sum, current_sum)\n    \n    return max_sum",
+        "java": "class Solution {\n    public int maxSubArray(int[] nums) {\n        int currentSum = nums[0];\n        int maxSum = nums[0];\n        \n        for (int i = 1; i < nums.length; i++) {\n            // Either extend existing subarray or start new one\n            currentSum = Math.max(nums[i], currentSum + nums[i]);\n            \n            // Update maximum if current is better\n            maxSum = Math.max(maxSum, currentSum);\n        }\n        \n        return maxSum;\n    }\n}",
+        "c": "int maxSubArray(int* nums, int numsSize) {\n    int currentSum = nums[0];\n    int maxSum = nums[0];\n    \n    for (int i = 1; i < numsSize; i++) {\n        // Either extend existing subarray or start new one\n        currentSum = (nums[i] > currentSum + nums[i]) ? nums[i] : currentSum + nums[i];\n        \n        // Update maximum if current is better\n        if (currentSum > maxSum) {\n            maxSum = currentSum;\n        }\n    }\n    \n    return maxSum;\n}"
+      }
+    },
+    {
+      "id": "max-product-subarray",
+      "title": "Maximum Product Subarray",
+      "difficulty": "medium",
+      "description": "Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product.\\n\\nUnlike Kadane's for sum, you need to track both max and min products because a negative number can turn a min into a max.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Google",
+        "Facebook"
+      ],
+      "topicTags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "acceptanceRate": 34,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= nums.length <= 2 * 10^4",
+        "-10 <= nums[i] <= 10",
+        "The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              2,
+              3,
+              -2,
+              4
+            ]
+          },
+          "expectedOutput": 6,
+          "description": "Subarray [2,3] has the largest product 6"
+        },
+        {
+          "input": {
+            "nums": [
+              -2,
+              0,
+              -1
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "The result cannot be 2, because [-2,-1] is not a subarray"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              -2
+            ]
+          },
+          "expectedOutput": -2,
+          "description": "Single negative number"
+        },
+        {
+          "input": {
+            "nums": [
+              -2,
+              3,
+              -4
+            ]
+          },
+          "expectedOutput": 24,
+          "description": "All three numbers multiply to 24"
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              2
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "Zero resets the product"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Track both the maximum and minimum product ending at each position, as a negative number can flip them."
+        },
+        {
+          "level": 2,
+          "text": "For each element, calculate: maxProduct = max(num, num * prevMax, num * prevMin) and minProduct = min(num, num * prevMax, num * prevMin)."
+        },
+        {
+          "level": 3,
+          "text": "Initialize maxProd and minProd to nums[0]. For each subsequent element, update both values considering the current element alone, or multiplied by previous max/min."
+        }
+      ],
+      "similarProblems": [
+        "maximum-subarray"
+      ],
+      "starterCode": {
+        "javascript": "function maxProduct(nums) {\n  // Your code here\n  \n}",
+        "python": "def max_product(nums):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int maxProduct(int[] nums) {\n        // Your code here\n        \n    }\n}",
+        "c": "int maxProduct(int* nums, int numsSize) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function maxProduct(nums) {\n  let maxProd = nums[0];\n  let minProd = nums[0];\n  let result = nums[0];\n  \n  for (let i = 1; i < nums.length; i++) {\n    const num = nums[i];\n    const tempMax = Math.max(num, num * maxProd, num * minProd);\n    minProd = Math.min(num, num * maxProd, num * minProd);\n    maxProd = tempMax;\n    result = Math.max(result, maxProd);\n  }\n  \n  return result;\n}",
+        "python": "def max_product(nums):\n    max_prod = nums[0]\n    min_prod = nums[0]\n    result = nums[0]\n    \n    for i in range(1, len(nums)):\n        num = nums[i]\n        temp_max = max(num, num * max_prod, num * min_prod)\n        min_prod = min(num, num * max_prod, num * min_prod)\n        max_prod = temp_max\n        result = max(result, max_prod)\n    \n    return result",
+        "java": "class Solution {\n    public int maxProduct(int[] nums) {\n        int maxProd = nums[0];\n        int minProd = nums[0];\n        int result = nums[0];\n        \n        for (int i = 1; i < nums.length; i++) {\n            int num = nums[i];\n            int tempMax = Math.max(num, Math.max(num * maxProd, num * minProd));\n            minProd = Math.min(num, Math.min(num * maxProd, num * minProd));\n            maxProd = tempMax;\n            result = Math.max(result, maxProd);\n        }\n        \n        return result;\n    }\n}",
+        "c": "int maxProduct(int* nums, int numsSize) {\n    int maxProd = nums[0];\n    int minProd = nums[0];\n    int result = nums[0];\n    \n    for (int i = 1; i < numsSize; i++) {\n        int num = nums[i];\n        int temp1 = num * maxProd;\n        int temp2 = num * minProd;\n        \n        int tempMax = num;\n        if (temp1 > tempMax) tempMax = temp1;\n        if (temp2 > tempMax) tempMax = temp2;\n        \n        int tempMin = num;\n        if (temp1 < tempMin) tempMin = temp1;\n        if (temp2 < tempMin) tempMin = temp2;\n        \n        maxProd = tempMax;\n        minProd = tempMin;\n        if (maxProd > result) result = maxProd;\n    }\n    \n    return result;\n}"
+      }
+    },
+    {
+      "id": "max-sum-circular-subarray",
+      "title": "Maximum Sum Circular Subarray",
+      "difficulty": "medium",
+      "description": "Given a circular integer array nums, return the maximum possible sum of a non-empty subarray.\\n\\nA circular array means the end connects to the beginning. Use Kadane's algorithm twice: once for normal max subarray, once for min subarray (to find max circular).",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Facebook"
+      ],
+      "topicTags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "acceptanceRate": 38,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= nums.length <= 3 * 10^4",
+        "-3 * 10^4 <= nums[i] <= 3 * 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              -2,
+              3,
+              -2
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "Maximum subarray is [3]"
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              -3,
+              5
+            ]
+          },
+          "expectedOutput": 10,
+          "description": "Maximum circular subarray is [5, 5] (wrapping around)"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              -3,
+              -2,
+              -3
+            ]
+          },
+          "expectedOutput": -2,
+          "description": "All negative, pick the largest"
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              -1,
+              2,
+              -1
+            ]
+          },
+          "expectedOutput": 4,
+          "description": "Circular [2, -1, 3, -1] = 3, or [3, -1, 2] = 4"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": 15,
+          "description": "All positive, sum entire array"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "The maximum circular subarray is either a normal subarray, or it wraps around (total_sum - min_subarray)."
+        },
+        {
+          "level": 2,
+          "text": "Use Kadane's to find max subarray and min subarray. The answer is max(maxSubarray, totalSum - minSubarray)."
+        },
+        {
+          "level": 3,
+          "text": "Edge case: if all numbers are negative, totalSum - minSubarray would be 0 (empty array), so return maxSubarray in that case."
+        }
+      ],
+      "similarProblems": [
+        "maximum-subarray"
+      ],
+      "starterCode": {
+        "javascript": "function maxSubarraySumCircular(nums) {\n  // Your code here\n  \n}",
+        "python": "def max_subarray_sum_circular(nums):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int maxSubarraySumCircular(int[] nums) {\n        // Your code here\n        \n    }\n}",
+        "c": "int maxSubarraySumCircular(int* nums, int numsSize) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function maxSubarraySumCircular(nums) {\n  let totalSum = 0;\n  let maxSum = nums[0], curMax = 0;\n  let minSum = nums[0], curMin = 0;\n  \n  for (const num of nums) {\n    totalSum += num;\n    curMax = Math.max(curMax + num, num);\n    maxSum = Math.max(maxSum, curMax);\n    curMin = Math.min(curMin + num, num);\n    minSum = Math.min(minSum, curMin);\n  }\n  \n  return maxSum > 0 ? Math.max(maxSum, totalSum - minSum) : maxSum;\n}",
+        "python": "def max_subarray_sum_circular(nums):\n    total_sum = 0\n    max_sum = nums[0]\n    cur_max = 0\n    min_sum = nums[0]\n    cur_min = 0\n    \n    for num in nums:\n        total_sum += num\n        cur_max = max(cur_max + num, num)\n        max_sum = max(max_sum, cur_max)\n        cur_min = min(cur_min + num, num)\n        min_sum = min(min_sum, cur_min)\n    \n    return max(max_sum, total_sum - min_sum) if max_sum > 0 else max_sum",
+        "java": "class Solution {\n    public int maxSubarraySumCircular(int[] nums) {\n        int totalSum = 0;\n        int maxSum = nums[0], curMax = 0;\n        int minSum = nums[0], curMin = 0;\n        \n        for (int num : nums) {\n            totalSum += num;\n            curMax = Math.max(curMax + num, num);\n            maxSum = Math.max(maxSum, curMax);\n            curMin = Math.min(curMin + num, num);\n            minSum = Math.min(minSum, curMin);\n        }\n        \n        return maxSum > 0 ? Math.max(maxSum, totalSum - minSum) : maxSum;\n    }\n}",
+        "c": "int maxSubarraySumCircular(int* nums, int numsSize) {\n    int totalSum = 0;\n    int maxSum = nums[0], curMax = 0;\n    int minSum = nums[0], curMin = 0;\n    \n    for (int i = 0; i < numsSize; i++) {\n        totalSum += nums[i];\n        curMax = (curMax + nums[i] > nums[i]) ? curMax + nums[i] : nums[i];\n        maxSum = (maxSum > curMax) ? maxSum : curMax;\n        curMin = (curMin + nums[i] < nums[i]) ? curMin + nums[i] : nums[i];\n        minSum = (minSum < curMin) ? minSum : curMin;\n    }\n    \n    if (maxSum > 0) {\n        int circular = totalSum - minSum;\n        return (maxSum > circular) ? maxSum : circular;\n    }\n    return maxSum;\n}"
+      }
+    },
+    {
+      "id": "best-time-buy-sell-stock",
+      "title": "Best Time to Buy and Sell Stock",
+      "difficulty": "easy",
+      "description": "You are given an array prices where prices[i] is the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy and a different day in the future to sell. Return the maximum profit you can achieve.\\n\\nThis is a variation of Kadane's algorithm where you track the minimum price seen so far.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Facebook",
+        "Apple",
+        "Google"
+      ],
+      "topicTags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "acceptanceRate": 54,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= prices.length <= 10^5",
+        "0 <= prices[i] <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "prices": [
+              7,
+              1,
+              5,
+              3,
+              6,
+              4
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5"
+        },
+        {
+          "input": {
+            "prices": [
+              7,
+              6,
+              4,
+              3,
+              1
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "No profit possible, prices only decrease"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "prices": [
+              1,
+              2
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Minimum case, profit = 1"
+        },
+        {
+          "input": {
+            "prices": [
+              2,
+              4,
+              1
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "Best profit is 4-2=2, not affected by later lower price"
+        },
+        {
+          "input": {
+            "prices": [
+              3,
+              3,
+              5,
+              0,
+              0,
+              3,
+              1,
+              4
+            ]
+          },
+          "expectedOutput": 4,
+          "description": "Buy at 0, sell at 4"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Track the minimum price seen so far as you iterate through the array."
+        },
+        {
+          "level": 2,
+          "text": "For each price, calculate the profit if you sold today (current price - min price so far)."
+        },
+        {
+          "level": 3,
+          "text": "Keep track of the maximum profit seen. Update min price and max profit as you go through the array."
+        }
+      ],
+      "similarProblems": [
+        "maximum-subarray"
+      ],
+      "starterCode": {
+        "javascript": "function maxProfit(prices) {\n  // Your code here\n  \n}",
+        "python": "def max_profit(prices):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int maxProfit(int[] prices) {\n        // Your code here\n        \n    }\n}",
+        "c": "int maxProfit(int* prices, int pricesSize) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function maxProfit(prices) {\n  let minPrice = prices[0];\n  let maxProfit = 0;\n  \n  for (let i = 1; i < prices.length; i++) {\n    maxProfit = Math.max(maxProfit, prices[i] - minPrice);\n    minPrice = Math.min(minPrice, prices[i]);\n  }\n  \n  return maxProfit;\n}",
+        "python": "def max_profit(prices):\n    min_price = prices[0]\n    max_profit = 0\n    \n    for i in range(1, len(prices)):\n        max_profit = max(max_profit, prices[i] - min_price)\n        min_price = min(min_price, prices[i])\n    \n    return max_profit",
+        "java": "class Solution {\n    public int maxProfit(int[] prices) {\n        int minPrice = prices[0];\n        int maxProfit = 0;\n        \n        for (int i = 1; i < prices.length; i++) {\n            maxProfit = Math.max(maxProfit, prices[i] - minPrice);\n            minPrice = Math.min(minPrice, prices[i]);\n        }\n        \n        return maxProfit;\n    }\n}",
+        "c": "int maxProfit(int* prices, int pricesSize) {\n    int minPrice = prices[0];\n    int maxProfit = 0;\n    \n    for (int i = 1; i < pricesSize; i++) {\n        int profit = prices[i] - minPrice;\n        if (profit > maxProfit) maxProfit = profit;\n        if (prices[i] < minPrice) minPrice = prices[i];\n    }\n    \n    return maxProfit;\n}"
+      }
+    },
+    {
+      "id": "max-alternating-subarray-sum",
+      "title": "Maximum Alternating Subarray Sum",
+      "difficulty": "medium",
+      "description": "Given an array nums, return the maximum alternating sum of any subsequence (not necessarily contiguous).\\n\\nAn alternating sum is calculated by alternately adding and subtracting elements: nums[i] - nums[j] + nums[k] - ... This is a DP problem similar to Kadane's.",
+      "companyTags": [
+        "Google",
+        "Amazon"
+      ],
+      "topicTags": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "acceptanceRate": 45,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= nums.length <= 10^5",
+        "1 <= nums[i] <= 10^5"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              4,
+              2,
+              5,
+              3
+            ]
+          },
+          "expectedOutput": 7,
+          "description": "Optimal subsequence is [4, 2, 5]: 4 - 2 + 5 = 7"
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "expectedOutput": 8,
+          "description": "Optimal subsequence is [8]: just take the largest element"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              6,
+              2,
+              1,
+              2,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": 10,
+          "description": "Subsequence [6, 1, 5]: 6 - 1 + 5 = 10"
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single element"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "Increasing array, just take last element"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Track two states: the maximum sum ending with an even-indexed element (add) and odd-indexed element (subtract)."
+        },
+        {
+          "level": 2,
+          "text": "For each element, you can either start a new sequence, or extend the previous sequence by adding/subtracting current element."
+        },
+        {
+          "level": 3,
+          "text": "Use two variables: evenSum (max sum with even count of elements) and oddSum (max sum with odd count). Update: newEven = max(evenSum, oddSum - num), newOdd = max(oddSum, evenSum + num)."
+        }
+      ],
+      "similarProblems": [
+        "maximum-subarray"
+      ],
+      "starterCode": {
+        "javascript": "function maxAlternatingSum(nums) {\n  // Your code here\n  \n}",
+        "python": "def max_alternating_sum(nums):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public long maxAlternatingSum(int[] nums) {\n        // Your code here\n        \n    }\n}",
+        "c": "long long maxAlternatingSum(int* nums, int numsSize) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function maxAlternatingSum(nums) {\n  let evenSum = 0; // max sum with even count (last operation was subtract)\n  let oddSum = 0;  // max sum with odd count (last operation was add)\n  \n  for (const num of nums) {\n    const newEven = Math.max(evenSum, oddSum - num);\n    const newOdd = Math.max(oddSum, evenSum + num);\n    evenSum = newEven;\n    oddSum = newOdd;\n  }\n  \n  return oddSum;\n}",
+        "python": "def max_alternating_sum(nums):\n    even_sum = 0  # max sum with even count\n    odd_sum = 0   # max sum with odd count\n    \n    for num in nums:\n        new_even = max(even_sum, odd_sum - num)\n        new_odd = max(odd_sum, even_sum + num)\n        even_sum = new_even\n        odd_sum = new_odd\n    \n    return odd_sum",
+        "java": "class Solution {\n    public long maxAlternatingSum(int[] nums) {\n        long evenSum = 0;\n        long oddSum = 0;\n        \n        for (int num : nums) {\n            long newEven = Math.max(evenSum, oddSum - num);\n            long newOdd = Math.max(oddSum, evenSum + num);\n            evenSum = newEven;\n            oddSum = newOdd;\n        }\n        \n        return oddSum;\n    }\n}",
+        "c": "long long maxAlternatingSum(int* nums, int numsSize) {\n    long long evenSum = 0;\n    long long oddSum = 0;\n    \n    for (int i = 0; i < numsSize; i++) {\n        long long newEven = (evenSum > oddSum - nums[i]) ? evenSum : oddSum - nums[i];\n        long long newOdd = (oddSum > evenSum + nums[i]) ? oddSum : evenSum + nums[i];\n        evenSum = newEven;\n        oddSum = newOdd;\n    }\n    \n    return oddSum;\n}"
+      }
+    }
+  ]
+}

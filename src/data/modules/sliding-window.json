@@ -1,0 +1,2061 @@
+{
+  "id": "sliding-window",
+  "title": "Sliding Window Pattern",
+  "description": "Unlock the secret to solving subarray problems like a pro! This powerful technique will help you ace questions from Amazon, Google, and more. Ready to slide into success? 🚀",
+  "difficulty": "beginner",
+  "order": 2,
+  "tags": [
+    "arrays",
+    "strings",
+    "window",
+    "optimization"
+  ],
+  "documentation": {
+    "content": "# Sliding Window Pattern\n\nPicture yourself looking through a train window as the scenery passes by. You're not trying to see everything at once—just what's visible through your window at any given moment. As the train moves, new scenery slides into view while old scenery disappears. That's exactly how the sliding window pattern works with arrays and strings!\n\n## The Aha! Moment\n\nLet's say you're analyzing your phone's battery usage over the past week. You want to find which 3-day period had the highest total usage. The naive approach? Calculate the sum for days 1-3, then days 2-4, then days 3-5, recalculating everything each time. Exhausting, right?\n\nBut here's the clever trick: when you move from days 1-3 to days 2-4, you don't need to add up all three days again. Just subtract day 1 and add day 4! This simple insight—reusing calculations as you \"slide\" your window—is what makes this pattern so powerful.\n\n## Two Flavors of Windows\n\n**Fixed Size Windows** are like looking through a frame that never changes size. You're always examining exactly k elements at a time. Think of it as a magnifying glass that moves across the page but stays the same size.\n\nExample: \"Find the maximum sum of any 5 consecutive days of sales.\"\n\n**Variable Size Windows** are more like an accordion—they expand and contract based on conditions. This is where things get interesting!\n\nExample: \"Find the smallest subarray whose sum is at least 100.\"\n\n## When to Reach for This Pattern\n\nYour spider-sense should tingle when you see:\n\n**Contiguous sequences** - The problem mentions subarrays, substrings, or consecutive elements. The word \"contiguous\" is basically a neon sign saying \"sliding window!\"\n\n**Optimization over ranges** - Finding maximum, minimum, or checking conditions over all possible windows of elements.\n\n**Nested loops that feel wrong** - If you're writing code that checks every possible subarray with nested loops, pause! There's probably a sliding window solution that's way faster.\n\n**String or array problems with constraints** - Like \"longest substring with at most k distinct characters\" or \"maximum sum of subarray of size k.\"\n\n## The Dance of Expand and Shrink\n\nThink of the sliding window as a caterpillar inching along:\n\n**Step 1: Start Small**\nBegin with your window at the start of the array. Usually, this means both pointers (start and end) at position 0.\n\n**Step 2: Expand to Explore**\nMove your end pointer forward, growing the window. You're being optimistic, seeing if you can include more elements while still meeting your conditions.\n\n**Step 3: Shrink When Necessary**\nIf your window violates a constraint (sum too large, too many distinct characters, etc.), move your start pointer forward. You're tightening up, removing elements until you're valid again.\n\n**Step 4: Track Your Best**\nAt each valid state, check if this is the best window you've seen. Keep track of your answer as you go.\n\n**Step 5: Repeat Until Done**\nKeep expanding and shrinking until your end pointer reaches the end of the array.\n\n## The Performance Magic\n\n**Time**: O(n) - Here's the beautiful part: even though you have two pointers, each element is visited at most twice (once when entering the window, once when leaving). That's still linear time!\n\n**Space**: O(1) to O(k) - Usually just a few variables. Sometimes you need a hash map to track frequencies, but even that's bounded by the window size or alphabet size.\n\n## Where Developers Go Wrong\n\n❌ **Recalculating the entire window** - Don't sum up all k elements every time! Update incrementally: subtract what left, add what entered.\n\n❌ **Forgetting to update window state** - When you shrink the window, remember to update your sum, count, or whatever you're tracking.\n\n❌ **Checking before the window is valid** - Make sure your window has reached the required size before recording it as a potential answer.\n\n❌ **Using nested loops** - If you're checking every possible subarray with two nested loops, you're missing the point. Sliding window should be a single pass!\n\n❌ **Edge cases** - Empty arrays, windows larger than the array, or arrays smaller than k are the usual suspects.\n\n## Wisdom from the Field\n\n💡 **Use a hash map for character/element frequencies** - String problems often need this. Track what's in your current window.\n\n💡 **Update incrementally, never recalculate** - This is the whole point! When the window slides, adjust your state by removing the old element and adding the new one.\n\n💡 **Shrink until valid, then expand** - When your window breaks a constraint, keep shrinking until it's valid again.\n\n💡 **Two pointers, one direction** - Both pointers only move forward, never backward. This guarantees O(n) time.\n\n## Real-World Scenarios\n\n- **Stock trading** - Maximum profit in k days, or finding the best time window to buy/sell\n- **Network monitoring** - Analyzing packet rates over time windows\n- **DNA analysis** - Finding sequences with specific properties in genetic data\n- **Text processing** - Longest substring without repeating characters, or with at most k distinct characters\n- **Time series analysis** - Moving averages, detecting anomalies in sensor data\n\nThe sliding window pattern is like having X-ray vision for arrays and strings. Once you master it, you'll solve problems in one pass that used to require nested loops. It's efficient, elegant, and deeply satisfying when it clicks. Now go slide some windows! 🪟✨\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "K2rPIbfcQHQ",
+      "title": "Sliding Window - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "D7LBUJA_h6k",
+      "title": "Sliding Window - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "oxDv8kRpf-w",
+      "title": "Sliding Window - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "When should you shrink the sliding window?",
+        "options": [
+          "Always after expanding",
+          "When the window constraint is violated",
+          "Never - only expand",
+          "Only at the end of the array"
+        ],
+        "correctAnswer": 1,
+        "explanation": "You should shrink the window when the constraint is violated, such as when the sum exceeds a limit or when you have too many of a certain character."
+      },
+      {
+        "id": "q2",
+        "question": "What is the time complexity of the sliding window approach?",
+        "options": [
+          "O(n²)",
+          "O(n log n)",
+          "O(n)",
+          "O(1)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Sliding window achieves O(n) time complexity because each element is visited at most twice (once when expanding, once when shrinking)."
+      },
+      {
+        "id": "q3",
+        "question": "What maintains the window boundaries in sliding window?",
+        "options": [
+          "A single pointer",
+          "Two pointers (left and right)",
+          "Array indices only",
+          "A hash map"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Two pointers maintain the window boundaries: left (or start) pointer marks the beginning, and right (or end) pointer marks the end of the window."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "max-sum-subarray",
+      "title": "Maximum Sum Subarray of Size K",
+      "difficulty": "easy",
+      "description": "Given an array of integers and a number k, find the maximum sum of a subarray of size k.\n\nA subarray is a contiguous part of an array.",
+      "constraints": [
+        "1 <= arr.length <= 10^5",
+        "-10^4 <= arr[i] <= 10^4",
+        "1 <= k <= arr.length"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "arr": [
+              2,
+              1,
+              5,
+              1,
+              3,
+              2
+            ],
+            "k": 3
+          },
+          "expectedOutput": 9,
+          "description": "Subarray [5, 1, 3] has the maximum sum of 9"
+        },
+        {
+          "input": {
+            "arr": [
+              2,
+              3,
+              4,
+              1,
+              5
+            ],
+            "k": 2
+          },
+          "expectedOutput": 7,
+          "description": "Subarray [3, 4] has the maximum sum of 7"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "arr": [
+              1,
+              4,
+              2,
+              10,
+              23,
+              3,
+              1,
+              0,
+              20
+            ],
+            "k": 4
+          },
+          "expectedOutput": 39,
+          "description": "Subarray [4, 2, 10, 23] has sum 39"
+        },
+        {
+          "input": {
+            "arr": [
+              -1,
+              -2,
+              -3,
+              -4
+            ],
+            "k": 2
+          },
+          "expectedOutput": -3,
+          "description": "Subarray [-1, -2] has the maximum sum of -3"
+        },
+        {
+          "input": {
+            "arr": [
+              5
+            ],
+            "k": 1
+          },
+          "expectedOutput": 5,
+          "description": "Single element array"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function maxSumSubarray(arr, k) {\n  // Your code here\n  // Use sliding window: calculate sum of first k elements,\n  // then slide the window by removing leftmost and adding rightmost\n  \n}",
+        "python": "def max_sum_subarray(arr, k):\n    # Your code here\n    # Use sliding window: calculate sum of first k elements,\n    # then slide the window by removing leftmost and adding rightmost\n    pass",
+        "java": "class Solution {\n    public int maxSumSubarray(int[] arr, int k) {\n        // Your code here\n        // Use sliding window: calculate sum of first k elements,\n        // then slide the window by removing leftmost and adding rightmost\n        \n    }\n}",
+        "c": "int maxSumSubarray(int* arr, int arrSize, int k) {\n    // Your code here\n    // Use sliding window: calculate sum of first k elements,\n    // then slide the window by removing leftmost and adding rightmost\n    \n}"
+      },
+      "solution": {
+        "javascript": "function maxSumSubarray(arr, k) {\n  if (arr.length < k) return null;\n  \n  // Calculate sum of first window\n  let windowSum = 0;\n  for (let i = 0; i < k; i++) {\n    windowSum += arr[i];\n  }\n  \n  let maxSum = windowSum;\n  \n  // Slide the window\n  for (let i = k; i < arr.length; i++) {\n    windowSum = windowSum - arr[i - k] + arr[i];\n    maxSum = Math.max(maxSum, windowSum);\n  }\n  \n  return maxSum;\n}",
+        "python": "def max_sum_subarray(arr, k):\n    if len(arr) < k:\n        return None\n    \n    # Calculate sum of first window\n    window_sum = sum(arr[:k])\n    max_sum = window_sum\n    \n    # Slide the window\n    for i in range(k, len(arr)):\n        window_sum = window_sum - arr[i - k] + arr[i]\n        max_sum = max(max_sum, window_sum)\n    \n    return max_sum",
+        "java": "class Solution {\n    public int maxSumSubarray(int[] arr, int k) {\n        if (arr.length < k) return -1;\n        \n        // Calculate sum of first window\n        int windowSum = 0;\n        for (int i = 0; i < k; i++) {\n            windowSum += arr[i];\n        }\n        \n        int maxSum = windowSum;\n        \n        // Slide the window\n        for (int i = k; i < arr.length; i++) {\n            windowSum = windowSum - arr[i - k] + arr[i];\n            maxSum = Math.max(maxSum, windowSum);\n        }\n        \n        return maxSum;\n    }\n}",
+        "c": "int maxSumSubarray(int* arr, int arrSize, int k) {\n    if (arrSize < k) return -1;\n    \n    // Calculate sum of first window\n    int windowSum = 0;\n    for (int i = 0; i < k; i++) {\n        windowSum += arr[i];\n    }\n    \n    int maxSum = windowSum;\n    \n    // Slide the window\n    for (int i = k; i < arrSize; i++) {\n        windowSum = windowSum - arr[i - k] + arr[i];\n        if (windowSum > maxSum) {\n            maxSum = windowSum;\n        }\n    }\n    \n    return maxSum;\n}"
+      }
+    },
+    {
+      "id": "average-subarray-k",
+      "title": "Average of Subarrays of Size K",
+      "difficulty": "easy",
+      "description": "Given an array of integers and a number k, find the average of all subarrays of size k.\\n\\nReturn an array where each element represents the average of a subarray of size k. The averages should be calculated as floating-point numbers.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Bloomberg"
+      ],
+      "topicTags": [
+        "Array",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 65,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "constraints": [
+        "1 <= arr.length <= 10^5",
+        "-10^4 <= arr[i] <= 10^4",
+        "1 <= k <= arr.length"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "arr": [
+              1,
+              3,
+              2,
+              6,
+              -1,
+              4,
+              1,
+              8,
+              2
+            ],
+            "k": 5
+          },
+          "expectedOutput": [
+            2.2,
+            2.8,
+            2.4,
+            3.6,
+            2.8
+          ],
+          "description": "First window [1,3,2,6,-1] has average 2.2, second window [3,2,6,-1,4] has average 2.8"
+        },
+        {
+          "input": {
+            "arr": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "k": 3
+          },
+          "expectedOutput": [
+            2,
+            3,
+            4
+          ],
+          "description": "Windows: [1,2,3]=2.0, [2,3,4]=3.0, [3,4,5]=4.0"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "arr": [
+              5
+            ],
+            "k": 1
+          },
+          "expectedOutput": [
+            5
+          ],
+          "description": "Single element"
+        },
+        {
+          "input": {
+            "arr": [
+              -1,
+              -2,
+              -3,
+              -4,
+              -5
+            ],
+            "k": 2
+          },
+          "expectedOutput": [
+            -1.5,
+            -2.5,
+            -3.5,
+            -4.5
+          ],
+          "description": "All negative numbers"
+        },
+        {
+          "input": {
+            "arr": [
+              10,
+              20,
+              30,
+              40,
+              50,
+              60
+            ],
+            "k": 4
+          },
+          "expectedOutput": [
+            25,
+            37.5,
+            50
+          ],
+          "description": "Larger window size"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about how you can reuse the sum from the previous window instead of recalculating it each time."
+        },
+        {
+          "level": 2,
+          "text": "Calculate the sum of the first k elements, then slide the window by subtracting the leftmost element and adding the new rightmost element."
+        },
+        {
+          "level": 3,
+          "text": "Keep a running sum and divide by k to get the average. For each new window, update: sum = sum - arr[i-k] + arr[i]"
+        }
+      ],
+      "similarProblems": [
+        "max-sum-subarray"
+      ],
+      "starterCode": {
+        "javascript": "function findAverages(arr, k) {\\n  // Your code here\\n  \\n}",
+        "python": "def find_averages(arr, k):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public double[] findAverages(int[] arr, int k) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "double* findAverages(int* arr, int arrSize, int k, int* returnSize) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function findAverages(arr, k) {\\n  if (arr.length < k) return [];\\n  \\n  const result = [];\\n  let windowSum = 0;\\n  \\n  // Calculate sum of first window\\n  for (let i = 0; i < k; i++) {\\n    windowSum += arr[i];\\n  }\\n  result.push(windowSum / k);\\n  \\n  // Slide the window\\n  for (let i = k; i < arr.length; i++) {\\n    windowSum = windowSum - arr[i - k] + arr[i];\\n    result.push(windowSum / k);\\n  }\\n  \\n  return result;\\n}",
+        "python": "def find_averages(arr, k):\\n    if len(arr) < k:\\n        return []\\n    \\n    result = []\\n    window_sum = sum(arr[:k])\\n    result.append(window_sum / k)\\n    \\n    # Slide the window\\n    for i in range(k, len(arr)):\\n        window_sum = window_sum - arr[i - k] + arr[i]\\n        result.append(window_sum / k)\\n    \\n    return result",
+        "java": "class Solution {\\n    public double[] findAverages(int[] arr, int k) {\\n        if (arr.length < k) return new double[0];\\n        \\n        double[] result = new double[arr.length - k + 1];\\n        double windowSum = 0;\\n        \\n        // Calculate sum of first window\\n        for (int i = 0; i < k; i++) {\\n            windowSum += arr[i];\\n        }\\n        result[0] = windowSum / k;\\n        \\n        // Slide the window\\n        for (int i = k; i < arr.length; i++) {\\n            windowSum = windowSum - arr[i - k] + arr[i];\\n            result[i - k + 1] = windowSum / k;\\n        }\\n        \\n        return result;\\n    }\\n}",
+        "c": "double* findAverages(int* arr, int arrSize, int k, int* returnSize) {\\n    if (arrSize < k) {\\n        *returnSize = 0;\\n        return NULL;\\n    }\\n    \\n    *returnSize = arrSize - k + 1;\\n    double* result = (double*)malloc(*returnSize * sizeof(double));\\n    double windowSum = 0;\\n    \\n    // Calculate sum of first window\\n    for (int i = 0; i < k; i++) {\\n        windowSum += arr[i];\\n    }\\n    result[0] = windowSum / k;\\n    \\n    // Slide the window\\n    for (int i = k; i < arrSize; i++) {\\n        windowSum = windowSum - arr[i - k] + arr[i];\\n        result[i - k + 1] = windowSum / k;\\n    }\\n    \\n    return result;\\n}"
+      }
+    },
+    {
+      "id": "contains-nearby-duplicate",
+      "title": "Contains Nearby Duplicate",
+      "difficulty": "easy",
+      "description": "Given an integer array and an integer k, return true if there are two distinct indices i and j in the array such that arr[i] == arr[j] and the absolute difference between i and j is at most k.\\n\\nIn other words, check if there's a duplicate within a window of size k.",
+      "companyTags": [
+        "Amazon",
+        "Facebook",
+        "Apple"
+      ],
+      "topicTags": [
+        "Array",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 58,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(k)",
+      "constraints": [
+        "1 <= arr.length <= 10^5",
+        "-10^9 <= arr[i] <= 10^9",
+        "1 <= k <= 10^5"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "arr": [
+              1,
+              2,
+              3,
+              1
+            ],
+            "k": 3
+          },
+          "expectedOutput": true,
+          "description": "The value 1 appears at indices 0 and 3, and |0-3| = 3 <= k"
+        },
+        {
+          "input": {
+            "arr": [
+              1,
+              0,
+              1,
+              1
+            ],
+            "k": 1
+          },
+          "expectedOutput": true,
+          "description": "The value 1 appears at indices 2 and 3, and |2-3| = 1 <= k"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "arr": [
+              1,
+              2,
+              3,
+              1,
+              2,
+              3
+            ],
+            "k": 2
+          },
+          "expectedOutput": false,
+          "description": "No duplicates within distance 2"
+        },
+        {
+          "input": {
+            "arr": [
+              1
+            ],
+            "k": 1
+          },
+          "expectedOutput": false,
+          "description": "Single element"
+        },
+        {
+          "input": {
+            "arr": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              9
+            ],
+            "k": 3
+          },
+          "expectedOutput": true,
+          "description": "Duplicate at the end within window"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a hash set to keep track of elements in the current window of size k."
+        },
+        {
+          "level": 2,
+          "text": "As you slide the window, add new elements to the set and remove elements that are more than k positions away."
+        },
+        {
+          "level": 3,
+          "text": "Before adding a new element, check if it already exists in the set. If it does, you've found a duplicate within distance k."
+        }
+      ],
+      "similarProblems": [
+        "max-sum-subarray"
+      ],
+      "starterCode": {
+        "javascript": "function containsNearbyDuplicate(arr, k) {\\n  // Your code here\\n  \\n}",
+        "python": "def contains_nearby_duplicate(arr, k):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public boolean containsNearbyDuplicate(int[] arr, int k) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "bool containsNearbyDuplicate(int* arr, int arrSize, int k) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function containsNearbyDuplicate(arr, k) {\\n  const window = new Set();\\n  \\n  for (let i = 0; i < arr.length; i++) {\\n    // Check if current element exists in window\\n    if (window.has(arr[i])) {\\n      return true;\\n    }\\n    \\n    // Add current element to window\\n    window.add(arr[i]);\\n    \\n    // Remove element that's outside the window\\n    if (window.size > k) {\\n      window.delete(arr[i - k]);\\n    }\\n  }\\n  \\n  return false;\\n}",
+        "python": "def contains_nearby_duplicate(arr, k):\\n    window = set()\\n    \\n    for i in range(len(arr)):\\n        # Check if current element exists in window\\n        if arr[i] in window:\\n            return True\\n        \\n        # Add current element to window\\n        window.add(arr[i])\\n        \\n        # Remove element that's outside the window\\n        if len(window) > k:\\n            window.remove(arr[i - k])\\n    \\n    return False",
+        "java": "class Solution {\\n    public boolean containsNearbyDuplicate(int[] arr, int k) {\\n        Set<Integer> window = new HashSet<>();\\n        \\n        for (int i = 0; i < arr.length; i++) {\\n            // Check if current element exists in window\\n            if (window.contains(arr[i])) {\\n                return true;\\n            }\\n            \\n            // Add current element to window\\n            window.add(arr[i]);\\n            \\n            // Remove element that's outside the window\\n            if (window.size() > k) {\\n                window.remove(arr[i - k]);\\n            }\\n        }\\n        \\n        return false;\\n    }\\n}",
+        "c": "bool containsNearbyDuplicate(int* arr, int arrSize, int k) {\\n    if (arrSize <= 1) return false;\\n    \\n    // Simple O(n*k) solution for C\\n    for (int i = 0; i < arrSize; i++) {\\n        for (int j = i + 1; j <= i + k && j < arrSize; j++) {\\n            if (arr[i] == arr[j]) {\\n                return true;\\n            }\\n        }\\n    }\\n    \\n    return false;\\n}"
+      }
+    },
+    {
+      "id": "min-size-subarray-sum",
+      "title": "Minimum Size Subarray Sum",
+      "difficulty": "easy",
+      "description": "Given an array of positive integers and a positive integer target, find the minimal length of a contiguous subarray whose sum is greater than or equal to target. If there is no such subarray, return 0.\\n\\nThis is a variable-size sliding window problem where the window expands and shrinks based on the sum.",
+      "companyTags": [
+        "Facebook",
+        "Amazon",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Array",
+        "Sliding Window",
+        "Binary Search"
+      ],
+      "acceptanceRate": 52,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= target <= 10^9",
+        "1 <= arr.length <= 10^5",
+        "1 <= arr[i] <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "target": 7,
+            "arr": [
+              2,
+              3,
+              1,
+              2,
+              4,
+              3
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "The subarray [4,3] has the minimal length of 2 with sum >= 7"
+        },
+        {
+          "input": {
+            "target": 4,
+            "arr": [
+              1,
+              4,
+              4
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "The subarray [4] has minimal length 1"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "target": 11,
+            "arr": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "No subarray has sum >= 11"
+        },
+        {
+          "input": {
+            "target": 15,
+            "arr": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "Need entire array"
+        },
+        {
+          "input": {
+            "target": 100,
+            "arr": [
+              10,
+              20,
+              30,
+              40,
+              50
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "Subarray [30,40,50] works"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use two pointers to maintain a window. Expand the window by moving the right pointer, and shrink it by moving the left pointer."
+        },
+        {
+          "level": 2,
+          "text": "Keep track of the current window sum. When the sum is >= target, try to shrink the window from the left to find the minimum length."
+        },
+        {
+          "level": 3,
+          "text": "Initialize minLength to Infinity. Expand right pointer to add elements. When sum >= target, update minLength and shrink from left while sum >= target."
+        }
+      ],
+      "similarProblems": [
+        "max-sum-subarray"
+      ],
+      "starterCode": {
+        "javascript": "function minSubArrayLen(target, arr) {\\n  // Your code here\\n  \\n}",
+        "python": "def min_sub_array_len(target, arr):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public int minSubArrayLen(int target, int[] arr) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int minSubArrayLen(int target, int* arr, int arrSize) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function minSubArrayLen(target, arr) {\\n  let minLength = Infinity;\\n  let windowSum = 0;\\n  let left = 0;\\n  \\n  for (let right = 0; right < arr.length; right++) {\\n    windowSum += arr[right];\\n    \\n    // Shrink window while sum >= target\\n    while (windowSum >= target) {\\n      minLength = Math.min(minLength, right - left + 1);\\n      windowSum -= arr[left];\\n      left++;\\n    }\\n  }\\n  \\n  return minLength === Infinity ? 0 : minLength;\\n}",
+        "python": "def min_sub_array_len(target, arr):\\n    min_length = float('inf')\\n    window_sum = 0\\n    left = 0\\n    \\n    for right in range(len(arr)):\\n        window_sum += arr[right]\\n        \\n        # Shrink window while sum >= target\\n        while window_sum >= target:\\n            min_length = min(min_length, right - left + 1)\\n            window_sum -= arr[left]\\n            left += 1\\n    \\n    return 0 if min_length == float('inf') else min_length",
+        "java": "class Solution {\\n    public int minSubArrayLen(int target, int[] arr) {\\n        int minLength = Integer.MAX_VALUE;\\n        int windowSum = 0;\\n        int left = 0;\\n        \\n        for (int right = 0; right < arr.length; right++) {\\n            windowSum += arr[right];\\n            \\n            // Shrink window while sum >= target\\n            while (windowSum >= target) {\\n                minLength = Math.min(minLength, right - left + 1);\\n                windowSum -= arr[left];\\n                left++;\\n            }\\n        }\\n        \\n        return minLength == Integer.MAX_VALUE ? 0 : minLength;\\n    }\\n}",
+        "c": "int minSubArrayLen(int target, int* arr, int arrSize) {\\n    int minLength = arrSize + 1;\\n    int windowSum = 0;\\n    int left = 0;\\n    \\n    for (int right = 0; right < arrSize; right++) {\\n        windowSum += arr[right];\\n        \\n        // Shrink window while sum >= target\\n        while (windowSum >= target) {\\n            int currentLength = right - left + 1;\\n            if (currentLength < minLength) {\\n                minLength = currentLength;\\n            }\\n            windowSum -= arr[left];\\n            left++;\\n        }\\n    }\\n    \\n    return minLength == arrSize + 1 ? 0 : minLength;\\n}"
+      }
+    },
+    {
+      "id": "max-consecutive-ones",
+      "title": "Maximum Consecutive Ones",
+      "difficulty": "easy",
+      "description": "Given a binary array (containing only 0s and 1s), find the maximum number of consecutive 1s in the array.\\n\\nThis is a simple sliding window problem where you track the current streak of 1s.",
+      "companyTags": [
+        "Google",
+        "Amazon"
+      ],
+      "topicTags": [
+        "Array",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 70,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= arr.length <= 10^5",
+        "arr[i] is either 0 or 1"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "arr": [
+              1,
+              1,
+              0,
+              1,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "The maximum consecutive 1s is 3 (last three elements)"
+        },
+        {
+          "input": {
+            "arr": [
+              1,
+              0,
+              1,
+              1,
+              0,
+              1
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "The maximum consecutive 1s is 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "arr": [
+              0,
+              0,
+              0
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "No 1s in array"
+        },
+        {
+          "input": {
+            "arr": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "All 1s"
+        },
+        {
+          "input": {
+            "arr": [
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single element"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Keep track of the current count of consecutive 1s as you iterate through the array."
+        },
+        {
+          "level": 2,
+          "text": "When you encounter a 1, increment the current count. When you encounter a 0, reset the current count to 0."
+        },
+        {
+          "level": 3,
+          "text": "Maintain a variable for the maximum count seen so far and update it whenever the current count exceeds it."
+        }
+      ],
+      "similarProblems": [
+        "max-sum-subarray"
+      ],
+      "starterCode": {
+        "javascript": "function findMaxConsecutiveOnes(arr) {\\n  // Your code here\\n  \\n}",
+        "python": "def find_max_consecutive_ones(arr):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public int findMaxConsecutiveOnes(int[] arr) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int findMaxConsecutiveOnes(int* arr, int arrSize) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function findMaxConsecutiveOnes(arr) {\\n  let maxCount = 0;\\n  let currentCount = 0;\\n  \\n  for (let i = 0; i < arr.length; i++) {\\n    if (arr[i] === 1) {\\n      currentCount++;\\n      maxCount = Math.max(maxCount, currentCount);\\n    } else {\\n      currentCount = 0;\\n    }\\n  }\\n  \\n  return maxCount;\\n}",
+        "python": "def find_max_consecutive_ones(arr):\\n    max_count = 0\\n    current_count = 0\\n    \\n    for num in arr:\\n        if num == 1:\\n            current_count += 1\\n            max_count = max(max_count, current_count)\\n        else:\\n            current_count = 0\\n    \\n    return max_count",
+        "java": "class Solution {\\n    public int findMaxConsecutiveOnes(int[] arr) {\\n        int maxCount = 0;\\n        int currentCount = 0;\\n        \\n        for (int i = 0; i < arr.length; i++) {\\n            if (arr[i] == 1) {\\n                currentCount++;\\n                maxCount = Math.max(maxCount, currentCount);\\n            } else {\\n                currentCount = 0;\\n            }\\n        }\\n        \\n        return maxCount;\\n    }\\n}",
+        "c": "int findMaxConsecutiveOnes(int* arr, int arrSize) {\\n    int maxCount = 0;\\n    int currentCount = 0;\\n    \\n    for (int i = 0; i < arrSize; i++) {\\n        if (arr[i] == 1) {\\n            currentCount++;\\n            if (currentCount > maxCount) {\\n                maxCount = currentCount;\\n            }\\n        } else {\\n            currentCount = 0;\\n        }\\n    }\\n    \\n    return maxCount;\\n}"
+      }
+    },
+    {
+      "id": "longest-substring-no-repeat",
+      "title": "Longest Substring Without Repeating Characters",
+      "difficulty": "medium",
+      "description": "Given a string, find the length of the longest substring without repeating characters.\\n\\nThis is a classic variable-size sliding window problem. Use a hash map to track character positions and shrink the window when you encounter a duplicate.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Facebook",
+        "Microsoft",
+        "Apple"
+      ],
+      "topicTags": [
+        "String",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 33,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(min(n, m)) where m is charset size",
+      "constraints": [
+        "0 <= s.length <= 5 * 10^4",
+        "s consists of English letters, digits, symbols and spaces"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "abcabcbb"
+          },
+          "expectedOutput": 3,
+          "description": "The answer is 'abc', with length 3"
+        },
+        {
+          "input": {
+            "s": "bbbbb"
+          },
+          "expectedOutput": 1,
+          "description": "The answer is 'b', with length 1"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "pwwkew"
+          },
+          "expectedOutput": 3,
+          "description": "The answer is 'wke', with length 3"
+        },
+        {
+          "input": {
+            "s": ""
+          },
+          "expectedOutput": 0,
+          "description": "Empty string"
+        },
+        {
+          "input": {
+            "s": "abcdefghijklmnopqrstuvwxyz"
+          },
+          "expectedOutput": 26,
+          "description": "All unique characters"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a hash map to store the most recent index of each character you've seen."
+        },
+        {
+          "level": 2,
+          "text": "Maintain a left pointer for the window start. When you find a duplicate, move left to the position after the previous occurrence."
+        },
+        {
+          "level": 3,
+          "text": "For each character, check if it's in the map and within the current window. If so, move left pointer. Update the character's index and track the maximum length."
+        }
+      ],
+      "similarProblems": [
+        "longest-substring-k-distinct"
+      ],
+      "starterCode": {
+        "javascript": "function lengthOfLongestSubstring(s) {\\n  // Your code here\\n  \\n}",
+        "python": "def length_of_longest_substring(s):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public int lengthOfLongestSubstring(String s) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int lengthOfLongestSubstring(char* s) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function lengthOfLongestSubstring(s) {\\n  const charIndex = new Map();\\n  let maxLength = 0;\\n  let left = 0;\\n  \\n  for (let right = 0; right < s.length; right++) {\\n    const char = s[right];\\n    \\n    // If char is in map and within current window\\n    if (charIndex.has(char) && charIndex.get(char) >= left) {\\n      left = charIndex.get(char) + 1;\\n    }\\n    \\n    charIndex.set(char, right);\\n    maxLength = Math.max(maxLength, right - left + 1);\\n  }\\n  \\n  return maxLength;\\n}",
+        "python": "def length_of_longest_substring(s):\\n    char_index = {}\\n    max_length = 0\\n    left = 0\\n    \\n    for right in range(len(s)):\\n        char = s[right]\\n        \\n        # If char is in map and within current window\\n        if char in char_index and char_index[char] >= left:\\n            left = char_index[char] + 1\\n        \\n        char_index[char] = right\\n        max_length = max(max_length, right - left + 1)\\n    \\n    return max_length",
+        "java": "class Solution {\\n    public int lengthOfLongestSubstring(String s) {\\n        Map<Character, Integer> charIndex = new HashMap<>();\\n        int maxLength = 0;\\n        int left = 0;\\n        \\n        for (int right = 0; right < s.length(); right++) {\\n            char c = s.charAt(right);\\n            \\n            // If char is in map and within current window\\n            if (charIndex.containsKey(c) && charIndex.get(c) >= left) {\\n                left = charIndex.get(c) + 1;\\n            }\\n            \\n            charIndex.put(c, right);\\n            maxLength = Math.max(maxLength, right - left + 1);\\n        }\\n        \\n        return maxLength;\\n    }\\n}",
+        "c": "int lengthOfLongestSubstring(char* s) {\\n    int charIndex[128];\\n    for (int i = 0; i < 128; i++) charIndex[i] = -1;\\n    \\n    int maxLength = 0;\\n    int left = 0;\\n    \\n    for (int right = 0; s[right] != '\\\\0'; right++) {\\n        char c = s[right];\\n        \\n        // If char seen before and within current window\\n        if (charIndex[c] >= left) {\\n            left = charIndex[c] + 1;\\n        }\\n        \\n        charIndex[c] = right;\\n        int currentLength = right - left + 1;\\n        if (currentLength > maxLength) {\\n            maxLength = currentLength;\\n        }\\n    }\\n    \\n    return maxLength;\\n}"
+      }
+    },
+    {
+      "id": "longest-substring-k-distinct",
+      "title": "Longest Substring with K Distinct Characters",
+      "difficulty": "medium",
+      "description": "Given a string and an integer k, find the length of the longest substring that contains at most k distinct characters.\\n\\nThis extends the previous problem by allowing up to k distinct characters in the window.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "String",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 48,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(k)",
+      "constraints": [
+        "1 <= s.length <= 5 * 10^4",
+        "0 <= k <= 50",
+        "s consists of English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "eceba",
+            "k": 2
+          },
+          "expectedOutput": 3,
+          "description": "The longest substring is 'ece' with 2 distinct characters"
+        },
+        {
+          "input": {
+            "s": "aa",
+            "k": 1
+          },
+          "expectedOutput": 2,
+          "description": "The longest substring is 'aa' with 1 distinct character"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "abcadcacacaca",
+            "k": 3
+          },
+          "expectedOutput": 11,
+          "description": "Substring 'cadcacacaca' has 3 distinct chars"
+        },
+        {
+          "input": {
+            "s": "a",
+            "k": 2
+          },
+          "expectedOutput": 1,
+          "description": "Single character"
+        },
+        {
+          "input": {
+            "s": "abcdefg",
+            "k": 0
+          },
+          "expectedOutput": 0,
+          "description": "k is 0"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a hash map to count the frequency of characters in the current window."
+        },
+        {
+          "level": 2,
+          "text": "Expand the window by adding characters. When you have more than k distinct characters, shrink from the left."
+        },
+        {
+          "level": 3,
+          "text": "Track character frequencies. When adding a character increases distinct count beyond k, remove characters from left until you have exactly k distinct characters."
+        }
+      ],
+      "similarProblems": [
+        "longest-substring-no-repeat"
+      ],
+      "starterCode": {
+        "javascript": "function lengthOfLongestSubstringKDistinct(s, k) {\\n  // Your code here\\n  \\n}",
+        "python": "def length_of_longest_substring_k_distinct(s, k):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public int lengthOfLongestSubstringKDistinct(String s, int k) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int lengthOfLongestSubstringKDistinct(char* s, int k) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function lengthOfLongestSubstringKDistinct(s, k) {\\n  if (k === 0) return 0;\\n  \\n  const charCount = new Map();\\n  let maxLength = 0;\\n  let left = 0;\\n  \\n  for (let right = 0; right < s.length; right++) {\\n    const char = s[right];\\n    charCount.set(char, (charCount.get(char) || 0) + 1);\\n    \\n    // Shrink window if more than k distinct characters\\n    while (charCount.size > k) {\\n      const leftChar = s[left];\\n      charCount.set(leftChar, charCount.get(leftChar) - 1);\\n      if (charCount.get(leftChar) === 0) {\\n        charCount.delete(leftChar);\\n      }\\n      left++;\\n    }\\n    \\n    maxLength = Math.max(maxLength, right - left + 1);\\n  }\\n  \\n  return maxLength;\\n}",
+        "python": "def length_of_longest_substring_k_distinct(s, k):\\n    if k == 0:\\n        return 0\\n    \\n    char_count = {}\\n    max_length = 0\\n    left = 0\\n    \\n    for right in range(len(s)):\\n        char = s[right]\\n        char_count[char] = char_count.get(char, 0) + 1\\n        \\n        # Shrink window if more than k distinct characters\\n        while len(char_count) > k:\\n            left_char = s[left]\\n            char_count[left_char] -= 1\\n            if char_count[left_char] == 0:\\n                del char_count[left_char]\\n            left += 1\\n        \\n        max_length = max(max_length, right - left + 1)\\n    \\n    return max_length",
+        "java": "class Solution {\\n    public int lengthOfLongestSubstringKDistinct(String s, int k) {\\n        if (k == 0) return 0;\\n        \\n        Map<Character, Integer> charCount = new HashMap<>();\\n        int maxLength = 0;\\n        int left = 0;\\n        \\n        for (int right = 0; right < s.length(); right++) {\\n            char c = s.charAt(right);\\n            charCount.put(c, charCount.getOrDefault(c, 0) + 1);\\n            \\n            // Shrink window if more than k distinct characters\\n            while (charCount.size() > k) {\\n                char leftChar = s.charAt(left);\\n                charCount.put(leftChar, charCount.get(leftChar) - 1);\\n                if (charCount.get(leftChar) == 0) {\\n                    charCount.remove(leftChar);\\n                }\\n                left++;\\n            }\\n            \\n            maxLength = Math.max(maxLength, right - left + 1);\\n        }\\n        \\n        return maxLength;\\n    }\\n}",
+        "c": "int lengthOfLongestSubstringKDistinct(char* s, int k) {\\n    if (k == 0) return 0;\\n    \\n    int charCount[128] = {0};\\n    int distinctCount = 0;\\n    int maxLength = 0;\\n    int left = 0;\\n    \\n    for (int right = 0; s[right] != '\\\\0'; right++) {\\n        if (charCount[s[right]] == 0) {\\n            distinctCount++;\\n        }\\n        charCount[s[right]]++;\\n        \\n        // Shrink window if more than k distinct characters\\n        while (distinctCount > k) {\\n            charCount[s[left]]--;\\n            if (charCount[s[left]] == 0) {\\n                distinctCount--;\\n            }\\n            left++;\\n        }\\n        \\n        int currentLength = right - left + 1;\\n        if (currentLength > maxLength) {\\n            maxLength = currentLength;\\n        }\\n    }\\n    \\n    return maxLength;\\n}"
+      }
+    },
+    {
+      "id": "fruits-into-baskets",
+      "title": "Fruits Into Baskets",
+      "difficulty": "medium",
+      "description": "You are visiting a farm with a single row of fruit trees. Each tree has a type of fruit represented by an integer. You have two baskets, and each basket can only hold one type of fruit. You can collect as much fruit as you want, but once you pick a fruit, you must continue picking until you can't.\\n\\nFind the maximum number of fruits you can collect. This is essentially finding the longest subarray with at most 2 distinct elements.",
+      "companyTags": [
+        "Amazon",
+        "Google"
+      ],
+      "topicTags": [
+        "Array",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 42,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= fruits.length <= 10^5",
+        "0 <= fruits[i] < fruits.length"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "fruits": [
+              1,
+              2,
+              1
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "We can collect all 3 fruits (types 1 and 2)"
+        },
+        {
+          "input": {
+            "fruits": [
+              0,
+              1,
+              2,
+              2
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "We can collect [1,2,2] (types 1 and 2)"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "fruits": [
+              1,
+              2,
+              3,
+              2,
+              2
+            ]
+          },
+          "expectedOutput": 4,
+          "description": "Collect [2,3,2,2]"
+        },
+        {
+          "input": {
+            "fruits": [
+              3,
+              3,
+              3,
+              1,
+              2,
+              1,
+              1,
+              2,
+              3,
+              3,
+              4
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "Collect [1,2,1,1,2]"
+        },
+        {
+          "input": {
+            "fruits": [
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single fruit"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "This is the same as finding the longest substring with at most 2 distinct characters, but with an array instead of a string."
+        },
+        {
+          "level": 2,
+          "text": "Use a hash map to track the count of each fruit type in the current window."
+        },
+        {
+          "level": 3,
+          "text": "Expand the window by adding fruits. When you have more than 2 types, shrink from the left until you have exactly 2 types."
+        }
+      ],
+      "similarProblems": [
+        "longest-substring-k-distinct"
+      ],
+      "starterCode": {
+        "javascript": "function totalFruit(fruits) {\\n  // Your code here\\n  \\n}",
+        "python": "def total_fruit(fruits):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public int totalFruit(int[] fruits) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int totalFruit(int* fruits, int fruitsSize) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function totalFruit(fruits) {\\n  const fruitCount = new Map();\\n  let maxFruits = 0;\\n  let left = 0;\\n  \\n  for (let right = 0; right < fruits.length; right++) {\\n    const fruit = fruits[right];\\n    fruitCount.set(fruit, (fruitCount.get(fruit) || 0) + 1);\\n    \\n    // Shrink window if more than 2 types\\n    while (fruitCount.size > 2) {\\n      const leftFruit = fruits[left];\\n      fruitCount.set(leftFruit, fruitCount.get(leftFruit) - 1);\\n      if (fruitCount.get(leftFruit) === 0) {\\n        fruitCount.delete(leftFruit);\\n      }\\n      left++;\\n    }\\n    \\n    maxFruits = Math.max(maxFruits, right - left + 1);\\n  }\\n  \\n  return maxFruits;\\n}",
+        "python": "def total_fruit(fruits):\\n    fruit_count = {}\\n    max_fruits = 0\\n    left = 0\\n    \\n    for right in range(len(fruits)):\\n        fruit = fruits[right]\\n        fruit_count[fruit] = fruit_count.get(fruit, 0) + 1\\n        \\n        # Shrink window if more than 2 types\\n        while len(fruit_count) > 2:\\n            left_fruit = fruits[left]\\n            fruit_count[left_fruit] -= 1\\n            if fruit_count[left_fruit] == 0:\\n                del fruit_count[left_fruit]\\n            left += 1\\n        \\n        max_fruits = max(max_fruits, right - left + 1)\\n    \\n    return max_fruits",
+        "java": "class Solution {\\n    public int totalFruit(int[] fruits) {\\n        Map<Integer, Integer> fruitCount = new HashMap<>();\\n        int maxFruits = 0;\\n        int left = 0;\\n        \\n        for (int right = 0; right < fruits.length; right++) {\\n            int fruit = fruits[right];\\n            fruitCount.put(fruit, fruitCount.getOrDefault(fruit, 0) + 1);\\n            \\n            // Shrink window if more than 2 types\\n            while (fruitCount.size() > 2) {\\n                int leftFruit = fruits[left];\\n                fruitCount.put(leftFruit, fruitCount.get(leftFruit) - 1);\\n                if (fruitCount.get(leftFruit) == 0) {\\n                    fruitCount.remove(leftFruit);\\n                }\\n                left++;\\n            }\\n            \\n            maxFruits = Math.max(maxFruits, right - left + 1);\\n        }\\n        \\n        return maxFruits;\\n    }\\n}",
+        "c": "int totalFruit(int* fruits, int fruitsSize) {\\n    int fruitCount[100000] = {0};\\n    int distinctCount = 0;\\n    int maxFruits = 0;\\n    int left = 0;\\n    \\n    for (int right = 0; right < fruitsSize; right++) {\\n        if (fruitCount[fruits[right]] == 0) {\\n            distinctCount++;\\n        }\\n        fruitCount[fruits[right]]++;\\n        \\n        // Shrink window if more than 2 types\\n        while (distinctCount > 2) {\\n            fruitCount[fruits[left]]--;\\n            if (fruitCount[fruits[left]] == 0) {\\n                distinctCount--;\\n            }\\n            left++;\\n        }\\n        \\n        int currentFruits = right - left + 1;\\n        if (currentFruits > maxFruits) {\\n            maxFruits = currentFruits;\\n        }\\n    }\\n    \\n    return maxFruits;\\n}"
+      }
+    },
+    {
+      "id": "longest-repeating-char-replacement",
+      "title": "Longest Repeating Character Replacement",
+      "difficulty": "medium",
+      "description": "Given a string s and an integer k, you can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.\\n\\nReturn the length of the longest substring containing the same letter you can get after performing the above operations.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Google"
+      ],
+      "topicTags": [
+        "String",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 51,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= s.length <= 10^5",
+        "s consists of only uppercase English letters",
+        "0 <= k <= s.length"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "ABAB",
+            "k": 2
+          },
+          "expectedOutput": 4,
+          "description": "Replace the two 'A's with 'B's (or vice versa) to get 'BBBB'"
+        },
+        {
+          "input": {
+            "s": "AABABBA",
+            "k": 1
+          },
+          "expectedOutput": 4,
+          "description": "Replace one 'A' in the middle to get 'AABBBBA', substring 'BBBB' has length 4"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "AAAA",
+            "k": 0
+          },
+          "expectedOutput": 4,
+          "description": "Already all same character"
+        },
+        {
+          "input": {
+            "s": "ABCDE",
+            "k": 1
+          },
+          "expectedOutput": 2,
+          "description": "Can only make pairs"
+        },
+        {
+          "input": {
+            "s": "AABABBABB",
+            "k": 2
+          },
+          "expectedOutput": 7,
+          "description": "Replace 2 A's to get 7 B's"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a sliding window and track the frequency of each character in the current window."
+        },
+        {
+          "level": 2,
+          "text": "The key insight: if window size - max frequency <= k, then we can make all characters the same with k replacements."
+        },
+        {
+          "level": 3,
+          "text": "Track character frequencies. For each window, check if (window_size - max_frequency) <= k. If not, shrink from left."
+        }
+      ],
+      "similarProblems": [
+        "longest-substring-k-distinct"
+      ],
+      "starterCode": {
+        "javascript": "function characterReplacement(s, k) {\\n  // Your code here\\n  \\n}",
+        "python": "def character_replacement(s, k):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public int characterReplacement(String s, int k) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int characterReplacement(char* s, int k) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function characterReplacement(s, k) {\\n  const charCount = new Map();\\n  let maxLength = 0;\\n  let maxFreq = 0;\\n  let left = 0;\\n  \\n  for (let right = 0; right < s.length; right++) {\\n    const char = s[right];\\n    charCount.set(char, (charCount.get(char) || 0) + 1);\\n    maxFreq = Math.max(maxFreq, charCount.get(char));\\n    \\n    // If window size - max frequency > k, shrink window\\n    while (right - left + 1 - maxFreq > k) {\\n      const leftChar = s[left];\\n      charCount.set(leftChar, charCount.get(leftChar) - 1);\\n      left++;\\n    }\\n    \\n    maxLength = Math.max(maxLength, right - left + 1);\\n  }\\n  \\n  return maxLength;\\n}",
+        "python": "def character_replacement(s, k):\\n    char_count = {}\\n    max_length = 0\\n    max_freq = 0\\n    left = 0\\n    \\n    for right in range(len(s)):\\n        char = s[right]\\n        char_count[char] = char_count.get(char, 0) + 1\\n        max_freq = max(max_freq, char_count[char])\\n        \\n        # If window size - max frequency > k, shrink window\\n        while right - left + 1 - max_freq > k:\\n            left_char = s[left]\\n            char_count[left_char] -= 1\\n            left += 1\\n        \\n        max_length = max(max_length, right - left + 1)\\n    \\n    return max_length",
+        "java": "class Solution {\\n    public int characterReplacement(String s, int k) {\\n        int[] charCount = new int[26];\\n        int maxLength = 0;\\n        int maxFreq = 0;\\n        int left = 0;\\n        \\n        for (int right = 0; right < s.length(); right++) {\\n            char c = s.charAt(right);\\n            charCount[c - 'A']++;\\n            maxFreq = Math.max(maxFreq, charCount[c - 'A']);\\n            \\n            // If window size - max frequency > k, shrink window\\n            while (right - left + 1 - maxFreq > k) {\\n                charCount[s.charAt(left) - 'A']--;\\n                left++;\\n            }\\n            \\n            maxLength = Math.max(maxLength, right - left + 1);\\n        }\\n        \\n        return maxLength;\\n    }\\n}",
+        "c": "int characterReplacement(char* s, int k) {\\n    int charCount[26] = {0};\\n    int maxLength = 0;\\n    int maxFreq = 0;\\n    int left = 0;\\n    \\n    for (int right = 0; s[right] != '\\\\0'; right++) {\\n        charCount[s[right] - 'A']++;\\n        if (charCount[s[right] - 'A'] > maxFreq) {\\n            maxFreq = charCount[s[right] - 'A'];\\n        }\\n        \\n        // If window size - max frequency > k, shrink window\\n        while (right - left + 1 - maxFreq > k) {\\n            charCount[s[left] - 'A']--;\\n            left++;\\n        }\\n        \\n        int currentLength = right - left + 1;\\n        if (currentLength > maxLength) {\\n            maxLength = currentLength;\\n        }\\n    }\\n    \\n    return maxLength;\\n}"
+      }
+    },
+    {
+      "id": "permutation-in-string",
+      "title": "Permutation in String",
+      "difficulty": "medium",
+      "description": "Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.\\n\\nIn other words, return true if one of s1's permutations is a substring of s2. Use a fixed-size sliding window of length s1.length and compare character frequencies.",
+      "companyTags": [
+        "Microsoft",
+        "Amazon",
+        "Facebook"
+      ],
+      "topicTags": [
+        "String",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 44,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= s1.length, s2.length <= 10^4",
+        "s1 and s2 consist of lowercase English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s1": "ab",
+            "s2": "eidbaooo"
+          },
+          "expectedOutput": true,
+          "description": "s2 contains 'ba' which is a permutation of s1"
+        },
+        {
+          "input": {
+            "s1": "ab",
+            "s2": "eidboaoo"
+          },
+          "expectedOutput": false,
+          "description": "No permutation of s1 exists in s2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s1": "abc",
+            "s2": "bbbca"
+          },
+          "expectedOutput": true,
+          "description": "Contains 'bca'"
+        },
+        {
+          "input": {
+            "s1": "a",
+            "s2": "a"
+          },
+          "expectedOutput": true,
+          "description": "Exact match"
+        },
+        {
+          "input": {
+            "s1": "adc",
+            "s2": "dcda"
+          },
+          "expectedOutput": true,
+          "description": "Contains 'cda'"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Count the frequency of characters in s1. Then use a sliding window of size s1.length on s2."
+        },
+        {
+          "level": 2,
+          "text": "For each window in s2, check if the character frequencies match those of s1."
+        },
+        {
+          "level": 3,
+          "text": "Use two frequency arrays. Slide the window and update frequencies incrementally. Compare arrays to check for a match."
+        }
+      ],
+      "similarProblems": [
+        "find-all-anagrams"
+      ],
+      "starterCode": {
+        "javascript": "function checkInclusion(s1, s2) {\\n  // Your code here\\n  \\n}",
+        "python": "def check_inclusion(s1, s2):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public boolean checkInclusion(String s1, String s2) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "bool checkInclusion(char* s1, char* s2) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function checkInclusion(s1, s2) {\\n  if (s1.length > s2.length) return false;\\n  \\n  const s1Count = new Array(26).fill(0);\\n  const windowCount = new Array(26).fill(0);\\n  \\n  // Count s1 characters\\n  for (let i = 0; i < s1.length; i++) {\\n    s1Count[s1.charCodeAt(i) - 97]++;\\n    windowCount[s2.charCodeAt(i) - 97]++;\\n  }\\n  \\n  // Check if first window matches\\n  if (s1Count.every((val, i) => val === windowCount[i])) return true;\\n  \\n  // Slide the window\\n  for (let i = s1.length; i < s2.length; i++) {\\n    windowCount[s2.charCodeAt(i) - 97]++;\\n    windowCount[s2.charCodeAt(i - s1.length) - 97]--;\\n    \\n    if (s1Count.every((val, j) => val === windowCount[j])) return true;\\n  }\\n  \\n  return false;\\n}",
+        "python": "def check_inclusion(s1, s2):\\n    if len(s1) > len(s2):\\n        return False\\n    \\n    s1_count = [0] * 26\\n    window_count = [0] * 26\\n    \\n    # Count s1 characters\\n    for i in range(len(s1)):\\n        s1_count[ord(s1[i]) - ord('a')] += 1\\n        window_count[ord(s2[i]) - ord('a')] += 1\\n    \\n    # Check if first window matches\\n    if s1_count == window_count:\\n        return True\\n    \\n    # Slide the window\\n    for i in range(len(s1), len(s2)):\\n        window_count[ord(s2[i]) - ord('a')] += 1\\n        window_count[ord(s2[i - len(s1)]) - ord('a')] -= 1\\n        \\n        if s1_count == window_count:\\n            return True\\n    \\n    return False",
+        "java": "class Solution {\\n    public boolean checkInclusion(String s1, String s2) {\\n        if (s1.length() > s2.length()) return false;\\n        \\n        int[] s1Count = new int[26];\\n        int[] windowCount = new int[26];\\n        \\n        // Count s1 characters\\n        for (int i = 0; i < s1.length(); i++) {\\n            s1Count[s1.charAt(i) - 'a']++;\\n            windowCount[s2.charAt(i) - 'a']++;\\n        }\\n        \\n        // Check if first window matches\\n        if (Arrays.equals(s1Count, windowCount)) return true;\\n        \\n        // Slide the window\\n        for (int i = s1.length(); i < s2.length(); i++) {\\n            windowCount[s2.charAt(i) - 'a']++;\\n            windowCount[s2.charAt(i - s1.length()) - 'a']--;\\n            \\n            if (Arrays.equals(s1Count, windowCount)) return true;\\n        }\\n        \\n        return false;\\n    }\\n}",
+        "c": "bool checkInclusion(char* s1, char* s2) {\\n    int len1 = strlen(s1);\\n    int len2 = strlen(s2);\\n    if (len1 > len2) return false;\\n    \\n    int s1Count[26] = {0};\\n    int windowCount[26] = {0};\\n    \\n    // Count s1 characters\\n    for (int i = 0; i < len1; i++) {\\n        s1Count[s1[i] - 'a']++;\\n        windowCount[s2[i] - 'a']++;\\n    }\\n    \\n    // Check if first window matches\\n    if (memcmp(s1Count, windowCount, sizeof(s1Count)) == 0) return true;\\n    \\n    // Slide the window\\n    for (int i = len1; i < len2; i++) {\\n        windowCount[s2[i] - 'a']++;\\n        windowCount[s2[i - len1] - 'a']--;\\n        \\n        if (memcmp(s1Count, windowCount, sizeof(s1Count)) == 0) return true;\\n    }\\n    \\n    return false;\\n}"
+      }
+    },
+    {
+      "id": "find-all-anagrams",
+      "title": "Find All Anagrams in a String",
+      "difficulty": "medium",
+      "description": "Given two strings s and p, return an array of all the start indices of p's anagrams in s.\\n\\nAn anagram is a word formed by rearranging the letters of another word. This is similar to the previous problem but returns all starting indices instead of just true/false.",
+      "companyTags": [
+        "Amazon",
+        "Facebook",
+        "Google"
+      ],
+      "topicTags": [
+        "String",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 48,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= s.length, p.length <= 3 * 10^4",
+        "s and p consist of lowercase English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "cbaebabacd",
+            "p": "abc"
+          },
+          "expectedOutput": [
+            0,
+            6
+          ],
+          "description": "The substring 'cba' at index 0 and 'bac' at index 6 are anagrams of 'abc'"
+        },
+        {
+          "input": {
+            "s": "abab",
+            "p": "ab"
+          },
+          "expectedOutput": [
+            0,
+            1,
+            2
+          ],
+          "description": "Anagrams at indices 0, 1, and 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "baa",
+            "p": "aa"
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Only one anagram at index 1"
+        },
+        {
+          "input": {
+            "s": "a",
+            "p": "a"
+          },
+          "expectedOutput": [
+            0
+          ],
+          "description": "Single character match"
+        },
+        {
+          "input": {
+            "s": "aaaaaaaaaa",
+            "p": "aaaaaaaaaaaaa"
+          },
+          "expectedOutput": [],
+          "description": "p longer than s"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "This is the same as the permutation problem, but collect all matching indices instead of returning true on first match."
+        },
+        {
+          "level": 2,
+          "text": "Use a fixed-size sliding window of length p.length and compare character frequencies at each position."
+        },
+        {
+          "level": 3,
+          "text": "Maintain two frequency arrays. Slide the window and check if frequencies match. Add the starting index to result when they match."
+        }
+      ],
+      "similarProblems": [
+        "permutation-in-string"
+      ],
+      "starterCode": {
+        "javascript": "function findAnagrams(s, p) {\\n  // Your code here\\n  \\n}",
+        "python": "def find_anagrams(s, p):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public List<Integer> findAnagrams(String s, String p) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int* findAnagrams(char* s, char* p, int* returnSize) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function findAnagrams(s, p) {\\n  const result = [];\\n  if (p.length > s.length) return result;\\n  \\n  const pCount = new Array(26).fill(0);\\n  const windowCount = new Array(26).fill(0);\\n  \\n  // Count p characters\\n  for (let i = 0; i < p.length; i++) {\\n    pCount[p.charCodeAt(i) - 97]++;\\n    windowCount[s.charCodeAt(i) - 97]++;\\n  }\\n  \\n  // Check first window\\n  if (pCount.every((val, i) => val === windowCount[i])) {\\n    result.push(0);\\n  }\\n  \\n  // Slide the window\\n  for (let i = p.length; i < s.length; i++) {\\n    windowCount[s.charCodeAt(i) - 97]++;\\n    windowCount[s.charCodeAt(i - p.length) - 97]--;\\n    \\n    if (pCount.every((val, j) => val === windowCount[j])) {\\n      result.push(i - p.length + 1);\\n    }\\n  }\\n  \\n  return result;\\n}",
+        "python": "def find_anagrams(s, p):\\n    result = []\\n    if len(p) > len(s):\\n        return result\\n    \\n    p_count = [0] * 26\\n    window_count = [0] * 26\\n    \\n    # Count p characters\\n    for i in range(len(p)):\\n        p_count[ord(p[i]) - ord('a')] += 1\\n        window_count[ord(s[i]) - ord('a')] += 1\\n    \\n    # Check first window\\n    if p_count == window_count:\\n        result.append(0)\\n    \\n    # Slide the window\\n    for i in range(len(p), len(s)):\\n        window_count[ord(s[i]) - ord('a')] += 1\\n        window_count[ord(s[i - len(p)]) - ord('a')] -= 1\\n        \\n        if p_count == window_count:\\n            result.append(i - len(p) + 1)\\n    \\n    return result",
+        "java": "class Solution {\\n    public List<Integer> findAnagrams(String s, String p) {\\n        List<Integer> result = new ArrayList<>();\\n        if (p.length() > s.length()) return result;\\n        \\n        int[] pCount = new int[26];\\n        int[] windowCount = new int[26];\\n        \\n        // Count p characters\\n        for (int i = 0; i < p.length(); i++) {\\n            pCount[p.charAt(i) - 'a']++;\\n            windowCount[s.charAt(i) - 'a']++;\\n        }\\n        \\n        // Check first window\\n        if (Arrays.equals(pCount, windowCount)) {\\n            result.add(0);\\n        }\\n        \\n        // Slide the window\\n        for (int i = p.length(); i < s.length(); i++) {\\n            windowCount[s.charAt(i) - 'a']++;\\n            windowCount[s.charAt(i - p.length()) - 'a']--;\\n            \\n            if (Arrays.equals(pCount, windowCount)) {\\n                result.add(i - p.length() + 1);\\n            }\\n        }\\n        \\n        return result;\\n    }\\n}",
+        "c": "int* findAnagrams(char* s, char* p, int* returnSize) {\\n    int lenS = strlen(s);\\n    int lenP = strlen(p);\\n    *returnSize = 0;\\n    \\n    if (lenP > lenS) return NULL;\\n    \\n    int* result = (int*)malloc(lenS * sizeof(int));\\n    int pCount[26] = {0};\\n    int windowCount[26] = {0};\\n    \\n    // Count p characters\\n    for (int i = 0; i < lenP; i++) {\\n        pCount[p[i] - 'a']++;\\n        windowCount[s[i] - 'a']++;\\n    }\\n    \\n    // Check first window\\n    if (memcmp(pCount, windowCount, sizeof(pCount)) == 0) {\\n        result[(*returnSize)++] = 0;\\n    }\\n    \\n    // Slide the window\\n    for (int i = lenP; i < lenS; i++) {\\n        windowCount[s[i] - 'a']++;\\n        windowCount[s[i - lenP] - 'a']--;\\n        \\n        if (memcmp(pCount, windowCount, sizeof(pCount)) == 0) {\\n            result[(*returnSize)++] = i - lenP + 1;\\n        }\\n    }\\n    \\n    return result;\\n}"
+      }
+    },
+    {
+      "id": "sliding-window-maximum",
+      "title": "Sliding Window Maximum",
+      "difficulty": "medium",
+      "description": "Given an array of integers and a number k, find the maximum element in each sliding window of size k.\\n\\nReturn an array where each element is the maximum of a window. This requires a deque (double-ended queue) to efficiently track the maximum.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft",
+        "Facebook"
+      ],
+      "topicTags": [
+        "Array",
+        "Sliding Window",
+        "Deque",
+        "Heap"
+      ],
+      "acceptanceRate": 46,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(k)",
+      "constraints": [
+        "1 <= nums.length <= 10^5",
+        "-10^4 <= nums[i] <= 10^4",
+        "1 <= k <= nums.length"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              -1,
+              -3,
+              5,
+              3,
+              6,
+              7
+            ],
+            "k": 3
+          },
+          "expectedOutput": [
+            3,
+            3,
+            5,
+            5,
+            6,
+            7
+          ],
+          "description": "Window [1,3,-1] max=3, [3,-1,-3] max=3, [-1,-3,5] max=5, etc."
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "k": 1
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single element"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              -1
+            ],
+            "k": 1
+          },
+          "expectedOutput": [
+            1,
+            -1
+          ],
+          "description": "Window size 1"
+        },
+        {
+          "input": {
+            "nums": [
+              9,
+              11
+            ],
+            "k": 2
+          },
+          "expectedOutput": [
+            11
+          ],
+          "description": "Window equals array size"
+        },
+        {
+          "input": {
+            "nums": [
+              4,
+              -2,
+              -3,
+              4,
+              5
+            ],
+            "k": 3
+          },
+          "expectedOutput": [
+            4,
+            4,
+            5
+          ],
+          "description": "Mixed positive and negative"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a deque to store indices of elements in decreasing order of their values."
+        },
+        {
+          "level": 2,
+          "text": "For each element, remove indices from the back of deque while their values are smaller. Remove indices from front if they're outside the window."
+        },
+        {
+          "level": 3,
+          "text": "Maintain deque with indices in decreasing value order. Front always has the maximum. Remove out-of-window indices from front, smaller values from back."
+        }
+      ],
+      "similarProblems": [
+        "max-sum-subarray"
+      ],
+      "starterCode": {
+        "javascript": "function maxSlidingWindow(nums, k) {\\n  // Your code here\\n  \\n}",
+        "python": "def max_sliding_window(nums, k):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public int[] maxSlidingWindow(int[] nums, int k) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function maxSlidingWindow(nums, k) {\\n  const result = [];\\n  const deque = []; // stores indices\\n  \\n  for (let i = 0; i < nums.length; i++) {\\n    // Remove indices outside window\\n    while (deque.length > 0 && deque[0] < i - k + 1) {\\n      deque.shift();\\n    }\\n    \\n    // Remove indices with smaller values\\n    while (deque.length > 0 && nums[deque[deque.length - 1]] < nums[i]) {\\n      deque.pop();\\n    }\\n    \\n    deque.push(i);\\n    \\n    // Add to result once window is full\\n    if (i >= k - 1) {\\n      result.push(nums[deque[0]]);\\n    }\\n  }\\n  \\n  return result;\\n}",
+        "python": "def max_sliding_window(nums, k):\\n    from collections import deque\\n    result = []\\n    dq = deque()  # stores indices\\n    \\n    for i in range(len(nums)):\\n        # Remove indices outside window\\n        while dq and dq[0] < i - k + 1:\\n            dq.popleft()\\n        \\n        # Remove indices with smaller values\\n        while dq and nums[dq[-1]] < nums[i]:\\n            dq.pop()\\n        \\n        dq.append(i)\\n        \\n        # Add to result once window is full\\n        if i >= k - 1:\\n            result.append(nums[dq[0]])\\n    \\n    return result",
+        "java": "class Solution {\\n    public int[] maxSlidingWindow(int[] nums, int k) {\\n        int[] result = new int[nums.length - k + 1];\\n        Deque<Integer> deque = new LinkedList<>();\\n        \\n        for (int i = 0; i < nums.length; i++) {\\n            // Remove indices outside window\\n            while (!deque.isEmpty() && deque.peekFirst() < i - k + 1) {\\n                deque.pollFirst();\\n            }\\n            \\n            // Remove indices with smaller values\\n            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {\\n                deque.pollLast();\\n            }\\n            \\n            deque.offerLast(i);\\n            \\n            // Add to result once window is full\\n            if (i >= k - 1) {\\n                result[i - k + 1] = nums[deque.peekFirst()];\\n            }\\n        }\\n        \\n        return result;\\n    }\\n}",
+        "c": "int* maxSlidingWindow(int* nums, int numsSize, int k, int* returnSize) {\\n    *returnSize = numsSize - k + 1;\\n    int* result = (int*)malloc(*returnSize * sizeof(int));\\n    int* deque = (int*)malloc(numsSize * sizeof(int));\\n    int front = 0, back = 0;\\n    \\n    for (int i = 0; i < numsSize; i++) {\\n        // Remove indices outside window\\n        while (back > front && deque[front] < i - k + 1) {\\n            front++;\\n        }\\n        \\n        // Remove indices with smaller values\\n        while (back > front && nums[deque[back - 1]] < nums[i]) {\\n            back--;\\n        }\\n        \\n        deque[back++] = i;\\n        \\n        // Add to result once window is full\\n        if (i >= k - 1) {\\n            result[i - k + 1] = nums[deque[front]];\\n        }\\n    }\\n    \\n    free(deque);\\n    return result;\\n}"
+      }
+    },
+    {
+      "id": "minimum-window-substring",
+      "title": "Minimum Window Substring",
+      "difficulty": "medium",
+      "description": "Given two strings s and t, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string.\\n\\nThis is one of the most challenging sliding window problems, requiring careful tracking of character frequencies.",
+      "companyTags": [
+        "Amazon",
+        "Facebook",
+        "Google",
+        "Microsoft",
+        "Apple"
+      ],
+      "topicTags": [
+        "String",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 39,
+      "timeComplexity": "O(n + m)",
+      "spaceComplexity": "O(m)",
+      "constraints": [
+        "1 <= s.length, t.length <= 10^5",
+        "s and t consist of uppercase and lowercase English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "ADOBECODEBANC",
+            "t": "ABC"
+          },
+          "expectedOutput": "BANC",
+          "description": "The minimum window substring 'BANC' includes 'A', 'B', and 'C' from string t"
+        },
+        {
+          "input": {
+            "s": "a",
+            "t": "a"
+          },
+          "expectedOutput": "a",
+          "description": "Exact match"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "a",
+            "t": "aa"
+          },
+          "expectedOutput": "",
+          "description": "Not enough characters"
+        },
+        {
+          "input": {
+            "s": "ab",
+            "t": "b"
+          },
+          "expectedOutput": "b",
+          "description": "Single character window"
+        },
+        {
+          "input": {
+            "s": "abc",
+            "t": "cba"
+          },
+          "expectedOutput": "abc",
+          "description": "Entire string needed"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use two hash maps: one for target character counts, one for current window counts."
+        },
+        {
+          "level": 2,
+          "text": "Expand the window until all characters from t are included. Then shrink from left to find the minimum window."
+        },
+        {
+          "level": 3,
+          "text": "Track 'formed' count (characters that meet required frequency). When formed equals required, try shrinking. Update minimum window when valid."
+        }
+      ],
+      "similarProblems": [
+        "longest-substring-k-distinct"
+      ],
+      "starterCode": {
+        "javascript": "function minWindow(s, t) {\\n  // Your code here\\n  \\n}",
+        "python": "def min_window(s, t):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public String minWindow(String s, String t) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "char* minWindow(char* s, char* t) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function minWindow(s, t) {\\n  if (t.length > s.length) return '';\\n  \\n  const tCount = new Map();\\n  const windowCount = new Map();\\n  \\n  // Count characters in t\\n  for (const char of t) {\\n    tCount.set(char, (tCount.get(char) || 0) + 1);\\n  }\\n  \\n  let required = tCount.size;\\n  let formed = 0;\\n  let left = 0;\\n  let minLen = Infinity;\\n  let minStart = 0;\\n  \\n  for (let right = 0; right < s.length; right++) {\\n    const char = s[right];\\n    windowCount.set(char, (windowCount.get(char) || 0) + 1);\\n    \\n    if (tCount.has(char) && windowCount.get(char) === tCount.get(char)) {\\n      formed++;\\n    }\\n    \\n    // Try to shrink window\\n    while (formed === required && left <= right) {\\n      if (right - left + 1 < minLen) {\\n        minLen = right - left + 1;\\n        minStart = left;\\n      }\\n      \\n      const leftChar = s[left];\\n      windowCount.set(leftChar, windowCount.get(leftChar) - 1);\\n      if (tCount.has(leftChar) && windowCount.get(leftChar) < tCount.get(leftChar)) {\\n        formed--;\\n      }\\n      left++;\\n    }\\n  }\\n  \\n  return minLen === Infinity ? '' : s.substring(minStart, minStart + minLen);\\n}",
+        "python": "def min_window(s, t):\\n    if len(t) > len(s):\\n        return ''\\n    \\n    from collections import Counter\\n    t_count = Counter(t)\\n    window_count = {}\\n    \\n    required = len(t_count)\\n    formed = 0\\n    left = 0\\n    min_len = float('inf')\\n    min_start = 0\\n    \\n    for right in range(len(s)):\\n        char = s[right]\\n        window_count[char] = window_count.get(char, 0) + 1\\n        \\n        if char in t_count and window_count[char] == t_count[char]:\\n            formed += 1\\n        \\n        # Try to shrink window\\n        while formed == required and left <= right:\\n            if right - left + 1 < min_len:\\n                min_len = right - left + 1\\n                min_start = left\\n            \\n            left_char = s[left]\\n            window_count[left_char] -= 1\\n            if left_char in t_count and window_count[left_char] < t_count[left_char]:\\n                formed -= 1\\n            left += 1\\n    \\n    return '' if min_len == float('inf') else s[min_start:min_start + min_len]",
+        "java": "class Solution {\\n    public String minWindow(String s, String t) {\\n        if (t.length() > s.length()) return \\\"\\\";\\n        \\n        Map<Character, Integer> tCount = new HashMap<>();\\n        Map<Character, Integer> windowCount = new HashMap<>();\\n        \\n        for (char c : t.toCharArray()) {\\n            tCount.put(c, tCount.getOrDefault(c, 0) + 1);\\n        }\\n        \\n        int required = tCount.size();\\n        int formed = 0;\\n        int left = 0;\\n        int minLen = Integer.MAX_VALUE;\\n        int minStart = 0;\\n        \\n        for (int right = 0; right < s.length(); right++) {\\n            char c = s.charAt(right);\\n            windowCount.put(c, windowCount.getOrDefault(c, 0) + 1);\\n            \\n            if (tCount.containsKey(c) && windowCount.get(c).intValue() == tCount.get(c).intValue()) {\\n                formed++;\\n            }\\n            \\n            while (formed == required && left <= right) {\\n                if (right - left + 1 < minLen) {\\n                    minLen = right - left + 1;\\n                    minStart = left;\\n                }\\n                \\n                char leftChar = s.charAt(left);\\n                windowCount.put(leftChar, windowCount.get(leftChar) - 1);\\n                if (tCount.containsKey(leftChar) && windowCount.get(leftChar) < tCount.get(leftChar)) {\\n                    formed--;\\n                }\\n                left++;\\n            }\\n        }\\n        \\n        return minLen == Integer.MAX_VALUE ? \\\"\\\" : s.substring(minStart, minStart + minLen);\\n    }\\n}",
+        "c": "char* minWindow(char* s, char* t) {\\n    int lenS = strlen(s);\\n    int lenT = strlen(t);\\n    if (lenT > lenS) return \\\"\\\";\\n    \\n    int tCount[128] = {0};\\n    int windowCount[128] = {0};\\n    int required = 0;\\n    \\n    // Count unique characters in t\\n    for (int i = 0; i < lenT; i++) {\\n        if (tCount[t[i]] == 0) required++;\\n        tCount[t[i]]++;\\n    }\\n    \\n    int formed = 0;\\n    int left = 0;\\n    int minLen = lenS + 1;\\n    int minStart = 0;\\n    \\n    for (int right = 0; right < lenS; right++) {\\n        windowCount[s[right]]++;\\n        \\n        if (tCount[s[right]] > 0 && windowCount[s[right]] == tCount[s[right]]) {\\n            formed++;\\n        }\\n        \\n        while (formed == required && left <= right) {\\n            if (right - left + 1 < minLen) {\\n                minLen = right - left + 1;\\n                minStart = left;\\n            }\\n            \\n            windowCount[s[left]]--;\\n            if (tCount[s[left]] > 0 && windowCount[s[left]] < tCount[s[left]]) {\\n                formed--;\\n            }\\n            left++;\\n        }\\n    }\\n    \\n    if (minLen == lenS + 1) return \\\"\\\";\\n    \\n    char* result = (char*)malloc((minLen + 1) * sizeof(char));\\n    strncpy(result, s + minStart, minLen);\\n    result[minLen] = '\\\\0';\\n    return result;\\n}"
+      }
+    },
+    {
+      "id": "sliding-window-median",
+      "title": "Sliding Window Median",
+      "difficulty": "hard",
+      "description": "Given an array of integers and a number k, find the median of each sliding window of size k.\\n\\nThe median is the middle value in an ordered list. If the size is even, return the average of the two middle values. This requires maintaining two heaps or a balanced data structure.",
+      "companyTags": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Array",
+        "Sliding Window",
+        "Heap"
+      ],
+      "acceptanceRate": 41,
+      "timeComplexity": "O(n * k)",
+      "spaceComplexity": "O(k)",
+      "constraints": [
+        "1 <= k <= nums.length <= 10^5",
+        "-2^31 <= nums[i] <= 2^31 - 1"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              -1,
+              -3,
+              5,
+              3,
+              6,
+              7
+            ],
+            "k": 3
+          },
+          "expectedOutput": [
+            1,
+            -1,
+            -1,
+            3,
+            5,
+            6
+          ],
+          "description": "Medians of windows: [1,3,-1]=1, [3,-1,-3]=-1, [-1,-3,5]=-1, etc."
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "k": 2
+          },
+          "expectedOutput": [
+            1.5,
+            2.5,
+            3.5
+          ],
+          "description": "Even-sized windows return average of two middle elements"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "k": 1
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single element"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              4,
+              2,
+              3
+            ],
+            "k": 4
+          },
+          "expectedOutput": [
+            2.5
+          ],
+          "description": "Window equals array size"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              -1
+            ],
+            "k": 2
+          },
+          "expectedOutput": [
+            2,
+            1
+          ],
+          "description": "Small window"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "For each window, you need to find the median efficiently. Sorting each window would be O(k log k) per window."
+        },
+        {
+          "level": 2,
+          "text": "Use two heaps: a max heap for the smaller half and a min heap for the larger half. The median is at the top of one or both heaps."
+        },
+        {
+          "level": 3,
+          "text": "Maintain balanced heaps. When sliding, remove the outgoing element and add the incoming element. Rebalance if needed. Median is at heap tops."
+        }
+      ],
+      "similarProblems": [
+        "sliding-window-maximum"
+      ],
+      "starterCode": {
+        "javascript": "function medianSlidingWindow(nums, k) {\\n  // Your code here\\n  \\n}",
+        "python": "def median_sliding_window(nums, k):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public double[] medianSlidingWindow(int[] nums, int k) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "double* medianSlidingWindow(int* nums, int numsSize, int k, int* returnSize) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function medianSlidingWindow(nums, k) {\\n  const result = [];\\n  \\n  // Simple O(n*k*log(k)) solution: sort each window\\n  for (let i = 0; i <= nums.length - k; i++) {\\n    const window = nums.slice(i, i + k).sort((a, b) => a - b);\\n    const mid = Math.floor(k / 2);\\n    \\n    if (k % 2 === 1) {\\n      result.push(window[mid]);\\n    } else {\\n      result.push((window[mid - 1] + window[mid]) / 2);\\n    }\\n  }\\n  \\n  return result;\\n}",
+        "python": "def median_sliding_window(nums, k):\\n    result = []\\n    \\n    # Simple O(n*k*log(k)) solution: sort each window\\n    for i in range(len(nums) - k + 1):\\n        window = sorted(nums[i:i+k])\\n        mid = k // 2\\n        \\n        if k % 2 == 1:\\n            result.append(float(window[mid]))\\n        else:\\n            result.append((window[mid - 1] + window[mid]) / 2.0)\\n    \\n    return result",
+        "java": "class Solution {\\n    public double[] medianSlidingWindow(int[] nums, int k) {\\n        double[] result = new double[nums.length - k + 1];\\n        \\n        // Simple O(n*k*log(k)) solution: sort each window\\n        for (int i = 0; i <= nums.length - k; i++) {\\n            int[] window = Arrays.copyOfRange(nums, i, i + k);\\n            Arrays.sort(window);\\n            int mid = k / 2;\\n            \\n            if (k % 2 == 1) {\\n                result[i] = window[mid];\\n            } else {\\n                result[i] = ((long)window[mid - 1] + (long)window[mid]) / 2.0;\\n            }\\n        }\\n        \\n        return result;\\n    }\\n}",
+        "c": "int compare(const void* a, const void* b) {\\n    return (*(int*)a - *(int*)b);\\n}\\n\\ndouble* medianSlidingWindow(int* nums, int numsSize, int k, int* returnSize) {\\n    *returnSize = numsSize - k + 1;\\n    double* result = (double*)malloc(*returnSize * sizeof(double));\\n    int* window = (int*)malloc(k * sizeof(int));\\n    \\n    // Simple O(n*k*log(k)) solution: sort each window\\n    for (int i = 0; i <= numsSize - k; i++) {\\n        memcpy(window, nums + i, k * sizeof(int));\\n        qsort(window, k, sizeof(int), compare);\\n        int mid = k / 2;\\n        \\n        if (k % 2 == 1) {\\n            result[i] = window[mid];\\n        } else {\\n            result[i] = ((long long)window[mid - 1] + (long long)window[mid]) / 2.0;\\n        }\\n    }\\n    \\n    free(window);\\n    return result;\\n}"
+      }
+    },
+    {
+      "id": "substring-concatenation-words",
+      "title": "Substring with Concatenation of All Words",
+      "difficulty": "hard",
+      "description": "Given a string s and an array of strings words (all of the same length), find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once, in any order.\\n\\nThis is a complex sliding window problem that requires tracking word frequencies and positions.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "String",
+        "Hash Table",
+        "Sliding Window"
+      ],
+      "acceptanceRate": 30,
+      "timeComplexity": "O(n * m)",
+      "spaceComplexity": "O(m)",
+      "constraints": [
+        "1 <= s.length <= 10^4",
+        "1 <= words.length <= 5000",
+        "1 <= words[i].length <= 30",
+        "s and words[i] consist of lowercase English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "barfoothefoobarman",
+            "words": [
+              "foo",
+              "bar"
+            ]
+          },
+          "expectedOutput": [
+            0,
+            9
+          ],
+          "description": "Substrings starting at index 0 ('barfoo') and 9 ('foobar') are concatenations"
+        },
+        {
+          "input": {
+            "s": "wordgoodgoodgoodbestword",
+            "words": [
+              "word",
+              "good",
+              "best",
+              "word"
+            ]
+          },
+          "expectedOutput": [],
+          "description": "No valid concatenation exists"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "barfoofoobarthefoobarman",
+            "words": [
+              "bar",
+              "foo",
+              "the"
+            ]
+          },
+          "expectedOutput": [
+            6,
+            9,
+            12
+          ],
+          "description": "Multiple valid positions"
+        },
+        {
+          "input": {
+            "s": "a",
+            "words": [
+              "a"
+            ]
+          },
+          "expectedOutput": [
+            0
+          ],
+          "description": "Single character"
+        },
+        {
+          "input": {
+            "s": "aaaaaaaa",
+            "words": [
+              "aa",
+              "aa",
+              "aa"
+            ]
+          },
+          "expectedOutput": [
+            0,
+            1,
+            2
+          ],
+          "description": "Overlapping matches"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Each word has the same length. The total length of a valid substring is words.length * word_length."
+        },
+        {
+          "level": 2,
+          "text": "Use a hash map to count word frequencies. Slide a window of the required length and check if it contains all words."
+        },
+        {
+          "level": 3,
+          "text": "For each starting position, extract words of the given length and compare frequencies with the target. Use a sliding window approach with word-sized steps."
+        }
+      ],
+      "similarProblems": [
+        "minimum-window-substring"
+      ],
+      "starterCode": {
+        "javascript": "function findSubstring(s, words) {\\n  // Your code here\\n  \\n}",
+        "python": "def find_substring(s, words):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public List<Integer> findSubstring(String s, String[] words) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int* findSubstring(char* s, char** words, int wordsSize, int* returnSize) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function findSubstring(s, words) {\\n  const result = [];\\n  if (!s || !words || words.length === 0) return result;\\n  \\n  const wordLen = words[0].length;\\n  const totalLen = wordLen * words.length;\\n  if (s.length < totalLen) return result;\\n  \\n  const wordCount = new Map();\\n  for (const word of words) {\\n    wordCount.set(word, (wordCount.get(word) || 0) + 1);\\n  }\\n  \\n  for (let i = 0; i <= s.length - totalLen; i++) {\\n    const seen = new Map();\\n    let j = 0;\\n    \\n    while (j < words.length) {\\n      const wordStart = i + j * wordLen;\\n      const word = s.substring(wordStart, wordStart + wordLen);\\n      \\n      if (!wordCount.has(word)) break;\\n      \\n      seen.set(word, (seen.get(word) || 0) + 1);\\n      if (seen.get(word) > wordCount.get(word)) break;\\n      \\n      j++;\\n    }\\n    \\n    if (j === words.length) result.push(i);\\n  }\\n  \\n  return result;\\n}",
+        "python": "def find_substring(s, words):\\n    result = []\\n    if not s or not words:\\n        return result\\n    \\n    word_len = len(words[0])\\n    total_len = word_len * len(words)\\n    if len(s) < total_len:\\n        return result\\n    \\n    from collections import Counter\\n    word_count = Counter(words)\\n    \\n    for i in range(len(s) - total_len + 1):\\n        seen = {}\\n        j = 0\\n        \\n        while j < len(words):\\n            word_start = i + j * word_len\\n            word = s[word_start:word_start + word_len]\\n            \\n            if word not in word_count:\\n                break\\n            \\n            seen[word] = seen.get(word, 0) + 1\\n            if seen[word] > word_count[word]:\\n                break\\n            \\n            j += 1\\n        \\n        if j == len(words):\\n            result.append(i)\\n    \\n    return result",
+        "java": "class Solution {\\n    public List<Integer> findSubstring(String s, String[] words) {\\n        List<Integer> result = new ArrayList<>();\\n        if (s == null || words == null || words.length == 0) return result;\\n        \\n        int wordLen = words[0].length();\\n        int totalLen = wordLen * words.length;\\n        if (s.length() < totalLen) return result;\\n        \\n        Map<String, Integer> wordCount = new HashMap<>();\\n        for (String word : words) {\\n            wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);\\n        }\\n        \\n        for (int i = 0; i <= s.length() - totalLen; i++) {\\n            Map<String, Integer> seen = new HashMap<>();\\n            int j = 0;\\n            \\n            while (j < words.length) {\\n                int wordStart = i + j * wordLen;\\n                String word = s.substring(wordStart, wordStart + wordLen);\\n                \\n                if (!wordCount.containsKey(word)) break;\\n                \\n                seen.put(word, seen.getOrDefault(word, 0) + 1);\\n                if (seen.get(word) > wordCount.get(word)) break;\\n                \\n                j++;\\n            }\\n            \\n            if (j == words.length) result.add(i);\\n        }\\n        \\n        return result;\\n    }\\n}",
+        "c": "int* findSubstring(char* s, char** words, int wordsSize, int* returnSize) {\\n    *returnSize = 0;\\n    if (!s || !words || wordsSize == 0) return NULL;\\n    \\n    int wordLen = strlen(words[0]);\\n    int totalLen = wordLen * wordsSize;\\n    int sLen = strlen(s);\\n    if (sLen < totalLen) return NULL;\\n    \\n    int* result = (int*)malloc(sLen * sizeof(int));\\n    \\n    // Simple O(n*m) solution\\n    for (int i = 0; i <= sLen - totalLen; i++) {\\n        int wordsSeen[5000] = {0};\\n        int j = 0;\\n        \\n        while (j < wordsSize) {\\n            char word[31];\\n            strncpy(word, s + i + j * wordLen, wordLen);\\n            word[wordLen] = '\\\\0';\\n            \\n            int found = -1;\\n            for (int k = 0; k < wordsSize; k++) {\\n                if (strcmp(word, words[k]) == 0 && wordsSeen[k] == 0) {\\n                    found = k;\\n                    break;\\n                }\\n            }\\n            \\n            if (found == -1) break;\\n            wordsSeen[found] = 1;\\n            j++;\\n        }\\n        \\n        if (j == wordsSize) {\\n            result[(*returnSize)++] = i;\\n        }\\n    }\\n    \\n    return result;\\n}"
+      }
+    },
+    {
+      "id": "minimum-window-subsequence",
+      "title": "Minimum Window Subsequence",
+      "difficulty": "hard",
+      "description": "Given strings s and t, find the minimum (contiguous) substring of s that contains t as a subsequence.\\n\\nA subsequence means the characters of t appear in s in the same order, but not necessarily consecutively. Return the minimum window, or empty string if none exists.",
+      "companyTags": [
+        "Google",
+        "Amazon"
+      ],
+      "topicTags": [
+        "String",
+        "Sliding Window",
+        "Dynamic Programming"
+      ],
+      "acceptanceRate": 42,
+      "timeComplexity": "O(n * m)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= s.length <= 2 * 10^4",
+        "1 <= t.length <= 100",
+        "s and t consist of lowercase English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "abcdebdde",
+            "t": "bde"
+          },
+          "expectedOutput": "bcde",
+          "description": "The minimum window 'bcde' contains 'b', 'd', 'e' as a subsequence"
+        },
+        {
+          "input": {
+            "s": "jmeqksfrsdcmsiwvaovztaqenprpvnbstl",
+            "t": "u"
+          },
+          "expectedOutput": "",
+          "description": "No window contains 'u'"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "abcde",
+            "t": "ace"
+          },
+          "expectedOutput": "abcde",
+          "description": "Need entire string"
+        },
+        {
+          "input": {
+            "s": "fgrqsqsnodwmxzkzxwqegkndaa",
+            "t": "kzed"
+          },
+          "expectedOutput": "kzxwqegknd",
+          "description": "Complex subsequence"
+        },
+        {
+          "input": {
+            "s": "cnhczmccqouqauvqhzawcxzxwlqjjsvegjuecpwfghnqirgxqxbfhwxaqmwjwjfqwxhzwvkqy",
+            "t": "qxfhnkonwfcmgy"
+          },
+          "expectedOutput": "qouqauvqhzawcxzxwlqjjsvegjuecpwfghnqirgxqxbfhwxaqmwjwjfqwxhzwvkqy",
+          "description": "Long subsequence"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use two pointers: one to find the end of a window that contains t as subsequence, another to find the start."
+        },
+        {
+          "level": 2,
+          "text": "First, expand right to find a window containing all characters of t in order. Then shrink from left to find the minimum window."
+        },
+        {
+          "level": 3,
+          "text": "For each position in s, try to match all characters of t. When matched, backtrack from right to find the leftmost start. Track the minimum window."
+        }
+      ],
+      "similarProblems": [
+        "minimum-window-substring"
+      ],
+      "starterCode": {
+        "javascript": "function minWindowSubsequence(s, t) {\\n  // Your code here\\n  \\n}",
+        "python": "def min_window_subsequence(s, t):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public String minWindow(String s, String t) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "char* minWindow(char* s, char* t) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function minWindowSubsequence(s, t) {\\n  let minLen = Infinity;\\n  let minStart = 0;\\n  let sIdx = 0;\\n  \\n  while (sIdx < s.length) {\\n    let tIdx = 0;\\n    let start = sIdx;\\n    \\n    // Find end of window\\n    while (sIdx < s.length && tIdx < t.length) {\\n      if (s[sIdx] === t[tIdx]) {\\n        tIdx++;\\n      }\\n      sIdx++;\\n    }\\n    \\n    // If we matched all of t\\n    if (tIdx === t.length) {\\n      let end = sIdx - 1;\\n      tIdx--;\\n      \\n      // Backtrack to find start\\n      while (tIdx >= 0) {\\n        if (s[end] === t[tIdx]) {\\n          tIdx--;\\n        }\\n        end--;\\n      }\\n      \\n      start = end + 1;\\n      if (sIdx - start < minLen) {\\n        minLen = sIdx - start;\\n        minStart = start;\\n      }\\n      \\n      sIdx = start + 1;\\n    }\\n  }\\n  \\n  return minLen === Infinity ? '' : s.substring(minStart, minStart + minLen);\\n}",
+        "python": "def min_window_subsequence(s, t):\\n    min_len = float('inf')\\n    min_start = 0\\n    s_idx = 0\\n    \\n    while s_idx < len(s):\\n        t_idx = 0\\n        start = s_idx\\n        \\n        # Find end of window\\n        while s_idx < len(s) and t_idx < len(t):\\n            if s[s_idx] == t[t_idx]:\\n                t_idx += 1\\n            s_idx += 1\\n        \\n        # If we matched all of t\\n        if t_idx == len(t):\\n            end = s_idx - 1\\n            t_idx -= 1\\n            \\n            # Backtrack to find start\\n            while t_idx >= 0:\\n                if s[end] == t[t_idx]:\\n                    t_idx -= 1\\n                end -= 1\\n            \\n            start = end + 1\\n            if s_idx - start < min_len:\\n                min_len = s_idx - start\\n                min_start = start\\n            \\n            s_idx = start + 1\\n    \\n    return '' if min_len == float('inf') else s[min_start:min_start + min_len]",
+        "java": "class Solution {\\n    public String minWindow(String s, String t) {\\n        int minLen = Integer.MAX_VALUE;\\n        int minStart = 0;\\n        int sIdx = 0;\\n        \\n        while (sIdx < s.length()) {\\n            int tIdx = 0;\\n            int start = sIdx;\\n            \\n            // Find end of window\\n            while (sIdx < s.length() && tIdx < t.length()) {\\n                if (s.charAt(sIdx) == t.charAt(tIdx)) {\\n                    tIdx++;\\n                }\\n                sIdx++;\\n            }\\n            \\n            // If we matched all of t\\n            if (tIdx == t.length()) {\\n                int end = sIdx - 1;\\n                tIdx--;\\n                \\n                // Backtrack to find start\\n                while (tIdx >= 0) {\\n                    if (s.charAt(end) == t.charAt(tIdx)) {\\n                        tIdx--;\\n                    }\\n                    end--;\\n                }\\n                \\n                start = end + 1;\\n                if (sIdx - start < minLen) {\\n                    minLen = sIdx - start;\\n                    minStart = start;\\n                }\\n                \\n                sIdx = start + 1;\\n            }\\n        }\\n        \\n        return minLen == Integer.MAX_VALUE ? \\\"\\\" : s.substring(minStart, minStart + minLen);\\n    }\\n}",
+        "c": "char* minWindow(char* s, char* t) {\\n    int lenS = strlen(s);\\n    int lenT = strlen(t);\\n    int minLen = lenS + 1;\\n    int minStart = 0;\\n    int sIdx = 0;\\n    \\n    while (sIdx < lenS) {\\n        int tIdx = 0;\\n        int start = sIdx;\\n        \\n        // Find end of window\\n        while (sIdx < lenS && tIdx < lenT) {\\n            if (s[sIdx] == t[tIdx]) {\\n                tIdx++;\\n            }\\n            sIdx++;\\n        }\\n        \\n        // If we matched all of t\\n        if (tIdx == lenT) {\\n            int end = sIdx - 1;\\n            tIdx--;\\n            \\n            // Backtrack to find start\\n            while (tIdx >= 0) {\\n                if (s[end] == t[tIdx]) {\\n                    tIdx--;\\n                }\\n                end--;\\n            }\\n            \\n            start = end + 1;\\n            if (sIdx - start < minLen) {\\n                minLen = sIdx - start;\\n                minStart = start;\\n            }\\n            \\n            sIdx = start + 1;\\n        }\\n    }\\n    \\n    if (minLen == lenS + 1) return \\\"\\\";\\n    \\n    char* result = (char*)malloc((minLen + 1) * sizeof(char));\\n    strncpy(result, s + minStart, minLen);\\n    result[minLen] = '\\\\0';\\n    return result;\\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Recalculating the entire window sum/state on every iteration instead of updating incrementally - this defeats the purpose and makes it O(n*k) instead of O(n)",
+      "Not properly updating the window state when shrinking - forgetting to remove the element that's leaving the window from your tracking variables",
+      "Checking or recording the window before it reaches the required size - make sure window has k elements before considering it valid",
+      "Using nested loops to check all subarrays - if you have two nested loops iterating over the array, you're not using sliding window correctly",
+      "Forgetting to handle edge cases like empty arrays, k larger than array length, or negative numbers in sum problems"
+    ],
+    "patternDetection": [
+      "The problem mentions 'subarray', 'substring', or 'contiguous' elements - these are huge hints for sliding window",
+      "You need to find maximum/minimum/longest/shortest over all possible windows - optimization problems over ranges",
+      "The problem specifies a window size k or asks for windows meeting certain criteria - fixed or variable size window",
+      "You're tempted to use nested loops to check every possible subarray - sliding window can optimize this to O(n)",
+      "String problems with constraints like 'at most k distinct characters' or 'without repeating characters' - classic variable window",
+      "Problems asking for 'consecutive elements' or 'moving average' - these naturally fit the sliding window model"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "643. Maximum Average Subarray I",
+        "link": "https://leetcode.com/problems/maximum-average-subarray-i/",
+        "difficulty": "Easy",
+        "description": "Find the contiguous subarray of length k with maximum average - perfect intro to fixed-size sliding window"
+      },
+      {
+        "title": "3. Longest Substring Without Repeating Characters",
+        "link": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+        "difficulty": "Medium",
+        "description": "Classic variable-size sliding window with hash map to track character frequencies"
+      },
+      {
+        "title": "209. Minimum Size Subarray Sum",
+        "link": "https://leetcode.com/problems/minimum-size-subarray-sum/",
+        "difficulty": "Medium",
+        "description": "Find the smallest subarray with sum >= target - variable window that shrinks when valid"
+      },
+      {
+        "title": "424. Longest Repeating Character Replacement",
+        "link": "https://leetcode.com/problems/longest-repeating-character-replacement/",
+        "difficulty": "Medium",
+        "description": "Advanced sliding window with character replacement - tracks frequencies and valid window conditions"
+      },
+      {
+        "title": "76. Minimum Window Substring",
+        "link": "https://leetcode.com/problems/minimum-window-substring/",
+        "difficulty": "Hard",
+        "description": "Find minimum window containing all characters of another string - challenging variable window problem"
+      },
+      {
+        "title": "567. Permutation in String",
+        "link": "https://leetcode.com/problems/permutation-in-string/",
+        "difficulty": "Medium",
+        "description": "Check if one string contains permutation of another - fixed window with frequency matching"
+      },
+      {
+        "title": "1004. Max Consecutive Ones III",
+        "link": "https://leetcode.com/problems/max-consecutive-ones-iii/",
+        "difficulty": "Medium",
+        "description": "Longest subarray of 1s after flipping at most k zeros - variable window with flip tracking"
+      },
+      {
+        "title": "438. Find All Anagrams in a String",
+        "link": "https://leetcode.com/problems/find-all-anagrams-in-a-string/",
+        "difficulty": "Medium",
+        "description": "Find all anagram starting indices - fixed window with character frequency comparison"
+      }
+    ]
+  },
+  "walkthrough": {
+    "title": "Longest Substring Without Repeating Characters",
+    "description": "Find the length of the longest substring without repeating characters using variable-size sliding window",
+    "difficulty": "Medium",
+    "code": {
+      "javascript": "function lengthOfLongestSubstring(s) {\n  const charSet = new Set();\n  let left = 0;\n  let maxLength = 0;\n  \n  for (let right = 0; right < s.length; right++) {\n    while (charSet.has(s[right])) {\n      charSet.delete(s[left]);\n      left++;\n    }\n    charSet.add(s[right]);\n    maxLength = Math.max(maxLength, right - left + 1);\n  }\n  \n  return maxLength;\n}",
+      "python": "def lengthOfLongestSubstring(s):\n    char_set = set()\n    left = 0\n    max_length = 0\n    \n    for right in range(len(s)):\n        while s[right] in char_set:\n            char_set.remove(s[left])\n            left += 1\n        char_set.add(s[right])\n        max_length = max(max_length, right - left + 1)\n    \n    return max_length",
+      "java": "public int lengthOfLongestSubstring(String s) {\n    Set<Character> charSet = new HashSet<>();\n    int left = 0;\n    int maxLength = 0;\n    \n    for (int right = 0; right < s.length(); right++) {\n        while (charSet.contains(s.charAt(right))) {\n            charSet.remove(s.charAt(left));\n            left++;\n        }\n        charSet.add(s.charAt(right));\n        maxLength = Math.max(maxLength, right - left + 1);\n    }\n    \n    return maxLength;\n}",
+      "c": "int lengthOfLongestSubstring(char* s) {\n    int charIndex[128] = {0};\n    int left = 0, maxLength = 0;\n    \n    for (int right = 0; s[right] != '\\0'; right++) {\n        if (charIndex[s[right]] > left) {\n            left = charIndex[s[right]];\n        }\n        charIndex[s[right]] = right + 1;\n        int currentLength = right - left + 1;\n        maxLength = currentLength > maxLength ? currentLength : maxLength;\n    }\n    \n    return maxLength;\n}"
+    },
+    "steps": [
+      {
+        "title": "Initialize Window and Tracking",
+        "explanation": "We start with a Set to track characters in our current window, and two pointers (left and right) both starting at 0.\\n\\nThe Set is crucial - it allows O(1) lookup to check if a character is already in our window. This is the key to detecting duplicates quickly!",
+        "highlightLines": [
+          2,
+          3,
+          4
+        ],
+        "visualization": "s = abcabcbb\\n     ↑\\n   left=0, right=0\\n   charSet = {}\\n   maxLength = 0",
+        "insight": "Using a Set for O(1) duplicate detection is what makes this algorithm efficient.",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Expand Window by Moving Right",
+        "explanation": "We move the right pointer forward, expanding our window. Before adding the new character, we check if it's already in our Set.\\n\\nIf it's NOT in the Set, we're good! Add it and continue.\\nIf it IS in the Set, we have a duplicate - time to shrink!",
+        "highlightLines": [
+          6,
+          7
+        ],
+        "visualization": "s = abcabcbb\\n     ↑↑↑\\n   left=0, right=2\\n   charSet = {a, b, c}\\n   Current window: abc (length 3)",
+        "insight": "The right pointer always moves forward, exploring new characters.",
+        "complexity": {
+          "time": "O(1) per iteration",
+          "space": "O(k)"
+        }
+      },
+      {
+        "title": "Shrink Window When Duplicate Found",
+        "explanation": "When we find a duplicate (s[right] is already in charSet), we enter the while loop.\\n\\nWe remove characters from the left side of the window until the duplicate is gone. This is the shrinking phase of the sliding window.\\n\\nExample: If window is abc and we try to add a, we remove characters from left until a is gone.",
+        "highlightLines": [
+          7,
+          8,
+          9,
+          10
+        ],
+        "visualization": "s = abcabcbb\\n        ↑\\n   right=3, trying to add a\\n   charSet = {a, b, c}\\n   \\n   Duplicate found! Shrink:\\n   Remove a: charSet = {b, c}, left=1\\n   Now we can add a again",
+        "insight": "The while loop ensures we remove ALL characters up to and including the duplicate. This maintains the no repeating characters invariant.",
+        "complexity": {
+          "time": "O(1) amortized",
+          "space": "O(k)"
+        }
+      },
+      {
+        "title": "Add New Character and Update Max",
+        "explanation": "After ensuring no duplicates, we add the current character to our Set.\\n\\nThen we calculate the current window length (right - left + 1) and update maxLength if this window is longer than any we've seen before.\\n\\nThis is where we track our answer!",
+        "highlightLines": [
+          11,
+          12
+        ],
+        "visualization": "s = abcabcbb\\n        ↑\\n   left=1, right=3\\n   charSet = {b, c, a}\\n   Current window: bca (length 3)\\n   maxLength = max(3, 3) = 3",
+        "insight": "We update maxLength at every step, not just when we find something new. This ensures we don't miss the optimal answer.",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(k)"
+        }
+      },
+      {
+        "title": "Continue Until End",
+        "explanation": "The right pointer continues moving forward until it reaches the end of the string.\\n\\nEach character is added to the Set at most once and removed at most once, giving us O(n) time complexity overall.\\n\\nFor abcabcbb, the longest substring without repeating characters is abc with length 3.",
+        "highlightLines": [
+          6,
+          14
+        ],
+        "visualization": "Final state:\\ns = abcabcbb\\n          ↑\\n   left=6, right=7\\n   charSet = {b}\\n   maxLength = 3\\n   \\n   Answer: 3 (substring abc or bca or cab)",
+        "insight": "Even though we have nested loops (for + while), each character is processed at most twice (once added, once removed), making this O(n) time!",
+        "complexity": {
+          "time": "O(n) total",
+          "space": "O(min(n, m))"
+        }
+      }
+    ]
+  }
+}

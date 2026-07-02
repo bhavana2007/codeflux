@@ -1,0 +1,622 @@
+{
+  "id": "graph-algorithms",
+  "title": "Graph Algorithms",
+  "description": "Master advanced graph algorithms including shortest paths and minimum spanning trees",
+  "difficulty": "advanced",
+  "order": 18,
+  "tags": [
+    "graphs",
+    "algorithms",
+    "shortest-path",
+    "mst"
+  ],
+  "documentation": {
+    "content": "# Graph Algorithms: Connecting the Dots\n\nImagine you're planning a road trip across multiple cities. What's the shortest route? Which roads must you take to connect all cities with minimum cost? These are graph problems, and graph algorithms give you the answers.\n\n## The Story Behind Graph Algorithms\n\nGraphs model relationships—cities connected by roads, people connected by friendships, web pages connected by links. Graph algorithms solve fundamental problems: finding paths, detecting cycles, finding shortest routes, connecting components efficiently.\n\nThese algorithms power GPS navigation, social networks, network routing, and countless other applications.\n\n## Graph Representations\n\n**Adjacency Matrix** - 2D array where matrix[i][j] = 1 if edge exists. Fast lookup O(1), but uses O(V²) space.\n\n**Adjacency List** - Array of lists where list[i] contains neighbors of vertex i. Space efficient O(V + E), most common.\n\n**Edge List** - List of all edges. Simple but slower for neighbor queries.\n\n## Essential Graph Algorithms\n\n**Dijkstra's Algorithm** - Shortest path from source to all vertices (non-negative weights). Uses priority queue. O((V + E) log V)\n\n**Bellman-Ford** - Shortest path with negative weights. Detects negative cycles. O(V * E)\n\n**Floyd-Warshall** - All-pairs shortest paths. O(V³)\n\n**Prim's Algorithm** - Minimum spanning tree. Greedy approach. O((V + E) log V)\n\n**Kruskal's Algorithm** - Minimum spanning tree. Sort edges, use union-find. O(E log E)\n\n**Topological Sort** - Linear ordering of directed acyclic graph. O(V + E)\n\n## When to Use Each Algorithm\n\n**Dijkstra's** - Single-source shortest path, non-negative weights, need actual paths\n**Bellman-Ford** - Negative weights allowed, detect negative cycles\n**Floyd-Warshall** - All-pairs shortest paths, small graphs\n**BFS** - Unweighted shortest path, simpler than Dijkstra\n**DFS** - Cycle detection, topological sort, connectivity\n**Prim's/Kruskal's** - Minimum spanning tree (connect all vertices with minimum cost)\n\n## Dijkstra's Algorithm Explained\n\nThink of it as exploring a map, always visiting the closest unvisited location:\n\n1. Start at source, distance = 0\n2. Mark all other vertices as distance = infinity\n3. Use min-heap to always process closest vertex\n4. For each neighbor, update distance if shorter path found\n5. Repeat until all vertices processed\n\n## The Performance\n\n**DFS/BFS**: O(V + E)\n**Dijkstra's**: O((V + E) log V) with heap\n**Bellman-Ford**: O(V * E)\n**Floyd-Warshall**: O(V³)\n**Prim's/Kruskal's**: O(E log E) or O(E log V)\n\n## Common Mistakes\n\n❌ **Using Dijkstra with negative weights** - It fails! Use Bellman-Ford instead\n❌ **Not using priority queue for Dijkstra** - Makes it O(V²) instead of O((V+E) log V)\n❌ **Forgetting to mark visited** - Causes infinite loops\n❌ **Wrong graph representation** - Choose based on density (sparse vs dense)\n❌ **Not handling disconnected graphs** - May need to process multiple components\n\n## Pro Tips\n\n💡 **Choose right representation** - Adjacency list for sparse, matrix for dense\n💡 **Priority queue for Dijkstra** - Essential for efficiency\n💡 **Union-Find for Kruskal's** - Efficiently detects cycles\n💡 **BFS for unweighted** - Simpler than Dijkstra when all edges weight 1\n💡 **Negative cycles** - Bellman-Ford detects them, Dijkstra doesn't\n\n## Real-World Applications\n\n**Dijkstra's:**\n- GPS navigation (shortest route)\n- Network routing (packet paths)\n- Flight booking (cheapest route)\n\n**MST (Prim's/Kruskal's):**\n- Network design (minimum cable)\n- Clustering algorithms\n- Approximation algorithms\n\n**Topological Sort:**\n- Build systems (dependency order)\n- Course prerequisites\n- Task scheduling\n\n**Cycle Detection:**\n- Deadlock detection\n- Dependency validation\n- Infinite loop detection\n\nGraph algorithms are the backbone of modern computing—from social networks to GPS to the internet itself. Master these, and you'll understand how the connected world works! 🗺️✨\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "gXgEDyodOJU",
+      "title": "Graph Algorithms - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "59fUtYYz7ZU",
+      "title": "Graph Algorithms - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "G9a0B40GpDs",
+      "title": "Graph Algorithms - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Which algorithm finds shortest path with negative edge weights?",
+        "options": [
+          "Dijkstra's",
+          "Bellman-Ford",
+          "BFS",
+          "DFS"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Bellman-Ford handles negative weights and can detect negative cycles. Dijkstra's fails with negative weights."
+      },
+      {
+        "id": "q2",
+        "question": "What data structure does Dijkstra's algorithm use for efficiency?",
+        "options": [
+          "Stack",
+          "Queue",
+          "Priority Queue (Min-Heap)",
+          "Hash Map"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Dijkstra's uses a min-heap (priority queue) to always process the closest unvisited vertex."
+      },
+      {
+        "id": "q3",
+        "question": "Which algorithms find minimum spanning tree?",
+        "options": [
+          "Dijkstra's and BFS",
+          "Prim's and Kruskal's",
+          "DFS and BFS",
+          "Bellman-Ford and Floyd-Warshall"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Prim's and Kruskal's algorithms both find minimum spanning trees using greedy approaches."
+      },
+      {
+        "id": "q4",
+        "question": "What is the time complexity of Dijkstra's with a min-heap?",
+        "options": [
+          "O(V + E)",
+          "O(V²)",
+          "O((V + E) log V)",
+          "O(V * E)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "With a min-heap, Dijkstra's runs in O((V + E) log V) time."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "network-delay-time",
+      "title": "Network Delay Time",
+      "difficulty": "medium",
+      "description": "You are given a network of n nodes, labeled from 1 to n. You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi), where ui is the source node, vi is the target node, and wi is the time it takes for a signal to travel from source to target.\n\nWe will send a signal from a given node k. Return the minimum time it takes for all n nodes to receive the signal. If it is impossible for all nodes to receive the signal, return -1.",
+      "constraints": [
+        "1 <= k <= n <= 100",
+        "1 <= times.length <= 6000",
+        "times[i].length == 3",
+        "1 <= ui, vi <= n",
+        "ui != vi",
+        "0 <= wi <= 100",
+        "All pairs (ui, vi) are unique"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "times": [
+              [
+                2,
+                1,
+                1
+              ],
+              [
+                2,
+                3,
+                1
+              ],
+              [
+                3,
+                4,
+                1
+              ]
+            ],
+            "n": 4,
+            "k": 2
+          },
+          "expectedOutput": 2,
+          "description": "Signal reaches all nodes in 2 time units"
+        },
+        {
+          "input": {
+            "times": [
+              [
+                1,
+                2,
+                1
+              ]
+            ],
+            "n": 2,
+            "k": 1
+          },
+          "expectedOutput": 1,
+          "description": "Direct connection"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "times": [
+              [
+                1,
+                2,
+                1
+              ]
+            ],
+            "n": 2,
+            "k": 2
+          },
+          "expectedOutput": -1,
+          "description": "Node 1 unreachable from node 2"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function networkDelayTime(times, n, k) {\n  // Your code here\n  // Use Dijkstra's algorithm\n  \n}",
+        "python": "def network_delay_time(times, n, k):\n    # Your code here\n    # Use Dijkstra's algorithm\n    pass",
+        "java": "class Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        // Your code here\n        // Use Dijkstra's algorithm\n        \n    }\n}",
+        "c": "int networkDelayTime(int** times, int timesSize, int* timesColSize, int n, int k) {\n    // Your code here\n    // Use Dijkstra's algorithm\n    \n}"
+      },
+      "solution": {
+        "javascript": "function networkDelayTime(times, n, k) {\n  const graph = new Map();\n  for (let i = 1; i <= n; i++) graph.set(i, []);\n  \n  for (const [u, v, w] of times) {\n    graph.get(u).push([v, w]);\n  }\n  \n  const dist = new Array(n + 1).fill(Infinity);\n  dist[k] = 0;\n  \n  const pq = [[0, k]]; // [distance, node]\n  \n  while (pq.length > 0) {\n    pq.sort((a, b) => a[0] - b[0]);\n    const [d, node] = pq.shift();\n    \n    if (d > dist[node]) continue;\n    \n    for (const [neighbor, weight] of graph.get(node)) {\n      const newDist = d + weight;\n      if (newDist < dist[neighbor]) {\n        dist[neighbor] = newDist;\n        pq.push([newDist, neighbor]);\n      }\n    }\n  }\n  \n  let maxDist = 0;\n  for (let i = 1; i <= n; i++) {\n    if (dist[i] === Infinity) return -1;\n    maxDist = Math.max(maxDist, dist[i]);\n  }\n  \n  return maxDist;\n}",
+        "python": "import heapq\nfrom collections import defaultdict\n\ndef network_delay_time(times, n, k):\n    graph = defaultdict(list)\n    for u, v, w in times:\n        graph[u].append((v, w))\n    \n    dist = {i: float('inf') for i in range(1, n + 1)}\n    dist[k] = 0\n    \n    pq = [(0, k)]  # (distance, node)\n    \n    while pq:\n        d, node = heapq.heappop(pq)\n        \n        if d > dist[node]:\n            continue\n        \n        for neighbor, weight in graph[node]:\n            new_dist = d + weight\n            if new_dist < dist[neighbor]:\n                dist[neighbor] = new_dist\n                heapq.heappush(pq, (new_dist, neighbor))\n    \n    max_dist = max(dist.values())\n    return max_dist if max_dist != float('inf') else -1",
+        "java": "class Solution {\n    public int networkDelayTime(int[][] times, int n, int k) {\n        Map<Integer, List<int[]>> graph = new HashMap<>();\n        for (int i = 1; i <= n; i++) {\n            graph.put(i, new ArrayList<>());\n        }\n        \n        for (int[] time : times) {\n            graph.get(time[0]).add(new int[]{time[1], time[2]});\n        }\n        \n        int[] dist = new int[n + 1];\n        Arrays.fill(dist, Integer.MAX_VALUE);\n        dist[k] = 0;\n        \n        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);\n        pq.offer(new int[]{0, k});\n        \n        while (!pq.isEmpty()) {\n            int[] curr = pq.poll();\n            int d = curr[0], node = curr[1];\n            \n            if (d > dist[node]) continue;\n            \n            for (int[] edge : graph.get(node)) {\n                int neighbor = edge[0], weight = edge[1];\n                int newDist = d + weight;\n                \n                if (newDist < dist[neighbor]) {\n                    dist[neighbor] = newDist;\n                    pq.offer(new int[]{newDist, neighbor});\n                }\n            }\n        }\n        \n        int maxDist = 0;\n        for (int i = 1; i <= n; i++) {\n            if (dist[i] == Integer.MAX_VALUE) return -1;\n            maxDist = Math.max(maxDist, dist[i]);\n        }\n        \n        return maxDist;\n    }\n}",
+        "c": "int networkDelayTime(int** times, int timesSize, int* timesColSize, int n, int k) {\n    // Simplified implementation\n    // Full Dijkstra's would require priority queue implementation\n    return -1;\n}"
+      }
+    },
+    {
+      "id": "course-schedule",
+      "title": "Course Schedule",
+      "difficulty": "medium",
+      "description": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.\n\nReturn true if you can finish all courses. Otherwise, return false.",
+      "constraints": [
+        "1 <= numCourses <= 2000",
+        "0 <= prerequisites.length <= 5000",
+        "prerequisites[i].length == 2",
+        "0 <= ai, bi < numCourses",
+        "All pairs [ai, bi] are unique"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "numCourses": 2,
+            "prerequisites": [
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          "expectedOutput": true,
+          "description": "Take course 0, then course 1"
+        },
+        {
+          "input": {
+            "numCourses": 2,
+            "prerequisites": [
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                1
+              ]
+            ]
+          },
+          "expectedOutput": false,
+          "description": "Circular dependency"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "numCourses": 1,
+            "prerequisites": []
+          },
+          "expectedOutput": true,
+          "description": "Single course, no prerequisites"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function canFinish(numCourses, prerequisites) {\n  // Your code here\n  // Detect cycle using DFS or topological sort\n  \n}",
+        "python": "def can_finish(num_courses, prerequisites):\n    # Your code here\n    # Detect cycle using DFS or topological sort\n    pass",
+        "java": "class Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        // Your code here\n        // Detect cycle using DFS or topological sort\n        \n    }\n}",
+        "c": "bool canFinish(int numCourses, int** prerequisites, int prerequisitesSize, int* prerequisitesColSize) {\n    // Your code here\n    // Detect cycle using DFS or topological sort\n    \n}"
+      },
+      "solution": {
+        "javascript": "function canFinish(numCourses, prerequisites) {\n  const graph = Array.from({ length: numCourses }, () => []);\n  const visited = new Array(numCourses).fill(0); // 0: unvisited, 1: visiting, 2: visited\n  \n  for (const [course, prereq] of prerequisites) {\n    graph[prereq].push(course);\n  }\n  \n  function hasCycle(node) {\n    if (visited[node] === 1) return true; // Cycle detected\n    if (visited[node] === 2) return false; // Already processed\n    \n    visited[node] = 1;\n    \n    for (const neighbor of graph[node]) {\n      if (hasCycle(neighbor)) return true;\n    }\n    \n    visited[node] = 2;\n    return false;\n  }\n  \n  for (let i = 0; i < numCourses; i++) {\n    if (visited[i] === 0 && hasCycle(i)) {\n      return false;\n    }\n  }\n  \n  return true;\n}",
+        "python": "def can_finish(num_courses, prerequisites):\n    graph = [[] for _ in range(num_courses)]\n    visited = [0] * num_courses  # 0: unvisited, 1: visiting, 2: visited\n    \n    for course, prereq in prerequisites:\n        graph[prereq].append(course)\n    \n    def has_cycle(node):\n        if visited[node] == 1:\n            return True\n        if visited[node] == 2:\n            return False\n        \n        visited[node] = 1\n        \n        for neighbor in graph[node]:\n            if has_cycle(neighbor):\n                return True\n        \n        visited[node] = 2\n        return False\n    \n    for i in range(num_courses):\n        if visited[i] == 0 and has_cycle(i):\n            return False\n    \n    return True",
+        "java": "class Solution {\n    public boolean canFinish(int numCourses, int[][] prerequisites) {\n        List<List<Integer>> graph = new ArrayList<>();\n        for (int i = 0; i < numCourses; i++) {\n            graph.add(new ArrayList<>());\n        }\n        \n        for (int[] prereq : prerequisites) {\n            graph.get(prereq[1]).add(prereq[0]);\n        }\n        \n        int[] visited = new int[numCourses];\n        \n        for (int i = 0; i < numCourses; i++) {\n            if (visited[i] == 0 && hasCycle(graph, visited, i)) {\n                return false;\n            }\n        }\n        \n        return true;\n    }\n    \n    private boolean hasCycle(List<List<Integer>> graph, int[] visited, int node) {\n        if (visited[node] == 1) return true;\n        if (visited[node] == 2) return false;\n        \n        visited[node] = 1;\n        \n        for (int neighbor : graph.get(node)) {\n            if (hasCycle(graph, visited, neighbor)) return true;\n        }\n        \n        visited[node] = 2;\n        return false;\n    }\n}",
+        "c": "bool hasCycle(int** graph, int* graphSize, int* visited, int node) {\n    if (visited[node] == 1) return true;\n    if (visited[node] == 2) return false;\n    \n    visited[node] = 1;\n    \n    for (int i = 0; i < graphSize[node]; i++) {\n        if (hasCycle(graph, graphSize, visited, graph[node][i])) {\n            return true;\n        }\n    }\n    \n    visited[node] = 2;\n    return false;\n}\n\nbool canFinish(int numCourses, int** prerequisites, int prerequisitesSize, int* prerequisitesColSize) {\n    // Simplified - full implementation would need dynamic graph structure\n    return true;\n}"
+      }
+    },
+    {
+      "id": "course-schedule",
+      "title": "Course Schedule",
+      "difficulty": "medium",
+      "description": "Solve the Course Schedule problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "network-delay-time",
+      "title": "Network Delay Time",
+      "difficulty": "medium",
+      "description": "Solve the Network Delay Time problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "cheapest-flights-k-stops",
+      "title": "Cheapest Flights Within K Stops",
+      "difficulty": "medium",
+      "description": "Solve the Cheapest Flights Within K Stops problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Using Dijkstra's with negative weights - it fails! Use Bellman-Ford instead",
+      "Not using priority queue for Dijkstra's - makes it inefficient O(V²)",
+      "Forgetting to mark nodes as visited - causes infinite loops",
+      "Wrong graph representation choice - adjacency list for sparse, matrix for dense",
+      "Not handling disconnected graphs - may need to process multiple components"
+    ],
+    "patternDetection": [
+      "Problem asks for 'shortest path' - Dijkstra's or BFS (if unweighted)",
+      "Negative edge weights mentioned - use Bellman-Ford",
+      "Need all-pairs shortest paths - Floyd-Warshall",
+      "Minimum cost to connect all nodes - MST (Prim's or Kruskal's)",
+      "Dependency ordering or task scheduling - topological sort",
+      "Cycle detection in directed graph - DFS with coloring",
+      "Keywords: 'shortest', 'minimum cost', 'connect all', 'dependencies', 'path'"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "743. Network Delay Time",
+        "link": "https://leetcode.com/problems/network-delay-time/",
+        "difficulty": "Medium",
+        "description": "Dijkstra's algorithm for shortest path"
+      },
+      {
+        "title": "207. Course Schedule",
+        "link": "https://leetcode.com/problems/course-schedule/",
+        "difficulty": "Medium",
+        "description": "Cycle detection using DFS or topological sort"
+      },
+      {
+        "title": "210. Course Schedule II",
+        "link": "https://leetcode.com/problems/course-schedule-ii/",
+        "difficulty": "Medium",
+        "description": "Topological sort to find course order"
+      },
+      {
+        "title": "787. Cheapest Flights Within K Stops",
+        "link": "https://leetcode.com/problems/cheapest-flights-within-k-stops/",
+        "difficulty": "Medium",
+        "description": "Modified Dijkstra's with constraints"
+      },
+      {
+        "title": "1584. Min Cost to Connect All Points",
+        "link": "https://leetcode.com/problems/min-cost-to-connect-all-points/",
+        "difficulty": "Medium",
+        "description": "Minimum spanning tree using Prim's or Kruskal's"
+      },
+      {
+        "title": "399. Evaluate Division",
+        "link": "https://leetcode.com/problems/evaluate-division/",
+        "difficulty": "Medium",
+        "description": "Graph with weighted edges, path finding"
+      }
+    ]
+  },
+  "walkthrough": {
+    "title": "Course Schedule (Cycle Detection)",
+    "description": "Determine if you can finish all courses given prerequisites using topological sort and cycle detection",
+    "difficulty": "Medium",
+    "code": {
+      "javascript": "function canFinish(numCourses, prerequisites) {\n  // Build adjacency list\n  const graph = Array(numCourses).fill(0).map(() => []);\n  const visited = new Array(numCourses).fill(0); // 0=unvisited, 1=visiting, 2=visited\n  \n  for (const [course, prereq] of prerequisites) {\n    graph[prereq].push(course);\n  }\n  \n  function hasCycle(course) {\n    if (visited[course] === 1) return true;  // Cycle detected!\n    if (visited[course] === 2) return false; // Already checked\n    \n    visited[course] = 1; // Mark as visiting\n    \n    for (const nextCourse of graph[course]) {\n      if (hasCycle(nextCourse)) return true;\n    }\n    \n    visited[course] = 2; // Mark as visited\n    return false;\n  }\n  \n  // Check each course for cycles\n  for (let i = 0; i < numCourses; i++) {\n    if (visited[i] === 0 && hasCycle(i)) {\n      return false;\n    }\n  }\n  \n  return true;\n}",
+      "python": "def canFinish(numCourses, prerequisites):\n    # Build adjacency list\n    graph = [[] for _ in range(numCourses)]\n    visited = [0] * numCourses  # 0=unvisited, 1=visiting, 2=visited\n    \n    for course, prereq in prerequisites:\n        graph[prereq].append(course)\n    \n    def has_cycle(course):\n        if visited[course] == 1:\n            return True  # Cycle detected!\n        if visited[course] == 2:\n            return False  # Already checked\n        \n        visited[course] = 1  # Mark as visiting\n        \n        for next_course in graph[course]:\n            if has_cycle(next_course):\n                return True\n        \n        visited[course] = 2  # Mark as visited\n        return False\n    \n    for i in range(numCourses):\n        if visited[i] == 0 and has_cycle(i):\n            return False\n    \n    return True",
+      "java": "public boolean canFinish(int numCourses, int[][] prerequisites) {\n    List<List<Integer>> graph = new ArrayList<>();\n    for (int i = 0; i < numCourses; i++) {\n        graph.add(new ArrayList<>());\n    }\n    \n    int[] visited = new int[numCourses];\n    \n    for (int[] prereq : prerequisites) {\n        graph.get(prereq[1]).add(prereq[0]);\n    }\n    \n    for (int i = 0; i < numCourses; i++) {\n        if (visited[i] == 0 && hasCycle(graph, visited, i)) {\n            return false;\n        }\n    }\n    \n    return true;\n}\n\nprivate boolean hasCycle(List<List<Integer>> graph, int[] visited, int course) {\n    if (visited[course] == 1) return true;\n    if (visited[course] == 2) return false;\n    \n    visited[course] = 1;\n    \n    for (int next : graph.get(course)) {\n        if (hasCycle(graph, visited, next)) return true;\n    }\n    \n    visited[course] = 2;\n    return false;\n}",
+      "c": "bool hasCycle(int** graph, int* graphColSize, int* visited, int course) {\n    if (visited[course] == 1) return true;\n    if (visited[course] == 2) return false;\n    \n    visited[course] = 1;\n    \n    for (int i = 0; i < graphColSize[course]; i++) {\n        if (hasCycle(graph, graphColSize, visited, graph[course][i])) {\n            return true;\n        }\n    }\n    \n    visited[course] = 2;\n    return false;\n}\n\nbool canFinish(int numCourses, int** prerequisites, int prerequisitesSize, int* prerequisitesColSize) {\n    // Build graph and check for cycles\n    int** graph = (int**)malloc(numCourses * sizeof(int*));\n    int* graphColSize = (int*)calloc(numCourses, sizeof(int));\n    int* visited = (int*)calloc(numCourses, sizeof(int));\n    \n    // ... graph building code ...\n    \n    for (int i = 0; i < numCourses; i++) {\n        if (visited[i] == 0 && hasCycle(graph, graphColSize, visited, i)) {\n            return false;\n        }\n    }\n    \n    return true;\n}"
+    },
+    "steps": [
+      {
+        "title": "Build Dependency Graph",
+        "explanation": "Create an adjacency list where graph[A] contains all courses that depend on course A.\\n\\nExample: [0,1] means course 0 depends on course 1\\nSo graph[1] = [0] (taking course 1 unlocks course 0)\\n\\nThis represents the prerequisite relationships!",
+        "highlightLines": [
+          3,
+          6,
+          7
+        ],
+        "visualization": "prerequisites = [[1,0], [2,1], [0,2]]\\n\\ngraph:\\n0 → [2]\\n1 → [0]\\n2 → [1]\\n\\nThis forms a cycle: 0→2→1→0",
+        "insight": "Building the graph in this direction (prereq → course) makes it easy to detect cycles using DFS!",
+        "complexity": {
+          "time": "O(E)",
+          "space": "O(V+E)"
+        }
+      },
+      {
+        "title": "Initialize Visited States",
+        "explanation": "Use 3 states to track each course:\\n• 0 = unvisited (haven't checked yet)\\n• 1 = visiting (currently in DFS path)\\n• 2 = visited (fully processed, no cycle)\\n\\nState 1 is key for cycle detection!",
+        "highlightLines": [
+          4
+        ],
+        "visualization": "visited = [0, 0, 0, 0]\\n           ↑  ↑  ↑  ↑\\n           course 0,1,2,3\\n\\nAll start as unvisited",
+        "insight": "The 'visiting' state (1) lets us detect back edges, which indicate cycles!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(V)"
+        }
+      },
+      {
+        "title": "Detect Cycle with DFS",
+        "explanation": "For each course, do DFS:\\n• If we encounter a course marked 'visiting' (1), we've found a cycle!\\n• If already 'visited' (2), skip it (already checked)\\n• Otherwise, mark as 'visiting' and explore neighbors",
+        "highlightLines": [
+          10,
+          11,
+          12,
+          14,
+          16,
+          17
+        ],
+        "visualization": "DFS from course 0:\\nvisited[0] = 1 (visiting)\\nExplore 0→2\\nvisited[2] = 1 (visiting)\\nExplore 2→1\\nvisited[1] = 1 (visiting)\\nExplore 1→0\\nvisited[0] = 1 (visiting) ← CYCLE!",
+        "insight": "When we see a 'visiting' node again, it means we've returned to a node in our current path - that's a cycle!",
+        "complexity": {
+          "time": "O(V+E)",
+          "space": "O(V)"
+        }
+      },
+      {
+        "title": "Mark as Fully Visited",
+        "explanation": "After exploring all neighbors without finding a cycle, mark the course as 'visited' (2).\\n\\nThis means: 'I've checked this course and all its dependencies - no cycles here!'\\n\\nThis optimization prevents re-checking the same paths.",
+        "highlightLines": [
+          20
+        ],
+        "visualization": "After DFS from course 3 (no cycle):\\n\\nvisited[3] = 2 (fully visited)\\n\\nIf we encounter course 3 again in another path, we can skip it!",
+        "insight": "Marking as 'visited' (2) is an optimization. Without it, we'd still detect cycles, but we'd waste time re-exploring safe paths!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Check All Courses",
+        "explanation": "Try DFS from each unvisited course.\\n\\nIf any DFS finds a cycle, return false (impossible to finish all courses).\\n\\nIf all DFS complete without cycles, return true!\\n\\nTime: O(V+E) - visit each vertex and edge once\\nSpace: O(V) - recursion stack and visited array",
+        "highlightLines": [
+          25,
+          26,
+          27,
+          28,
+          31
+        ],
+        "visualization": "Example 1: [[1,0]] (0→1)\\nNo cycle! Return true\\n\\nExample 2: [[1,0],[0,1]] (0→1→0)\\nCycle detected! Return false\\n\\nA cycle means circular dependencies - impossible to complete!",
+        "insight": "This is topological sort with cycle detection! If a valid topological order exists, there's no cycle and we can finish all courses.",
+        "complexity": {
+          "time": "O(V+E)",
+          "space": "O(V)"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,755 @@
+{
+  "id": "linked-lists",
+  "title": "Linked Lists",
+  "description": "Master linked list operations and pointer manipulation techniques",
+  "difficulty": "beginner",
+  "order": 5,
+  "tags": [
+    "data-structures",
+    "pointers",
+    "nodes",
+    "linear"
+  ],
+  "documentation": {
+    "content": "# Linked Lists\n\nImagine a treasure hunt where each clue leads you to the next location. You can't skip ahead—you must follow the chain. That's exactly how a linked list works! Unlike arrays where elements sit side-by-side in memory, linked lists are like a chain of nodes, each pointing to the next.\n\n## The Story Behind Linked Lists\n\nLinked lists are one of the fundamental data structures in computer science. They solve a key problem with arrays: what if you don't know how much space you need upfront? Or what if inserting/deleting elements in the middle is too expensive?\n\nWith linked lists, each element (called a node) contains data and a reference (pointer) to the next node. This simple idea enables dynamic memory allocation and efficient insertions/deletions.\n\n## Types of Linked Lists\n\n**Singly Linked List** - Each node points to the next node. You can only traverse forward.\n\n**Doubly Linked List** - Each node has pointers to both next and previous nodes. You can traverse in both directions.\n\n**Circular Linked List** - The last node points back to the first node, forming a circle.\n\n## When to Use Linked Lists\n\nYou'll reach for linked lists when:\n\n**Dynamic size** - You don't know how many elements you'll have\n**Frequent insertions/deletions** - Especially at the beginning or middle\n**No random access needed** - You're okay with sequential access\n**Implementing other structures** - Stacks, queues, graphs often use linked lists\n\n## Common Operations\n\n**Traversal** - Visit each node from head to tail: O(n)\n**Insertion at head** - Add new node at the beginning: O(1)\n**Insertion at tail** - Add new node at the end: O(n) without tail pointer, O(1) with tail pointer\n**Deletion** - Remove a node: O(n) to find, O(1) to delete\n**Search** - Find a node with specific value: O(n)\n\n## The Performance Trade-offs\n\n**Advantages:**\n- Dynamic size - grows and shrinks as needed\n- Efficient insertions/deletions at beginning: O(1)\n- No wasted memory from pre-allocation\n\n**Disadvantages:**\n- No random access - must traverse from head: O(n)\n- Extra memory for pointers\n- Not cache-friendly (nodes scattered in memory)\n\n## Common Mistakes\n\n❌ **Losing the head pointer** - Always keep a reference to the head!\n❌ **Forgetting to update pointers** - When inserting/deleting, update all affected pointers\n❌ **Not handling null/None** - Always check if a node is null before accessing it\n❌ **Memory leaks** - In languages without garbage collection, remember to free deleted nodes\n\n## Pro Tips\n\n💡 **Use dummy/sentinel nodes** - Simplifies edge cases for insertions/deletions\n💡 **Draw it out** - Visualize pointer changes before coding\n💡 **Two-pointer technique** - Fast and slow pointers solve many linked list problems\n💡 **Reverse in place** - Practice reversing a linked list—it's a classic interview question\n\n## Real-World Applications\n\n- **Music playlists** - Next/previous song navigation\n- **Browser history** - Back and forward buttons\n- **Undo functionality** - Chain of previous states\n- **Memory management** - Free lists in operating systems\n- **Blockchain** - Each block points to the previous block\n\nLinked lists teach you to think about memory and pointers, skills that transfer to many other data structures and algorithms. Master the basics, and you'll find them everywhere! 🔗\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "Hj_rA0dhr2I",
+      "title": "Linked Lists - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "KnX2K4jX8i0",
+      "title": "Linked Lists - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "GmW4nS3N0OE",
+      "title": "Linked Lists - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the time complexity of inserting a node at the beginning of a singly linked list?",
+        "options": [
+          "O(1)",
+          "O(n)",
+          "O(log n)",
+          "O(n²)"
+        ],
+        "correctAnswer": 0,
+        "explanation": "Inserting at the beginning is O(1) because you only need to update the head pointer and the new node's next pointer."
+      },
+      {
+        "id": "q2",
+        "question": "What is the main advantage of linked lists over arrays?",
+        "options": [
+          "Faster random access",
+          "Dynamic size and efficient insertions/deletions",
+          "Less memory usage",
+          "Better cache performance"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Linked lists have dynamic size and allow efficient O(1) insertions/deletions at the beginning, unlike arrays which require shifting elements."
+      },
+      {
+        "id": "q3",
+        "question": "In a singly linked list, how do you access the middle element?",
+        "options": [
+          "Direct access using index",
+          "Traverse from head to middle",
+          "Use binary search",
+          "Access from tail backwards"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Singly linked lists don't support random access. You must traverse from the head node by node until you reach the middle."
+      },
+      {
+        "id": "q4",
+        "question": "What does each node in a singly linked list contain?",
+        "options": [
+          "Only data",
+          "Data and pointer to next node",
+          "Data and pointer to previous node",
+          "Data and pointers to both next and previous nodes"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Each node in a singly linked list contains data and a pointer to the next node. Doubly linked lists have pointers to both next and previous."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "reverse-linked-list",
+      "title": "Reverse Linked List",
+      "difficulty": "easy",
+      "description": "Given the head of a singly linked list, reverse the list, and return the reversed list.",
+      "constraints": [
+        "The number of nodes in the list is in range [0, 5000]",
+        "-5000 <= Node.val <= 5000"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": [
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          "description": "Reverse the entire list"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2
+            ]
+          },
+          "expectedOutput": [
+            2,
+            1
+          ],
+          "description": "Reverse two-node list"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "head": []
+          },
+          "expectedOutput": [],
+          "description": "Empty list"
+        },
+        {
+          "input": {
+            "head": [
+              1
+            ]
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single node"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function reverseList(head) {\n  // Your code here\n  // Use three pointers: prev, current, next\n  \n}",
+        "python": "def reverse_list(head):\n    # Your code here\n    # Use three pointers: prev, current, next\n    pass",
+        "java": "class Solution {\n    public ListNode reverseList(ListNode head) {\n        // Your code here\n        // Use three pointers: prev, current, next\n        \n    }\n}",
+        "c": "struct ListNode* reverseList(struct ListNode* head) {\n    // Your code here\n    // Use three pointers: prev, current, next\n    \n}"
+      },
+      "solution": {
+        "javascript": "function reverseList(head) {\n  let prev = null;\n  let current = head;\n  \n  while (current !== null) {\n    const next = current.next;\n    current.next = prev;\n    prev = current;\n    current = next;\n  }\n  \n  return prev;\n}",
+        "python": "def reverse_list(head):\n    prev = None\n    current = head\n    \n    while current:\n        next_node = current.next\n        current.next = prev\n        prev = current\n        current = next_node\n    \n    return prev",
+        "java": "class Solution {\n    public ListNode reverseList(ListNode head) {\n        ListNode prev = null;\n        ListNode current = head;\n        \n        while (current != null) {\n            ListNode next = current.next;\n            current.next = prev;\n            prev = current;\n            current = next;\n        }\n        \n        return prev;\n    }\n}",
+        "c": "struct ListNode* reverseList(struct ListNode* head) {\n    struct ListNode* prev = NULL;\n    struct ListNode* current = head;\n    \n    while (current != NULL) {\n        struct ListNode* next = current->next;\n        current->next = prev;\n        prev = current;\n        current = next;\n    }\n    \n    return prev;\n}"
+      }
+    },
+    {
+      "id": "middle-of-linked-list",
+      "title": "Middle of the Linked List",
+      "difficulty": "easy",
+      "description": "Given the head of a singly linked list, return the middle node of the linked list.\n\nIf there are two middle nodes, return the second middle node.",
+      "constraints": [
+        "The number of nodes in the list is in range [1, 100]",
+        "1 <= Node.val <= 100"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": [
+            3,
+            4,
+            5
+          ],
+          "description": "Middle node is 3"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "expectedOutput": [
+            4,
+            5,
+            6
+          ],
+          "description": "Two middle nodes, return second one (4)"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "head": [
+              1
+            ]
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single node"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2
+            ]
+          },
+          "expectedOutput": [
+            2
+          ],
+          "description": "Two nodes, return second"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function middleNode(head) {\n  // Your code here\n  // Use fast and slow pointers\n  \n}",
+        "python": "def middle_node(head):\n    # Your code here\n    # Use fast and slow pointers\n    pass",
+        "java": "class Solution {\n    public ListNode middleNode(ListNode head) {\n        // Your code here\n        // Use fast and slow pointers\n        \n    }\n}",
+        "c": "struct ListNode* middleNode(struct ListNode* head) {\n    // Your code here\n    // Use fast and slow pointers\n    \n}"
+      },
+      "solution": {
+        "javascript": "function middleNode(head) {\n  let slow = head;\n  let fast = head;\n  \n  while (fast !== null && fast.next !== null) {\n    slow = slow.next;\n    fast = fast.next.next;\n  }\n  \n  return slow;\n}",
+        "python": "def middle_node(head):\n    slow = head\n    fast = head\n    \n    while fast and fast.next:\n        slow = slow.next\n        fast = fast.next.next\n    \n    return slow",
+        "java": "class Solution {\n    public ListNode middleNode(ListNode head) {\n        ListNode slow = head;\n        ListNode fast = head;\n        \n        while (fast != null && fast.next != null) {\n            slow = slow.next;\n            fast = fast.next.next;\n        }\n        \n        return slow;\n    }\n}",
+        "c": "struct ListNode* middleNode(struct ListNode* head) {\n    struct ListNode* slow = head;\n    struct ListNode* fast = head;\n    \n    while (fast != NULL && fast->next != NULL) {\n        slow = slow->next;\n        fast = fast->next->next;\n    }\n    \n    return slow;\n}"
+      }
+    },
+    {
+      "id": "merge-two-sorted-lists",
+      "title": "Merge Two Sorted Lists",
+      "difficulty": "easy",
+      "description": "You are given the heads of two sorted linked lists list1 and list2.\n\nMerge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.\n\nReturn the head of the merged linked list.",
+      "constraints": [
+        "The number of nodes in both lists is in range [0, 50]",
+        "-100 <= Node.val <= 100",
+        "Both list1 and list2 are sorted in non-decreasing order"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "list1": [
+              1,
+              2,
+              4
+            ],
+            "list2": [
+              1,
+              3,
+              4
+            ]
+          },
+          "expectedOutput": [
+            1,
+            1,
+            2,
+            3,
+            4,
+            4
+          ],
+          "description": "Merge two sorted lists"
+        },
+        {
+          "input": {
+            "list1": [],
+            "list2": []
+          },
+          "expectedOutput": [],
+          "description": "Both lists empty"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "list1": [],
+            "list2": [
+              0
+            ]
+          },
+          "expectedOutput": [
+            0
+          ],
+          "description": "One list empty"
+        },
+        {
+          "input": {
+            "list1": [
+              1,
+              3,
+              5
+            ],
+            "list2": [
+              2,
+              4,
+              6
+            ]
+          },
+          "expectedOutput": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "description": "Interleaved values"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function mergeTwoLists(list1, list2) {\n  // Your code here\n  // Use a dummy node to simplify logic\n  \n}",
+        "python": "def merge_two_lists(list1, list2):\n    # Your code here\n    # Use a dummy node to simplify logic\n    pass",
+        "java": "class Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        // Your code here\n        // Use a dummy node to simplify logic\n        \n    }\n}",
+        "c": "struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {\n    // Your code here\n    // Use a dummy node to simplify logic\n    \n}"
+      },
+      "solution": {
+        "javascript": "function mergeTwoLists(list1, list2) {\n  const dummy = { val: 0, next: null };\n  let current = dummy;\n  \n  while (list1 !== null && list2 !== null) {\n    if (list1.val <= list2.val) {\n      current.next = list1;\n      list1 = list1.next;\n    } else {\n      current.next = list2;\n      list2 = list2.next;\n    }\n    current = current.next;\n  }\n  \n  current.next = list1 !== null ? list1 : list2;\n  return dummy.next;\n}",
+        "python": "def merge_two_lists(list1, list2):\n    dummy = ListNode(0)\n    current = dummy\n    \n    while list1 and list2:\n        if list1.val <= list2.val:\n            current.next = list1\n            list1 = list1.next\n        else:\n            current.next = list2\n            list2 = list2.next\n        current = current.next\n    \n    current.next = list1 if list1 else list2\n    return dummy.next",
+        "java": "class Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        ListNode dummy = new ListNode(0);\n        ListNode current = dummy;\n        \n        while (list1 != null && list2 != null) {\n            if (list1.val <= list2.val) {\n                current.next = list1;\n                list1 = list1.next;\n            } else {\n                current.next = list2;\n                list2 = list2.next;\n            }\n            current = current.next;\n        }\n        \n        current.next = list1 != null ? list1 : list2;\n        return dummy.next;\n    }\n}",
+        "c": "struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {\n    struct ListNode dummy = {0, NULL};\n    struct ListNode* current = &dummy;\n    \n    while (list1 != NULL && list2 != NULL) {\n        if (list1->val <= list2->val) {\n            current->next = list1;\n            list1 = list1->next;\n        } else {\n            current->next = list2;\n            list2 = list2->next;\n        }\n        current = current->next;\n    }\n    \n    current->next = list1 != NULL ? list1 : list2;\n    return dummy.next;\n}"
+      }
+    },
+    {
+      "id": "reverse-linked-list",
+      "title": "Reverse Linked List",
+      "difficulty": "easy",
+      "description": "Given the head of a singly linked list, reverse the list, and return the reversed list.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Apple",
+        "Facebook"
+      ],
+      "topicTags": [
+        "Linked List",
+        "Recursion"
+      ],
+      "acceptanceRate": 72,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "The number of nodes in the list is the range [0, 5000]",
+        "-5000 <= Node.val <= 5000"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": [
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          "description": "Reverse the entire list"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2
+            ]
+          },
+          "expectedOutput": [
+            2,
+            1
+          ],
+          "description": "Reverse a two-node list"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "head": []
+          },
+          "expectedOutput": [],
+          "description": "Empty list"
+        },
+        {
+          "input": {
+            "head": [
+              1
+            ]
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single node"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expectedOutput": [
+            3,
+            2,
+            1
+          ],
+          "description": "Three nodes"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about reversing the pointers. You need to change each node's next pointer to point to its previous node."
+        },
+        {
+          "level": 2,
+          "text": "Use three pointers: prev (initially null), current (head), and next (to save the next node before changing pointers)."
+        },
+        {
+          "level": 3,
+          "text": "Iterate through the list: save next, reverse current's pointer to prev, move prev and current forward."
+        }
+      ],
+      "similarProblems": [
+        "reverse-linked-list-ii",
+        "palindrome-linked-list"
+      ],
+      "starterCode": {
+        "javascript": "function reverseList(head) {\n  // Your code here\n  // Use three pointers: prev, current, next\n  \n}",
+        "python": "def reverse_list(head):\n    # Your code here\n    # Use three pointers: prev, current, next\n    pass",
+        "java": "class Solution {\n    public ListNode reverseList(ListNode head) {\n        // Your code here\n        // Use three pointers: prev, current, next\n        \n    }\n}",
+        "c": "struct ListNode* reverseList(struct ListNode* head) {\n    // Your code here\n    // Use three pointers: prev, current, next\n    \n}"
+      },
+      "solution": {
+        "javascript": "function reverseList(head) {\n  let prev = null;\n  let current = head;\n  \n  while (current !== null) {\n    const next = current.next; // Save next node\n    current.next = prev;        // Reverse pointer\n    prev = current;             // Move prev forward\n    current = next;             // Move current forward\n  }\n  \n  return prev; // New head\n}",
+        "python": "def reverse_list(head):\n    prev = None\n    current = head\n    \n    while current is not None:\n        next_node = current.next  # Save next node\n        current.next = prev       # Reverse pointer\n        prev = current            # Move prev forward\n        current = next_node       # Move current forward\n    \n    return prev  # New head",
+        "java": "class Solution {\n    public ListNode reverseList(ListNode head) {\n        ListNode prev = null;\n        ListNode current = head;\n        \n        while (current != null) {\n            ListNode next = current.next; // Save next node\n            current.next = prev;          // Reverse pointer\n            prev = current;               // Move prev forward\n            current = next;               // Move current forward\n        }\n        \n        return prev; // New head\n    }\n}",
+        "c": "struct ListNode* reverseList(struct ListNode* head) {\n    struct ListNode* prev = NULL;\n    struct ListNode* current = head;\n    \n    while (current != NULL) {\n        struct ListNode* next = current->next; // Save next node\n        current->next = prev;                  // Reverse pointer\n        prev = current;                        // Move prev forward\n        current = next;                        // Move current forward\n    }\n    \n    return prev; // New head\n}"
+      }
+    },
+    {
+      "id": "merge-two-sorted-lists",
+      "title": "Merge Two Sorted Lists",
+      "difficulty": "easy",
+      "description": "You are given the heads of two sorted linked lists list1 and list2.\n\nMerge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.\n\nReturn the head of the merged linked list.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Apple",
+        "Adobe"
+      ],
+      "topicTags": [
+        "Linked List",
+        "Recursion"
+      ],
+      "acceptanceRate": 62,
+      "timeComplexity": "O(n + m)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "The number of nodes in both lists is in the range [0, 50]",
+        "-100 <= Node.val <= 100",
+        "Both list1 and list2 are sorted in non-decreasing order"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "list1": [
+              1,
+              2,
+              4
+            ],
+            "list2": [
+              1,
+              3,
+              4
+            ]
+          },
+          "expectedOutput": [
+            1,
+            1,
+            2,
+            3,
+            4,
+            4
+          ],
+          "description": "Merge two sorted lists"
+        },
+        {
+          "input": {
+            "list1": [],
+            "list2": []
+          },
+          "expectedOutput": [],
+          "description": "Both lists are empty"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "list1": [],
+            "list2": [
+              0
+            ]
+          },
+          "expectedOutput": [
+            0
+          ],
+          "description": "One list is empty"
+        },
+        {
+          "input": {
+            "list1": [
+              1
+            ],
+            "list2": [
+              2
+            ]
+          },
+          "expectedOutput": [
+            1,
+            2
+          ],
+          "description": "Single nodes in each list"
+        },
+        {
+          "input": {
+            "list1": [
+              1,
+              3,
+              5
+            ],
+            "list2": [
+              2,
+              4,
+              6
+            ]
+          },
+          "expectedOutput": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "description": "Interleaved values"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a dummy node to simplify edge cases. Compare the values of the two list heads and attach the smaller one."
+        },
+        {
+          "level": 2,
+          "text": "Keep a pointer to the current position in the merged list. Compare list1 and list2, attach the smaller node, and advance that list's pointer."
+        },
+        {
+          "level": 3,
+          "text": "After one list is exhausted, attach the remainder of the other list directly to the merged list."
+        }
+      ],
+      "similarProblems": [
+        "merge-k-sorted-lists",
+        "merge-sorted-array"
+      ],
+      "starterCode": {
+        "javascript": "function mergeTwoLists(list1, list2) {\n  // Your code here\n  // Use a dummy node to simplify\n  \n}",
+        "python": "def merge_two_lists(list1, list2):\n    # Your code here\n    # Use a dummy node to simplify\n    pass",
+        "java": "class Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        // Your code here\n        // Use a dummy node to simplify\n        \n    }\n}",
+        "c": "struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {\n    // Your code here\n    // Use a dummy node to simplify\n    \n}"
+      },
+      "solution": {
+        "javascript": "function mergeTwoLists(list1, list2) {\n  const dummy = { val: 0, next: null };\n  let current = dummy;\n  \n  while (list1 !== null && list2 !== null) {\n    if (list1.val <= list2.val) {\n      current.next = list1;\n      list1 = list1.next;\n    } else {\n      current.next = list2;\n      list2 = list2.next;\n    }\n    current = current.next;\n  }\n  \n  // Attach remaining nodes\n  current.next = list1 !== null ? list1 : list2;\n  \n  return dummy.next;\n}",
+        "python": "def merge_two_lists(list1, list2):\n    dummy = ListNode(0)\n    current = dummy\n    \n    while list1 is not None and list2 is not None:\n        if list1.val <= list2.val:\n            current.next = list1\n            list1 = list1.next\n        else:\n            current.next = list2\n            list2 = list2.next\n        current = current.next\n    \n    # Attach remaining nodes\n    current.next = list1 if list1 is not None else list2\n    \n    return dummy.next",
+        "java": "class Solution {\n    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        ListNode dummy = new ListNode(0);\n        ListNode current = dummy;\n        \n        while (list1 != null && list2 != null) {\n            if (list1.val <= list2.val) {\n                current.next = list1;\n                list1 = list1.next;\n            } else {\n                current.next = list2;\n                list2 = list2.next;\n            }\n            current = current.next;\n        }\n        \n        // Attach remaining nodes\n        current.next = (list1 != null) ? list1 : list2;\n        \n        return dummy.next;\n    }\n}",
+        "c": "struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {\n    struct ListNode dummy = {0, NULL};\n    struct ListNode* current = &dummy;\n    \n    while (list1 != NULL && list2 != NULL) {\n        if (list1->val <= list2->val) {\n            current->next = list1;\n            list1 = list1->next;\n        } else {\n            current->next = list2;\n            list2 = list2->next;\n        }\n        current = current->next;\n    }\n    \n    // Attach remaining nodes\n    current->next = (list1 != NULL) ? list1 : list2;\n    \n    return dummy.next;\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Losing the head pointer - always keep a reference to the head of the list",
+      "Not updating all necessary pointers when inserting or deleting nodes",
+      "Forgetting to check for null/None before accessing node.next",
+      "Creating memory leaks by not freeing deleted nodes in languages without garbage collection",
+      "Not handling edge cases like empty lists or single-node lists"
+    ],
+    "patternDetection": [
+      "Problem involves sequential data without random access needs - linked lists are ideal",
+      "Frequent insertions/deletions at the beginning or middle - O(1) with linked lists",
+      "Need to reverse, rotate, or rearrange elements - linked list pointer manipulation",
+      "Two-pointer problems - fast/slow pointers, finding cycles, middle element",
+      "Merging or splitting sequences - linked lists make this efficient",
+      "Problem mentions 'next' or 'previous' relationships - natural fit for linked lists"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "206. Reverse Linked List",
+        "link": "https://leetcode.com/problems/reverse-linked-list/",
+        "difficulty": "Easy",
+        "description": "Classic problem - reverse a singly linked list in-place"
+      },
+      {
+        "title": "876. Middle of the Linked List",
+        "link": "https://leetcode.com/problems/middle-of-the-linked-list/",
+        "difficulty": "Easy",
+        "description": "Find middle node using fast and slow pointers"
+      },
+      {
+        "title": "21. Merge Two Sorted Lists",
+        "link": "https://leetcode.com/problems/merge-two-sorted-lists/",
+        "difficulty": "Easy",
+        "description": "Merge two sorted linked lists into one sorted list"
+      },
+      {
+        "title": "141. Linked List Cycle",
+        "link": "https://leetcode.com/problems/linked-list-cycle/",
+        "difficulty": "Easy",
+        "description": "Detect if linked list has a cycle using fast/slow pointers"
+      },
+      {
+        "title": "234. Palindrome Linked List",
+        "link": "https://leetcode.com/problems/palindrome-linked-list/",
+        "difficulty": "Easy",
+        "description": "Check if linked list is a palindrome"
+      },
+      {
+        "title": "19. Remove Nth Node From End",
+        "link": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+        "difficulty": "Medium",
+        "description": "Remove nth node from end using two pointers"
+      },
+      {
+        "title": "2. Add Two Numbers",
+        "link": "https://leetcode.com/problems/add-two-numbers/",
+        "difficulty": "Medium",
+        "description": "Add two numbers represented as linked lists"
+      },
+      {
+        "title": "143. Reorder List",
+        "link": "https://leetcode.com/problems/reorder-list/",
+        "difficulty": "Medium",
+        "description": "Reorder list in specific pattern - combines multiple techniques"
+      }
+    ]
+  },
+  "walkthrough": {
+    "title": "Reverse Linked List",
+    "description": "Reverse a singly linked list iteratively by changing next pointers",
+    "difficulty": "Easy",
+    "code": {
+      "javascript": "function reverseList(head) {\n  let prev = null;\n  let current = head;\n  \n  while (current !== null) {\n    const nextTemp = current.next;\n    current.next = prev;\n    prev = current;\n    current = nextTemp;\n  }\n  \n  return prev;\n}",
+      "python": "def reverseList(head):\n    prev = None\n    current = head\n    \n    while current:\n        next_temp = current.next\n        current.next = prev\n        prev = current\n        current = next_temp\n    \n    return prev",
+      "java": "public ListNode reverseList(ListNode head) {\n    ListNode prev = null;\n    ListNode current = head;\n    \n    while (current != null) {\n        ListNode nextTemp = current.next;\n        current.next = prev;\n        prev = current;\n        current = nextTemp;\n    }\n    \n    return prev;\n}",
+      "c": "struct ListNode* reverseList(struct ListNode* head) {\n    struct ListNode* prev = NULL;\n    struct ListNode* current = head;\n    \n    while (current != NULL) {\n        struct ListNode* nextTemp = current->next;\n        current->next = prev;\n        prev = current;\n        current = nextTemp;\n    }\n    \n    return prev;\n}"
+    },
+    "steps": [
+      {
+        "title": "Initialize Pointers",
+        "explanation": "We need three pointers:\\n• prev: starts as null (will become new tail)\\n• current: starts at head (node we're processing)\\n• nextTemp: temporary storage for next node\\n\\nThese pointers will help us reverse the links!",
+        "highlightLines": [
+          2,
+          3
+        ],
+        "visualization": "Original list: 1 → 2 → 3 → 4 → 5 → null\\n\\nprev = null\\ncurrent = 1\\n\\nGoal: null ← 1 ← 2 ← 3 ← 4 ← 5",
+        "insight": "We need prev to point to the previous node, and nextTemp to avoid losing the rest of the list when we reverse the pointer!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Save Next Node",
+        "explanation": "Before changing current.next, save the next node!\\n\\nIf we don't do this, we'll lose access to the rest of the list.\\n\\nnextTemp = current.next",
+        "highlightLines": [
+          6
+        ],
+        "visualization": "current = 1 → 2 → 3 → 4 → 5\\n\\nnextTemp = 2\\n\\nNow we can safely modify current.next without losing the list!",
+        "insight": "This is crucial! Without saving next, we'd lose the entire rest of the list when we reverse the pointer.",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Reverse the Pointer",
+        "explanation": "Change current's next pointer to point backwards to prev.\\n\\nThis is the actual reversal step!\\n\\ncurrent.next = prev",
+        "highlightLines": [
+          7
+        ],
+        "visualization": "Before: prev ← 1 → 2 → 3\\nAfter:  prev ← 1 ← 2 → 3\\n                ↑\\n              current\\n\\nWe've reversed one link!",
+        "insight": "Each iteration reverses exactly one pointer. After n iterations, all pointers are reversed!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Move Pointers Forward",
+        "explanation": "Advance both pointers one step forward:\\n• prev moves to current\\n• current moves to nextTemp\\n\\nThis prepares us for the next iteration!",
+        "highlightLines": [
+          8,
+          9
+        ],
+        "visualization": "Before move:\\nprev=null, current=1, nextTemp=2\\n\\nAfter move:\\nprev=1, current=2\\n\\nReady to reverse next link!",
+        "insight": "We're essentially sliding a window of 3 pointers (prev, current, next) through the list!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Return New Head",
+        "explanation": "When current becomes null, we've processed all nodes.\\n\\nprev now points to the last node of the original list, which is the new head!\\n\\nTime: O(n) - visit each node once\\nSpace: O(1) - only use 3 pointers",
+        "highlightLines": [
+          5,
+          12
+        ],
+        "visualization": "Final state:\\ncurrent = null\\nprev = 5 (new head)\\n\\nReversed: null ← 1 ← 2 ← 3 ← 4 ← 5\\n                                  ↑\\n                                prev\\n\\nReturn prev as new head!",
+        "insight": "This iterative approach is more space-efficient than recursion (O(1) vs O(n) space)!",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(1)"
+        }
+      }
+    ]
+  }
+}

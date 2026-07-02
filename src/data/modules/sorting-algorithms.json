@@ -1,0 +1,713 @@
+{
+  "id": "sorting-algorithms",
+  "title": "Sorting Algorithms",
+  "description": "Master the art of organizing data! Learn QuickSort, MergeSort, and more. Understanding sorting is fundamental to computer science and interviews! 🔄⚡",
+  "difficulty": "advanced",
+  "order": 21,
+  "tags": [
+    "sorting",
+    "algorithms",
+    "divide-and-conquer",
+    "comparison"
+  ],
+  "submodules": [
+    {
+      "id": "bubble-sort",
+      "title": "Bubble Sort",
+      "description": "The simplest sorting algorithm that repeatedly swaps adjacent elements if they're in the wrong order. Perfect for learning sorting fundamentals.",
+      "difficulty": "beginner",
+      "order": 1,
+      "videos": [
+        {
+          "language": "English",
+          "youtubeId": "K2BEKh-EqqA",
+          "title": "Bubble Sort - English"
+        },
+        {
+          "language": "Telugu",
+          "youtubeId": "gHOxAnbDWCs",
+          "title": "Bubble/Selection/Insertion in C - Telugu"
+        }
+      ]
+    },
+    {
+      "id": "selection-sort",
+      "title": "Selection Sort",
+      "description": "Find the minimum element and place it at the beginning. Repeat for the remaining array. O(n²) time complexity with minimal space usage.",
+      "difficulty": "beginner",
+      "order": 2,
+      "videos": [
+        {
+          "language": "English",
+          "youtubeId": "K2BEKh-EqqA",
+          "title": "Selection Sort - English"
+        },
+        {
+          "language": "Telugu",
+          "youtubeId": "gHOxAnbDWCs",
+          "title": "Selection Sort with Algorithm - Telugu"
+        }
+      ]
+    },
+    {
+      "id": "insertion-sort",
+      "title": "Insertion Sort",
+      "description": "Build a sorted array one element at a time by inserting each element into its correct position. Efficient for small or nearly sorted arrays.",
+      "difficulty": "beginner",
+      "order": 3,
+      "videos": [
+        {
+          "language": "English",
+          "youtubeId": "K2BEKh-EqqA",
+          "title": "Insertion Sort - English"
+        },
+        {
+          "language": "Telugu",
+          "youtubeId": "gHOxAnbDWCs",
+          "title": "Insertion Sort with C Code - Telugu"
+        }
+      ]
+    },
+    {
+      "id": "merge-sort",
+      "title": "Merge Sort",
+      "description": "Divide the array in half, recursively sort both halves, then merge them. Guaranteed O(n log n) with excellent stability properties.",
+      "difficulty": "intermediate",
+      "order": 4,
+      "videos": [
+        {
+          "language": "English",
+          "youtubeId": "K2BEKh-EqqA",
+          "title": "Merge Sort - English with Good Visuals"
+        },
+        {
+          "language": "Telugu",
+          "youtubeId": "gHOxAnbDWCs",
+          "title": "Merge Sort - Telugu Sorting Series"
+        }
+      ]
+    },
+    {
+      "id": "quick-sort",
+      "title": "Quick Sort",
+      "description": "Pick a pivot, partition the array around it, then recursively sort partitions. Fast in practice with in-place sorting capability.",
+      "difficulty": "intermediate",
+      "order": 5,
+      "videos": [
+        {
+          "language": "English",
+          "youtubeId": "K2BEKh-EqqA",
+          "title": "Quick Sort - English"
+        },
+        {
+          "language": "Telugu",
+          "youtubeId": "gHOxAnbDWCs",
+          "title": "Quick Sort with Dry Runs - Telugu Sorting Playlist"
+        }
+      ]
+    },
+    {
+      "id": "heap-sort",
+      "title": "Heap Sort",
+      "description": "Build a max heap and repeatedly extract the maximum element. Guarantees O(n log n) with O(1) space complexity.",
+      "difficulty": "advanced",
+      "order": 6,
+      "videos": [
+        {
+          "language": "English",
+          "youtubeId": "70g4lvM8U24",
+          "title": "Heap Sort Explanation - English"
+        },
+        {
+          "language": "Telugu",
+          "youtubeId": "gHOxAnbDWCs",
+          "title": "Heap Sort Fundamentals - Telugu (English core recommended)"
+        }
+      ]
+    },
+    {
+      "id": "counting-sort",
+      "title": "Counting Sort",
+      "description": "Non-comparison sort that counts occurrences of each value and reconstructs the sorted array. O(n + k) time complexity.",
+      "difficulty": "intermediate",
+      "order": 7,
+      "videos": [
+        {
+          "language": "English",
+          "youtubeId": "K2BEKh-EqqA",
+          "title": "Counting Sort - English"
+        },
+        {
+          "language": "Telugu",
+          "youtubeId": "gHOxAnbDWCs",
+          "title": "Counting Sort - Telugu"
+        }
+      ]
+    },
+    {
+      "id": "radix-sort",
+      "title": "Radix Sort",
+      "description": "Sort by each digit from least to most significant. Efficient for fixed-length integers and strings. O(d × n) time complexity.",
+      "difficulty": "advanced",
+      "order": 8,
+      "videos": [
+        {
+          "language": "English",
+          "youtubeId": "K2BEKh-EqqA",
+          "title": "Radix Sort - English"
+        },
+        {
+          "language": "Telugu",
+          "youtubeId": "gHOxAnbDWCs",
+          "title": "Radix Sort - Telugu (English Core Recommended)"
+        }
+      ]
+    }
+  ],
+  "documentation": {
+    "content": "# Sorting Algorithms: The Foundation of Efficient Data Organization\n\nSorting is one of the most fundamental operations in computer science. From organizing your files to powering search engines, sorting algorithms are everywhere. Let's explore the classics!\n\n## Why Sorting Matters\n\n- **Search**: Binary search requires sorted data\n- **Optimization**: Many algorithms work better on sorted data\n- **Analysis**: Finding patterns and outliers\n- **Interviews**: Classic topic that tests algorithmic thinking\n\n## Comparison-Based Sorting\n\n### 1. Bubble Sort - O(n²)\n\nThe simplest but slowest. Repeatedly swap adjacent elements if they're in wrong order.\n\n**When to use**: Never in production! Only for teaching.\n\n### 2. Selection Sort - O(n²)\n\nFind minimum element and place it at the beginning. Repeat for remaining array.\n\n**When to use**: Small arrays, when memory writes are expensive.\n\n### 3. Insertion Sort - O(n²)\n\nBuild sorted array one element at a time, inserting each into its correct position.\n\n**When to use**: Small arrays, nearly sorted data, online sorting.\n\n### 4. Merge Sort - O(n log n)\n\nDivide array in half, recursively sort both halves, then merge them.\n\n**Pros**: Stable, guaranteed O(n log n), good for linked lists\n**Cons**: O(n) extra space\n**When to use**: Need stability, external sorting, linked lists\n\n### 5. Quick Sort - O(n log n) average\n\nPick a pivot, partition array around it, recursively sort partitions.\n\n**Pros**: In-place, cache-friendly, fast in practice\n**Cons**: O(n²) worst case, not stable\n**When to use**: General purpose, when space is limited\n\n### 6. Heap Sort - O(n log n)\n\nBuild a max heap, repeatedly extract maximum.\n\n**Pros**: In-place, guaranteed O(n log n)\n**Cons**: Not stable, poor cache performance\n**When to use**: Need guaranteed O(n log n) with O(1) space\n\n## Non-Comparison Sorting\n\n### 7. Counting Sort - O(n + k)\n\nCount occurrences of each value, then reconstruct sorted array.\n\n**When to use**: Small range of integers, need O(n) time\n\n### 8. Radix Sort - O(d × n)\n\nSort by each digit, from least to most significant.\n\n**When to use**: Fixed-length integers or strings\n\n### 9. Bucket Sort - O(n + k)\n\nDistribute elements into buckets, sort each bucket, concatenate.\n\n**When to use**: Uniformly distributed data\n\n## Sorting Algorithm Comparison\n\n```\nAlgorithm      | Best    | Average  | Worst   | Space | Stable\n---------------|---------|----------|---------|-------|-------\nBubble Sort    | O(n)    | O(n²)    | O(n²)   | O(1)  | Yes\nSelection Sort | O(n²)   | O(n²)    | O(n²)   | O(1)  | No\nInsertion Sort | O(n)    | O(n²)    | O(n²)   | O(1)  | Yes\nMerge Sort     | O(nlogn)| O(nlogn) | O(nlogn)| O(n)  | Yes\nQuick Sort     | O(nlogn)| O(nlogn) | O(n²)   | O(logn)| No\nHeap Sort      | O(nlogn)| O(nlogn) | O(nlogn)| O(1)  | No\nCounting Sort  | O(n+k)  | O(n+k)   | O(n+k)  | O(k)  | Yes\nRadix Sort     | O(d×n)  | O(d×n)   | O(d×n)  | O(n+k)| Yes\nBucket Sort    | O(n+k)  | O(n+k)   | O(n²)   | O(n)  | Yes\n```\n\n## Key Concepts\n\n### Stability\nA sorting algorithm is **stable** if it preserves the relative order of equal elements.\n\n**Stable**: Merge Sort, Insertion Sort, Bubble Sort\n**Unstable**: Quick Sort, Heap Sort, Selection Sort\n\n### In-Place\nAn algorithm is **in-place** if it uses O(1) or O(log n) extra space.\n\n**In-place**: Quick Sort, Heap Sort, Insertion Sort\n**Not in-place**: Merge Sort (needs O(n) space)\n\n### Adaptive\nAn algorithm is **adaptive** if it performs better on partially sorted data.\n\n**Adaptive**: Insertion Sort, Bubble Sort\n**Not adaptive**: Selection Sort, Heap Sort\n\n## Quick Sort Deep Dive\n\n```javascript\nfunction quickSort(arr, low = 0, high = arr.length - 1) {\n  if (low < high) {\n    const pivotIndex = partition(arr, low, high);\n    quickSort(arr, low, pivotIndex - 1);\n    quickSort(arr, pivotIndex + 1, high);\n  }\n  return arr;\n}\n\nfunction partition(arr, low, high) {\n  const pivot = arr[high];\n  let i = low - 1;\n  \n  for (let j = low; j < high; j++) {\n    if (arr[j] < pivot) {\n      i++;\n      [arr[i], arr[j]] = [arr[j], arr[i]];\n    }\n  }\n  \n  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];\n  return i + 1;\n}\n```\n\n## Merge Sort Deep Dive\n\n```javascript\nfunction mergeSort(arr) {\n  if (arr.length <= 1) return arr;\n  \n  const mid = Math.floor(arr.length / 2);\n  const left = mergeSort(arr.slice(0, mid));\n  const right = mergeSort(arr.slice(mid));\n  \n  return merge(left, right);\n}\n\nfunction merge(left, right) {\n  const result = [];\n  let i = 0, j = 0;\n  \n  while (i < left.length && j < right.length) {\n    if (left[i] <= right[j]) {\n      result.push(left[i++]);\n    } else {\n      result.push(right[j++]);\n    }\n  }\n  \n  return result.concat(left.slice(i)).concat(right.slice(j));\n}\n```\n\n## When to Use Which Sort?\n\n**Small arrays (n < 10)**: Insertion Sort\n**General purpose**: Quick Sort (most languages use it)\n**Need stability**: Merge Sort\n**Limited space**: Heap Sort or Quick Sort\n**Nearly sorted**: Insertion Sort\n**Known range**: Counting Sort or Radix Sort\n**Linked lists**: Merge Sort\n\n## Pro Tips\n\n💡 **Hybrid approaches**: Use Insertion Sort for small subarrays in Quick/Merge Sort\n💡 **Pivot selection**: Use median-of-three for Quick Sort\n💡 **Tail recursion**: Optimize Quick Sort to avoid stack overflow\n💡 **Built-in sorts**: Use language built-ins (they're optimized!)\n💡 **Custom comparators**: Learn to sort by custom criteria\n\n## Real-World Applications\n\n- **Databases**: Query optimization, indexing\n- **Operating Systems**: Process scheduling\n- **Graphics**: Painter's algorithm (sort by depth)\n- **E-commerce**: Sort products by price, rating\n- **Search Engines**: Rank search results\n- **Data Analysis**: Find median, percentiles\n\n## Interview Tips\n\n1. **Know the classics**: Quick Sort and Merge Sort\n2. **Understand trade-offs**: Time vs space, stable vs unstable\n3. **Recognize when sorting helps**: Many problems become easier after sorting\n4. **Custom comparators**: Practice sorting by multiple criteria\n5. **Edge cases**: Empty array, single element, duplicates\n\n## Lower Bound Theorem\n\nAny comparison-based sorting algorithm must make at least O(n log n) comparisons in the worst case. This is a proven mathematical limit!\n\nNon-comparison sorts (Counting, Radix, Bucket) can beat this by making assumptions about the data.\n\nMaster sorting and you'll have a solid foundation for understanding algorithms! 🚀\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "PgBzjlCcFvc",
+      "title": "Sorting Algorithms - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "PgBzjlCcFvc",
+      "title": "Sorting Algorithms - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Which sorting algorithm has the best average-case time complexity?",
+        "options": [
+          "Bubble Sort - O(n²)",
+          "Quick Sort - O(n log n)",
+          "Selection Sort - O(n²)",
+          "Insertion Sort - O(n²)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Quick Sort has O(n log n) average-case time complexity, which is optimal for comparison-based sorting. Bubble, Selection, and Insertion Sort all have O(n²) average-case complexity."
+      },
+      {
+        "id": "q2",
+        "question": "Which sorting algorithm is stable and has O(n log n) worst-case time complexity?",
+        "options": [
+          "Quick Sort",
+          "Heap Sort",
+          "Merge Sort",
+          "Selection Sort"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Merge Sort is stable (preserves relative order of equal elements) and has guaranteed O(n log n) time complexity. Quick Sort is not stable, Heap Sort is not stable, and Selection Sort is O(n²)."
+      },
+      {
+        "id": "q3",
+        "question": "What is the space complexity of Merge Sort?",
+        "options": [
+          "O(1)",
+          "O(log n)",
+          "O(n)",
+          "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Merge Sort requires O(n) extra space to store the temporary arrays during the merge process. This is its main disadvantage compared to in-place sorts like Quick Sort."
+      },
+      {
+        "id": "q4",
+        "question": "Which sorting algorithm performs best on nearly sorted data?",
+        "options": [
+          "Quick Sort",
+          "Heap Sort",
+          "Insertion Sort",
+          "Selection Sort"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Insertion Sort is adaptive and performs in O(n) time on nearly sorted data. It's the best choice when the input is already mostly sorted."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "sort-colors",
+      "title": "Sort Colors (Dutch National Flag)",
+      "difficulty": "medium",
+      "description": "Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue.\n\nWe will use the integers 0, 1, and 2 to represent red, white, and blue, respectively.\n\nYou must solve this problem without using the library's sort function.\n\nExample:\nInput: nums = [2,0,2,1,1,0]\nOutput: [0,0,1,1,2,2]",
+      "companyTags": [
+        "Microsoft",
+        "Amazon",
+        "Facebook",
+        "Apple"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers",
+        "Sorting"
+      ],
+      "acceptanceRate": 59.3,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Can you solve this in one pass? Think about using three pointers to partition the array into three sections."
+        },
+        {
+          "level": 2,
+          "text": "Use three pointers: low (for 0s), mid (current element), high (for 2s). When you see 0, swap with low. When you see 2, swap with high. When you see 1, just move mid forward."
+        },
+        {
+          "level": 3,
+          "text": "Initialize low=0, mid=0, high=n-1. While mid <= high: if nums[mid]==0, swap with low and increment both. If nums[mid]==2, swap with high and decrement high. If nums[mid]==1, just increment mid."
+        }
+      ],
+      "similarProblems": [
+        "sort-array-by-parity",
+        "wiggle-sort"
+      ],
+      "constraints": [
+        "n == nums.length",
+        "1 <= n <= 300",
+        "nums[i] is either 0, 1, or 2"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              2,
+              0,
+              2,
+              1,
+              1,
+              0
+            ]
+          },
+          "expectedOutput": [
+            0,
+            0,
+            1,
+            1,
+            2,
+            2
+          ],
+          "description": "Sort three colors in one pass"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              0,
+              1
+            ]
+          },
+          "expectedOutput": [
+            0,
+            1,
+            2
+          ],
+          "description": "One of each color"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              0
+            ]
+          },
+          "expectedOutput": [
+            0
+          ],
+          "description": "Single element"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "description": "All same color"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function sortColors(nums) {\n  // Use three pointers: low, mid, high\n  let low = 0, mid = 0, high = nums.length - 1;\n  \n  // Your code here\n}",
+        "python": "def sortColors(nums):\n    # Use three pointers: low, mid, high\n    low, mid, high = 0, 0, len(nums) - 1\n    \n    # Your code here",
+        "java": "class Solution {\n    public void sortColors(int[] nums) {\n        // Use three pointers: low, mid, high\n        int low = 0, mid = 0, high = nums.length - 1;\n        \n        // Your code here\n    }\n}",
+        "c": "void sortColors(int* nums, int numsSize) {\n    // Use three pointers: low, mid, high\n    int low = 0, mid = 0, high = numsSize - 1;\n    \n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function sortColors(nums) {\n  let low = 0, mid = 0, high = nums.length - 1;\n  \n  while (mid <= high) {\n    if (nums[mid] === 0) {\n      [nums[low], nums[mid]] = [nums[mid], nums[low]];\n      low++;\n      mid++;\n    } else if (nums[mid] === 2) {\n      [nums[mid], nums[high]] = [nums[high], nums[mid]];\n      high--;\n    } else {\n      mid++;\n    }\n  }\n}",
+        "python": "def sortColors(nums):\n    low, mid, high = 0, 0, len(nums) - 1\n    \n    while mid <= high:\n        if nums[mid] == 0:\n            nums[low], nums[mid] = nums[mid], nums[low]\n            low += 1\n            mid += 1\n        elif nums[mid] == 2:\n            nums[mid], nums[high] = nums[high], nums[mid]\n            high -= 1\n        else:\n            mid += 1",
+        "java": "class Solution {\n    public void sortColors(int[] nums) {\n        int low = 0, mid = 0, high = nums.length - 1;\n        \n        while (mid <= high) {\n            if (nums[mid] == 0) {\n                int temp = nums[low];\n                nums[low] = nums[mid];\n                nums[mid] = temp;\n                low++;\n                mid++;\n            } else if (nums[mid] == 2) {\n                int temp = nums[mid];\n                nums[mid] = nums[high];\n                nums[high] = temp;\n                high--;\n            } else {\n                mid++;\n            }\n        }\n    }\n}",
+        "c": "void sortColors(int* nums, int numsSize) {\n    int low = 0, mid = 0, high = numsSize - 1;\n    \n    while (mid <= high) {\n        if (nums[mid] == 0) {\n            int temp = nums[low];\n            nums[low] = nums[mid];\n            nums[mid] = temp;\n            low++;\n            mid++;\n        } else if (nums[mid] == 2) {\n            int temp = nums[mid];\n            nums[mid] = nums[high];\n            nums[high] = temp;\n            high--;\n        } else {\n            mid++;\n        }\n    }\n}"
+      }
+    },
+    {
+      "id": "sort-colors",
+      "title": "Sort Colors",
+      "difficulty": "medium",
+      "description": "Solve the Sort Colors problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "merge-sorted-array",
+      "title": "Merge Sorted Array",
+      "difficulty": "easy",
+      "description": "Solve the Merge Sorted Array problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "sort-list",
+      "title": "Sort List",
+      "difficulty": "medium",
+      "description": "Solve the Sort List problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "kth-largest-element-sort",
+      "title": "Kth Largest Element",
+      "difficulty": "medium",
+      "description": "Solve the Kth Largest Element problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Not considering stability when it's required",
+      "Using O(n²) sorts for large datasets",
+      "Not handling edge cases (empty, single element)",
+      "Forgetting that Quick Sort can be O(n²) in worst case",
+      "Not using built-in sort functions (they're optimized!)"
+    ],
+    "patternDetection": [
+      "Problem explicitly asks to sort",
+      "Problem becomes easier after sorting",
+      "Need to find kth largest/smallest element",
+      "Need to group similar elements together",
+      "Keywords: 'sort', 'order', 'arrange', 'organize', 'kth largest'"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "75. Sort Colors",
+        "link": "https://leetcode.com/problems/sort-colors/",
+        "difficulty": "Medium",
+        "description": "Dutch National Flag problem"
+      },
+      {
+        "title": "912. Sort an Array",
+        "link": "https://leetcode.com/problems/sort-an-array/",
+        "difficulty": "Medium",
+        "description": "Implement sorting algorithm"
+      },
+      {
+        "title": "148. Sort List",
+        "link": "https://leetcode.com/problems/sort-list/",
+        "difficulty": "Medium",
+        "description": "Sort linked list"
+      },
+      {
+        "title": "215. Kth Largest Element",
+        "link": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+        "difficulty": "Medium",
+        "description": "Use Quick Select"
+      }
+    ]
+  }
+}

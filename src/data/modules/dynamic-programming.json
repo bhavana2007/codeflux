@@ -1,0 +1,627 @@
+{
+  "id": "dynamic-programming",
+  "title": "Dynamic Programming",
+  "description": "Conquer the most feared interview topic! Break down complex problems into simple steps. Once you get it, you'll feel like a coding superhero! 💪✨",
+  "difficulty": "advanced",
+  "order": 16,
+  "tags": [
+    "dp",
+    "optimization",
+    "memoization",
+    "recursion"
+  ],
+  "documentation": {
+    "content": "# Dynamic Programming: Remember the Past to Optimize the Future\n\nImagine climbing stairs and someone asks: \"How many ways can you reach step 100?\" You could calculate it from scratch every time, or you could remember: ways(100) = ways(99) + ways(98). Once you calculate ways(99) and ways(98), you never need to recalculate them. That's dynamic programming—solving problems by breaking them into subproblems and remembering the answers.\n\n## The Story Behind DP\n\nDynamic Programming (DP) was coined by Richard Bellman in the 1950s. Despite the fancy name, it's about two simple ideas:\n\n1. **Optimal substructure** - The optimal solution contains optimal solutions to subproblems\n2. **Overlapping subproblems** - Same subproblems are solved multiple times\n\nDP says: if you're solving the same thing repeatedly, remember the answer!\n\n## Two Approaches to DP\n\n**Top-Down (Memoization)** - Start with the big problem, recursively break it down, cache results. Natural and intuitive.\n\n**Bottom-Up (Tabulation)** - Start with smallest subproblems, build up to the answer. More efficient, no recursion overhead.\n\n## When Your Problem Screams \"DP!\"\n\n**Optimization** - \"Find maximum/minimum\", \"count number of ways\"\n**Choices at each step** - \"Take or skip\", \"buy or sell\"\n**Overlapping subproblems** - Same calculation repeated\n**Optimal substructure** - Optimal solution built from optimal subsolutions\n**Keywords**: \"maximum\", \"minimum\", \"longest\", \"shortest\", \"count ways\", \"optimize\"\n\n## The DP Recipe\n\n**Step 1: Identify the state** - What variables define a subproblem?\n**Step 2: Define the recurrence** - How does state(n) relate to smaller states?\n**Step 3: Base cases** - What are the simplest cases?\n**Step 4: Decide approach** - Top-down or bottom-up?\n**Step 5: Optimize space** - Can you reduce dimensions?\n\n## Classic DP Patterns\n\n**0/1 Knapsack** - Include or exclude items\n**Unbounded Knapsack** - Unlimited items of each type\n**Longest Common Subsequence** - String matching\n**Longest Increasing Subsequence** - Finding trends\n**Coin Change** - Minimum coins or count ways\n**House Robber** - Can't take adjacent elements\n**Edit Distance** - Transform one string to another\n**Matrix Chain Multiplication** - Optimal parenthesization\n\n## The Performance\n\n**Without DP**: Often O(2^n) or worse (exponential)\n**With DP**: Usually O(n²) or O(n*m) (polynomial)\n\nDP transforms exponential problems into polynomial ones!\n\n## Common Mistakes\n\n❌ **Not identifying overlapping subproblems** - DP won't help if subproblems don't repeat\n❌ **Wrong state definition** - State must capture all info needed for decision\n❌ **Forgetting base cases** - Always define the simplest cases\n❌ **Not optimizing space** - 2D DP often reducible to 1D\n❌ **Premature optimization** - Start with memoization, optimize later\n\n## Pro Tips\n\n💡 **Start with recursion** - Write recursive solution first, then add memoization\n💡 **Draw the recursion tree** - Visualize overlapping subproblems\n💡 **State compression** - Often 2D can become 1D\n💡 **Practice patterns** - Master classic problems, recognize variations\n💡 **Think backwards** - Sometimes easier to think from end to start\n\n## Real-World Applications\n\n- **Route optimization** - GPS shortest paths (Dijkstra's, Bellman-Ford)\n- **Resource allocation** - Knapsack problems in logistics\n- **Bioinformatics** - DNA sequence alignment (edit distance)\n- **Finance** - Stock trading strategies (buy/sell with cooldown)\n- **Game AI** - Optimal move calculation\n- **Text processing** - Spell check, autocomplete\n\nDP is challenging but incredibly rewarding. It's the difference between waiting years for an answer and getting it in seconds. The key is recognizing the pattern and remembering what you've already solved! 🧠✨\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "8LusJS5-AGo",
+      "title": "Dynamic Programming - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "tyB0ztf0DNY",
+      "title": "Dynamic Programming - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "-8kfP8-U4ws",
+      "title": "Dynamic Programming - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What are the two key properties required for dynamic programming?",
+        "options": [
+          "Sorting and searching",
+          "Optimal substructure and overlapping subproblems",
+          "Recursion and iteration",
+          "Arrays and hash maps"
+        ],
+        "correctAnswer": 1,
+        "explanation": "DP requires optimal substructure (optimal solution contains optimal subsolutions) and overlapping subproblems (same subproblems solved multiple times)."
+      },
+      {
+        "id": "q2",
+        "question": "What is memoization in dynamic programming?",
+        "options": [
+          "Writing down the algorithm",
+          "Caching results of subproblems",
+          "Using less memory",
+          "Sorting the input"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Memoization is caching/storing results of subproblems to avoid recalculating them."
+      },
+      {
+        "id": "q3",
+        "question": "Which approach builds solutions from smallest subproblems up?",
+        "options": [
+          "Top-down",
+          "Bottom-up",
+          "Greedy",
+          "Divide and conquer"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Bottom-up (tabulation) starts with smallest subproblems and builds up to the final answer."
+      },
+      {
+        "id": "q4",
+        "question": "What is the typical time complexity improvement with DP?",
+        "options": [
+          "O(n) to O(1)",
+          "O(n²) to O(n)",
+          "O(2^n) to O(n²)",
+          "O(n log n) to O(n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "DP typically transforms exponential O(2^n) problems into polynomial O(n²) or O(n*m) solutions."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "climbing-stairs",
+      "title": "Climbing Stairs",
+      "difficulty": "easy",
+      "description": "You are climbing a staircase. It takes n steps to reach the top.\n\nEach time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+      "constraints": [
+        "1 <= n <= 45"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "n": 2
+          },
+          "expectedOutput": 2,
+          "description": "Two ways: 1+1 or 2"
+        },
+        {
+          "input": {
+            "n": 3
+          },
+          "expectedOutput": 3,
+          "description": "Three ways: 1+1+1, 1+2, or 2+1"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "n": 1
+          },
+          "expectedOutput": 1,
+          "description": "One step"
+        },
+        {
+          "input": {
+            "n": 5
+          },
+          "expectedOutput": 8,
+          "description": "Fibonacci pattern"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function climbStairs(n) {\n  // Your code here\n  // dp[i] = ways to reach step i\n  \n}",
+        "python": "def climb_stairs(n):\n    # Your code here\n    # dp[i] = ways to reach step i\n    pass",
+        "java": "class Solution {\n    public int climbStairs(int n) {\n        // Your code here\n        // dp[i] = ways to reach step i\n        \n    }\n}",
+        "c": "int climbStairs(int n) {\n    // Your code here\n    // dp[i] = ways to reach step i\n    \n}"
+      },
+      "solution": {
+        "javascript": "function climbStairs(n) {\n  if (n <= 2) return n;\n  \n  let prev2 = 1; // ways to reach step 1\n  let prev1 = 2; // ways to reach step 2\n  \n  for (let i = 3; i <= n; i++) {\n    const current = prev1 + prev2;\n    prev2 = prev1;\n    prev1 = current;\n  }\n  \n  return prev1;\n}",
+        "python": "def climb_stairs(n):\n    if n <= 2:\n        return n\n    \n    prev2 = 1  # ways to reach step 1\n    prev1 = 2  # ways to reach step 2\n    \n    for i in range(3, n + 1):\n        current = prev1 + prev2\n        prev2 = prev1\n        prev1 = current\n    \n    return prev1",
+        "java": "class Solution {\n    public int climbStairs(int n) {\n        if (n <= 2) return n;\n        \n        int prev2 = 1;\n        int prev1 = 2;\n        \n        for (int i = 3; i <= n; i++) {\n            int current = prev1 + prev2;\n            prev2 = prev1;\n            prev1 = current;\n        }\n        \n        return prev1;\n    }\n}",
+        "c": "int climbStairs(int n) {\n    if (n <= 2) return n;\n    \n    int prev2 = 1;\n    int prev1 = 2;\n    \n    for (int i = 3; i <= n; i++) {\n        int current = prev1 + prev2;\n        prev2 = prev1;\n        prev1 = current;\n    }\n    \n    return prev1;\n}"
+      }
+    },
+    {
+      "id": "house-robber",
+      "title": "House Robber",
+      "difficulty": "medium",
+      "description": "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses are arranged in a line, and adjacent houses have security systems connected that will alert police if two adjacent houses are broken into on the same night.\n\nGiven an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.",
+      "constraints": [
+        "1 <= nums.length <= 100",
+        "0 <= nums[i] <= 400"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              1
+            ]
+          },
+          "expectedOutput": 4,
+          "description": "Rob house 1 (1) and house 3 (3), total = 4"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              7,
+              9,
+              3,
+              1
+            ]
+          },
+          "expectedOutput": 12,
+          "description": "Rob house 1 (2), house 3 (9), and house 5 (1), total = 12"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single house"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              1,
+              1,
+              2
+            ]
+          },
+          "expectedOutput": 4,
+          "description": "Rob first and last"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function rob(nums) {\n  // Your code here\n  // dp[i] = max money robbing up to house i\n  \n}",
+        "python": "def rob(nums):\n    # Your code here\n    # dp[i] = max money robbing up to house i\n    pass",
+        "java": "class Solution {\n    public int rob(int[] nums) {\n        // Your code here\n        // dp[i] = max money robbing up to house i\n        \n    }\n}",
+        "c": "int rob(int* nums, int numsSize) {\n    // Your code here\n    // dp[i] = max money robbing up to house i\n    \n}"
+      },
+      "solution": {
+        "javascript": "function rob(nums) {\n  if (nums.length === 0) return 0;\n  if (nums.length === 1) return nums[0];\n  \n  let prev2 = 0;\n  let prev1 = nums[0];\n  \n  for (let i = 1; i < nums.length; i++) {\n    const current = Math.max(prev1, prev2 + nums[i]);\n    prev2 = prev1;\n    prev1 = current;\n  }\n  \n  return prev1;\n}",
+        "python": "def rob(nums):\n    if not nums:\n        return 0\n    if len(nums) == 1:\n        return nums[0]\n    \n    prev2 = 0\n    prev1 = nums[0]\n    \n    for i in range(1, len(nums)):\n        current = max(prev1, prev2 + nums[i])\n        prev2 = prev1\n        prev1 = current\n    \n    return prev1",
+        "java": "class Solution {\n    public int rob(int[] nums) {\n        if (nums.length == 0) return 0;\n        if (nums.length == 1) return nums[0];\n        \n        int prev2 = 0;\n        int prev1 = nums[0];\n        \n        for (int i = 1; i < nums.length; i++) {\n            int current = Math.max(prev1, prev2 + nums[i]);\n            prev2 = prev1;\n            prev1 = current;\n        }\n        \n        return prev1;\n    }\n}",
+        "c": "int rob(int* nums, int numsSize) {\n    if (numsSize == 0) return 0;\n    if (numsSize == 1) return nums[0];\n    \n    int prev2 = 0;\n    int prev1 = nums[0];\n    \n    for (int i = 1; i < numsSize; i++) {\n        int current = prev1 > (prev2 + nums[i]) ? prev1 : (prev2 + nums[i]);\n        prev2 = prev1;\n        prev1 = current;\n    }\n    \n    return prev1;\n}"
+      }
+    },
+    {
+      "id": "coin-change",
+      "title": "Coin Change",
+      "difficulty": "medium",
+      "description": "You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.\n\nReturn the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.\n\nYou may assume that you have an infinite number of each kind of coin.",
+      "constraints": [
+        "1 <= coins.length <= 12",
+        "1 <= coins[i] <= 2^31 - 1",
+        "0 <= amount <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "coins": [
+              1,
+              2,
+              5
+            ],
+            "amount": 11
+          },
+          "expectedOutput": 3,
+          "description": "11 = 5 + 5 + 1"
+        },
+        {
+          "input": {
+            "coins": [
+              2
+            ],
+            "amount": 3
+          },
+          "expectedOutput": -1,
+          "description": "Cannot make 3 with only 2s"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "coins": [
+              1
+            ],
+            "amount": 0
+          },
+          "expectedOutput": 0,
+          "description": "Zero amount"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function coinChange(coins, amount) {\n  // Your code here\n  // dp[i] = min coins to make amount i\n  \n}",
+        "python": "def coin_change(coins, amount):\n    # Your code here\n    # dp[i] = min coins to make amount i\n    pass",
+        "java": "class Solution {\n    public int coinChange(int[] coins, int amount) {\n        // Your code here\n        // dp[i] = min coins to make amount i\n        \n    }\n}",
+        "c": "int coinChange(int* coins, int coinsSize, int amount) {\n    // Your code here\n    // dp[i] = min coins to make amount i\n    \n}"
+      },
+      "solution": {
+        "javascript": "function coinChange(coins, amount) {\n  const dp = new Array(amount + 1).fill(Infinity);\n  dp[0] = 0;\n  \n  for (let i = 1; i <= amount; i++) {\n    for (const coin of coins) {\n      if (i >= coin) {\n        dp[i] = Math.min(dp[i], dp[i - coin] + 1);\n      }\n    }\n  }\n  \n  return dp[amount] === Infinity ? -1 : dp[amount];\n}",
+        "python": "def coin_change(coins, amount):\n    dp = [float('inf')] * (amount + 1)\n    dp[0] = 0\n    \n    for i in range(1, amount + 1):\n        for coin in coins:\n            if i >= coin:\n                dp[i] = min(dp[i], dp[i - coin] + 1)\n    \n    return dp[amount] if dp[amount] != float('inf') else -1",
+        "java": "class Solution {\n    public int coinChange(int[] coins, int amount) {\n        int[] dp = new int[amount + 1];\n        Arrays.fill(dp, amount + 1);\n        dp[0] = 0;\n        \n        for (int i = 1; i <= amount; i++) {\n            for (int coin : coins) {\n                if (i >= coin) {\n                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);\n                }\n            }\n        }\n        \n        return dp[amount] > amount ? -1 : dp[amount];\n    }\n}",
+        "c": "int coinChange(int* coins, int coinsSize, int amount) {\n    int* dp = (int*)malloc((amount + 1) * sizeof(int));\n    \n    for (int i = 0; i <= amount; i++) {\n        dp[i] = amount + 1;\n    }\n    dp[0] = 0;\n    \n    for (int i = 1; i <= amount; i++) {\n        for (int j = 0; j < coinsSize; j++) {\n            if (i >= coins[j]) {\n                int val = dp[i - coins[j]] + 1;\n                dp[i] = dp[i] < val ? dp[i] : val;\n            }\n        }\n    }\n    \n    int result = dp[amount] > amount ? -1 : dp[amount];\n    free(dp);\n    return result;\n}"
+      }
+    },
+    {
+      "id": "climbing-stairs",
+      "title": "Climbing Stairs",
+      "difficulty": "easy",
+      "description": "You are climbing a staircase. It takes n steps to reach the top.\n\nEach time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Adobe",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Dynamic Programming",
+        "Math",
+        "Memoization"
+      ],
+      "acceptanceRate": 52,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= n <= 45"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "n": 2
+          },
+          "expectedOutput": 2,
+          "description": "There are two ways: 1. 1 step + 1 step, 2. 2 steps"
+        },
+        {
+          "input": {
+            "n": 3
+          },
+          "expectedOutput": 3,
+          "description": "There are three ways: 1. 1 step + 1 step + 1 step, 2. 1 step + 2 steps, 3. 2 steps + 1 step"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "n": 1
+          },
+          "expectedOutput": 1,
+          "description": "Only one way for single step"
+        },
+        {
+          "input": {
+            "n": 5
+          },
+          "expectedOutput": 8,
+          "description": "Fibonacci pattern continues"
+        },
+        {
+          "input": {
+            "n": 10
+          },
+          "expectedOutput": 89,
+          "description": "Larger test case"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the last step. You either came from step n-1 (1 step) or step n-2 (2 steps)."
+        },
+        {
+          "level": 2,
+          "text": "This is a Fibonacci sequence! ways(n) = ways(n-1) + ways(n-2). Base cases: ways(1) = 1, ways(2) = 2."
+        },
+        {
+          "level": 3,
+          "text": "You can solve this with O(1) space by keeping only the last two values instead of an array."
+        }
+      ],
+      "similarProblems": [
+        "house-robber",
+        "fibonacci-number"
+      ],
+      "starterCode": {
+        "javascript": "function climbStairs(n) {\n  // Your code here\n  // Think about Fibonacci sequence\n  \n}",
+        "python": "def climb_stairs(n):\n    # Your code here\n    # Think about Fibonacci sequence\n    pass",
+        "java": "class Solution {\n    public int climbStairs(int n) {\n        // Your code here\n        // Think about Fibonacci sequence\n        \n    }\n}",
+        "c": "int climbStairs(int n) {\n    // Your code here\n    // Think about Fibonacci sequence\n    \n}"
+      },
+      "solution": {
+        "javascript": "function climbStairs(n) {\n  if (n <= 2) return n;\n  \n  let prev2 = 1; // ways(1)\n  let prev1 = 2; // ways(2)\n  \n  for (let i = 3; i <= n; i++) {\n    const current = prev1 + prev2;\n    prev2 = prev1;\n    prev1 = current;\n  }\n  \n  return prev1;\n}",
+        "python": "def climb_stairs(n):\n    if n <= 2:\n        return n\n    \n    prev2 = 1  # ways(1)\n    prev1 = 2  # ways(2)\n    \n    for i in range(3, n + 1):\n        current = prev1 + prev2\n        prev2 = prev1\n        prev1 = current\n    \n    return prev1",
+        "java": "class Solution {\n    public int climbStairs(int n) {\n        if (n <= 2) return n;\n        \n        int prev2 = 1; // ways(1)\n        int prev1 = 2; // ways(2)\n        \n        for (int i = 3; i <= n; i++) {\n            int current = prev1 + prev2;\n            prev2 = prev1;\n            prev1 = current;\n        }\n        \n        return prev1;\n    }\n}",
+        "c": "int climbStairs(int n) {\n    if (n <= 2) return n;\n    \n    int prev2 = 1; // ways(1)\n    int prev1 = 2; // ways(2)\n    \n    for (int i = 3; i <= n; i++) {\n        int current = prev1 + prev2;\n        prev2 = prev1;\n        prev1 = current;\n    }\n    \n    return prev1;\n}"
+      }
+    },
+    {
+      "id": "house-robber",
+      "title": "House Robber",
+      "difficulty": "medium",
+      "description": "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.\n\nGiven an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft",
+        "Apple"
+      ],
+      "topicTags": [
+        "Dynamic Programming",
+        "Array"
+      ],
+      "acceptanceRate": 48,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= nums.length <= 100",
+        "0 <= nums[i] <= 400"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              1
+            ]
+          },
+          "expectedOutput": 4,
+          "description": "Rob house 1 (money = 1) and then rob house 3 (money = 3). Total = 1 + 3 = 4"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              7,
+              9,
+              3,
+              1
+            ]
+          },
+          "expectedOutput": 12,
+          "description": "Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1). Total = 2 + 9 + 1 = 12"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              5
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "Single house"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              1,
+              1,
+              2
+            ]
+          },
+          "expectedOutput": 4,
+          "description": "Rob first and last house"
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              3,
+              4,
+              11,
+              2
+            ]
+          },
+          "expectedOutput": 16,
+          "description": "Rob houses 1 and 4"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "At each house, you have two choices: rob it or skip it. If you rob it, you can't rob the previous house."
+        },
+        {
+          "level": 2,
+          "text": "Define dp[i] = maximum money you can rob from houses 0 to i. Then dp[i] = max(dp[i-1], nums[i] + dp[i-2])."
+        },
+        {
+          "level": 3,
+          "text": "You only need the last two values, so you can optimize space to O(1) using two variables instead of an array."
+        }
+      ],
+      "similarProblems": [
+        "climbing-stairs",
+        "house-robber-ii"
+      ],
+      "starterCode": {
+        "javascript": "function rob(nums) {\n  // Your code here\n  // At each house: rob it or skip it\n  \n}",
+        "python": "def rob(nums):\n    # Your code here\n    # At each house: rob it or skip it\n    pass",
+        "java": "class Solution {\n    public int rob(int[] nums) {\n        // Your code here\n        // At each house: rob it or skip it\n        \n    }\n}",
+        "c": "int rob(int* nums, int numsSize) {\n    // Your code here\n    // At each house: rob it or skip it\n    \n}"
+      },
+      "solution": {
+        "javascript": "function rob(nums) {\n  if (nums.length === 0) return 0;\n  if (nums.length === 1) return nums[0];\n  \n  let prev2 = 0; // dp[i-2]\n  let prev1 = 0; // dp[i-1]\n  \n  for (const num of nums) {\n    const current = Math.max(prev1, num + prev2);\n    prev2 = prev1;\n    prev1 = current;\n  }\n  \n  return prev1;\n}",
+        "python": "def rob(nums):\n    if not nums:\n        return 0\n    if len(nums) == 1:\n        return nums[0]\n    \n    prev2 = 0  # dp[i-2]\n    prev1 = 0  # dp[i-1]\n    \n    for num in nums:\n        current = max(prev1, num + prev2)\n        prev2 = prev1\n        prev1 = current\n    \n    return prev1",
+        "java": "class Solution {\n    public int rob(int[] nums) {\n        if (nums.length == 0) return 0;\n        if (nums.length == 1) return nums[0];\n        \n        int prev2 = 0; // dp[i-2]\n        int prev1 = 0; // dp[i-1]\n        \n        for (int num : nums) {\n            int current = Math.max(prev1, num + prev2);\n            prev2 = prev1;\n            prev1 = current;\n        }\n        \n        return prev1;\n    }\n}",
+        "c": "int rob(int* nums, int numsSize) {\n    if (numsSize == 0) return 0;\n    if (numsSize == 1) return nums[0];\n    \n    int prev2 = 0; // dp[i-2]\n    int prev1 = 0; // dp[i-1]\n    \n    for (int i = 0; i < numsSize; i++) {\n        int current = (prev1 > nums[i] + prev2) ? prev1 : nums[i] + prev2;\n        prev2 = prev1;\n        prev1 = current;\n    }\n    \n    return prev1;\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Not identifying overlapping subproblems - DP won't help if subproblems don't repeat",
+      "Wrong state definition - state must capture all information needed for decision",
+      "Forgetting base cases - always define the simplest cases clearly",
+      "Not optimizing space - many 2D DP problems can be reduced to 1D",
+      "Trying to apply DP when greedy would work - not every optimization needs DP"
+    ],
+    "patternDetection": [
+      "Problem asks for 'maximum', 'minimum', 'longest', 'shortest', or 'count ways'",
+      "You have choices at each step (take/skip, buy/sell)",
+      "Optimal solution can be built from optimal subsolutions",
+      "Same subproblems are calculated multiple times in naive recursion",
+      "Problem involves sequences, strings, or arrays with optimization",
+      "Keywords: 'optimize', 'maximum', 'minimum', 'ways', 'longest', 'shortest'"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "70. Climbing Stairs",
+        "link": "https://leetcode.com/problems/climbing-stairs/",
+        "difficulty": "Easy",
+        "description": "Classic DP intro - Fibonacci pattern"
+      },
+      {
+        "title": "198. House Robber",
+        "link": "https://leetcode.com/problems/house-robber/",
+        "difficulty": "Medium",
+        "description": "Can't take adjacent elements - classic DP"
+      },
+      {
+        "title": "322. Coin Change",
+        "link": "https://leetcode.com/problems/coin-change/",
+        "difficulty": "Medium",
+        "description": "Unbounded knapsack - minimum coins"
+      },
+      {
+        "title": "300. Longest Increasing Subsequence",
+        "link": "https://leetcode.com/problems/longest-increasing-subsequence/",
+        "difficulty": "Medium",
+        "description": "Classic LIS problem with O(n²) DP"
+      },
+      {
+        "title": "1143. Longest Common Subsequence",
+        "link": "https://leetcode.com/problems/longest-common-subsequence/",
+        "difficulty": "Medium",
+        "description": "2D DP for string matching"
+      },
+      {
+        "title": "72. Edit Distance",
+        "link": "https://leetcode.com/problems/edit-distance/",
+        "difficulty": "Hard",
+        "description": "Transform one string to another - classic DP"
+      },
+      {
+        "title": "416. Partition Equal Subset Sum",
+        "link": "https://leetcode.com/problems/partition-equal-subset-sum/",
+        "difficulty": "Medium",
+        "description": "0/1 knapsack variant"
+      }
+    ]
+  },
+  "walkthrough": {
+    "title": "Climbing Stairs",
+    "description": "Calculate number of ways to climb n stairs when you can take 1 or 2 steps at a time",
+    "difficulty": "Easy",
+    "code": {
+      "javascript": "function climbStairs(n) {\n  if (n <= 2) return n;\n  \n  let prev2 = 1; // Ways to reach step 1\n  let prev1 = 2; // Ways to reach step 2\n  \n  for (let i = 3; i <= n; i++) {\n    const current = prev1 + prev2;\n    prev2 = prev1;\n    prev1 = current;\n  }\n  \n  return prev1;\n}",
+      "python": "def climbStairs(n):\n    if n <= 2:\n        return n\n    \n    prev2 = 1  # Ways to reach step 1\n    prev1 = 2  # Ways to reach step 2\n    \n    for i in range(3, n + 1):\n        current = prev1 + prev2\n        prev2 = prev1\n        prev1 = current\n    \n    return prev1",
+      "java": "public int climbStairs(int n) {\n    if (n <= 2) return n;\n    \n    int prev2 = 1; // Ways to reach step 1\n    int prev1 = 2; // Ways to reach step 2\n    \n    for (int i = 3; i <= n; i++) {\n        int current = prev1 + prev2;\n        prev2 = prev1;\n        prev1 = current;\n    }\n    \n    return prev1;\n}",
+      "c": "int climbStairs(int n) {\n    if (n <= 2) return n;\n    \n    int prev2 = 1; // Ways to reach step 1\n    int prev1 = 2; // Ways to reach step 2\n    \n    for (int i = 3; i <= n; i++) {\n        int current = prev1 + prev2;\n        prev2 = prev1;\n        prev1 = current;\n    }\n    \n    return prev1;\n}"
+    },
+    "steps": [
+      {
+        "title": "Identify the Pattern",
+        "explanation": "This is a classic DP problem! To reach step n, you can either:\\n• Come from step (n-1) and take 1 step\\n• Come from step (n-2) and take 2 steps\\n\\nSo: ways(n) = ways(n-1) + ways(n-2)\\n\\nThis is the Fibonacci sequence!",
+        "highlightLines": [
+          2
+        ],
+        "visualization": "n=1: 1 way (1)\\nn=2: 2 ways (1+1, 2)\\nn=3: 3 ways (1+1+1, 1+2, 2+1)\\nn=4: 5 ways (1+1+1+1, 1+1+2, 1+2+1, 2+1+1, 2+2)\\n\\nPattern: 1, 2, 3, 5, 8, 13...",
+        "insight": "Recognizing this as Fibonacci is key! It transforms a complex problem into a simple iteration.",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Initialize Base Cases",
+        "explanation": "We start with the simplest cases:\\n• 1 stair: 1 way (just take 1 step)\\n• 2 stairs: 2 ways (1+1 or 2)\\n\\nThese are our building blocks for calculating larger values.",
+        "highlightLines": [
+          4,
+          5
+        ],
+        "visualization": "prev2 = 1 (ways to reach step 1)\\nprev1 = 2 (ways to reach step 2)\\n\\nThink of these as dp[i-2] and dp[i-1]",
+        "insight": "We only need to track the last 2 values, not the entire array. This optimizes space from O(n) to O(1)!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Build Up Solution",
+        "explanation": "For each step from 3 to n, we calculate the number of ways by adding the previous two values.\\n\\nThis is the core DP recurrence relation in action!",
+        "highlightLines": [
+          7,
+          8
+        ],
+        "visualization": "Example for n=5:\\ni=3: current = 2 + 1 = 3\\ni=4: current = 3 + 2 = 5\\ni=5: current = 5 + 3 = 8\\n\\nAnswer: 8 ways to climb 5 stairs",
+        "insight": "Each iteration builds on previous results - this is the essence of dynamic programming!",
+        "complexity": {
+          "time": "O(1) per iteration",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Update Sliding Window",
+        "explanation": "After calculating the current value, we slide our window forward:\\n• prev2 becomes prev1\\n• prev1 becomes current\\n\\nThis prepares us for the next iteration.",
+        "highlightLines": [
+          9,
+          10
+        ],
+        "visualization": "Before: prev2=2, prev1=3, current=5\\nAfter:  prev2=3, prev1=5\\n\\nWe've shifted our window one step forward!",
+        "insight": "This sliding window technique is what keeps our space complexity at O(1) instead of O(n).",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Return Final Answer",
+        "explanation": "After the loop completes, prev1 contains the number of ways to reach step n.\\n\\nTime: O(n) - we iterate from 3 to n\\nSpace: O(1) - we only use 3 variables\\n\\nThis is optimal! Much better than the recursive O(2^n) approach.",
+        "highlightLines": [
+          13
+        ],
+        "visualization": "For n=5:\\nFinal state: prev1 = 8\\n\\nThe 8 ways are:\\n1+1+1+1+1\\n1+1+1+2\\n1+1+2+1\\n1+2+1+1\\n2+1+1+1\\n1+2+2\\n2+1+2\\n2+2+1",
+        "insight": "This bottom-up DP approach is much more efficient than top-down recursion with memoization for this problem!",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(1)"
+        }
+      }
+    ]
+  }
+}

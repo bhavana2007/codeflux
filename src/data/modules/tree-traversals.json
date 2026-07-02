@@ -1,0 +1,594 @@
+{
+  "id": "tree-traversals",
+  "title": "Tree Traversals",
+  "description": "Master inorder, preorder, postorder, and level-order tree traversals",
+  "difficulty": "intermediate",
+  "order": 8,
+  "tags": [
+    "trees",
+    "traversal",
+    "recursion",
+    "dfs"
+  ],
+  "documentation": {
+    "content": "# Tree Traversals: The Art of Visiting Every Node\n\nImagine you're organizing a family reunion and need to visit every relative's house. Do you visit all siblings before visiting cousins? Or do you go deep into one branch of the family tree first? That's the essence of tree traversals—different strategies for visiting every node in a tree.\n\n## The Story Behind Tree Traversals\n\nTrees are hierarchical data structures that appear everywhere in computer science—file systems, organization charts, HTML DOM, expression parsing, and more. But how do you process every node in a tree? That's where traversals come in.\n\nThere are four main ways to traverse a tree, each with its own personality and use cases.\n\n## The Four Traversal Personalities\n\n**Inorder (Left → Root → Right)** - Visits left subtree, then root, then right subtree. For binary search trees, this gives you nodes in sorted order! It's like reading a book from left to right.\n\n**Preorder (Root → Left → Right)** - Visits root first, then left subtree, then right subtree. Perfect for creating a copy of the tree or serializing it. It's like outlining a document—you write the heading before the content.\n\n**Postorder (Left → Right → Root)** - Visits left subtree, then right subtree, then root last. Great for deleting trees or calculating directory sizes. It's like cleaning up—you handle children before parents.\n\n**Level-order (BFS)** - Visits nodes level by level, left to right. Uses a queue instead of recursion. Perfect for finding shortest paths or processing by depth.\n\n## When to Use Each Traversal\n\n**Inorder:**\n- Get sorted values from BST\n- Validate BST properties\n- Find kth smallest element\n\n**Preorder:**\n- Create copy of tree\n- Serialize tree to string\n- Prefix expression evaluation\n- File system operations\n\n**Postorder:**\n- Delete tree (delete children first)\n- Calculate directory sizes\n- Postfix expression evaluation\n- Dependency resolution\n\n**Level-order:**\n- Find shortest path in tree\n- Print tree level by level\n- Connect nodes at same level\n- Find tree width\n\n## How They Actually Work\n\nLet's say we have this tree:\n```\n    1\n   / \\\n  2   3\n / \\\n4   5\n```\n\n**Inorder**: 4, 2, 5, 1, 3 (Left → Root → Right)\n**Preorder**: 1, 2, 4, 5, 3 (Root → Left → Right)\n**Postorder**: 4, 5, 2, 3, 1 (Left → Right → Root)\n**Level-order**: 1, 2, 3, 4, 5 (Level by level)\n\n## The Performance\n\n**Time**: O(n) - Must visit every node once\n**Space**: \n- Recursive DFS: O(h) where h = height (call stack)\n- Iterative DFS: O(h) for explicit stack\n- BFS: O(w) where w = maximum width\n\n## Common Mistakes\n\n❌ **Mixing up the order** - Remember: INorder = IN the middle, PREorder = before children, POSTorder = after children\n❌ **Forgetting base case** - Always check if node is null\n❌ **Not handling empty tree** - Check if root is null before starting\n❌ **Stack overflow** - Deep trees with recursion can overflow; use iterative approach\n\n## Pro Tips\n\n💡 **Recursion is your friend** - DFS traversals are naturally recursive\n💡 **Use a stack for iterative DFS** - Mimics recursion without stack overflow risk\n💡 **Use a queue for BFS** - Essential for level-order traversal\n💡 **Morris traversal** - O(1) space traversal using threading (advanced)\n💡 **Remember the pattern** - Draw small trees and practice the orders\n\n## Real-World Applications\n\n**Inorder:**\n- Database indexing (B-trees)\n- Expression tree evaluation\n- Finding successor/predecessor\n\n**Preorder:**\n- File system directory listing\n- Serializing trees for storage\n- Creating tree copies\n\n**Postorder:**\n- Calculating folder sizes\n- Deleting files and directories\n- Evaluating postfix expressions\n\n**Level-order:**\n- Organizational hierarchy display\n- Game AI (minimax tree exploration)\n- Network packet routing\n\nTree traversals are fundamental to working with hierarchical data. Once you internalize these patterns, you'll see trees everywhere and know exactly how to navigate them! 🌳✨\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "gm8DUJJhmY4",
+      "title": "Tree Traversals - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "9RHO6jU--GU",
+      "title": "Tree Traversals - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "1K8Mv0D2jAI",
+      "title": "Tree Traversals - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Which traversal visits nodes in sorted order for a Binary Search Tree?",
+        "options": [
+          "Preorder",
+          "Inorder",
+          "Postorder",
+          "Level-order"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Inorder traversal (Left → Root → Right) visits BST nodes in ascending sorted order."
+      },
+      {
+        "id": "q2",
+        "question": "Which data structure is used for level-order traversal?",
+        "options": [
+          "Stack",
+          "Queue",
+          "Array",
+          "Hash Map"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Level-order traversal uses a queue to process nodes level by level in FIFO order."
+      },
+      {
+        "id": "q3",
+        "question": "In which traversal is the root node visited last?",
+        "options": [
+          "Preorder",
+          "Inorder",
+          "Postorder",
+          "Level-order"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Postorder traversal visits left subtree, then right subtree, and finally the root node last."
+      },
+      {
+        "id": "q4",
+        "question": "What is the space complexity of recursive inorder traversal?",
+        "options": [
+          "O(1)",
+          "O(log n)",
+          "O(h) where h is height",
+          "O(n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Recursive traversal uses O(h) space for the call stack, where h is the tree height."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "inorder-traversal",
+      "title": "Binary Tree Inorder Traversal",
+      "difficulty": "easy",
+      "description": "Given the root of a binary tree, return the inorder traversal of its nodes' values.",
+      "constraints": [
+        "The number of nodes in the tree is in range [0, 100]",
+        "-100 <= Node.val <= 100"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "root": [
+              1,
+              null,
+              2,
+              3
+            ]
+          },
+          "expectedOutput": [
+            1,
+            3,
+            2
+          ],
+          "description": "Inorder: left, root, right"
+        },
+        {
+          "input": {
+            "root": []
+          },
+          "expectedOutput": [],
+          "description": "Empty tree"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "root": [
+              1
+            ]
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single node"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function inorderTraversal(root) {\n  // Your code here\n  // Traverse: left → root → right\n  \n}",
+        "python": "def inorder_traversal(root):\n    # Your code here\n    # Traverse: left → root → right\n    pass",
+        "java": "class Solution {\n    public List<Integer> inorderTraversal(TreeNode root) {\n        // Your code here\n        // Traverse: left → root → right\n        \n    }\n}",
+        "c": "int* inorderTraversal(struct TreeNode* root, int* returnSize) {\n    // Your code here\n    // Traverse: left → root → right\n    \n}"
+      },
+      "solution": {
+        "javascript": "function inorderTraversal(root) {\n  const result = [];\n  \n  function traverse(node) {\n    if (!node) return;\n    \n    traverse(node.left);\n    result.push(node.val);\n    traverse(node.right);\n  }\n  \n  traverse(root);\n  return result;\n}",
+        "python": "def inorder_traversal(root):\n    result = []\n    \n    def traverse(node):\n        if not node:\n            return\n        \n        traverse(node.left)\n        result.append(node.val)\n        traverse(node.right)\n    \n    traverse(root)\n    return result",
+        "java": "class Solution {\n    public List<Integer> inorderTraversal(TreeNode root) {\n        List<Integer> result = new ArrayList<>();\n        traverse(root, result);\n        return result;\n    }\n    \n    private void traverse(TreeNode node, List<Integer> result) {\n        if (node == null) return;\n        \n        traverse(node.left, result);\n        result.add(node.val);\n        traverse(node.right, result);\n    }\n}",
+        "c": "void traverse(struct TreeNode* node, int* result, int* index) {\n    if (!node) return;\n    \n    traverse(node->left, result, index);\n    result[(*index)++] = node->val;\n    traverse(node->right, result, index);\n}\n\nint* inorderTraversal(struct TreeNode* root, int* returnSize) {\n    int* result = (int*)malloc(100 * sizeof(int));\n    *returnSize = 0;\n    traverse(root, result, returnSize);\n    return result;\n}"
+      }
+    },
+    {
+      "id": "max-depth",
+      "title": "Maximum Depth of Binary Tree",
+      "difficulty": "easy",
+      "description": "Given the root of a binary tree, return its maximum depth.\n\nA binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.",
+      "constraints": [
+        "The number of nodes in the tree is in range [0, 10^4]",
+        "-100 <= Node.val <= 100"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "root": [
+              3,
+              9,
+              20,
+              null,
+              null,
+              15,
+              7
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "Tree has 3 levels"
+        },
+        {
+          "input": {
+            "root": [
+              1,
+              null,
+              2
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "Tree has 2 levels"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "root": []
+          },
+          "expectedOutput": 0,
+          "description": "Empty tree"
+        },
+        {
+          "input": {
+            "root": [
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single node"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function maxDepth(root) {\n  // Your code here\n  // Use recursion or BFS\n  \n}",
+        "python": "def max_depth(root):\n    # Your code here\n    # Use recursion or BFS\n    pass",
+        "java": "class Solution {\n    public int maxDepth(TreeNode root) {\n        // Your code here\n        // Use recursion or BFS\n        \n    }\n}",
+        "c": "int maxDepth(struct TreeNode* root) {\n    // Your code here\n    // Use recursion or BFS\n    \n}"
+      },
+      "solution": {
+        "javascript": "function maxDepth(root) {\n  if (!root) return 0;\n  \n  const leftDepth = maxDepth(root.left);\n  const rightDepth = maxDepth(root.right);\n  \n  return Math.max(leftDepth, rightDepth) + 1;\n}",
+        "python": "def max_depth(root):\n    if not root:\n        return 0\n    \n    left_depth = max_depth(root.left)\n    right_depth = max_depth(root.right)\n    \n    return max(left_depth, right_depth) + 1",
+        "java": "class Solution {\n    public int maxDepth(TreeNode root) {\n        if (root == null) return 0;\n        \n        int leftDepth = maxDepth(root.left);\n        int rightDepth = maxDepth(root.right);\n        \n        return Math.max(leftDepth, rightDepth) + 1;\n    }\n}",
+        "c": "int maxDepth(struct TreeNode* root) {\n    if (!root) return 0;\n    \n    int leftDepth = maxDepth(root->left);\n    int rightDepth = maxDepth(root->right);\n    \n    return (leftDepth > rightDepth ? leftDepth : rightDepth) + 1;\n}"
+      }
+    },
+    {
+      "id": "symmetric-tree",
+      "title": "Symmetric Tree",
+      "difficulty": "easy",
+      "description": "Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).",
+      "constraints": [
+        "The number of nodes in the tree is in range [1, 1000]",
+        "-100 <= Node.val <= 100"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "root": [
+              1,
+              2,
+              2,
+              3,
+              4,
+              4,
+              3
+            ]
+          },
+          "expectedOutput": true,
+          "description": "Tree is symmetric"
+        },
+        {
+          "input": {
+            "root": [
+              1,
+              2,
+              2,
+              null,
+              3,
+              null,
+              3
+            ]
+          },
+          "expectedOutput": false,
+          "description": "Tree is not symmetric"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "root": [
+              1
+            ]
+          },
+          "expectedOutput": true,
+          "description": "Single node is symmetric"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function isSymmetric(root) {\n  // Your code here\n  \n}",
+        "python": "def is_symmetric(root):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public boolean isSymmetric(TreeNode root) {\n        // Your code here\n        \n    }\n}",
+        "c": "bool isSymmetric(struct TreeNode* root) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function isSymmetric(root) {\n  if (!root) return true;\n  \n  function isMirror(left, right) {\n    if (!left && !right) return true;\n    if (!left || !right) return false;\n    \n    return left.val === right.val &&\n           isMirror(left.left, right.right) &&\n           isMirror(left.right, right.left);\n  }\n  \n  return isMirror(root.left, root.right);\n}",
+        "python": "def is_symmetric(root):\n    if not root:\n        return True\n    \n    def is_mirror(left, right):\n        if not left and not right:\n            return True\n        if not left or not right:\n            return False\n        \n        return (left.val == right.val and\n                is_mirror(left.left, right.right) and\n                is_mirror(left.right, right.left))\n    \n    return is_mirror(root.left, root.right)",
+        "java": "class Solution {\n    public boolean isSymmetric(TreeNode root) {\n        if (root == null) return true;\n        return isMirror(root.left, root.right);\n    }\n    \n    private boolean isMirror(TreeNode left, TreeNode right) {\n        if (left == null && right == null) return true;\n        if (left == null || right == null) return false;\n        \n        return left.val == right.val &&\n               isMirror(left.left, right.right) &&\n               isMirror(left.right, right.left);\n    }\n}",
+        "c": "bool isMirror(struct TreeNode* left, struct TreeNode* right) {\n    if (!left && !right) return true;\n    if (!left || !right) return false;\n    \n    return left->val == right->val &&\n           isMirror(left->left, right->right) &&\n           isMirror(left->right, right->left);\n}\n\nbool isSymmetric(struct TreeNode* root) {\n    if (!root) return true;\n    return isMirror(root->left, root->right);\n}"
+      }
+    },
+    {
+      "id": "inorder-traversal",
+      "title": "Binary Tree Inorder Traversal",
+      "difficulty": "easy",
+      "description": "Given the root of a binary tree, return the inorder traversal of its nodes' values.\n\nInorder traversal visits nodes in this order: Left subtree → Root → Right subtree.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Google",
+        "Facebook"
+      ],
+      "topicTags": [
+        "Tree",
+        "Stack",
+        "Depth-First Search"
+      ],
+      "acceptanceRate": 74,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 100]",
+        "-100 <= Node.val <= 100"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "root": [
+              1,
+              null,
+              2,
+              3
+            ]
+          },
+          "expectedOutput": [
+            1,
+            3,
+            2
+          ],
+          "description": "Inorder: left(none) → 1 → left(3) → 2 → right(none)"
+        },
+        {
+          "input": {
+            "root": []
+          },
+          "expectedOutput": [],
+          "description": "Empty tree"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "root": [
+              1
+            ]
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single node"
+        },
+        {
+          "input": {
+            "root": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": [
+            4,
+            2,
+            5,
+            1,
+            3
+          ],
+          "description": "Complete binary tree"
+        },
+        {
+          "input": {
+            "root": [
+              1,
+              2,
+              null,
+              3
+            ]
+          },
+          "expectedOutput": [
+            3,
+            2,
+            1
+          ],
+          "description": "Left-skewed tree"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Inorder means: process left subtree, then root, then right subtree. Think recursively!"
+        },
+        {
+          "level": 2,
+          "text": "Recursive solution: inorder(root) = inorder(root.left) + [root.val] + inorder(root.right). Base case: if root is null, return empty array."
+        },
+        {
+          "level": 3,
+          "text": "For iterative solution, use a stack. Go left as far as possible, then process node, then go right."
+        }
+      ],
+      "similarProblems": [
+        "preorder-traversal",
+        "postorder-traversal",
+        "binary-tree-level-order"
+      ],
+      "starterCode": {
+        "javascript": "function inorderTraversal(root) {\n  // Your code here\n  // Recursive: left → root → right\n  \n}",
+        "python": "def inorder_traversal(root):\n    # Your code here\n    # Recursive: left → root → right\n    pass",
+        "java": "class Solution {\n    public List<Integer> inorderTraversal(TreeNode root) {\n        // Your code here\n        // Recursive: left → root → right\n        \n    }\n}",
+        "c": "int* inorderTraversal(struct TreeNode* root, int* returnSize) {\n    // Your code here\n    // Recursive: left → root → right\n    \n}"
+      },
+      "solution": {
+        "javascript": "function inorderTraversal(root) {\n  const result = [];\n  \n  function traverse(node) {\n    if (node === null) return;\n    \n    traverse(node.left);      // Left\n    result.push(node.val);    // Root\n    traverse(node.right);     // Right\n  }\n  \n  traverse(root);\n  return result;\n}",
+        "python": "def inorder_traversal(root):\n    result = []\n    \n    def traverse(node):\n        if node is None:\n            return\n        \n        traverse(node.left)   # Left\n        result.append(node.val)  # Root\n        traverse(node.right)  # Right\n    \n    traverse(root)\n    return result",
+        "java": "class Solution {\n    public List<Integer> inorderTraversal(TreeNode root) {\n        List<Integer> result = new ArrayList<>();\n        traverse(root, result);\n        return result;\n    }\n    \n    private void traverse(TreeNode node, List<Integer> result) {\n        if (node == null) return;\n        \n        traverse(node.left, result);   // Left\n        result.add(node.val);          // Root\n        traverse(node.right, result);  // Right\n    }\n}",
+        "c": "void traverse(struct TreeNode* node, int* result, int* index) {\n    if (node == NULL) return;\n    \n    traverse(node->left, result, index);   // Left\n    result[(*index)++] = node->val;        // Root\n    traverse(node->right, result, index);  // Right\n}\n\nint* inorderTraversal(struct TreeNode* root, int* returnSize) {\n    int* result = (int*)malloc(100 * sizeof(int));\n    *returnSize = 0;\n    traverse(root, result, returnSize);\n    return result;\n}"
+      }
+    },
+    {
+      "id": "max-depth-binary-tree",
+      "title": "Maximum Depth of Binary Tree",
+      "difficulty": "easy",
+      "description": "Given the root of a binary tree, return its maximum depth.\n\nA binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Apple",
+        "Facebook"
+      ],
+      "topicTags": [
+        "Tree",
+        "Depth-First Search",
+        "Breadth-First Search"
+      ],
+      "acceptanceRate": 74,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(h)",
+      "constraints": [
+        "The number of nodes in the tree is in the range [0, 10^4]",
+        "-100 <= Node.val <= 100"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "root": [
+              3,
+              9,
+              20,
+              null,
+              null,
+              15,
+              7
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "The maximum depth is 3 (path: 3 → 20 → 15 or 3 → 20 → 7)"
+        },
+        {
+          "input": {
+            "root": [
+              1,
+              null,
+              2
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "The maximum depth is 2 (path: 1 → 2)"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "root": []
+          },
+          "expectedOutput": 0,
+          "description": "Empty tree has depth 0"
+        },
+        {
+          "input": {
+            "root": [
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single node has depth 1"
+        },
+        {
+          "input": {
+            "root": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "Complete binary tree"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think recursively! The depth of a tree is 1 + the maximum depth of its left and right subtrees."
+        },
+        {
+          "level": 2,
+          "text": "Base case: if the node is null, depth is 0. Recursive case: depth = 1 + max(depth(left), depth(right))."
+        },
+        {
+          "level": 3,
+          "text": "You can also solve this iteratively using BFS (level-order traversal) and counting levels."
+        }
+      ],
+      "similarProblems": [
+        "minimum-depth-binary-tree",
+        "balanced-binary-tree"
+      ],
+      "starterCode": {
+        "javascript": "function maxDepth(root) {\n  // Your code here\n  // Think recursively\n  \n}",
+        "python": "def max_depth(root):\n    # Your code here\n    # Think recursively\n    pass",
+        "java": "class Solution {\n    public int maxDepth(TreeNode root) {\n        // Your code here\n        // Think recursively\n        \n    }\n}",
+        "c": "int maxDepth(struct TreeNode* root) {\n    // Your code here\n    // Think recursively\n    \n}"
+      },
+      "solution": {
+        "javascript": "function maxDepth(root) {\n  if (root === null) return 0;\n  \n  const leftDepth = maxDepth(root.left);\n  const rightDepth = maxDepth(root.right);\n  \n  return 1 + Math.max(leftDepth, rightDepth);\n}",
+        "python": "def max_depth(root):\n    if root is None:\n        return 0\n    \n    left_depth = max_depth(root.left)\n    right_depth = max_depth(root.right)\n    \n    return 1 + max(left_depth, right_depth)",
+        "java": "class Solution {\n    public int maxDepth(TreeNode root) {\n        if (root == null) return 0;\n        \n        int leftDepth = maxDepth(root.left);\n        int rightDepth = maxDepth(root.right);\n        \n        return 1 + Math.max(leftDepth, rightDepth);\n    }\n}",
+        "c": "int maxDepth(struct TreeNode* root) {\n    if (root == NULL) return 0;\n    \n    int leftDepth = maxDepth(root->left);\n    int rightDepth = maxDepth(root->right);\n    \n    return 1 + (leftDepth > rightDepth ? leftDepth : rightDepth);\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Mixing up traversal orders - remember: INorder = IN the middle, PREorder = before, POSTorder = after",
+      "Forgetting base case in recursion - always check if node is null",
+      "Not handling empty trees - check if root is null before starting",
+      "Stack overflow with deep trees - consider iterative approach for very deep trees",
+      "Using wrong data structure - stack for DFS, queue for BFS"
+    ],
+    "patternDetection": [
+      "Problem asks for 'sorted order' from BST - use inorder traversal",
+      "Need to process parent before children - use preorder",
+      "Need to process children before parent - use postorder",
+      "Level-by-level processing - use level-order (BFS)",
+      "Tree serialization or copying - use preorder",
+      "Tree deletion or size calculation - use postorder"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "94. Binary Tree Inorder Traversal",
+        "link": "https://leetcode.com/problems/binary-tree-inorder-traversal/",
+        "difficulty": "Easy",
+        "description": "Classic inorder traversal - recursive and iterative"
+      },
+      {
+        "title": "144. Binary Tree Preorder Traversal",
+        "link": "https://leetcode.com/problems/binary-tree-preorder-traversal/",
+        "difficulty": "Easy",
+        "description": "Preorder traversal implementation"
+      },
+      {
+        "title": "145. Binary Tree Postorder Traversal",
+        "link": "https://leetcode.com/problems/binary-tree-postorder-traversal/",
+        "difficulty": "Easy",
+        "description": "Postorder traversal implementation"
+      },
+      {
+        "title": "102. Binary Tree Level Order Traversal",
+        "link": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+        "difficulty": "Medium",
+        "description": "BFS level-order traversal"
+      },
+      {
+        "title": "104. Maximum Depth of Binary Tree",
+        "link": "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+        "difficulty": "Easy",
+        "description": "Find tree height using any traversal"
+      },
+      {
+        "title": "98. Validate Binary Search Tree",
+        "link": "https://leetcode.com/problems/validate-binary-search-tree/",
+        "difficulty": "Medium",
+        "description": "Use inorder traversal to validate BST"
+      },
+      {
+        "title": "103. Binary Tree Zigzag Level Order",
+        "link": "https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/",
+        "difficulty": "Medium",
+        "description": "Modified level-order with alternating direction"
+      },
+      {
+        "title": "101. Symmetric Tree",
+        "link": "https://leetcode.com/problems/symmetric-tree/",
+        "difficulty": "Easy",
+        "description": "Check if tree is mirror of itself"
+      }
+    ]
+  }
+}

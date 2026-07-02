@@ -1,0 +1,533 @@
+{
+  "id": "math-number-theory",
+  "title": "Math & Number Theory",
+  "description": "Unlock mathematical patterns and number properties! Learn GCD, LCM, primes, and modular arithmetic. These concepts are the foundation of many elegant algorithms! 🔢✨",
+  "difficulty": "advanced",
+  "order": 20,
+  "tags": [
+    "math",
+    "number-theory",
+    "gcd",
+    "primes",
+    "modular-arithmetic"
+  ],
+  "documentation": {
+    "content": "# Math & Number Theory: The Foundation of Elegant Algorithms\n\nMathematics is the language of patterns. Number theory helps us understand properties of integers and solve problems that seem impossible at first glance. From ancient Greek mathematicians to modern cryptography, these concepts power the digital world!\n\n## Core Concepts\n\n### 1. GCD (Greatest Common Divisor)\n\nThe largest number that divides both a and b.\n\n**Euclidean Algorithm** (O(log min(a,b))):\n```\ngcd(a, b) = gcd(b, a % b)\ngcd(a, 0) = a\n```\n\n**Example**: gcd(48, 18) = gcd(18, 12) = gcd(12, 6) = gcd(6, 0) = 6\n\n### 2. LCM (Least Common Multiple)\n\nThe smallest number divisible by both a and b.\n\n**Formula**: `lcm(a, b) = (a * b) / gcd(a, b)`\n\n### 3. Prime Numbers\n\nNumbers divisible only by 1 and themselves.\n\n**Sieve of Eratosthenes** (O(n log log n)):\nFind all primes up to n efficiently.\n\n**Primality Test** (O(√n)):\nCheck divisibility up to √n.\n\n### 4. Modular Arithmetic\n\nArithmetic with remainders.\n\n**Properties**:\n- (a + b) % m = ((a % m) + (b % m)) % m\n- (a * b) % m = ((a % m) * (b % m)) % m\n- (a - b) % m = ((a % m) - (b % m) + m) % m\n\n**Modular Exponentiation** (O(log n)):\nCompute (a^b) % m efficiently using binary exponentiation.\n\n### 5. Factorial & Combinations\n\n**Factorial**: n! = n × (n-1) × ... × 2 × 1\n\n**Combinations**: C(n, k) = n! / (k! × (n-k)!)\n\n**Pascal's Triangle**: C(n, k) = C(n-1, k-1) + C(n-1, k)\n\n## Common Patterns\n\n**Pattern 1: GCD/LCM Problems**\nSimplifying fractions, finding common multiples\n- Use Euclidean algorithm for GCD\n- Calculate LCM using GCD\n\n**Pattern 2: Prime Factorization**\nBreaking numbers into prime factors\n- Divide by primes up to √n\n- Count factor occurrences\n\n**Pattern 3: Modular Arithmetic**\nLarge number calculations\n- Take modulo at each step\n- Use modular exponentiation for powers\n\n**Pattern 4: Counting & Combinatorics**\nCounting arrangements and selections\n- Use factorial and combinations\n- Apply Pascal's triangle for DP\n\n**Pattern 5: Number Properties**\nPerfect squares, palindromes, digits\n- Check mathematical properties\n- Use digit manipulation\n\n## Essential Algorithms\n\n### Euclidean Algorithm (GCD)\n```javascript\nfunction gcd(a, b) {\n  while (b !== 0) {\n    [a, b] = [b, a % b];\n  }\n  return a;\n}\n```\n\n### Sieve of Eratosthenes\n```javascript\nfunction sieve(n) {\n  const isPrime = new Array(n + 1).fill(true);\n  isPrime[0] = isPrime[1] = false;\n  \n  for (let i = 2; i * i <= n; i++) {\n    if (isPrime[i]) {\n      for (let j = i * i; j <= n; j += i) {\n        isPrime[j] = false;\n      }\n    }\n  }\n  return isPrime;\n}\n```\n\n### Fast Exponentiation (Modular)\n```javascript\nfunction powMod(base, exp, mod) {\n  let result = 1;\n  base %= mod;\n  \n  while (exp > 0) {\n    if (exp % 2 === 1) {\n      result = (result * base) % mod;\n    }\n    base = (base * base) % mod;\n    exp = Math.floor(exp / 2);\n  }\n  return result;\n}\n```\n\n## When to Use Number Theory\n\n✅ Problems involving divisibility\n✅ Finding common factors/multiples\n✅ Prime number problems\n✅ Large number calculations (use modulo)\n✅ Counting problems (combinations)\n✅ Cryptography and security\n\n## Pro Tips\n\n💡 **Overflow prevention**: Use modulo arithmetic for large numbers\n💡 **Optimization**: Precompute factorials and primes when needed multiple times\n💡 **Edge cases**: Handle 0, 1, and negative numbers carefully\n💡 **Fast exponentiation**: Use binary exponentiation for powers\n💡 **Prime checking**: Only check divisors up to √n\n\n## Common Number Theory Problems\n\n1. **GCD/LCM**: Simplify fractions, find common periods\n2. **Prime Factorization**: Count divisors, find factors\n3. **Modular Arithmetic**: Large number calculations\n4. **Combinations**: Count ways to select items\n5. **Perfect Squares**: Check if number is perfect square\n6. **Digit Problems**: Sum of digits, reverse number\n7. **Fibonacci**: Generate Fibonacci numbers\n\n## Real-World Applications\n\n- **Cryptography**: RSA encryption uses prime numbers\n- **Hashing**: Modular arithmetic in hash functions\n- **Computer Graphics**: Rotation matrices use trigonometry\n- **Music Theory**: Frequencies and harmonics\n- **Calendar Calculations**: Day of week algorithms\n- **Error Detection**: Checksums and CRC\n\n## Mathematical Identities\n\n**Sum formulas**:\n- 1 + 2 + ... + n = n(n+1)/2\n- 1² + 2² + ... + n² = n(n+1)(2n+1)/6\n- 1³ + 2³ + ... + n³ = [n(n+1)/2]²\n\n**Geometric series**:\n- a + ar + ar² + ... + ar^(n-1) = a(r^n - 1)/(r - 1)\n\n**Binomial theorem**:\n- (a + b)^n = Σ C(n,k) × a^(n-k) × b^k\n\n## Time Complexities\n\n- GCD (Euclidean): O(log min(a,b))\n- Prime check: O(√n)\n- Sieve of Eratosthenes: O(n log log n)\n- Modular exponentiation: O(log n)\n- Factorial: O(n)\n- Combinations (with DP): O(n × k)\n\n## Common Mistakes\n\n❌ Integer overflow with large numbers\n❌ Not using modulo arithmetic\n❌ Inefficient prime checking (checking all numbers)\n❌ Forgetting edge cases (0, 1, negative)\n❌ Division in modular arithmetic (need modular inverse)\n\nNumber theory might seem abstract, but it's incredibly practical! Master these concepts and you'll solve problems that look impossible at first glance. 🚀\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "OnVbcbTQF2U",
+      "title": "Math & Number Theory - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "U0E_MjzSgMc",
+      "title": "Math & Number Theory - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "1Z0L5jHcps8",
+      "title": "Math & Number Theory - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the time complexity of the Euclidean algorithm for finding GCD?",
+        "options": [
+          "O(n)",
+          "O(log n)",
+          "O(√n)",
+          "O(n²)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "The Euclidean algorithm has O(log min(a,b)) time complexity. Each iteration reduces the problem size by at least half, leading to logarithmic time."
+      },
+      {
+        "id": "q2",
+        "question": "How do you calculate LCM(a, b) using GCD?",
+        "options": [
+          "a + b - GCD(a, b)",
+          "(a × b) / GCD(a, b)",
+          "GCD(a, b) × 2",
+          "a × b × GCD(a, b)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "LCM(a, b) = (a × b) / GCD(a, b). This formula works because the product of two numbers equals their GCD times their LCM."
+      },
+      {
+        "id": "q3",
+        "question": "What is the most efficient way to check if a number n is prime?",
+        "options": [
+          "Check divisibility by all numbers from 2 to n-1",
+          "Check divisibility by all numbers from 2 to n/2",
+          "Check divisibility by all numbers from 2 to √n",
+          "Check divisibility by all even numbers"
+        ],
+        "correctAnswer": 2,
+        "explanation": "We only need to check divisors up to √n. If n has a factor greater than √n, it must also have a corresponding factor less than √n. This gives us O(√n) time complexity."
+      },
+      {
+        "id": "q4",
+        "question": "In modular arithmetic, what is (a × b) % m equal to?",
+        "options": [
+          "(a % m) × (b % m)",
+          "((a % m) × (b % m)) % m",
+          "(a × b) - m",
+          "a % (b × m)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "(a × b) % m = ((a % m) × (b % m)) % m. We can take modulo of each operand first, multiply them, and then take modulo again. This prevents overflow with large numbers."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "greatest-common-divisor",
+      "title": "Greatest Common Divisor of Strings",
+      "difficulty": "easy",
+      "description": "For two strings s and t, we say 't divides s' if and only if s = t + t + ... + t (i.e., t is concatenated with itself one or more times).\n\nGiven two strings str1 and str2, return the largest string x such that x divides both str1 and str2.\n\nExample:\nInput: str1 = 'ABCABC', str2 = 'ABC'\nOutput: 'ABC'\n\nExample 2:\nInput: str1 = 'ABABAB', str2 = 'ABAB'\nOutput: 'AB'",
+      "companyTags": [
+        "Google",
+        "Amazon",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "String",
+        "Math",
+        "GCD"
+      ],
+      "acceptanceRate": 51.2,
+      "timeComplexity": "O(n + m)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the relationship between string division and the GCD of their lengths. If a string divides both, what can you say about the lengths?"
+        },
+        {
+          "level": 2,
+          "text": "First check if str1 + str2 == str2 + str1. If not, there's no common divisor. If yes, the GCD of the lengths gives you the answer length."
+        },
+        {
+          "level": 3,
+          "text": "Algorithm: 1) Check if str1 + str2 == str2 + str1 (if not, return ''). 2) Find gcd(len(str1), len(str2)). 3) Return str1.substring(0, gcd_length)."
+        }
+      ],
+      "similarProblems": [
+        "repeated-substring-pattern",
+        "find-gcd-of-array"
+      ],
+      "constraints": [
+        "1 <= str1.length, str2.length <= 1000",
+        "str1 and str2 consist of English uppercase letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "str1": "ABCABC",
+            "str2": "ABC"
+          },
+          "expectedOutput": "ABC",
+          "description": "ABC divides both strings"
+        },
+        {
+          "input": {
+            "str1": "ABABAB",
+            "str2": "ABAB"
+          },
+          "expectedOutput": "AB",
+          "description": "AB is the largest divisor"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "str1": "LEET",
+            "str2": "CODE"
+          },
+          "expectedOutput": "",
+          "description": "No common divisor"
+        },
+        {
+          "input": {
+            "str1": "ABCDEF",
+            "str2": "ABC"
+          },
+          "expectedOutput": "",
+          "description": "Different patterns"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function gcdOfStrings(str1, str2) {\n  // Helper function to find GCD of two numbers\n  function gcd(a, b) {\n    // Your code here\n  }\n  \n  // Check if concatenation is commutative\n  \n  // Find GCD of lengths and return substring\n}",
+        "python": "def gcdOfStrings(str1, str2):\n    # Helper function to find GCD of two numbers\n    def gcd(a, b):\n        # Your code here\n        pass\n    \n    # Check if concatenation is commutative\n    \n    # Find GCD of lengths and return substring",
+        "java": "class Solution {\n    public String gcdOfStrings(String str1, String str2) {\n        // Helper method to find GCD of two numbers\n        \n        // Check if concatenation is commutative\n        \n        // Find GCD of lengths and return substring\n    }\n    \n    private int gcd(int a, int b) {\n        // Your code here\n    }\n}",
+        "c": "#include <string.h>\n#include <stdlib.h>\n\nint gcd(int a, int b) {\n    // Your code here\n}\n\nchar* gcdOfStrings(char* str1, char* str2) {\n    // Check if concatenation is commutative\n    \n    // Find GCD of lengths and return substring\n}"
+      },
+      "solution": {
+        "javascript": "function gcdOfStrings(str1, str2) {\n  function gcd(a, b) {\n    while (b !== 0) {\n      [a, b] = [b, a % b];\n    }\n    return a;\n  }\n  \n  if (str1 + str2 !== str2 + str1) {\n    return '';\n  }\n  \n  const gcdLen = gcd(str1.length, str2.length);\n  return str1.substring(0, gcdLen);\n}",
+        "python": "def gcdOfStrings(str1, str2):\n    def gcd(a, b):\n        while b:\n            a, b = b, a % b\n        return a\n    \n    if str1 + str2 != str2 + str1:\n        return ''\n    \n    gcd_len = gcd(len(str1), len(str2))\n    return str1[:gcd_len]",
+        "java": "class Solution {\n    public String gcdOfStrings(String str1, String str2) {\n        if (!(str1 + str2).equals(str2 + str1)) {\n            return \"\";\n        }\n        \n        int gcdLen = gcd(str1.length(), str2.length());\n        return str1.substring(0, gcdLen);\n    }\n    \n    private int gcd(int a, int b) {\n        while (b != 0) {\n            int temp = b;\n            b = a % b;\n            a = temp;\n        }\n        return a;\n    }\n}",
+        "c": "#include <string.h>\n#include <stdlib.h>\n\nint gcd(int a, int b) {\n    while (b != 0) {\n        int temp = b;\n        b = a % b;\n        a = temp;\n    }\n    return a;\n}\n\nchar* gcdOfStrings(char* str1, char* str2) {\n    int len1 = strlen(str1);\n    int len2 = strlen(str2);\n    \n    char* concat1 = malloc(len1 + len2 + 1);\n    char* concat2 = malloc(len1 + len2 + 1);\n    strcpy(concat1, str1);\n    strcat(concat1, str2);\n    strcpy(concat2, str2);\n    strcat(concat2, str1);\n    \n    if (strcmp(concat1, concat2) != 0) {\n        free(concat1);\n        free(concat2);\n        return \"\";\n    }\n    \n    free(concat1);\n    free(concat2);\n    \n    int gcdLen = gcd(len1, len2);\n    char* result = malloc(gcdLen + 1);\n    strncpy(result, str1, gcdLen);\n    result[gcdLen] = '\\0';\n    return result;\n}"
+      }
+    },
+    {
+      "id": "palindrome-number",
+      "title": "Palindrome Number",
+      "difficulty": "easy",
+      "description": "Solve the Palindrome Number problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "power-of-two",
+      "title": "Power of Two",
+      "difficulty": "easy",
+      "description": "Solve the Power of Two problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "fizz-buzz",
+      "title": "Fizz Buzz",
+      "difficulty": "easy",
+      "description": "Solve the Fizz Buzz problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "roman-to-integer",
+      "title": "Roman to Integer",
+      "difficulty": "easy",
+      "description": "Solve the Roman to Integer problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Integer overflow when multiplying large numbers",
+      "Not using modulo arithmetic for large calculations",
+      "Inefficient prime checking (not stopping at √n)",
+      "Forgetting to handle edge cases (0, 1, negative numbers)",
+      "Division in modular arithmetic without modular inverse"
+    ],
+    "patternDetection": [
+      "Problem involves divisibility or factors",
+      "Need to find GCD, LCM, or prime factors",
+      "Large number calculations (use modulo)",
+      "Counting combinations or permutations",
+      "Keywords: 'divisible', 'factor', 'prime', 'modulo', 'remainder', 'GCD', 'LCM'"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "1071. Greatest Common Divisor of Strings",
+        "link": "https://leetcode.com/problems/greatest-common-divisor-of-strings/",
+        "difficulty": "Easy",
+        "description": "GCD applied to strings"
+      },
+      {
+        "title": "204. Count Primes",
+        "link": "https://leetcode.com/problems/count-primes/",
+        "difficulty": "Medium",
+        "description": "Sieve of Eratosthenes"
+      },
+      {
+        "title": "50. Pow(x, n)",
+        "link": "https://leetcode.com/problems/powx-n/",
+        "difficulty": "Medium",
+        "description": "Fast exponentiation"
+      },
+      {
+        "title": "62. Unique Paths",
+        "link": "https://leetcode.com/problems/unique-paths/",
+        "difficulty": "Medium",
+        "description": "Combinations formula"
+      }
+    ]
+  }
+}

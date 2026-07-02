@@ -1,0 +1,520 @@
+{
+  "id": "greedy",
+  "title": "Greedy Algorithms",
+  "description": "Master greedy approach for optimization problems",
+  "difficulty": "advanced",
+  "order": 17,
+  "tags": [
+    "greedy",
+    "optimization",
+    "algorithms",
+    "strategy"
+  ],
+  "documentation": {
+    "content": "# Greedy Algorithms: Make the Best Choice Now\n\nImagine you're at a buffet with limited stomach space. Do you carefully plan every bite to maximize enjoyment? Or do you just grab whatever looks best right now? Greedy algorithms take the second approach—make the locally optimal choice at each step, hoping it leads to a globally optimal solution.\n\n## The Story Behind Greedy\n\nGreedy algorithms are beautifully simple: at each step, make the choice that looks best right now, without worrying about future consequences. Surprisingly, for many problems, this \"live in the moment\" approach actually gives you the optimal solution!\n\nThe catch? Greedy doesn't always work. You need to prove that local optimal choices lead to global optimum.\n\n## Greedy vs Dynamic Programming\n\n**Greedy** - Make best choice now, never reconsider. Fast and simple when it works.\n**DP** - Consider all choices, remember results. Slower but handles more problems.\n\nGreedy is like taking the first good job offer. DP is like evaluating all offers before deciding.\n\n## When Greedy Works\n\nGreedy works when the problem has:\n\n**Greedy choice property** - Local optimal choice leads to global optimum\n**Optimal substructure** - Optimal solution contains optimal subsolutions\n\n## Classic Greedy Problems\n\n**Activity Selection** - Schedule maximum non-overlapping activities\n**Huffman Coding** - Optimal prefix-free codes\n**Fractional Knapsack** - Take items by value/weight ratio\n**Minimum Spanning Tree** - Kruskal's, Prim's algorithms\n**Dijkstra's Algorithm** - Shortest path in weighted graph\n**Job Sequencing** - Maximize profit with deadlines\n\n## The Greedy Strategy\n\n**Step 1: Sort** - Often greedy starts with sorting by some criteria\n**Step 2: Iterate** - Go through elements in order\n**Step 3: Make greedy choice** - Pick what looks best now\n**Step 4: Update state** - Adjust for the choice made\n**Step 5: Repeat** - Continue until done\n\n## Common Greedy Patterns\n\n**Interval scheduling** - Sort by end time, pick non-overlapping\n**Minimum coins** - Always use largest denomination possible\n**Jump game** - Always jump to position that reaches farthest\n**Gas station** - Start from station with positive net gas\n**Two pointer greedy** - Move pointers based on greedy criteria\n\n## The Performance\n\nGreedy is typically **O(n log n)** due to sorting, then **O(n)** for the greedy selection. Much faster than DP's typical O(n²)!\n\n## Common Mistakes\n\n❌ **Assuming greedy always works** - Many problems need DP, not greedy\n❌ **Wrong sorting criteria** - The greedy choice depends on correct sorting\n❌ **Not proving correctness** - Greedy needs proof that local optimal → global optimal\n❌ **Forgetting edge cases** - Empty input, single element, all same values\n\n## Pro Tips\n\n💡 **Sort first** - Most greedy problems start with sorting\n💡 **Think exchange argument** - Prove swapping choices doesn't improve solution\n💡 **Try greedy first** - If it seems too easy, verify with examples\n💡 **Counterexample kills greedy** - One counterexample proves greedy doesn't work\n\n## When Greedy Fails\n\n**0/1 Knapsack** - Can't take fractions, need DP\n**Longest path** - Greedy gives wrong answer, need DP\n**Coin change (some systems)** - Greedy fails for certain denominations\n\nExample: Coins [1, 3, 4], amount 6\n- Greedy: 4 + 1 + 1 = 3 coins ❌\n- Optimal: 3 + 3 = 2 coins ✓\n\n## Real-World Applications\n\n- **Compression** - Huffman coding in ZIP, JPEG\n- **Network routing** - Dijkstra's shortest path\n- **Scheduling** - Task scheduling, CPU scheduling\n- **Resource allocation** - Bandwidth, memory allocation\n- **Graph algorithms** - MST, shortest paths\n- **Load balancing** - Assign tasks to servers\n\nGreedy algorithms are elegant when they work. The art is recognizing when the greedy choice is safe and when you need the full power of dynamic programming! 🎯✨\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "HzeK7g8cD0Y",
+      "title": "Greedy Algorithms - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "6d_Wy0nD0fI",
+      "title": "Greedy Algorithms - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "xvdh9pLpQaI",
+      "title": "Greedy Algorithms - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the key principle of greedy algorithms?",
+        "options": [
+          "Consider all possible choices",
+          "Make locally optimal choice at each step",
+          "Use recursion",
+          "Always sort first"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Greedy algorithms make the locally optimal choice at each step, hoping to find a global optimum."
+      },
+      {
+        "id": "q2",
+        "question": "Which property must a problem have for greedy to guarantee optimal solution?",
+        "options": [
+          "Overlapping subproblems",
+          "Greedy choice property",
+          "Sorted input",
+          "Small input size"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Greedy choice property means that locally optimal choices lead to a globally optimal solution."
+      },
+      {
+        "id": "q3",
+        "question": "What is typically the first step in greedy algorithms?",
+        "options": [
+          "Recursion",
+          "Sorting",
+          "Hashing",
+          "Binary search"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Most greedy algorithms start by sorting the input according to some criteria."
+      },
+      {
+        "id": "q4",
+        "question": "For which problem does greedy NOT work?",
+        "options": [
+          "Activity selection",
+          "0/1 Knapsack",
+          "Fractional knapsack",
+          "Minimum spanning tree"
+        ],
+        "correctAnswer": 1,
+        "explanation": "0/1 Knapsack requires dynamic programming. Greedy doesn't work because you can't take fractions."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "jump-game",
+      "title": "Jump Game",
+      "difficulty": "medium",
+      "description": "You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.\n\nReturn true if you can reach the last index, or false otherwise.",
+      "constraints": [
+        "1 <= nums.length <= 10^4",
+        "0 <= nums[i] <= 10^5"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              2,
+              3,
+              1,
+              1,
+              4
+            ]
+          },
+          "expectedOutput": true,
+          "description": "Jump 1 step to index 1, then 3 steps to last index"
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              2,
+              1,
+              0,
+              4
+            ]
+          },
+          "expectedOutput": false,
+          "description": "Always arrive at index 3, max jump is 0"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              0
+            ]
+          },
+          "expectedOutput": true,
+          "description": "Already at last index"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              0,
+              0
+            ]
+          },
+          "expectedOutput": true,
+          "description": "Can jump over zeros"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function canJump(nums) {\n  // Your code here\n  // Track maximum reachable index\n  \n}",
+        "python": "def can_jump(nums):\n    # Your code here\n    # Track maximum reachable index\n    pass",
+        "java": "class Solution {\n    public boolean canJump(int[] nums) {\n        // Your code here\n        // Track maximum reachable index\n        \n    }\n}",
+        "c": "bool canJump(int* nums, int numsSize) {\n    // Your code here\n    // Track maximum reachable index\n    \n}"
+      },
+      "solution": {
+        "javascript": "function canJump(nums) {\n  let maxReach = 0;\n  \n  for (let i = 0; i < nums.length; i++) {\n    if (i > maxReach) return false;\n    maxReach = Math.max(maxReach, i + nums[i]);\n    if (maxReach >= nums.length - 1) return true;\n  }\n  \n  return true;\n}",
+        "python": "def can_jump(nums):\n    max_reach = 0\n    \n    for i in range(len(nums)):\n        if i > max_reach:\n            return False\n        max_reach = max(max_reach, i + nums[i])\n        if max_reach >= len(nums) - 1:\n            return True\n    \n    return True",
+        "java": "class Solution {\n    public boolean canJump(int[] nums) {\n        int maxReach = 0;\n        \n        for (int i = 0; i < nums.length; i++) {\n            if (i > maxReach) return false;\n            maxReach = Math.max(maxReach, i + nums[i]);\n            if (maxReach >= nums.length - 1) return true;\n        }\n        \n        return true;\n    }\n}",
+        "c": "bool canJump(int* nums, int numsSize) {\n    int maxReach = 0;\n    \n    for (int i = 0; i < numsSize; i++) {\n        if (i > maxReach) return false;\n        int reach = i + nums[i];\n        maxReach = maxReach > reach ? maxReach : reach;\n        if (maxReach >= numsSize - 1) return true;\n    }\n    \n    return true;\n}"
+      }
+    },
+    {
+      "id": "best-time-stock",
+      "title": "Best Time to Buy and Sell Stock",
+      "difficulty": "easy",
+      "description": "You are given an array prices where prices[i] is the price of a given stock on the ith day.\n\nYou want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.\n\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.",
+      "constraints": [
+        "1 <= prices.length <= 10^5",
+        "0 <= prices[i] <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "prices": [
+              7,
+              1,
+              5,
+              3,
+              6,
+              4
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "Buy on day 2 (price=1), sell on day 5 (price=6), profit = 6-1 = 5"
+        },
+        {
+          "input": {
+            "prices": [
+              7,
+              6,
+              4,
+              3,
+              1
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "No profit possible"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "prices": [
+              1,
+              2
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Simple profit"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function maxProfit(prices) {\n  // Your code here\n  // Track minimum price and maximum profit\n  \n}",
+        "python": "def max_profit(prices):\n    # Your code here\n    # Track minimum price and maximum profit\n    pass",
+        "java": "class Solution {\n    public int maxProfit(int[] prices) {\n        // Your code here\n        // Track minimum price and maximum profit\n        \n    }\n}",
+        "c": "int maxProfit(int* prices, int pricesSize) {\n    // Your code here\n    // Track minimum price and maximum profit\n    \n}"
+      },
+      "solution": {
+        "javascript": "function maxProfit(prices) {\n  let minPrice = Infinity;\n  let maxProfit = 0;\n  \n  for (const price of prices) {\n    minPrice = Math.min(minPrice, price);\n    maxProfit = Math.max(maxProfit, price - minPrice);\n  }\n  \n  return maxProfit;\n}",
+        "python": "def max_profit(prices):\n    min_price = float('inf')\n    max_profit = 0\n    \n    for price in prices:\n        min_price = min(min_price, price)\n        max_profit = max(max_profit, price - min_price)\n    \n    return max_profit",
+        "java": "class Solution {\n    public int maxProfit(int[] prices) {\n        int minPrice = Integer.MAX_VALUE;\n        int maxProfit = 0;\n        \n        for (int price : prices) {\n            minPrice = Math.min(minPrice, price);\n            maxProfit = Math.max(maxProfit, price - minPrice);\n        }\n        \n        return maxProfit;\n    }\n}",
+        "c": "int maxProfit(int* prices, int pricesSize) {\n    if (pricesSize == 0) return 0;\n    \n    int minPrice = prices[0];\n    int maxProfit = 0;\n    \n    for (int i = 1; i < pricesSize; i++) {\n        minPrice = minPrice < prices[i] ? minPrice : prices[i];\n        int profit = prices[i] - minPrice;\n        maxProfit = maxProfit > profit ? maxProfit : profit;\n    }\n    \n    return maxProfit;\n}"
+      }
+    },
+    {
+      "id": "jump-game",
+      "title": "Jump Game",
+      "difficulty": "medium",
+      "description": "Solve the Jump Game problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "gas-station",
+      "title": "Gas Station",
+      "difficulty": "medium",
+      "description": "Solve the Gas Station problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "partition-labels",
+      "title": "Partition Labels",
+      "difficulty": "medium",
+      "description": "Solve the Partition Labels problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Assuming greedy always works - many problems require DP instead",
+      "Wrong sorting criteria - the greedy choice depends on correct ordering",
+      "Not proving correctness - greedy needs proof that local optimal leads to global optimal",
+      "Forgetting edge cases - empty input, single element, all same values",
+      "Reconsidering past choices - true greedy never looks back"
+    ],
+    "patternDetection": [
+      "Problem asks for maximum/minimum with simple constraints",
+      "Sorting helps reveal the greedy choice",
+      "Local optimal choice is obvious and seems to work",
+      "Problem involves intervals, scheduling, or selection",
+      "Can prove that greedy choice doesn't prevent optimal solution",
+      "Keywords: 'maximum', 'minimum', 'schedule', 'select', 'interval', 'activity'"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "121. Best Time to Buy and Sell Stock",
+        "link": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+        "difficulty": "Easy",
+        "description": "Track minimum price and maximum profit greedily"
+      },
+      {
+        "title": "55. Jump Game",
+        "link": "https://leetcode.com/problems/jump-game/",
+        "difficulty": "Medium",
+        "description": "Greedy approach to track maximum reachable index"
+      },
+      {
+        "title": "45. Jump Game II",
+        "link": "https://leetcode.com/problems/jump-game-ii/",
+        "difficulty": "Medium",
+        "description": "Minimum jumps using greedy"
+      },
+      {
+        "title": "134. Gas Station",
+        "link": "https://leetcode.com/problems/gas-station/",
+        "difficulty": "Medium",
+        "description": "Find starting station using greedy"
+      },
+      {
+        "title": "435. Non-overlapping Intervals",
+        "link": "https://leetcode.com/problems/non-overlapping-intervals/",
+        "difficulty": "Medium",
+        "description": "Activity selection - greedy interval scheduling"
+      },
+      {
+        "title": "763. Partition Labels",
+        "link": "https://leetcode.com/problems/partition-labels/",
+        "difficulty": "Medium",
+        "description": "Greedy partitioning based on last occurrence"
+      },
+      {
+        "title": "1005. Maximize Sum After K Negations",
+        "link": "https://leetcode.com/problems/maximize-sum-of-array-after-k-negations/",
+        "difficulty": "Easy",
+        "description": "Greedy selection of elements to negate"
+      }
+    ]
+  }
+}

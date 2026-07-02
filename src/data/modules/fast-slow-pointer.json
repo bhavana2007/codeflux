@@ -1,0 +1,633 @@
+{
+  "id": "fast-slow-pointer",
+  "title": "Fast & Slow Pointer Pattern",
+  "description": "Learn the fast and slow pointer technique for detecting cycles and finding middle elements",
+  "difficulty": "intermediate",
+  "order": 6,
+  "tags": [
+    "linked-lists",
+    "pointers",
+    "cycle-detection",
+    "algorithms"
+  ],
+  "documentation": {
+    "content": "# Fast & Slow Pointer Pattern\n\n## Introduction\n\nThe Fast & Slow Pointer pattern, also known as the \"tortoise and hare\" algorithm, uses two pointers moving at different speeds to solve problems related to linked lists and arrays.\n\n## What is Fast & Slow Pointer?\n\nThis pattern uses two pointers:\n- **Slow Pointer**: Moves one step at a time\n- **Fast Pointer**: Moves two steps at a time\n\nThe different speeds allow us to detect cycles and find middle elements efficiently.\n\n## When to Use It\n\nUse the fast & slow pointer pattern when:\n- Detecting cycles in linked lists\n- Finding the middle of a linked list\n- Determining if a linked list is a palindrome\n- Finding the start of a cycle\n- Removing nth node from end\n\n## How It Works\n\n### Cycle Detection\n1. **Initialize**: Both pointers start at the head\n2. **Move**: Slow moves 1 step, fast moves 2 steps\n3. **Check**: If fast meets slow, a cycle exists\n4. **Terminate**: If fast reaches null, no cycle\n\n### Finding Middle\n1. **Initialize**: Both pointers start at the head\n2. **Move**: Slow moves 1 step, fast moves 2 steps\n3. **Terminate**: When fast reaches end, slow is at middle\n\n## Time and Space Complexity\n\n- **Time Complexity**: O(n) - Linear traversal\n- **Space Complexity**: O(1) - Only two pointers\n\n## Common Mistakes\n\n- Not checking for null pointers before moving fast pointer\n- Forgetting that fast pointer moves twice as fast\n- Not handling edge cases (empty list, single node)\n- Assuming cycle always exists\n\n## Pro Tips\n\n- Always check if fast and fast.next exist before moving\n- For finding middle, slow will be at middle when fast reaches end\n- To find cycle start, reset one pointer to head after detection\n- Works on arrays too, not just linked lists\n\n## Real-World Applications\n\n- Cycle detection in linked lists\n- Finding middle element without counting\n- Detecting loops in sequences\n- Palindrome checking\n- Memory leak detection\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "b139yf7Ik-E",
+      "title": "Fast & Slow Pointer - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "NUbqd8-lHl4",
+      "title": "Fast & Slow Pointer - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "GmW4nS3N0OE",
+      "title": "Fast & Slow Pointer - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What does the fast & slow pointer pattern detect?",
+        "options": [
+          "Duplicates in arrays",
+          "Sorted order",
+          "Cycles in linked lists",
+          "Maximum element"
+        ],
+        "correctAnswer": 2,
+        "explanation": "The fast & slow pointer pattern is primarily used to detect cycles in linked lists. When fast and slow pointers meet, it confirms a cycle exists."
+      },
+      {
+        "id": "q2",
+        "question": "How many steps does the fast pointer move at a time?",
+        "options": [
+          "1 step",
+          "2 steps",
+          "3 steps",
+          "Same as slow pointer"
+        ],
+        "correctAnswer": 1,
+        "explanation": "The fast pointer moves 2 steps at a time, while the slow pointer moves 1 step. This speed difference is key to the algorithm."
+      },
+      {
+        "id": "q3",
+        "question": "When fast and slow pointers meet, what does it indicate?",
+        "options": [
+          "A cycle is confirmed",
+          "No cycle exists",
+          "The list is sorted",
+          "Maximum is found"
+        ],
+        "correctAnswer": 0,
+        "explanation": "When the fast and slow pointers meet at the same node, it confirms that a cycle exists in the linked list."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "linked-list-cycle",
+      "title": "Linked List Cycle Detection",
+      "difficulty": "easy",
+      "description": "Given the head of a linked list, determine if the linked list has a cycle in it.\n\nA cycle exists if there is some node in the list that can be reached again by continuously following the next pointer.",
+      "constraints": [
+        "The number of nodes in the list is in range [0, 10^4]",
+        "-10^5 <= Node.val <= 10^5"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "head": [
+              3,
+              2,
+              0,
+              -4
+            ],
+            "pos": 1
+          },
+          "expectedOutput": true,
+          "description": "There is a cycle, tail connects to node index 1"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2
+            ],
+            "pos": 0
+          },
+          "expectedOutput": true,
+          "description": "There is a cycle, tail connects to node index 0"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "head": [
+              1
+            ],
+            "pos": -1
+          },
+          "expectedOutput": false,
+          "description": "No cycle in single node"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "pos": -1
+          },
+          "expectedOutput": false,
+          "description": "No cycle in list"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "pos": 2
+          },
+          "expectedOutput": true,
+          "description": "Cycle starting at index 2"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function hasCycle(head) {\n  // Your code here\n  // Use fast and slow pointers\n  // If they meet, there's a cycle\n  \n}",
+        "python": "def has_cycle(head):\n    # Your code here\n    # Use fast and slow pointers\n    # If they meet, there's a cycle\n    pass",
+        "java": "class Solution {\n    public boolean hasCycle(ListNode head) {\n        // Your code here\n        // Use fast and slow pointers\n        // If they meet, there's a cycle\n        \n    }\n}",
+        "c": "bool hasCycle(struct ListNode *head) {\n    // Your code here\n    // Use fast and slow pointers\n    // If they meet, there's a cycle\n    \n}"
+      },
+      "solution": {
+        "javascript": "function hasCycle(head) {\n  if (!head || !head.next) return false;\n  \n  let slow = head;\n  let fast = head;\n  \n  while (fast && fast.next) {\n    slow = slow.next;        // Move 1 step\n    fast = fast.next.next;   // Move 2 steps\n    \n    if (slow === fast) {\n      return true;  // Cycle detected\n    }\n  }\n  \n  return false;  // No cycle\n}",
+        "python": "def has_cycle(head):\n    if not head or not head.next:\n        return False\n    \n    slow = head\n    fast = head\n    \n    while fast and fast.next:\n        slow = slow.next        # Move 1 step\n        fast = fast.next.next   # Move 2 steps\n        \n        if slow == fast:\n            return True  # Cycle detected\n    \n    return False  # No cycle",
+        "java": "class Solution {\n    public boolean hasCycle(ListNode head) {\n        if (head == null || head.next == null) return false;\n        \n        ListNode slow = head;\n        ListNode fast = head;\n        \n        while (fast != null && fast.next != null) {\n            slow = slow.next;        // Move 1 step\n            fast = fast.next.next;   // Move 2 steps\n            \n            if (slow == fast) {\n                return true;  // Cycle detected\n            }\n        }\n        \n        return false;  // No cycle\n    }\n}",
+        "c": "bool hasCycle(struct ListNode *head) {\n    if (head == NULL || head->next == NULL) return false;\n    \n    struct ListNode *slow = head;\n    struct ListNode *fast = head;\n    \n    while (fast != NULL && fast->next != NULL) {\n        slow = slow->next;        // Move 1 step\n        fast = fast->next->next;  // Move 2 steps\n        \n        if (slow == fast) {\n            return true;  // Cycle detected\n        }\n    }\n    \n    return false;  // No cycle\n}"
+      }
+    },
+    {
+      "id": "linked-list-cycle-start",
+      "title": "Linked List Cycle II - Find Start",
+      "difficulty": "medium",
+      "description": "Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.\\n\\nUse Floyd's algorithm: detect cycle with fast/slow pointers, then find the start by moving one pointer to head and advancing both at same speed.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Facebook",
+        "Google"
+      ],
+      "topicTags": [
+        "Linked List",
+        "Two Pointers",
+        "Fast & Slow Pointer"
+      ],
+      "acceptanceRate": 47,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "The number of nodes in the list is in the range [0, 10^4]",
+        "-10^5 <= Node.val <= 10^5",
+        "pos is -1 or a valid index in the linked-list"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "head": [
+              3,
+              2,
+              0,
+              -4
+            ],
+            "pos": 1
+          },
+          "expectedOutput": 1,
+          "description": "Cycle starts at node with value 2 (index 1)"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2
+            ],
+            "pos": 0
+          },
+          "expectedOutput": 0,
+          "description": "Cycle starts at node with value 1 (index 0)"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "head": [
+              1
+            ],
+            "pos": -1
+          },
+          "expectedOutput": null,
+          "description": "No cycle"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "pos": 2
+          },
+          "expectedOutput": 2,
+          "description": "Cycle starts at node with value 3"
+        },
+        {
+          "input": {
+            "head": [
+              1
+            ],
+            "pos": 0
+          },
+          "expectedOutput": 0,
+          "description": "Single node pointing to itself"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "First detect if a cycle exists using fast and slow pointers."
+        },
+        {
+          "level": 2,
+          "text": "Once cycle is detected (fast meets slow), move one pointer to head. Then advance both pointers one step at a time."
+        },
+        {
+          "level": 3,
+          "text": "The point where they meet again is the start of the cycle. This works because of the mathematical property of cycle detection."
+        }
+      ],
+      "similarProblems": [
+        "linked-list-cycle"
+      ],
+      "starterCode": {
+        "javascript": "function detectCycle(head) {\n  // Your code here\n  \n}",
+        "python": "def detect_cycle(head):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public ListNode detectCycle(ListNode head) {\n        // Your code here\n        \n    }\n}",
+        "c": "struct ListNode* detectCycle(struct ListNode* head) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function detectCycle(head) {\n  if (!head || !head.next) return null;\n  \n  let slow = head;\n  let fast = head;\n  \n  // Detect cycle\n  while (fast && fast.next) {\n    slow = slow.next;\n    fast = fast.next.next;\n    \n    if (slow === fast) {\n      // Cycle detected, find start\n      slow = head;\n      while (slow !== fast) {\n        slow = slow.next;\n        fast = fast.next;\n      }\n      return slow;\n    }\n  }\n  \n  return null;\n}",
+        "python": "def detect_cycle(head):\n    if not head or not head.next:\n        return None\n    \n    slow = head\n    fast = head\n    \n    # Detect cycle\n    while fast and fast.next:\n        slow = slow.next\n        fast = fast.next.next\n        \n        if slow == fast:\n            # Cycle detected, find start\n            slow = head\n            while slow != fast:\n                slow = slow.next\n                fast = fast.next\n            return slow\n    \n    return None",
+        "java": "class Solution {\n    public ListNode detectCycle(ListNode head) {\n        if (head == null || head.next == null) return null;\n        \n        ListNode slow = head;\n        ListNode fast = head;\n        \n        // Detect cycle\n        while (fast != null && fast.next != null) {\n            slow = slow.next;\n            fast = fast.next.next;\n            \n            if (slow == fast) {\n                // Cycle detected, find start\n                slow = head;\n                while (slow != fast) {\n                    slow = slow.next;\n                    fast = fast.next;\n                }\n                return slow;\n            }\n        }\n        \n        return null;\n    }\n}",
+        "c": "struct ListNode* detectCycle(struct ListNode* head) {\n    if (!head || !head->next) return NULL;\n    \n    struct ListNode* slow = head;\n    struct ListNode* fast = head;\n    \n    // Detect cycle\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n        \n        if (slow == fast) {\n            // Cycle detected, find start\n            slow = head;\n            while (slow != fast) {\n                slow = slow->next;\n                fast = fast->next;\n            }\n            return slow;\n        }\n    }\n    \n    return NULL;\n}"
+      }
+    },
+    {
+      "id": "happy-number",
+      "title": "Happy Number",
+      "difficulty": "easy",
+      "description": "Write an algorithm to determine if a number n is happy. A happy number is defined by: starting with any positive integer, replace the number by the sum of the squares of its digits. Repeat until the number equals 1 (happy), or it loops endlessly in a cycle (not happy).\\n\\nUse fast and slow pointers to detect the cycle.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Hash Table",
+        "Math",
+        "Two Pointers"
+      ],
+      "acceptanceRate": 54,
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= n <= 2^31 - 1"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "n": 19
+          },
+          "expectedOutput": true,
+          "description": "19 → 82 → 68 → 100 → 1 (happy)"
+        },
+        {
+          "input": {
+            "n": 2
+          },
+          "expectedOutput": false,
+          "description": "2 → 4 → 16 → 37 → 58 → 89 → 145 → 42 → 20 → 4 (cycle detected)"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "n": 1
+          },
+          "expectedOutput": true,
+          "description": "Already 1"
+        },
+        {
+          "input": {
+            "n": 7
+          },
+          "expectedOutput": true,
+          "description": "7 → 49 → 97 → 130 → 10 → 1"
+        },
+        {
+          "input": {
+            "n": 100
+          },
+          "expectedOutput": true,
+          "description": "100 → 1"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Calculate the sum of squares of digits repeatedly. If you see the same number twice, there's a cycle."
+        },
+        {
+          "level": 2,
+          "text": "Use fast and slow pointers: slow moves one step, fast moves two steps. If they meet and it's not 1, there's a cycle."
+        },
+        {
+          "level": 3,
+          "text": "Helper function to get next number: sum the squares of each digit. Use fast/slow pointers to detect cycle without extra space."
+        }
+      ],
+      "similarProblems": [
+        "linked-list-cycle"
+      ],
+      "starterCode": {
+        "javascript": "function isHappy(n) {\n  // Your code here\n  \n}",
+        "python": "def is_happy(n):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public boolean isHappy(int n) {\n        // Your code here\n        \n    }\n}",
+        "c": "bool isHappy(int n) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function isHappy(n) {\n  function getNext(num) {\n    let sum = 0;\n    while (num > 0) {\n      const digit = num % 10;\n      sum += digit * digit;\n      num = Math.floor(num / 10);\n    }\n    return sum;\n  }\n  \n  let slow = n;\n  let fast = getNext(n);\n  \n  while (fast !== 1 && slow !== fast) {\n    slow = getNext(slow);\n    fast = getNext(getNext(fast));\n  }\n  \n  return fast === 1;\n}",
+        "python": "def is_happy(n):\n    def get_next(num):\n        total = 0\n        while num > 0:\n            digit = num % 10\n            total += digit * digit\n            num //= 10\n        return total\n    \n    slow = n\n    fast = get_next(n)\n    \n    while fast != 1 and slow != fast:\n        slow = get_next(slow)\n        fast = get_next(get_next(fast))\n    \n    return fast == 1",
+        "java": "class Solution {\n    private int getNext(int n) {\n        int sum = 0;\n        while (n > 0) {\n            int digit = n % 10;\n            sum += digit * digit;\n            n /= 10;\n        }\n        return sum;\n    }\n    \n    public boolean isHappy(int n) {\n        int slow = n;\n        int fast = getNext(n);\n        \n        while (fast != 1 && slow != fast) {\n            slow = getNext(slow);\n            fast = getNext(getNext(fast));\n        }\n        \n        return fast == 1;\n    }\n}",
+        "c": "int getNext(int n) {\n    int sum = 0;\n    while (n > 0) {\n        int digit = n % 10;\n        sum += digit * digit;\n        n /= 10;\n    }\n    return sum;\n}\n\nbool isHappy(int n) {\n    int slow = n;\n    int fast = getNext(n);\n    \n    while (fast != 1 && slow != fast) {\n        slow = getNext(slow);\n        fast = getNext(getNext(fast));\n    }\n    \n    return fast == 1;\n}"
+      }
+    },
+    {
+      "id": "find-duplicate-number",
+      "title": "Find the Duplicate Number",
+      "difficulty": "medium",
+      "description": "Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive, there is only one repeated number. Return this repeated number.\\n\\nYou must solve this without modifying the array and using only O(1) extra space. Use Floyd's cycle detection treating array values as pointers.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Apple",
+        "Google"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers",
+        "Binary Search"
+      ],
+      "acceptanceRate": 59,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= n <= 10^5",
+        "nums.length == n + 1",
+        "1 <= nums[i] <= n",
+        "All integers in nums appear only once except for one which appears two or more times"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              4,
+              2,
+              2
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "The number 2 appears twice"
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              1,
+              3,
+              4,
+              2
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "The number 3 appears twice"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Minimum case"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              5,
+              9,
+              6,
+              9,
+              3,
+              8,
+              9,
+              7,
+              1,
+              4
+            ]
+          },
+          "expectedOutput": 9,
+          "description": "Number 9 appears multiple times"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              2
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Duplicate at start"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think of the array as a linked list where nums[i] points to index nums[i]. The duplicate creates a cycle."
+        },
+        {
+          "level": 2,
+          "text": "Use Floyd's cycle detection: slow moves one step (slow = nums[slow]), fast moves two steps (fast = nums[nums[fast]])."
+        },
+        {
+          "level": 3,
+          "text": "After detecting cycle, find the entrance: move one pointer to start, advance both one step at a time until they meet."
+        }
+      ],
+      "similarProblems": [
+        "linked-list-cycle"
+      ],
+      "starterCode": {
+        "javascript": "function findDuplicate(nums) {\n  // Your code here\n  \n}",
+        "python": "def find_duplicate(nums):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int findDuplicate(int[] nums) {\n        // Your code here\n        \n    }\n}",
+        "c": "int findDuplicate(int* nums, int numsSize) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function findDuplicate(nums) {\n  let slow = nums[0];\n  let fast = nums[0];\n  \n  // Find intersection point\n  do {\n    slow = nums[slow];\n    fast = nums[nums[fast]];\n  } while (slow !== fast);\n  \n  // Find entrance to cycle\n  slow = nums[0];\n  while (slow !== fast) {\n    slow = nums[slow];\n    fast = nums[fast];\n  }\n  \n  return slow;\n}",
+        "python": "def find_duplicate(nums):\n    slow = nums[0]\n    fast = nums[0]\n    \n    # Find intersection point\n    while True:\n        slow = nums[slow]\n        fast = nums[nums[fast]]\n        if slow == fast:\n            break\n    \n    # Find entrance to cycle\n    slow = nums[0]\n    while slow != fast:\n        slow = nums[slow]\n        fast = nums[fast]\n    \n    return slow",
+        "java": "class Solution {\n    public int findDuplicate(int[] nums) {\n        int slow = nums[0];\n        int fast = nums[0];\n        \n        // Find intersection point\n        do {\n            slow = nums[slow];\n            fast = nums[nums[fast]];\n        } while (slow != fast);\n        \n        // Find entrance to cycle\n        slow = nums[0];\n        while (slow != fast) {\n            slow = nums[slow];\n            fast = nums[fast];\n        }\n        \n        return slow;\n    }\n}",
+        "c": "int findDuplicate(int* nums, int numsSize) {\n    int slow = nums[0];\n    int fast = nums[0];\n    \n    // Find intersection point\n    do {\n        slow = nums[slow];\n        fast = nums[nums[fast]];\n    } while (slow != fast);\n    \n    // Find entrance to cycle\n    slow = nums[0];\n    while (slow != fast) {\n        slow = nums[slow];\n        fast = nums[fast];\n    }\n    \n    return slow;\n}"
+      }
+    },
+    {
+      "id": "reorder-list",
+      "title": "Reorder List",
+      "difficulty": "medium",
+      "description": "Given the head of a singly linked list L0 → L1 → ... → Ln-1 → Ln, reorder it to: L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → ...\\n\\nYou must do this in-place without altering the nodes' values. Use fast/slow to find middle, reverse second half, then merge.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Facebook",
+        "Google"
+      ],
+      "topicTags": [
+        "Linked List",
+        "Two Pointers",
+        "Recursion"
+      ],
+      "acceptanceRate": 51,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "The number of nodes in the list is in the range [1, 5 * 10^4]",
+        "1 <= Node.val <= 1000"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "expectedOutput": [
+            1,
+            4,
+            2,
+            3
+          ],
+          "description": "Reorder to alternate from start and end"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": [
+            1,
+            5,
+            2,
+            4,
+            3
+          ],
+          "description": "Odd length list"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "head": [
+              1
+            ]
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single node"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2
+            ]
+          },
+          "expectedOutput": [
+            1,
+            2
+          ],
+          "description": "Two nodes"
+        },
+        {
+          "input": {
+            "head": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expectedOutput": [
+            1,
+            3,
+            2
+          ],
+          "description": "Three nodes"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Break the problem into three steps: find middle, reverse second half, merge two halves."
+        },
+        {
+          "level": 2,
+          "text": "Use fast/slow pointers to find the middle. Reverse the second half in-place."
+        },
+        {
+          "level": 3,
+          "text": "Merge by alternating nodes from first half and reversed second half. Handle odd/even length cases."
+        }
+      ],
+      "similarProblems": [
+        "linked-list-cycle",
+        "reverse-linked-list"
+      ],
+      "starterCode": {
+        "javascript": "function reorderList(head) {\n  // Your code here\n  \n}",
+        "python": "def reorder_list(head):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void reorderList(ListNode head) {\n        // Your code here\n        \n    }\n}",
+        "c": "void reorderList(struct ListNode* head) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function reorderList(head) {\n  if (!head || !head.next) return;\n  \n  // Find middle\n  let slow = head, fast = head;\n  while (fast.next && fast.next.next) {\n    slow = slow.next;\n    fast = fast.next.next;\n  }\n  \n  // Reverse second half\n  let prev = null, curr = slow.next;\n  slow.next = null;\n  while (curr) {\n    const next = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = next;\n  }\n  \n  // Merge\n  let first = head, second = prev;\n  while (second) {\n    const tmp1 = first.next;\n    const tmp2 = second.next;\n    first.next = second;\n    second.next = tmp1;\n    first = tmp1;\n    second = tmp2;\n  }\n}",
+        "python": "def reorder_list(head):\n    if not head or not head.next:\n        return\n    \n    # Find middle\n    slow, fast = head, head\n    while fast.next and fast.next.next:\n        slow = slow.next\n        fast = fast.next.next\n    \n    # Reverse second half\n    prev, curr = None, slow.next\n    slow.next = None\n    while curr:\n        next_node = curr.next\n        curr.next = prev\n        prev = curr\n        curr = next_node\n    \n    # Merge\n    first, second = head, prev\n    while second:\n        tmp1, tmp2 = first.next, second.next\n        first.next = second\n        second.next = tmp1\n        first = tmp1\n        second = tmp2",
+        "java": "class Solution {\n    public void reorderList(ListNode head) {\n        if (head == null || head.next == null) return;\n        \n        // Find middle\n        ListNode slow = head, fast = head;\n        while (fast.next != null && fast.next.next != null) {\n            slow = slow.next;\n            fast = fast.next.next;\n        }\n        \n        // Reverse second half\n        ListNode prev = null, curr = slow.next;\n        slow.next = null;\n        while (curr != null) {\n            ListNode next = curr.next;\n            curr.next = prev;\n            prev = curr;\n            curr = next;\n        }\n        \n        // Merge\n        ListNode first = head, second = prev;\n        while (second != null) {\n            ListNode tmp1 = first.next;\n            ListNode tmp2 = second.next;\n            first.next = second;\n            second.next = tmp1;\n            first = tmp1;\n            second = tmp2;\n        }\n    }\n}",
+        "c": "void reorderList(struct ListNode* head) {\n    if (!head || !head->next) return;\n    \n    // Find middle\n    struct ListNode *slow = head, *fast = head;\n    while (fast->next && fast->next->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n    }\n    \n    // Reverse second half\n    struct ListNode *prev = NULL, *curr = slow->next;\n    slow->next = NULL;\n    while (curr) {\n        struct ListNode* next = curr->next;\n        curr->next = prev;\n        prev = curr;\n        curr = next;\n    }\n    \n    // Merge\n    struct ListNode *first = head, *second = prev;\n    while (second) {\n        struct ListNode *tmp1 = first->next;\n        struct ListNode *tmp2 = second->next;\n        first->next = second;\n        second->next = tmp1;\n        first = tmp1;\n        second = tmp2;\n    }\n}"
+      }
+    }
+  ]
+}

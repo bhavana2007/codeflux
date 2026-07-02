@@ -1,0 +1,253 @@
+{
+  "id": "recursion",
+  "title": "Recursion & Backtracking Mastery",
+  "description": "Master the art of thinking recursively! From simple recursion to complex backtracking problems. Learn how to break problems down and conquer them step by step. 🔄",
+  "difficulty": "intermediate",
+  "order": 27,
+  "tags": [
+    "recursion",
+    "backtracking",
+    "divide-and-conquer",
+    "memoization"
+  ],
+  "documentation": {
+    "content": "# Recursion & Backtracking Mastery\n\nRecursion is one of the most beautiful concepts in computer science. Instead of thinking iteratively (loop, loop, loop), you think recursively: How can I break this problem into smaller versions of itself?\n\n## The Recursive Leap of Faith\n\nImagine you're asked to find a book in a library. You don't search every shelf yourself. Instead, you ask a librarian Find the book, and they ask another librarian Find the book, and so on... until someone finds it. That's recursion!\n\n## Three Golden Rules of Recursion\n\n1. Base Case: The Exit - Every recursive function MUST have a base case - a condition where the function stops calling itself and returns a direct answer.\n\n2. Recursive Case: The Breakdown - This is where you call the function on a smaller version of the problem. Each call should move closer to the base case.\n\n3. Trust the Process - When you write the recursive case, assume that the recursive call will work correctly.\n\n## Classic Recursion Patterns\n\nPattern 1: Linear Recursion - The function calls itself once.\n\nPattern 2: Tree Recursion - The function calls itself multiple times, creating a tree-like structure.\n\nPattern 3: Tail Recursion - The recursive call is the last operation. Smart compilers can optimize this!"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "IJDJ0kBx60s",
+      "title": "Recursion Fundamentals - English",
+      "duration": 720,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "RE_v3YxLxlA",
+      "title": "Recursion Fundamentals - Hindi",
+      "duration": 720,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "NyCmLe4wqCE",
+      "title": "Recursion Fundamentals - Telugu",
+      "duration": 720,
+      "language": "Telugu"
+    }
+  ],
+  "submodules": [
+    {
+      "id": "basic-recursion",
+      "title": "Basic Recursion",
+      "description": "Start with the fundamentals: factorial, fibonacci, and power functions",
+      "difficulty": "beginner",
+      "videos": [
+        {
+          "id": "sub-video-1",
+          "youtubeId": "IJDJ0kBx60s",
+          "title": "Recursion 101: Factorial & Base Cases - English",
+          "language": "English"
+        },
+        {
+          "id": "sub-video-2",
+          "youtubeId": "RE_v3YxLxlA",
+          "title": "Recursion 101: Factorial & Base Cases - Hindi",
+          "language": "Hindi"
+        }
+      ]
+    },
+    {
+      "id": "tree-recursion",
+      "title": "Tree Recursion",
+      "description": "Master fibonacci, tree problems, and multiple recursive calls",
+      "difficulty": "intermediate",
+      "videos": [
+        {
+          "id": "sub-video-3",
+          "youtubeId": "3dZqm8QaSsw",
+          "title": "Tree Recursion & Fibonacci - English",
+          "language": "English"
+        },
+        {
+          "id": "sub-video-4",
+          "youtubeId": "jXjvM59HjEk",
+          "title": "Tree Recursion & Fibonacci - Hindi",
+          "language": "Hindi"
+        }
+      ]
+    },
+    {
+      "id": "backtracking",
+      "title": "Backtracking Algorithms",
+      "description": "Learn to solve N-Queens, Sudoku, and permutation problems",
+      "difficulty": "advanced",
+      "videos": [
+        {
+          "id": "sub-video-5",
+          "youtubeId": "V3R0DjWPxLw",
+          "title": "Backtracking: N-Queens & Sudoku - English",
+          "language": "English"
+        },
+        {
+          "id": "sub-video-6",
+          "youtubeId": "aTSdQ-MRfIo",
+          "title": "Backtracking: N-Queens & Sudoku - Hindi",
+          "language": "Hindi"
+        }
+      ]
+    }
+  ],
+  "problems": [
+    {
+      "id": "rec-1",
+      "title": "Factorial",
+      "description": "Calculate n! using recursion. Write a recursive function to calculate the factorial of a number n.",
+      "difficulty": "easy",
+      "companyTags": ["Meta", "Amazon", "Google"],
+      "testCases": [
+        {"input": "5", "output": "120"},
+        {"input": "0", "output": "1"},
+        {"input": "10", "output": "3628800"}
+      ]
+    },
+    {
+      "id": "rec-2",
+      "title": "Fibonacci Number",
+      "description": "Find the nth Fibonacci number. Write a recursive function with memoization for efficiency.",
+      "difficulty": "easy",
+      "companyTags": ["Meta", "Amazon", "Apple"],
+      "testCases": [
+        {"input": "6", "output": "8"},
+        {"input": "0", "output": "0"},
+        {"input": "10", "output": "55"}
+      ]
+    },
+    {
+      "id": "rec-3",
+      "title": "Power(x, n)",
+      "description": "Calculate x raised to power n using recursion efficiently. Note: n can be negative and very large.",
+      "difficulty": "medium",
+      "companyTags": ["Microsoft", "Google", "Amazon"],
+      "testCases": [
+        {"input": "2, 10", "output": "1024"},
+        {"input": "2, -2", "output": "0.25"}
+      ]
+    },
+    {
+      "id": "rec-4",
+      "title": "N-Queens Problem",
+      "description": "Place N queens on an NxN chessboard such that no two queens can attack each other. Return all valid configurations.",
+      "difficulty": "hard",
+      "companyTags": ["Google", "Meta", "Microsoft"],
+      "testCases": [
+        {"input": "4", "output": "2 valid configurations"}
+      ]
+    },
+    {
+      "id": "rec-5",
+      "title": "Generate Parentheses",
+      "description": "Given n pairs of parentheses, generate all combinations of well-formed parentheses.",
+      "difficulty": "medium",
+      "companyTags": ["Google", "Amazon", "Meta"],
+      "testCases": [
+        {"input": "1", "output": "1 combination"},
+        {"input": "3", "output": "5 combinations"}
+      ]
+    },
+    {
+      "id": "rec-6",
+      "title": "Letter Combinations of Phone",
+      "description": "Given a string containing digits 2-9, return all possible letter combinations that the number could represent on a phone keypad.",
+      "difficulty": "medium",
+      "companyTags": ["Amazon", "Google"],
+      "testCases": [
+        {"input": "23", "output": "9 combinations"}
+      ]
+    },
+    {
+      "id": "rec-7",
+      "title": "Permutations",
+      "description": "Given an array of distinct integers, return all possible permutations using backtracking.",
+      "difficulty": "medium",
+      "companyTags": ["Google", "Meta", "Microsoft"],
+      "testCases": [
+        {"input": "[1,2,3]", "output": "6 permutations"}
+      ]
+    },
+    {
+      "id": "rec-8",
+      "title": "Word Search",
+      "description": "Given an m x n grid of characters and a string word, determine if the word exists in the grid using backtracking.",
+      "difficulty": "hard",
+      "companyTags": ["Amazon", "Microsoft", "Google"],
+      "testCases": [
+        {"input": "grid with word ABCCED", "output": "true"}
+      ]
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the purpose of a base case in recursion?",
+        "options": [
+          "To make the code run faster",
+          "To determine when the recursion should stop and return a value",
+          "To initialize variables",
+          "To handle errors"
+        ],
+        "correctAnswer": 1,
+        "explanation": "The base case is crucial - it's the condition that stops the recursion and returns a value directly without making another recursive call. Without it, you get infinite recursion."
+      },
+      {
+        "id": "q2",
+        "question": "What is the time complexity of naive recursive Fibonacci without memoization?",
+        "options": [
+          "O(n)",
+          "O(n log n)",
+          "O(2^n)",
+          "O(log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Without memoization, fibonacci recalculates the same values many times, leading to exponential time complexity O(2^n). With memoization, it becomes O(n)."
+      },
+      {
+        "id": "q3",
+        "question": "What does backtracking mean in recursion?",
+        "options": [
+          "Going back to the previous function call",
+          "Undoing choices and trying a different path when current path doesnt lead to a solution",
+          "Repeating the recursion from the start",
+          "Storing previous function calls in memory"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Backtracking is when you explore a path, and if it doesn't work out, you undo your choices and try a different path. This is crucial for problems like N-Queens and Sudoku."
+      },
+      {
+        "id": "q4",
+        "question": "What is tail recursion?",
+        "options": [
+          "Recursion at the end of a function",
+          "When the last operation in a recursive function is the recursive call itself",
+          "When multiple functions call each other recursively",
+          "Recursion that ends with a return statement"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Tail recursion is when the recursive call is the very last operation in the function. Smart compilers can optimize tail recursion to use iteration instead, saving stack space."
+      },
+      {
+        "id": "q5",
+        "question": "What problem can occur with very deep recursion?",
+        "options": [
+          "Infinite loops",
+          "Stack overflow - running out of call stack space",
+          "Memory leak",
+          "CPU overheating"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Each recursive call creates a new stack frame. With very deep recursion, you run out of stack space and get a stack overflow error."
+      }
+    ]
+  }
+}

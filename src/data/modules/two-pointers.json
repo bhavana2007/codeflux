@@ -1,0 +1,2262 @@
+{
+  "id": "two-pointers",
+  "title": "Two Pointers Pattern",
+  "description": "Master the art of solving array problems efficiently! Learn how to use two pointers to cut time complexity from O(n²) to O(n) - a game-changer for coding interviews! 🎯",
+  "difficulty": "beginner",
+  "order": 1,
+  "tags": [
+    "arrays",
+    "pointers",
+    "optimization",
+    "sorted-arrays"
+  ],
+  "documentation": {
+    "content": "# Two Pointers Pattern\n\nImagine you're at a party, standing at opposite ends of a long buffet table with your friend. You're both looking for two dishes that together cost exactly $20. Instead of checking every possible combination (which would take forever!), you have a clever strategy: if your combined picks cost too little, you move toward the pricier items; if they cost too much, your friend moves toward the cheaper ones. You meet somewhere in the middle with the perfect pair. That's the two pointers technique in action!\n\n## The Story Behind Two Pointers\n\nBack in the early days of computer science, programmers faced a common problem: finding pairs of numbers in sorted lists was painfully slow. The naive approach meant checking every number against every other number—imagine comparing every person at a concert with every other person to find matching ticket numbers. It was an O(n²) nightmare.\n\nThen someone had a brilliant insight: \"What if we start from both ends and work our way inward?\" This simple idea revolutionized how we solve array problems, cutting the time from O(n²) down to O(n). It's like having two search parties starting from opposite ends of a trail instead of one party checking every inch.\n\n## When Your Problem Screams \"Two Pointers!\"\n\nYou'll know it's time to reach for two pointers when you see:\n\n**Sorted arrays or strings** - The ordering is your superpower here. Like books arranged on a shelf, you can make smart decisions about which direction to move.\n\n**Looking for pairs** - Whether it's two numbers that sum to a target, or two elements that satisfy some relationship, two pointers excel at pair problems.\n\n**Comparing from both ends** - Problems like \"Is this a palindrome?\" or \"Find the container with most water\" naturally fit this pattern.\n\n**Optimizing nested loops** - If you catch yourself writing two nested loops over the same array, pause! There might be a two-pointer solution hiding there.\n\n## How It Actually Works\n\nLet's walk through it like you're solving a real problem:\n\n**Step 1: Set Up Your Pointers**\nPlace one pointer at the beginning (let's call it `left`) and another at the end (`right`). Think of them as two explorers starting from opposite ends of a cave.\n\n**Step 2: Make Smart Moves**\nAt each step, look at what your pointers are pointing to. Based on what you find:\n- If the sum is too small, move `left` forward (toward bigger numbers)\n- If the sum is too large, move `right` backward (toward smaller numbers)\n- If you found what you're looking for, celebrate! 🎉\n\n**Step 3: Know When to Stop**\nKeep going until your pointers meet or cross. Once `left >= right`, you've checked all possible pairs.\n\n## The Performance Win\n\n**Time**: O(n) - You visit each element at most once. It's like reading a book from start to finish, no backtracking needed.\n\n**Space**: O(1) - Just two pointer variables. No extra arrays, no hash maps, just pure efficiency.\n\n## Real Developers, Real Mistakes\n\nEven experienced programmers trip up on these:\n\n❌ **Using two pointers on unsorted data** - It's like trying to use a phone book that's not alphabetized. Sort first, or choose a different pattern!\n\n❌ **Moving the wrong pointer** - When the sum is too small, moving right backward makes it even smaller. Think through the logic!\n\n❌ **Forgetting the stopping condition** - Always check `left < right`, or you'll end up comparing elements with themselves.\n\n❌ **Ignoring edge cases** - Empty arrays and single elements are the gremlins that break your code at 2 AM.\n\n## Pro Tips from the Trenches\n\n💡 **The sum is too small?** Move left forward. You need bigger numbers!\n\n💡 **The sum is too large?** Move right backward. Time to try smaller numbers.\n\n💡 **Not sorted?** Consider sorting first (O(n log n)) if it enables a two-pointer solution. Sometimes that upfront cost is worth it.\n\n💡 **Combine with other patterns** - Two pointers plays well with sliding window, binary search, and more. Don't be afraid to mix techniques!\n\n## Where You'll Use This in Real Life\n\n- **Finding pairs in sorted data** - The classic use case, like our buffet example\n- **Removing duplicates** - Scan through and keep only unique elements\n- **Palindrome checking** - Compare characters from both ends moving inward\n- **Merging sorted arrays** - Essential for merge sort and database operations\n- **Container problems** - Like finding the maximum area between vertical lines\n\nThe two pointers pattern is one of those techniques that, once you learn it, you'll start seeing opportunities to use it everywhere. It's elegant, efficient, and incredibly satisfying when it clicks. Happy coding! 🚀\n"
+  },
+  "walkthrough": {
+    "title": "Container With Most Water",
+    "description": "Find two lines that together with the x-axis form a container that holds the most water",
+    "difficulty": "Medium",
+    "code": {
+      "javascript": "function maxArea(height) {\n  let left = 0;\n  let right = height.length - 1;\n  let maxWater = 0;\n  \n  while (left < right) {\n    const width = right - left;\n    const minHeight = Math.min(height[left], height[right]);\n    const currentArea = width * minHeight;\n    \n    maxWater = Math.max(maxWater, currentArea);\n    \n    if (height[left] < height[right]) {\n      left++;\n    } else {\n      right--;\n    }\n  }\n  \n  return maxWater;\n}",
+      "python": "def maxArea(height):\n    left = 0\n    right = len(height) - 1\n    max_water = 0\n    \n    while left < right:\n        width = right - left\n        min_height = min(height[left], height[right])\n        current_area = width * min_height\n        \n        max_water = max(max_water, current_area)\n        \n        if height[left] < height[right]:\n            left += 1\n        else:\n            right -= 1\n    \n    return max_water",
+      "java": "public int maxArea(int[] height) {\n    int left = 0;\n    int right = height.length - 1;\n    int maxWater = 0;\n    \n    while (left < right) {\n        int width = right - left;\n        int minHeight = Math.min(height[left], height[right]);\n        int currentArea = width * minHeight;\n        \n        maxWater = Math.max(maxWater, currentArea);\n        \n        if (height[left] < height[right]) {\n            left++;\n        } else {\n            right--;\n        }\n    }\n    \n    return maxWater;\n}",
+      "c": "int maxArea(int* height, int heightSize) {\n    int left = 0;\n    int right = heightSize - 1;\n    int maxWater = 0;\n    \n    while (left < right) {\n        int width = right - left;\n        int minHeight = height[left] < height[right] ? height[left] : height[right];\n        int currentArea = width * minHeight;\n        \n        maxWater = currentArea > maxWater ? currentArea : maxWater;\n        \n        if (height[left] < height[right]) {\n            left++;\n        } else {\n            right--;\n        }\n    }\n    \n    return maxWater;\n}"
+    },
+    "steps": [
+      {
+        "title": "Initialize Two Pointers",
+        "explanation": "We start by placing two pointers at the extreme ends of the array. The 'left' pointer starts at index 0, and the 'right' pointer starts at the last index.\n\nWhy? Because the width between these pointers is maximum at the start. As we move inward, we'll be looking for taller lines that can compensate for the decreasing width.",
+        "highlightLines": [
+          2,
+          3,
+          4
+        ],
+        "visualization": "height = [1, 8, 6, 2, 5, 4, 8, 3, 7]\n          ↑                       ↑\n        left=0                right=8\n        \nWidth = 8, Height = min(1, 7) = 1\nArea = 8 × 1 = 8",
+        "insight": "Starting from the widest possible container ensures we don't miss any potential maximum area.",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Calculate Current Area",
+        "explanation": "For the current pair of lines, we calculate the area of water that can be contained.\n\nArea = width × height\n\nThe width is simply the distance between our two pointers (right - left).\n\nThe height is determined by the SHORTER of the two lines, because water would overflow from the shorter side. Think of it like a bucket with one side lower than the other - water spills from the lower side!",
+        "highlightLines": [
+          7,
+          8,
+          9
+        ],
+        "visualization": "Current state:\nleft=0 (height=1), right=8 (height=7)\n\nwidth = 8 - 0 = 8\nminHeight = min(1, 7) = 1\ncurrentArea = 8 × 1 = 8\n\n|       |       |       |       |       |       |       |       |\n1       8       6       2       5       4       8       3       7\n█                                                               █\n█                                                               █\n█                                                               █\n█                                                               █\n█                                                               █\n█                                                               █\n█                                                               █",
+        "insight": "The container's capacity is always limited by its shorter wall. This is why we use Math.min().",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Update Maximum Area",
+        "explanation": "We keep track of the maximum area we've seen so far. If the current area is larger than our previous maximum, we update it.\n\nThis is a classic pattern in optimization problems - maintain the best solution as you explore different possibilities.",
+        "highlightLines": [
+          11
+        ],
+        "visualization": "maxWater = max(0, 8) = 8\n\nWe've found our first candidate for the maximum area!",
+        "insight": "By continuously tracking the maximum, we only need one pass through the array.",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Move the Shorter Line's Pointer",
+        "explanation": "Here's the KEY INSIGHT of this algorithm:\n\nWe move the pointer that's pointing to the SHORTER line. Why?\n\nIf we move the pointer at the taller line, we're guaranteed to get a smaller or equal area because:\n1. Width decreases (pointers get closer)\n2. Height can't increase (still limited by the shorter line)\n\nBut if we move the pointer at the shorter line, we might find a taller line that increases the height enough to compensate for the lost width!\n\nIn our example: height[left]=1 < height[right]=7, so we move left++",
+        "highlightLines": [
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "visualization": "height[left]=1 < height[right]=7\n\nMove left pointer →\n\nBefore: left=0, right=8\nAfter:  left=1, right=8\n\n        ↓\n[1, 8, 6, 2, 5, 4, 8, 3, 7]\n    ↑                       ↑\n  left=1                right=8",
+        "insight": "Moving the shorter line's pointer is the only way to potentially find a larger area. This greedy choice is what makes the algorithm work!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Continue Until Pointers Meet",
+        "explanation": "We repeat the process: calculate area, update maximum, move the pointer at the shorter line.\n\nThe loop continues while left < right. Once the pointers meet or cross, we've examined all possible pairs!\n\nLet's see the next iteration:\nleft=1 (height=8), right=8 (height=7)\nwidth = 7, minHeight = 7\narea = 7 × 7 = 49 (New maximum!)\n\nSince height[right]=7 < height[left]=8, we move right--",
+        "highlightLines": [
+          6,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "visualization": "Iteration 2:\nleft=1 (height=8), right=8 (height=7)\narea = 7 × 7 = 49 ✓ New max!\n\n|       |       |       |       |       |       |       |       |\n1       8       6       2       5       4       8       3       7\n        █                                                       █\n        █                                                       █\n        █                                                       █\n        █                                                       █\n        █                                                       █\n        █                                                       █\n        █                                                       █\n\nMove right ← (shorter line)",
+        "insight": "Each iteration eliminates one line from consideration. We're guaranteed to find the optimal solution because we never skip a potentially better configuration.",
+        "complexity": {
+          "time": "O(1) per iteration",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Return the Maximum Area",
+        "explanation": "After the loop ends (when left >= right), we've checked all possible pairs of lines.\n\nThe maxWater variable holds the largest area we found during our traversal.\n\nFor our example array [1,8,6,2,5,4,8,3,7], the maximum area is 49 (between indices 1 and 8, with heights 8 and 7, and width 7).\n\nTime Complexity: O(n) - We visit each element at most once\nSpace Complexity: O(1) - Only using a few variables\n\nThis is a HUGE improvement over the brute force O(n²) approach of checking every pair!",
+        "highlightLines": [
+          21
+        ],
+        "visualization": "Final result: maxWater = 49\n\nOptimal container:\n        █                                                       █\n        █                                                       █\n        █                                                       █\n        █                                                       █\n        █                                                       █\n        █                                                       █\n        █                                                       █\n        ↑                                                       ↑\n     index 1                                               index 8\n    height=8                                              height=7\n    \n    Area = 7 (width) × 7 (min height) = 49",
+        "insight": "The two-pointer technique reduced our time complexity from O(n²) to O(n) by making smart decisions about which pointer to move at each step.",
+        "complexity": {
+          "time": "O(n) total",
+          "space": "O(1)"
+        }
+      }
+    ]
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "QzZ7nmouLTI",
+      "title": "Two Pointers - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "2TuBGzAr3lY",
+      "title": "Two Pointers - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "UNcNZm_dY9w",
+      "title": "Two Pointers - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "When should you use the two pointers pattern?",
+        "options": [
+          "When working with unsorted arrays only",
+          "When working with sorted arrays or strings",
+          "When working with trees",
+          "When working with graphs"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Two pointers is most effective with sorted arrays or strings where you can exploit the ordering to make decisions about which pointer to move."
+      },
+      {
+        "id": "q2",
+        "question": "In a sorted array, when the sum of elements at two pointers is less than the target, which pointer should move?",
+        "options": [
+          "Move left pointer right",
+          "Move right pointer left",
+          "Move both pointers",
+          "Do nothing"
+        ],
+        "correctAnswer": 0,
+        "explanation": "When the sum is too small, move the left pointer right to increase the sum, since the array is sorted."
+      },
+      {
+        "id": "q3",
+        "question": "What is the time complexity of the two pointers approach?",
+        "options": [
+          "O(n²)",
+          "O(n log n)",
+          "O(n)",
+          "O(1)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Two pointers typically achieves O(n) time complexity as each element is visited at most once."
+      },
+      {
+        "id": "q4",
+        "question": "When should the two pointers loop terminate?",
+        "options": [
+          "When pointers cross or meet",
+          "When left pointer reaches the end",
+          "When right pointer reaches the start",
+          "Never - it runs forever"
+        ],
+        "correctAnswer": 0,
+        "explanation": "The loop should terminate when the pointers cross or meet (left >= right), as all pairs have been checked."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "two-pointers-easy-1",
+      "title": "Two Sum II - Sorted Array",
+      "difficulty": "Easy",
+      "description": "Given a sorted array of integers and a target value, find two numbers that add up to the target. Return the indices of the two numbers (1-indexed).\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft",
+        "Facebook",
+        "Apple"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers",
+        "Binary Search"
+      ],
+      "acceptanceRate": 58.7,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Since the array is sorted, you can use two pointers starting from both ends. Think about how the sorted property helps you decide which pointer to move."
+        },
+        {
+          "level": 2,
+          "text": "If the sum of elements at both pointers is less than the target, you need a larger sum - move the left pointer right. If it's greater, move the right pointer left."
+        },
+        {
+          "level": 3,
+          "text": "Initialize left = 0 and right = length - 1. While left < right: calculate sum = numbers[left] + numbers[right]. If sum equals target, return [left+1, right+1]. If sum < target, increment left. If sum > target, decrement right."
+        }
+      ],
+      "similarProblems": [
+        "two-sum",
+        "3sum",
+        "4sum"
+      ],
+      "constraints": [
+        "2 <= numbers.length <= 3 * 10^4",
+        "-1000 <= numbers[i] <= 1000",
+        "numbers is sorted in non-decreasing order",
+        "-1000 <= target <= 1000",
+        "Only one valid answer exists"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "numbers": [
+              2,
+              7,
+              11,
+              15
+            ],
+            "target": 9
+          },
+          "expectedOutput": [
+            1,
+            2
+          ],
+          "description": "2 + 7 = 9, so return indices 1 and 2"
+        },
+        {
+          "input": {
+            "numbers": [
+              2,
+              3,
+              4
+            ],
+            "target": 6
+          },
+          "expectedOutput": [
+            1,
+            3
+          ],
+          "description": "2 + 4 = 6, so return indices 1 and 3"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "numbers": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "target": 9
+          },
+          "expectedOutput": [
+            4,
+            5
+          ],
+          "description": "4 + 5 = 9"
+        },
+        {
+          "input": {
+            "numbers": [
+              -1,
+              0,
+              1,
+              2
+            ],
+            "target": 1
+          },
+          "expectedOutput": [
+            1,
+            4
+          ],
+          "description": "-1 + 2 = 1"
+        },
+        {
+          "input": {
+            "numbers": [
+              5,
+              25,
+              75
+            ],
+            "target": 100
+          },
+          "expectedOutput": [
+            2,
+            3
+          ],
+          "description": "25 + 75 = 100"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function twoSum(numbers, target) {\n  // Your code here\n  // Use two pointers: left starting at 0, right at numbers.length - 1\n  \n}",
+        "python": "def two_sum(numbers, target):\n    # Your code here\n    # Use two pointers: left starting at 0, right at len(numbers) - 1\n    pass",
+        "java": "class Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        // Your code here\n        // Use two pointers: left starting at 0, right at numbers.length - 1\n        \n    }\n}",
+        "c": "int* twoSum(int* numbers, int numbersSize, int target, int* returnSize) {\n    // Your code here\n    // Use two pointers: left starting at 0, right at numbersSize - 1\n    \n}"
+      },
+      "solution": {
+        "javascript": "function twoSum(numbers, target) {\n  let left = 0;\n  let right = numbers.length - 1;\n  \n  while (left < right) {\n    const sum = numbers[left] + numbers[right];\n    \n    if (sum === target) {\n      return [left + 1, right + 1]; // 1-indexed\n    } else if (sum < target) {\n      left++; // Need larger sum\n    } else {\n      right--; // Need smaller sum\n    }\n  }\n  \n  return [-1, -1]; // No solution found\n}",
+        "python": "def two_sum(numbers, target):\n    left = 0\n    right = len(numbers) - 1\n    \n    while left < right:\n        current_sum = numbers[left] + numbers[right]\n        \n        if current_sum == target:\n            return [left + 1, right + 1]  # 1-indexed\n        elif current_sum < target:\n            left += 1  # Need larger sum\n        else:\n            right -= 1  # Need smaller sum\n    \n    return [-1, -1]  # No solution found",
+        "java": "class Solution {\n    public int[] twoSum(int[] numbers, int target) {\n        int left = 0;\n        int right = numbers.length - 1;\n        \n        while (left < right) {\n            int sum = numbers[left] + numbers[right];\n            \n            if (sum == target) {\n                return new int[]{left + 1, right + 1}; // 1-indexed\n            } else if (sum < target) {\n                left++; // Need larger sum\n            } else {\n                right--; // Need smaller sum\n            }\n        }\n        \n        return new int[]{-1, -1}; // No solution found\n    }\n}",
+        "c": "int* twoSum(int* numbers, int numbersSize, int target, int* returnSize) {\n    int left = 0;\n    int right = numbersSize - 1;\n    int* result = (int*)malloc(2 * sizeof(int));\n    *returnSize = 2;\n    \n    while (left < right) {\n        int sum = numbers[left] + numbers[right];\n        \n        if (sum == target) {\n            result[0] = left + 1;  // 1-indexed\n            result[1] = right + 1;\n            return result;\n        } else if (sum < target) {\n            left++;  // Need larger sum\n        } else {\n            right--;  // Need smaller sum\n        }\n    }\n    \n    result[0] = -1;\n    result[1] = -1;\n    return result;  // No solution found\n}"
+      }
+    },
+    {
+      "id": "two-pointers-easy-2",
+      "title": "Valid Palindrome",
+      "difficulty": "Easy",
+      "description": "Given a string s, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.\n\nA palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization).",
+      "companyTags": [
+        "Facebook",
+        "Microsoft",
+        "Amazon",
+        "Apple"
+      ],
+      "topicTags": [
+        "Two Pointers",
+        "String"
+      ],
+      "acceptanceRate": 42.3,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use two pointers starting from both ends of the string. Compare characters while moving inward."
+        },
+        {
+          "level": 2,
+          "text": "Skip non-alphanumeric characters and convert to lowercase for comparison. If any mismatch is found, it's not a palindrome."
+        },
+        {
+          "level": 3,
+          "text": "Initialize left = 0, right = length - 1. While left < right: skip non-alphanumeric chars, compare lowercase versions, move pointers inward."
+        }
+      ],
+      "similarProblems": [
+        "valid-palindrome-ii",
+        "palindrome-linked-list"
+      ],
+      "constraints": [
+        "1 <= s.length <= 2 * 10^5",
+        "s consists only of printable ASCII characters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "A man, a plan, a canal: Panama"
+          },
+          "expectedOutput": true,
+          "description": "After removing non-alphanumeric and converting to lowercase: 'amanaplanacanalpanama' is a palindrome"
+        },
+        {
+          "input": {
+            "s": "race a car"
+          },
+          "expectedOutput": false,
+          "description": "'raceacar' is not a palindrome"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": " "
+          },
+          "expectedOutput": true,
+          "description": "Empty string after removing non-alphanumeric is considered palindrome"
+        },
+        {
+          "input": {
+            "s": "a"
+          },
+          "expectedOutput": true,
+          "description": "Single character is a palindrome"
+        },
+        {
+          "input": {
+            "s": "0P"
+          },
+          "expectedOutput": false,
+          "description": "Different characters"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function isPalindrome(s) {\n  // Your code here\n  \n}",
+        "python": "def is_palindrome(s):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public boolean isPalindrome(String s) {\n        // Your code here\n        \n    }\n}",
+        "c": "bool isPalindrome(char* s) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function isPalindrome(s) {\n  let left = 0;\n  let right = s.length - 1;\n  \n  while (left < right) {\n    while (left < right && !isAlphanumeric(s[left])) left++;\n    while (left < right && !isAlphanumeric(s[right])) right--;\n    \n    if (s[left].toLowerCase() !== s[right].toLowerCase()) {\n      return false;\n    }\n    \n    left++;\n    right--;\n  }\n  \n  return true;\n}\n\nfunction isAlphanumeric(char) {\n  return /[a-zA-Z0-9]/.test(char);\n}",
+        "python": "def is_palindrome(s):\n    left = 0\n    right = len(s) - 1\n    \n    while left < right:\n        while left < right and not s[left].isalnum():\n            left += 1\n        while left < right and not s[right].isalnum():\n            right -= 1\n        \n        if s[left].lower() != s[right].lower():\n            return False\n        \n        left += 1\n        right -= 1\n    \n    return True",
+        "java": "class Solution {\n    public boolean isPalindrome(String s) {\n        int left = 0;\n        int right = s.length() - 1;\n        \n        while (left < right) {\n            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {\n                left++;\n            }\n            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {\n                right--;\n            }\n            \n            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {\n                return false;\n            }\n            \n            left++;\n            right--;\n        }\n        \n        return true;\n    }\n}",
+        "c": "bool isPalindrome(char* s) {\n    int left = 0;\n    int right = strlen(s) - 1;\n    \n    while (left < right) {\n        while (left < right && !isalnum(s[left])) left++;\n        while (left < right && !isalnum(s[right])) right--;\n        \n        if (tolower(s[left]) != tolower(s[right])) {\n            return false;\n        }\n        \n        left++;\n        right--;\n    }\n    \n    return true;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-easy-3",
+      "title": "Remove Duplicates from Sorted Array",
+      "difficulty": "Easy",
+      "description": "Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. Return the number of unique elements.",
+      "companyTags": [
+        "Microsoft",
+        "Facebook",
+        "Amazon"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers"
+      ],
+      "acceptanceRate": 50.1,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use two pointers: one for reading, another for writing unique elements."
+        },
+        {
+          "level": 2,
+          "text": "Keep a write pointer for the next unique element position."
+        },
+        {
+          "level": 3,
+          "text": "If current element differs from previous unique, copy it to write position."
+        }
+      ],
+      "similarProblems": [
+        "remove-element"
+      ],
+      "constraints": [
+        "1 <= nums.length <= 3 * 10^4",
+        "-100 <= nums[i] <= 100"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              2
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "Array becomes [1,2,_]"
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              0,
+              1,
+              1,
+              2,
+              2,
+              3,
+              3,
+              4
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "Array becomes [0,1,2,3,4,_,_,_,_]"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single element"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "All same"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "No duplicates"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function removeDuplicates(nums) {\n  // Your code here\n}",
+        "python": "def remove_duplicates(nums):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int removeDuplicates(int[] nums) {\n        // Your code here\n    }\n}",
+        "c": "int removeDuplicates(int* nums, int numsSize) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function removeDuplicates(nums) {\n  if (nums.length === 0) return 0;\n  let write = 1;\n  for (let read = 1; read < nums.length; read++) {\n    if (nums[read] !== nums[write - 1]) {\n      nums[write++] = nums[read];\n    }\n  }\n  return write;\n}",
+        "python": "def remove_duplicates(nums):\n    if not nums: return 0\n    write = 1\n    for read in range(1, len(nums)):\n        if nums[read] != nums[write - 1]:\n            nums[write] = nums[read]\n            write += 1\n    return write",
+        "java": "class Solution {\n    public int removeDuplicates(int[] nums) {\n        if (nums.length == 0) return 0;\n        int write = 1;\n        for (int read = 1; read < nums.length; read++) {\n            if (nums[read] != nums[write - 1]) {\n                nums[write++] = nums[read];\n            }\n        }\n        return write;\n    }\n}",
+        "c": "int removeDuplicates(int* nums, int numsSize) {\n    if (numsSize == 0) return 0;\n    int write = 1;\n    for (int read = 1; read < numsSize; read++) {\n        if (nums[read] != nums[write - 1]) {\n            nums[write++] = nums[read];\n        }\n    }\n    return write;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-easy-4",
+      "title": "Move Zeroes",
+      "difficulty": "Easy",
+      "description": "Given an integer array nums, move all 0's to the end while maintaining the relative order of the non-zero elements. Do this in-place without making a copy of the array.",
+      "companyTags": [
+        "Facebook",
+        "Amazon",
+        "Bloomberg"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers"
+      ],
+      "acceptanceRate": 61.2,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use two pointers moving in the same direction."
+        },
+        {
+          "level": 2,
+          "text": "One pointer tracks position for next non-zero, other scans the array."
+        },
+        {
+          "level": 3,
+          "text": "Swap non-zero elements to the front, zeros naturally move to the end."
+        }
+      ],
+      "similarProblems": [
+        "remove-element"
+      ],
+      "constraints": [
+        "1 <= nums.length <= 10^4",
+        "-2^31 <= nums[i] <= 2^31 - 1"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              0,
+              1,
+              0,
+              3,
+              12
+            ]
+          },
+          "expectedOutput": [
+            1,
+            3,
+            12,
+            0,
+            0
+          ],
+          "description": "Move zeros to end"
+        },
+        {
+          "input": {
+            "nums": [
+              0
+            ]
+          },
+          "expectedOutput": [
+            0
+          ],
+          "description": "Single zero"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expectedOutput": [
+            1,
+            2,
+            3
+          ],
+          "description": "No zeros"
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              0,
+              1
+            ]
+          },
+          "expectedOutput": [
+            1,
+            0,
+            0
+          ],
+          "description": "Multiple zeros at start"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              1
+            ]
+          },
+          "expectedOutput": [
+            2,
+            1
+          ],
+          "description": "No zeros"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function moveZeroes(nums) {\n  // Your code here\n}",
+        "python": "def move_zeroes(nums):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void moveZeroes(int[] nums) {\n        // Your code here\n    }\n}",
+        "c": "void moveZeroes(int* nums, int numsSize) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function moveZeroes(nums) {\n  let writePos = 0;\n  for (let i = 0; i < nums.length; i++) {\n    if (nums[i] !== 0) {\n      [nums[writePos], nums[i]] = [nums[i], nums[writePos]];\n      writePos++;\n    }\n  }\n}",
+        "python": "def move_zeroes(nums):\n    write_pos = 0\n    for i in range(len(nums)):\n        if nums[i] != 0:\n            nums[write_pos], nums[i] = nums[i], nums[write_pos]\n            write_pos += 1",
+        "java": "class Solution {\n    public void moveZeroes(int[] nums) {\n        int writePos = 0;\n        for (int i = 0; i < nums.length; i++) {\n            if (nums[i] != 0) {\n                int temp = nums[writePos];\n                nums[writePos] = nums[i];\n                nums[i] = temp;\n                writePos++;\n            }\n        }\n    }\n}",
+        "c": "void moveZeroes(int* nums, int numsSize) {\n    int writePos = 0;\n    for (int i = 0; i < numsSize; i++) {\n        if (nums[i] != 0) {\n            int temp = nums[writePos];\n            nums[writePos] = nums[i];\n            nums[i] = temp;\n            writePos++;\n        }\n    }\n}"
+      }
+    },
+    {
+      "id": "two-pointers-easy-5",
+      "title": "Squares of a Sorted Array",
+      "difficulty": "Easy",
+      "description": "Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.",
+      "companyTags": [
+        "Facebook",
+        "Amazon",
+        "Google"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers",
+        "Sorting"
+      ],
+      "acceptanceRate": 71.8,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use two pointers from both ends since largest squares come from extreme values."
+        },
+        {
+          "level": 2,
+          "text": "Compare absolute values at both ends, place larger square at end of result."
+        },
+        {
+          "level": 3,
+          "text": "Fill result array from right to left, comparing |nums[left]| vs |nums[right]|."
+        }
+      ],
+      "similarProblems": [
+        "merge-sorted-array",
+        "sort-transformed-array"
+      ],
+      "constraints": [
+        "1 <= nums.length <= 10^4",
+        "-10^4 <= nums[i] <= 10^4",
+        "nums is sorted"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              -4,
+              -1,
+              0,
+              3,
+              10
+            ]
+          },
+          "expectedOutput": [
+            0,
+            1,
+            9,
+            16,
+            100
+          ],
+          "description": "Squares sorted"
+        },
+        {
+          "input": {
+            "nums": [
+              -7,
+              -3,
+              2,
+              3,
+              11
+            ]
+          },
+          "expectedOutput": [
+            4,
+            9,
+            9,
+            49,
+            121
+          ],
+          "description": "Mix of negatives"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single element"
+        },
+        {
+          "input": {
+            "nums": [
+              -5,
+              -3,
+              -2,
+              -1
+            ]
+          },
+          "expectedOutput": [
+            1,
+            4,
+            9,
+            25
+          ],
+          "description": "All negative"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "expectedOutput": [
+            1,
+            4,
+            9,
+            16
+          ],
+          "description": "All positive"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function sortedSquares(nums) {\n  // Your code here\n}",
+        "python": "def sorted_squares(nums):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int[] sortedSquares(int[] nums) {\n        // Your code here\n    }\n}",
+        "c": "int* sortedSquares(int* nums, int numsSize, int* returnSize) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function sortedSquares(nums) {\n  const result = new Array(nums.length);\n  let left = 0, right = nums.length - 1;\n  for (let i = nums.length - 1; i >= 0; i--) {\n    if (Math.abs(nums[left]) > Math.abs(nums[right])) {\n      result[i] = nums[left] * nums[left];\n      left++;\n    } else {\n      result[i] = nums[right] * nums[right];\n      right--;\n    }\n  }\n  return result;\n}",
+        "python": "def sorted_squares(nums):\n    result = [0] * len(nums)\n    left, right = 0, len(nums) - 1\n    for i in range(len(nums) - 1, -1, -1):\n        if abs(nums[left]) > abs(nums[right]):\n            result[i] = nums[left] ** 2\n            left += 1\n        else:\n            result[i] = nums[right] ** 2\n            right -= 1\n    return result",
+        "java": "class Solution {\n    public int[] sortedSquares(int[] nums) {\n        int[] result = new int[nums.length];\n        int left = 0, right = nums.length - 1;\n        for (int i = nums.length - 1; i >= 0; i--) {\n            if (Math.abs(nums[left]) > Math.abs(nums[right])) {\n                result[i] = nums[left] * nums[left];\n                left++;\n            } else {\n                result[i] = nums[right] * nums[right];\n                right--;\n            }\n        }\n        return result;\n    }\n}",
+        "c": "int* sortedSquares(int* nums, int numsSize, int* returnSize) {\n    int* result = (int*)malloc(numsSize * sizeof(int));\n    *returnSize = numsSize;\n    int left = 0, right = numsSize - 1;\n    for (int i = numsSize - 1; i >= 0; i--) {\n        if (abs(nums[left]) > abs(nums[right])) {\n            result[i] = nums[left] * nums[left];\n            left++;\n        } else {\n            result[i] = nums[right] * nums[right];\n            right--;\n        }\n    }\n    return result;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-medium-1",
+      "title": "3Sum",
+      "difficulty": "Medium",
+      "description": "Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0. The solution set must not contain duplicate triplets.",
+      "companyTags": [
+        "Facebook",
+        "Amazon",
+        "Microsoft",
+        "Apple",
+        "Google"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers",
+        "Sorting"
+      ],
+      "acceptanceRate": 32.1,
+      "timeComplexity": "O(n²)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Sort the array first, then fix one element and use two pointers for the remaining two."
+        },
+        {
+          "level": 2,
+          "text": "For each element, find pairs that sum to its negative using two pointers."
+        },
+        {
+          "level": 3,
+          "text": "Skip duplicates to avoid duplicate triplets in the result."
+        }
+      ],
+      "similarProblems": [
+        "two-sum",
+        "4sum",
+        "3sum-closest"
+      ],
+      "constraints": [
+        "3 <= nums.length <= 3000",
+        "-10^5 <= nums[i] <= 10^5"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              -1,
+              0,
+              1,
+              2,
+              -1,
+              -4
+            ]
+          },
+          "expectedOutput": [
+            [
+              -1,
+              -1,
+              2
+            ],
+            [
+              -1,
+              0,
+              1
+            ]
+          ],
+          "description": "Two unique triplets"
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": [],
+          "description": "No triplet sums to 0"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              0,
+              0,
+              0
+            ]
+          },
+          "expectedOutput": [
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "description": "All zeros"
+        },
+        {
+          "input": {
+            "nums": [
+              -2,
+              0,
+              1,
+              1,
+              2
+            ]
+          },
+          "expectedOutput": [
+            [
+              -2,
+              0,
+              2
+            ],
+            [
+              -2,
+              1,
+              1
+            ]
+          ],
+          "description": "Multiple solutions"
+        },
+        {
+          "input": {
+            "nums": [
+              -1,
+              0,
+              1
+            ]
+          },
+          "expectedOutput": [
+            [
+              -1,
+              0,
+              1
+            ]
+          ],
+          "description": "Single solution"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function threeSum(nums) {\n  // Your code here\n}",
+        "python": "def three_sum(nums):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        // Your code here\n    }\n}",
+        "c": "int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function threeSum(nums) {\n  nums.sort((a, b) => a - b);\n  const result = [];\n  for (let i = 0; i < nums.length - 2; i++) {\n    if (i > 0 && nums[i] === nums[i-1]) continue;\n    let left = i + 1, right = nums.length - 1;\n    while (left < right) {\n      const sum = nums[i] + nums[left] + nums[right];\n      if (sum === 0) {\n        result.push([nums[i], nums[left], nums[right]]);\n        while (left < right && nums[left] === nums[left+1]) left++;\n        while (left < right && nums[right] === nums[right-1]) right--;\n        left++; right--;\n      } else if (sum < 0) left++;\n      else right--;\n    }\n  }\n  return result;\n}",
+        "python": "def three_sum(nums):\n    nums.sort()\n    result = []\n    for i in range(len(nums) - 2):\n        if i > 0 and nums[i] == nums[i-1]:\n            continue\n        left, right = i + 1, len(nums) - 1\n        while left < right:\n            total = nums[i] + nums[left] + nums[right]\n            if total == 0:\n                result.append([nums[i], nums[left], nums[right]])\n                while left < right and nums[left] == nums[left+1]: left += 1\n                while left < right and nums[right] == nums[right-1]: right -= 1\n                left += 1\n                right -= 1\n            elif total < 0:\n                left += 1\n            else:\n                right -= 1\n    return result",
+        "java": "class Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        Arrays.sort(nums);\n        List<List<Integer>> result = new ArrayList<>();\n        for (int i = 0; i < nums.length - 2; i++) {\n            if (i > 0 && nums[i] == nums[i-1]) continue;\n            int left = i + 1, right = nums.length - 1;\n            while (left < right) {\n                int sum = nums[i] + nums[left] + nums[right];\n                if (sum == 0) {\n                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));\n                    while (left < right && nums[left] == nums[left+1]) left++;\n                    while (left < right && nums[right] == nums[right-1]) right--;\n                    left++; right--;\n                } else if (sum < 0) left++;\n                else right--;\n            }\n        }\n        return result;\n    }\n}",
+        "c": "int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {\n    qsort(nums, numsSize, sizeof(int), compare);\n    int** result = malloc(numsSize * numsSize * sizeof(int*));\n    *returnSize = 0;\n    for (int i = 0; i < numsSize - 2; i++) {\n        if (i > 0 && nums[i] == nums[i-1]) continue;\n        int left = i + 1, right = numsSize - 1;\n        while (left < right) {\n            int sum = nums[i] + nums[left] + nums[right];\n            if (sum == 0) {\n                result[*returnSize] = malloc(3 * sizeof(int));\n                result[*returnSize][0] = nums[i];\n                result[*returnSize][1] = nums[left];\n                result[*returnSize][2] = nums[right];\n                (*returnSize)++;\n                while (left < right && nums[left] == nums[left+1]) left++;\n                while (left < right && nums[right] == nums[right-1]) right--;\n                left++; right--;\n            } else if (sum < 0) left++;\n            else right--;\n        }\n    }\n    return result;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-medium-2",
+      "title": "Container With Most Water",
+      "difficulty": "Medium",
+      "description": "You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]). Find two lines that together with the x-axis form a container that holds the most water. Return the maximum amount of water a container can store.",
+      "companyTags": [
+        "Amazon",
+        "Facebook",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers",
+        "Greedy"
+      ],
+      "acceptanceRate": 54.2,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Start with the widest container (both ends) and move pointers inward."
+        },
+        {
+          "level": 2,
+          "text": "Always move the pointer at the shorter line - it's the only way to potentially find a larger area."
+        },
+        {
+          "level": 3,
+          "text": "Area = width × min(height[left], height[right]). Track maximum as you go."
+        }
+      ],
+      "similarProblems": [
+        "trapping-rain-water"
+      ],
+      "constraints": [
+        "n == height.length",
+        "2 <= n <= 10^5",
+        "0 <= height[i] <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "height": [
+              1,
+              8,
+              6,
+              2,
+              5,
+              4,
+              8,
+              3,
+              7
+            ]
+          },
+          "expectedOutput": 49,
+          "description": "Lines at index 1 and 8"
+        },
+        {
+          "input": {
+            "height": [
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Minimum case"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "height": [
+              4,
+              3,
+              2,
+              1,
+              4
+            ]
+          },
+          "expectedOutput": 16,
+          "description": "Same heights at ends"
+        },
+        {
+          "input": {
+            "height": [
+              1,
+              2,
+              1
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "Peak in middle"
+        },
+        {
+          "input": {
+            "height": [
+              2,
+              3,
+              4,
+              5,
+              18,
+              17,
+              6
+            ]
+          },
+          "expectedOutput": 17,
+          "description": "Large values"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function maxArea(height) {\n  // Your code here\n}",
+        "python": "def max_area(height):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int maxArea(int[] height) {\n        // Your code here\n    }\n}",
+        "c": "int maxArea(int* height, int heightSize) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function maxArea(height) {\n  let left = 0, right = height.length - 1;\n  let maxWater = 0;\n  while (left < right) {\n    const width = right - left;\n    const minHeight = Math.min(height[left], height[right]);\n    maxWater = Math.max(maxWater, width * minHeight);\n    if (height[left] < height[right]) left++;\n    else right--;\n  }\n  return maxWater;\n}",
+        "python": "def max_area(height):\n    left, right = 0, len(height) - 1\n    max_water = 0\n    while left < right:\n        width = right - left\n        min_height = min(height[left], height[right])\n        max_water = max(max_water, width * min_height)\n        if height[left] < height[right]:\n            left += 1\n        else:\n            right -= 1\n    return max_water",
+        "java": "class Solution {\n    public int maxArea(int[] height) {\n        int left = 0, right = height.length - 1;\n        int maxWater = 0;\n        while (left < right) {\n            int width = right - left;\n            int minHeight = Math.min(height[left], height[right]);\n            maxWater = Math.max(maxWater, width * minHeight);\n            if (height[left] < height[right]) left++;\n            else right--;\n        }\n        return maxWater;\n    }\n}",
+        "c": "int maxArea(int* height, int heightSize) {\n    int left = 0, right = heightSize - 1;\n    int maxWater = 0;\n    while (left < right) {\n        int width = right - left;\n        int minHeight = height[left] < height[right] ? height[left] : height[right];\n        int area = width * minHeight;\n        maxWater = area > maxWater ? area : maxWater;\n        if (height[left] < height[right]) left++;\n        else right--;\n    }\n    return maxWater;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-medium-3",
+      "title": "Sort Colors",
+      "difficulty": "Medium",
+      "description": "Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue. We will use the integers 0, 1, and 2 to represent the color red, white, and blue, respectively. You must solve this problem without using the library's sort function.",
+      "companyTags": [
+        "Microsoft",
+        "Amazon",
+        "Facebook",
+        "Apple"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers",
+        "Sorting"
+      ],
+      "acceptanceRate": 56.8,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use three pointers: one for the next position of 0, one for the current element, and one for the next position of 2."
+        },
+        {
+          "level": 2,
+          "text": "When you see a 0, swap it with the left pointer. When you see a 2, swap it with the right pointer."
+        },
+        {
+          "level": 3,
+          "text": "Initialize left=0, mid=0, right=n-1. Process elements at mid: if 0 swap with left and increment both, if 2 swap with right and decrement right only, if 1 just increment mid."
+        }
+      ],
+      "similarProblems": [
+        "sort-list",
+        "wiggle-sort"
+      ],
+      "constraints": [
+        "n == nums.length",
+        "1 <= n <= 300",
+        "nums[i] is either 0, 1, or 2"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              2,
+              0,
+              2,
+              1,
+              1,
+              0
+            ]
+          },
+          "expectedOutput": [
+            0,
+            0,
+            1,
+            1,
+            2,
+            2
+          ],
+          "description": "Sort in-place"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              0,
+              1
+            ]
+          },
+          "expectedOutput": [
+            0,
+            1,
+            2
+          ],
+          "description": "One of each color"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              0
+            ]
+          },
+          "expectedOutput": [
+            0
+          ],
+          "description": "Single element"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": [
+            1,
+            1,
+            1
+          ],
+          "description": "All same"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              2,
+              0,
+              0,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": [
+            0,
+            0,
+            1,
+            1,
+            2,
+            2
+          ],
+          "description": "Already grouped"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function sortColors(nums) {\n  // Your code here\n  // Modify nums in-place\n}",
+        "python": "def sort_colors(nums):\n    # Your code here\n    # Modify nums in-place\n    pass",
+        "java": "class Solution {\n    public void sortColors(int[] nums) {\n        // Your code here\n        // Modify nums in-place\n    }\n}",
+        "c": "void sortColors(int* nums, int numsSize) {\n    // Your code here\n    // Modify nums in-place\n}"
+      },
+      "solution": {
+        "javascript": "function sortColors(nums) {\n  let left = 0, mid = 0, right = nums.length - 1;\n  while (mid <= right) {\n    if (nums[mid] === 0) {\n      [nums[left], nums[mid]] = [nums[mid], nums[left]];\n      left++;\n      mid++;\n    } else if (nums[mid] === 2) {\n      [nums[mid], nums[right]] = [nums[right], nums[mid]];\n      right--;\n    } else {\n      mid++;\n    }\n  }\n}",
+        "python": "def sort_colors(nums):\n    left, mid, right = 0, 0, len(nums) - 1\n    while mid <= right:\n        if nums[mid] == 0:\n            nums[left], nums[mid] = nums[mid], nums[left]\n            left += 1\n            mid += 1\n        elif nums[mid] == 2:\n            nums[mid], nums[right] = nums[right], nums[mid]\n            right -= 1\n        else:\n            mid += 1",
+        "java": "class Solution {\n    public void sortColors(int[] nums) {\n        int left = 0, mid = 0, right = nums.length - 1;\n        while (mid <= right) {\n            if (nums[mid] == 0) {\n                int temp = nums[left];\n                nums[left] = nums[mid];\n                nums[mid] = temp;\n                left++;\n                mid++;\n            } else if (nums[mid] == 2) {\n                int temp = nums[mid];\n                nums[mid] = nums[right];\n                nums[right] = temp;\n                right--;\n            } else {\n                mid++;\n            }\n        }\n    }\n}",
+        "c": "void sortColors(int* nums, int numsSize) {\n    int left = 0, mid = 0, right = numsSize - 1;\n    while (mid <= right) {\n        if (nums[mid] == 0) {\n            int temp = nums[left];\n            nums[left] = nums[mid];\n            nums[mid] = temp;\n            left++;\n            mid++;\n        } else if (nums[mid] == 2) {\n            int temp = nums[mid];\n            nums[mid] = nums[right];\n            nums[right] = temp;\n            right--;\n        } else {\n            mid++;\n        }\n    }\n}"
+      }
+    },
+    {
+      "id": "two-pointers-medium-4",
+      "title": "Remove Duplicates from Sorted Array II",
+      "difficulty": "Medium",
+      "description": "Given an integer array nums sorted in non-decreasing order, remove some duplicates in-place such that each unique element appears at most twice. The relative order of the elements should be kept the same. Return k after placing the final result in the first k slots of nums.",
+      "companyTags": [
+        "Facebook",
+        "Amazon",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers"
+      ],
+      "acceptanceRate": 52.4,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a write pointer to track where to place the next valid element."
+        },
+        {
+          "level": 2,
+          "text": "Compare current element with the element two positions before the write pointer."
+        },
+        {
+          "level": 3,
+          "text": "If nums[i] != nums[write-2], it's safe to include nums[i] (at most 2 occurrences)."
+        }
+      ],
+      "similarProblems": [
+        "remove-duplicates-from-sorted-array"
+      ],
+      "constraints": [
+        "1 <= nums.length <= 3 * 10^4",
+        "-10^4 <= nums[i] <= 10^4",
+        "nums is sorted in non-decreasing order"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1,
+              2,
+              2,
+              3
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "Array becomes [1,1,2,2,3,_]"
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              2,
+              3,
+              3
+            ]
+          },
+          "expectedOutput": 7,
+          "description": "Array becomes [0,0,1,1,2,3,3,_,_]"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "All same, keep 2"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "No duplicates"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              2,
+              2,
+              3,
+              3
+            ]
+          },
+          "expectedOutput": 6,
+          "description": "All appear twice"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function removeDuplicates(nums) {\n  // Your code here\n}",
+        "python": "def remove_duplicates(nums):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int removeDuplicates(int[] nums) {\n        // Your code here\n    }\n}",
+        "c": "int removeDuplicates(int* nums, int numsSize) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function removeDuplicates(nums) {\n  if (nums.length <= 2) return nums.length;\n  let write = 2;\n  for (let i = 2; i < nums.length; i++) {\n    if (nums[i] !== nums[write - 2]) {\n      nums[write] = nums[i];\n      write++;\n    }\n  }\n  return write;\n}",
+        "python": "def remove_duplicates(nums):\n    if len(nums) <= 2:\n        return len(nums)\n    write = 2\n    for i in range(2, len(nums)):\n        if nums[i] != nums[write - 2]:\n            nums[write] = nums[i]\n            write += 1\n    return write",
+        "java": "class Solution {\n    public int removeDuplicates(int[] nums) {\n        if (nums.length <= 2) return nums.length;\n        int write = 2;\n        for (int i = 2; i < nums.length; i++) {\n            if (nums[i] != nums[write - 2]) {\n                nums[write] = nums[i];\n                write++;\n            }\n        }\n        return write;\n    }\n}",
+        "c": "int removeDuplicates(int* nums, int numsSize) {\n    if (numsSize <= 2) return numsSize;\n    int write = 2;\n    for (int i = 2; i < numsSize; i++) {\n        if (nums[i] != nums[write - 2]) {\n            nums[write] = nums[i];\n            write++;\n        }\n    }\n    return write;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-medium-5",
+      "title": "Partition Labels",
+      "difficulty": "Medium",
+      "description": "You are given a string s. We want to partition the string into as many parts as possible so that each letter appears in at most one part. Return a list of integers representing the size of these parts.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Facebook"
+      ],
+      "topicTags": [
+        "Hash Table",
+        "Two Pointers",
+        "String",
+        "Greedy"
+      ],
+      "acceptanceRate": 79.2,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "First, find the last occurrence of each character in the string."
+        },
+        {
+          "level": 2,
+          "text": "Use two pointers to track the current partition: start and end."
+        },
+        {
+          "level": 3,
+          "text": "Extend the partition end to include all occurrences of characters seen so far. When you reach the end, create a new partition."
+        }
+      ],
+      "similarProblems": [
+        "merge-intervals"
+      ],
+      "constraints": [
+        "1 <= s.length <= 500",
+        "s consists of lowercase English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "ababcbacadefegdehijhklij"
+          },
+          "expectedOutput": [
+            9,
+            7,
+            8
+          ],
+          "description": "Partitions: 'ababcbaca', 'defegde', 'hijhklij'"
+        },
+        {
+          "input": {
+            "s": "eccbbbbdec"
+          },
+          "expectedOutput": [
+            10
+          ],
+          "description": "One partition containing all"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "a"
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single character"
+        },
+        {
+          "input": {
+            "s": "abc"
+          },
+          "expectedOutput": [
+            1,
+            1,
+            1
+          ],
+          "description": "All unique"
+        },
+        {
+          "input": {
+            "s": "aaa"
+          },
+          "expectedOutput": [
+            3
+          ],
+          "description": "All same"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function partitionLabels(s) {\n  // Your code here\n}",
+        "python": "def partition_labels(s):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public List<Integer> partitionLabels(String s) {\n        // Your code here\n    }\n}",
+        "c": "int* partitionLabels(char* s, int* returnSize) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function partitionLabels(s) {\n  const lastIndex = {};\n  for (let i = 0; i < s.length; i++) {\n    lastIndex[s[i]] = i;\n  }\n  const result = [];\n  let start = 0, end = 0;\n  for (let i = 0; i < s.length; i++) {\n    end = Math.max(end, lastIndex[s[i]]);\n    if (i === end) {\n      result.push(end - start + 1);\n      start = i + 1;\n    }\n  }\n  return result;\n}",
+        "python": "def partition_labels(s):\n    last_index = {char: i for i, char in enumerate(s)}\n    result = []\n    start, end = 0, 0\n    for i, char in enumerate(s):\n        end = max(end, last_index[char])\n        if i == end:\n            result.append(end - start + 1)\n            start = i + 1\n    return result",
+        "java": "class Solution {\n    public List<Integer> partitionLabels(String s) {\n        int[] lastIndex = new int[26];\n        for (int i = 0; i < s.length(); i++) {\n            lastIndex[s.charAt(i) - 'a'] = i;\n        }\n        List<Integer> result = new ArrayList<>();\n        int start = 0, end = 0;\n        for (int i = 0; i < s.length(); i++) {\n            end = Math.max(end, lastIndex[s.charAt(i) - 'a']);\n            if (i == end) {\n                result.add(end - start + 1);\n                start = i + 1;\n            }\n        }\n        return result;\n    }\n}",
+        "c": "int* partitionLabels(char* s, int* returnSize) {\n    int lastIndex[26] = {0};\n    int len = strlen(s);\n    for (int i = 0; i < len; i++) {\n        lastIndex[s[i] - 'a'] = i;\n    }\n    int* result = (int*)malloc(len * sizeof(int));\n    *returnSize = 0;\n    int start = 0, end = 0;\n    for (int i = 0; i < len; i++) {\n        end = end > lastIndex[s[i] - 'a'] ? end : lastIndex[s[i] - 'a'];\n        if (i == end) {\n            result[(*returnSize)++] = end - start + 1;\n            start = i + 1;\n        }\n    }\n    return result;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-medium-6",
+      "title": "Boats to Save People",
+      "difficulty": "Medium",
+      "description": "You are given an array people where people[i] is the weight of the ith person, and an infinite number of boats where each boat can carry a maximum weight of limit. Each boat carries at most two people at the same time, provided the sum of the weight of those people is at most limit. Return the minimum number of boats to carry every given person.",
+      "companyTags": [
+        "Amazon",
+        "Google"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers",
+        "Greedy",
+        "Sorting"
+      ],
+      "acceptanceRate": 52.1,
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Sort the people by weight first."
+        },
+        {
+          "level": 2,
+          "text": "Use two pointers: try to pair the lightest person with the heaviest person."
+        },
+        {
+          "level": 3,
+          "text": "If they fit together, move both pointers. If not, the heavy person goes alone and move only the right pointer."
+        }
+      ],
+      "similarProblems": [
+        "two-sum"
+      ],
+      "constraints": [
+        "1 <= people.length <= 5 * 10^4",
+        "1 <= people[i] <= limit <= 3 * 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "people": [
+              1,
+              2
+            ],
+            "limit": 3
+          },
+          "expectedOutput": 1,
+          "description": "Both fit in one boat"
+        },
+        {
+          "input": {
+            "people": [
+              3,
+              2,
+              2,
+              1
+            ],
+            "limit": 3
+          },
+          "expectedOutput": 3,
+          "description": "Pairs: (1,2), (2), (3)"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "people": [
+              3,
+              5,
+              3,
+              4
+            ],
+            "limit": 5
+          },
+          "expectedOutput": 4,
+          "description": "All go alone"
+        },
+        {
+          "input": {
+            "people": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "limit": 4
+          },
+          "expectedOutput": 2,
+          "description": "Two pairs"
+        },
+        {
+          "input": {
+            "people": [
+              5,
+              1,
+              4,
+              2
+            ],
+            "limit": 6
+          },
+          "expectedOutput": 2,
+          "description": "Pairs: (1,5), (2,4)"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function numRescueBoats(people, limit) {\n  // Your code here\n}",
+        "python": "def num_rescue_boats(people, limit):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int numRescueBoats(int[] people, int limit) {\n        // Your code here\n    }\n}",
+        "c": "int numRescueBoats(int* people, int peopleSize, int limit) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function numRescueBoats(people, limit) {\n  people.sort((a, b) => a - b);\n  let left = 0, right = people.length - 1;\n  let boats = 0;\n  while (left <= right) {\n    if (people[left] + people[right] <= limit) {\n      left++;\n    }\n    right--;\n    boats++;\n  }\n  return boats;\n}",
+        "python": "def num_rescue_boats(people, limit):\n    people.sort()\n    left, right = 0, len(people) - 1\n    boats = 0\n    while left <= right:\n        if people[left] + people[right] <= limit:\n            left += 1\n        right -= 1\n        boats += 1\n    return boats",
+        "java": "class Solution {\n    public int numRescueBoats(int[] people, int limit) {\n        Arrays.sort(people);\n        int left = 0, right = people.length - 1;\n        int boats = 0;\n        while (left <= right) {\n            if (people[left] + people[right] <= limit) {\n                left++;\n            }\n            right--;\n            boats++;\n        }\n        return boats;\n    }\n}",
+        "c": "int compare(const void* a, const void* b) {\n    return (*(int*)a - *(int*)b);\n}\n\nint numRescueBoats(int* people, int peopleSize, int limit) {\n    qsort(people, peopleSize, sizeof(int), compare);\n    int left = 0, right = peopleSize - 1;\n    int boats = 0;\n    while (left <= right) {\n        if (people[left] + people[right] <= limit) {\n            left++;\n        }\n        right--;\n        boats++;\n    }\n    return boats;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-medium-7",
+      "title": "Subarray Product Less Than K",
+      "difficulty": "Medium",
+      "description": "Given an array of integers nums and an integer k, return the number of contiguous subarrays where the product of all the elements in the subarray is strictly less than k.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Facebook"
+      ],
+      "topicTags": [
+        "Array",
+        "Sliding Window",
+        "Two Pointers"
+      ],
+      "acceptanceRate": 45.3,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a sliding window with two pointers to maintain a valid subarray."
+        },
+        {
+          "level": 2,
+          "text": "Expand the window by moving right pointer, shrink by moving left when product >= k."
+        },
+        {
+          "level": 3,
+          "text": "For each position of right, count all subarrays ending at right: (right - left + 1) new subarrays."
+        }
+      ],
+      "similarProblems": [
+        "maximum-product-subarray"
+      ],
+      "constraints": [
+        "1 <= nums.length <= 3 * 10^4",
+        "1 <= nums[i] <= 1000",
+        "0 <= k <= 10^6"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              10,
+              5,
+              2,
+              6
+            ],
+            "k": 100
+          },
+          "expectedOutput": 8,
+          "description": "Subarrays: [10],[5],[2],[6],[10,5],[5,2],[2,6],[5,2,6]"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ],
+            "k": 0
+          },
+          "expectedOutput": 0,
+          "description": "No valid subarrays"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1
+            ],
+            "k": 1
+          },
+          "expectedOutput": 0,
+          "description": "Product equals k"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ],
+            "k": 10
+          },
+          "expectedOutput": 6,
+          "description": "All subarrays valid"
+        },
+        {
+          "input": {
+            "nums": [
+              10
+            ],
+            "k": 15
+          },
+          "expectedOutput": 1,
+          "description": "Single element"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function numSubarrayProductLessThanK(nums, k) {\n  // Your code here\n}",
+        "python": "def num_subarray_product_less_than_k(nums, k):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int numSubarrayProductLessThanK(int[] nums, int k) {\n        // Your code here\n    }\n}",
+        "c": "int numSubarrayProductLessThanK(int* nums, int numsSize, int k) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function numSubarrayProductLessThanK(nums, k) {\n  if (k <= 1) return 0;\n  let product = 1, count = 0, left = 0;\n  for (let right = 0; right < nums.length; right++) {\n    product *= nums[right];\n    while (product >= k) {\n      product /= nums[left];\n      left++;\n    }\n    count += right - left + 1;\n  }\n  return count;\n}",
+        "python": "def num_subarray_product_less_than_k(nums, k):\n    if k <= 1:\n        return 0\n    product, count, left = 1, 0, 0\n    for right in range(len(nums)):\n        product *= nums[right]\n        while product >= k:\n            product //= nums[left]\n            left += 1\n        count += right - left + 1\n    return count",
+        "java": "class Solution {\n    public int numSubarrayProductLessThanK(int[] nums, int k) {\n        if (k <= 1) return 0;\n        int product = 1, count = 0, left = 0;\n        for (int right = 0; right < nums.length; right++) {\n            product *= nums[right];\n            while (product >= k) {\n                product /= nums[left];\n                left++;\n            }\n            count += right - left + 1;\n        }\n        return count;\n    }\n}",
+        "c": "int numSubarrayProductLessThanK(int* nums, int numsSize, int k) {\n    if (k <= 1) return 0;\n    int product = 1, count = 0, left = 0;\n    for (int right = 0; right < numsSize; right++) {\n        product *= nums[right];\n        while (product >= k) {\n            product /= nums[left];\n            left++;\n        }\n        count += right - left + 1;\n    }\n    return count;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-medium-8",
+      "title": "Minimum Size Subarray Sum",
+      "difficulty": "Medium",
+      "description": "Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.",
+      "companyTags": [
+        "Facebook",
+        "Amazon",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Array",
+        "Binary Search",
+        "Sliding Window",
+        "Two Pointers"
+      ],
+      "acceptanceRate": 45.7,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a sliding window approach with two pointers."
+        },
+        {
+          "level": 2,
+          "text": "Expand the window by adding elements until sum >= target, then try to shrink from left."
+        },
+        {
+          "level": 3,
+          "text": "Track the minimum window size that satisfies the condition."
+        }
+      ],
+      "similarProblems": [
+        "maximum-size-subarray-sum-equals-k"
+      ],
+      "constraints": [
+        "1 <= target <= 10^9",
+        "1 <= nums.length <= 10^5",
+        "1 <= nums[i] <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "target": 7,
+            "nums": [
+              2,
+              3,
+              1,
+              2,
+              4,
+              3
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "Subarray [4,3] has minimal length"
+        },
+        {
+          "input": {
+            "target": 4,
+            "nums": [
+              1,
+              4,
+              4
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single element 4"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "target": 11,
+            "nums": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "No valid subarray"
+        },
+        {
+          "input": {
+            "target": 15,
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "Entire array"
+        },
+        {
+          "input": {
+            "target": 3,
+            "nums": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "Multiple valid subaways"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function minSubArrayLen(target, nums) {\n  // Your code here\n}",
+        "python": "def min_sub_array_len(target, nums):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int minSubArrayLen(int target, int[] nums) {\n        // Your code here\n    }\n}",
+        "c": "int minSubArrayLen(int target, int* nums, int numsSize) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function minSubArrayLen(target, nums) {\n  let minLen = Infinity, sum = 0, left = 0;\n  for (let right = 0; right < nums.length; right++) {\n    sum += nums[right];\n    while (sum >= target) {\n      minLen = Math.min(minLen, right - left + 1);\n      sum -= nums[left];\n      left++;\n    }\n  }\n  return minLen === Infinity ? 0 : minLen;\n}",
+        "python": "def min_sub_array_len(target, nums):\n    min_len = float('inf')\n    current_sum, left = 0, 0\n    for right in range(len(nums)):\n        current_sum += nums[right]\n        while current_sum >= target:\n            min_len = min(min_len, right - left + 1)\n            current_sum -= nums[left]\n            left += 1\n    return 0 if min_len == float('inf') else min_len",
+        "java": "class Solution {\n    public int minSubArrayLen(int target, int[] nums) {\n        int minLen = Integer.MAX_VALUE;\n        int sum = 0, left = 0;\n        for (int right = 0; right < nums.length; right++) {\n            sum += nums[right];\n            while (sum >= target) {\n                minLen = Math.min(minLen, right - left + 1);\n                sum -= nums[left];\n                left++;\n            }\n        }\n        return minLen == Integer.MAX_VALUE ? 0 : minLen;\n    }\n}",
+        "c": "int minSubArrayLen(int target, int* nums, int numsSize) {\n    int minLen = INT_MAX;\n    int sum = 0, left = 0;\n    for (int right = 0; right < numsSize; right++) {\n        sum += nums[right];\n        while (sum >= target) {\n            int len = right - left + 1;\n            minLen = len < minLen ? len : minLen;\n            sum -= nums[left];\n            left++;\n        }\n    }\n    return minLen == INT_MAX ? 0 : minLen;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-hard-1",
+      "title": "Trapping Rain Water",
+      "difficulty": "Hard",
+      "description": "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Facebook",
+        "Microsoft",
+        "Apple"
+      ],
+      "topicTags": [
+        "Array",
+        "Two Pointers",
+        "Dynamic Programming",
+        "Stack"
+      ],
+      "acceptanceRate": 56.4,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use two pointers from both ends. Track the maximum height seen from each side."
+        },
+        {
+          "level": 2,
+          "text": "Water trapped at a position depends on the minimum of max heights from both sides."
+        },
+        {
+          "level": 3,
+          "text": "Move the pointer with smaller max height inward. If current height < max height, add the difference to water trapped."
+        }
+      ],
+      "similarProblems": [
+        "container-with-most-water",
+        "product-of-array-except-self"
+      ],
+      "constraints": [
+        "n == height.length",
+        "1 <= n <= 2 * 10^4",
+        "0 <= height[i] <= 10^5"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "height": [
+              0,
+              1,
+              0,
+              2,
+              1,
+              0,
+              1,
+              3,
+              2,
+              1,
+              2,
+              1
+            ]
+          },
+          "expectedOutput": 6,
+          "description": "Water trapped in valleys"
+        },
+        {
+          "input": {
+            "height": [
+              4,
+              2,
+              0,
+              3,
+              2,
+              5
+            ]
+          },
+          "expectedOutput": 9,
+          "description": "Multiple valleys"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "height": [
+              3,
+              0,
+              2,
+              0,
+              4
+            ]
+          },
+          "expectedOutput": 7,
+          "description": "Deep valleys"
+        },
+        {
+          "input": {
+            "height": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "Ascending, no water"
+        },
+        {
+          "input": {
+            "height": [
+              5,
+              4,
+              3,
+              2,
+              1
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "Descending, no water"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function trap(height) {\n  // Your code here\n}",
+        "python": "def trap(height):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int trap(int[] height) {\n        // Your code here\n    }\n}",
+        "c": "int trap(int* height, int heightSize) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function trap(height) {\n  let left = 0, right = height.length - 1;\n  let leftMax = 0, rightMax = 0, water = 0;\n  while (left < right) {\n    if (height[left] < height[right]) {\n      if (height[left] >= leftMax) {\n        leftMax = height[left];\n      } else {\n        water += leftMax - height[left];\n      }\n      left++;\n    } else {\n      if (height[right] >= rightMax) {\n        rightMax = height[right];\n      } else {\n        water += rightMax - height[right];\n      }\n      right--;\n    }\n  }\n  return water;\n}",
+        "python": "def trap(height):\n    left, right = 0, len(height) - 1\n    left_max, right_max, water = 0, 0, 0\n    while left < right:\n        if height[left] < height[right]:\n            if height[left] >= left_max:\n                left_max = height[left]\n            else:\n                water += left_max - height[left]\n            left += 1\n        else:\n            if height[right] >= right_max:\n                right_max = height[right]\n            else:\n                water += right_max - height[right]\n            right -= 1\n    return water",
+        "java": "class Solution {\n    public int trap(int[] height) {\n        int left = 0, right = height.length - 1;\n        int leftMax = 0, rightMax = 0, water = 0;\n        while (left < right) {\n            if (height[left] < height[right]) {\n                if (height[left] >= leftMax) {\n                    leftMax = height[left];\n                } else {\n                    water += leftMax - height[left];\n                }\n                left++;\n            } else {\n                if (height[right] >= rightMax) {\n                    rightMax = height[right];\n                } else {\n                    water += rightMax - height[right];\n                }\n                right--;\n            }\n        }\n        return water;\n    }\n}",
+        "c": "int trap(int* height, int heightSize) {\n    int left = 0, right = heightSize - 1;\n    int leftMax = 0, rightMax = 0, water = 0;\n    while (left < right) {\n        if (height[left] < height[right]) {\n            if (height[left] >= leftMax) {\n                leftMax = height[left];\n            } else {\n                water += leftMax - height[left];\n            }\n            left++;\n        } else {\n            if (height[right] >= rightMax) {\n                rightMax = height[right];\n            } else {\n                water += rightMax - height[right];\n            }\n            right--;\n        }\n    }\n    return water;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-hard-2",
+      "title": "Minimum Window Substring",
+      "difficulty": "Hard",
+      "description": "Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string. The testcases will be generated such that the answer is unique.",
+      "companyTags": [
+        "Facebook",
+        "Amazon",
+        "LinkedIn",
+        "Uber",
+        "Google"
+      ],
+      "topicTags": [
+        "Hash Table",
+        "String",
+        "Sliding Window",
+        "Two Pointers"
+      ],
+      "acceptanceRate": 39.8,
+      "timeComplexity": "O(m + n)",
+      "spaceComplexity": "O(m + n)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a sliding window with two pointers. Track character frequencies in t."
+        },
+        {
+          "level": 2,
+          "text": "Expand right pointer to include characters. When all characters from t are included, try shrinking from left."
+        },
+        {
+          "level": 3,
+          "text": "Use two hash maps: one for t's characters, one for current window. Track how many required characters are satisfied."
+        }
+      ],
+      "similarProblems": [
+        "substring-with-concatenation-of-all-words",
+        "minimum-window-subsequence"
+      ],
+      "constraints": [
+        "m == s.length",
+        "n == t.length",
+        "1 <= m, n <= 10^5",
+        "s and t consist of uppercase and lowercase English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "ADOBECODEBANC",
+            "t": "ABC"
+          },
+          "expectedOutput": "BANC",
+          "description": "Minimum window containing A, B, C"
+        },
+        {
+          "input": {
+            "s": "a",
+            "t": "a"
+          },
+          "expectedOutput": "a",
+          "description": "Single character match"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "a",
+            "t": "aa"
+          },
+          "expectedOutput": "",
+          "description": "Not enough characters"
+        },
+        {
+          "input": {
+            "s": "ab",
+            "t": "b"
+          },
+          "expectedOutput": "b",
+          "description": "Single character at end"
+        },
+        {
+          "input": {
+            "s": "abc",
+            "t": "cba"
+          },
+          "expectedOutput": "abc",
+          "description": "Entire string needed"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function minWindow(s, t) {\n  // Your code here\n}",
+        "python": "def min_window(s, t):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public String minWindow(String s, String t) {\n        // Your code here\n    }\n}",
+        "c": "char* minWindow(char* s, char* t) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function minWindow(s, t) {\n  const need = {}, window = {};\n  for (let char of t) need[char] = (need[char] || 0) + 1;\n  let left = 0, right = 0, valid = 0;\n  let start = 0, minLen = Infinity;\n  while (right < s.length) {\n    const c = s[right];\n    right++;\n    if (need[c]) {\n      window[c] = (window[c] || 0) + 1;\n      if (window[c] === need[c]) valid++;\n    }\n    while (valid === Object.keys(need).length) {\n      if (right - left < minLen) {\n        start = left;\n        minLen = right - left;\n      }\n      const d = s[left];\n      left++;\n      if (need[d]) {\n        if (window[d] === need[d]) valid--;\n        window[d]--;\n      }\n    }\n  }\n  return minLen === Infinity ? '' : s.substr(start, minLen);\n}",
+        "python": "def min_window(s, t):\n    from collections import Counter\n    need = Counter(t)\n    window = {}\n    left, right, valid = 0, 0, 0\n    start, min_len = 0, float('inf')\n    while right < len(s):\n        c = s[right]\n        right += 1\n        if c in need:\n            window[c] = window.get(c, 0) + 1\n            if window[c] == need[c]:\n                valid += 1\n        while valid == len(need):\n            if right - left < min_len:\n                start = left\n                min_len = right - left\n            d = s[left]\n            left += 1\n            if d in need:\n                if window[d] == need[d]:\n                    valid -= 1\n                window[d] -= 1\n    return '' if min_len == float('inf') else s[start:start + min_len]",
+        "java": "class Solution {\n    public String minWindow(String s, String t) {\n        Map<Character, Integer> need = new HashMap<>();\n        Map<Character, Integer> window = new HashMap<>();\n        for (char c : t.toCharArray()) {\n            need.put(c, need.getOrDefault(c, 0) + 1);\n        }\n        int left = 0, right = 0, valid = 0;\n        int start = 0, minLen = Integer.MAX_VALUE;\n        while (right < s.length()) {\n            char c = s.charAt(right);\n            right++;\n            if (need.containsKey(c)) {\n                window.put(c, window.getOrDefault(c, 0) + 1);\n                if (window.get(c).equals(need.get(c))) {\n                    valid++;\n                }\n            }\n            while (valid == need.size()) {\n                if (right - left < minLen) {\n                    start = left;\n                    minLen = right - left;\n                }\n                char d = s.charAt(left);\n                left++;\n                if (need.containsKey(d)) {\n                    if (window.get(d).equals(need.get(d))) {\n                        valid--;\n                    }\n                    window.put(d, window.get(d) - 1);\n                }\n            }\n        }\n        return minLen == Integer.MAX_VALUE ? \"\" : s.substring(start, start + minLen);\n    }\n}",
+        "c": "char* minWindow(char* s, char* t) {\n    int need[128] = {0}, window[128] = {0};\n    int required = 0;\n    for (int i = 0; t[i]; i++) {\n        if (need[t[i]]++ == 0) required++;\n    }\n    int left = 0, right = 0, formed = 0;\n    int minLen = INT_MAX, start = 0;\n    int sLen = strlen(s);\n    while (right < sLen) {\n        char c = s[right++];\n        if (need[c] > 0) {\n            window[c]++;\n            if (window[c] == need[c]) formed++;\n        }\n        while (formed == required) {\n            if (right - left < minLen) {\n                start = left;\n                minLen = right - left;\n            }\n            char d = s[left++];\n            if (need[d] > 0) {\n                if (window[d] == need[d]) formed--;\n                window[d]--;\n            }\n        }\n    }\n    if (minLen == INT_MAX) return \"\";\n    char* result = (char*)malloc((minLen + 1) * sizeof(char));\n    strncpy(result, s + start, minLen);\n    result[minLen] = '\\0';\n    return result;\n}"
+      }
+    },
+    {
+      "id": "two-pointers-hard-3",
+      "title": "Substring with Concatenation of All Words",
+      "difficulty": "Hard",
+      "description": "You are given a string s and an array of strings words. All the strings of words are of the same length. A concatenated substring in s is a substring that contains all the strings of any permutation of words concatenated. Return the starting indices of all the concatenated substrings in s. You can return the answer in any order.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Hash Table",
+        "String",
+        "Sliding Window",
+        "Two Pointers"
+      ],
+      "acceptanceRate": 30.2,
+      "timeComplexity": "O(n * m * len)",
+      "spaceComplexity": "O(m * len)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Since all words have the same length, you can slide a window of size (word_length * num_words) through the string."
+        },
+        {
+          "level": 2,
+          "text": "Use a hash map to track the frequency of words needed and another for the current window."
+        },
+        {
+          "level": 3,
+          "text": "For each starting position, check if you can form a valid concatenation by extracting word-sized chunks."
+        }
+      ],
+      "similarProblems": [
+        "minimum-window-substring",
+        "longest-substring-without-repeating-characters"
+      ],
+      "constraints": [
+        "1 <= s.length <= 10^4",
+        "1 <= words.length <= 5000",
+        "1 <= words[i].length <= 30",
+        "s and words[i] consist of lowercase English letters"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "barfoothefoobarman",
+            "words": [
+              "foo",
+              "bar"
+            ]
+          },
+          "expectedOutput": [
+            0,
+            9
+          ],
+          "description": "Substrings 'barfoo' and 'foobar'"
+        },
+        {
+          "input": {
+            "s": "wordgoodgoodgoodbestword",
+            "words": [
+              "word",
+              "good",
+              "best",
+              "word"
+            ]
+          },
+          "expectedOutput": [],
+          "description": "No valid concatenation"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "barfoofoobarthefoobarman",
+            "words": [
+              "bar",
+              "foo",
+              "the"
+            ]
+          },
+          "expectedOutput": [
+            6,
+            9,
+            12
+          ],
+          "description": "Multiple matches"
+        },
+        {
+          "input": {
+            "s": "wordgoodgoodgoodbestword",
+            "words": [
+              "word",
+              "good",
+              "best",
+              "good"
+            ]
+          },
+          "expectedOutput": [
+            8
+          ],
+          "description": "Duplicate words"
+        },
+        {
+          "input": {
+            "s": "a",
+            "words": [
+              "a"
+            ]
+          },
+          "expectedOutput": [
+            0
+          ],
+          "description": "Single character"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function findSubstring(s, words) {\n  // Your code here\n}",
+        "python": "def find_substring(s, words):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public List<Integer> findSubstring(String s, String[] words) {\n        // Your code here\n    }\n}",
+        "c": "int* findSubstring(char* s, char** words, int wordsSize, int* returnSize) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "function findSubstring(s, words) {\n  if (!s || !words || words.length === 0) return [];\n  const wordLen = words[0].length;\n  const wordCount = words.length;\n  const totalLen = wordLen * wordCount;\n  const wordMap = {};\n  for (let word of words) {\n    wordMap[word] = (wordMap[word] || 0) + 1;\n  }\n  const result = [];\n  for (let i = 0; i <= s.length - totalLen; i++) {\n    const seen = {};\n    let j = 0;\n    while (j < wordCount) {\n      const wordIndex = i + j * wordLen;\n      const word = s.substr(wordIndex, wordLen);\n      if (!wordMap[word]) break;\n      seen[word] = (seen[word] || 0) + 1;\n      if (seen[word] > wordMap[word]) break;\n      j++;\n    }\n    if (j === wordCount) result.push(i);\n  }\n  return result;\n}",
+        "python": "def find_substring(s, words):\n    if not s or not words:\n        return []\n    word_len = len(words[0])\n    word_count = len(words)\n    total_len = word_len * word_count\n    word_map = {}\n    for word in words:\n        word_map[word] = word_map.get(word, 0) + 1\n    result = []\n    for i in range(len(s) - total_len + 1):\n        seen = {}\n        j = 0\n        while j < word_count:\n            word_index = i + j * word_len\n            word = s[word_index:word_index + word_len]\n            if word not in word_map:\n                break\n            seen[word] = seen.get(word, 0) + 1\n            if seen[word] > word_map[word]:\n                break\n            j += 1\n        if j == word_count:\n            result.append(i)\n    return result",
+        "java": "class Solution {\n    public List<Integer> findSubstring(String s, String[] words) {\n        List<Integer> result = new ArrayList<>();\n        if (s == null || words == null || words.length == 0) return result;\n        int wordLen = words[0].length();\n        int wordCount = words.length;\n        int totalLen = wordLen * wordCount;\n        Map<String, Integer> wordMap = new HashMap<>();\n        for (String word : words) {\n            wordMap.put(word, wordMap.getOrDefault(word, 0) + 1);\n        }\n        for (int i = 0; i <= s.length() - totalLen; i++) {\n            Map<String, Integer> seen = new HashMap<>();\n            int j = 0;\n            while (j < wordCount) {\n                int wordIndex = i + j * wordLen;\n                String word = s.substring(wordIndex, wordIndex + wordLen);\n                if (!wordMap.containsKey(word)) break;\n                seen.put(word, seen.getOrDefault(word, 0) + 1);\n                if (seen.get(word) > wordMap.get(word)) break;\n                j++;\n            }\n            if (j == wordCount) result.add(i);\n        }\n        return result;\n    }\n}",
+        "c": "int* findSubstring(char* s, char** words, int wordsSize, int* returnSize) {\n    *returnSize = 0;\n    if (!s || !words || wordsSize == 0) return NULL;\n    int wordLen = strlen(words[0]);\n    int totalLen = wordLen * wordsSize;\n    int sLen = strlen(s);\n    if (sLen < totalLen) return NULL;\n    int* result = (int*)malloc((sLen - totalLen + 1) * sizeof(int));\n    for (int i = 0; i <= sLen - totalLen; i++) {\n        int wordCount[wordsSize];\n        memset(wordCount, 0, sizeof(wordCount));\n        int j = 0;\n        while (j < wordsSize) {\n            char word[wordLen + 1];\n            strncpy(word, s + i + j * wordLen, wordLen);\n            word[wordLen] = '\\0';\n            int found = -1;\n            for (int k = 0; k < wordsSize; k++) {\n                if (strcmp(word, words[k]) == 0) {\n                    found = k;\n                    break;\n                }\n            }\n            if (found == -1 || ++wordCount[found] > 1) break;\n            j++;\n        }\n        if (j == wordsSize) result[(*returnSize)++] = i;\n    }\n    return result;\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Attempting to use two pointers on unsorted data without sorting first - the technique relies on the ordering to make decisions about which pointer to move",
+      "Moving the wrong pointer when the sum doesn't match the target - if sum is too small, move left forward (toward larger values); if too large, move right backward",
+      "Not checking the stopping condition properly - always ensure left < right to avoid comparing an element with itself or going out of bounds",
+      "Forgetting edge cases like empty arrays, single-element arrays, or when no valid pair exists - always validate input first",
+      "Returning 0-indexed positions when the problem asks for 1-indexed (or vice versa) - read the problem requirements carefully"
+    ],
+    "patternDetection": [
+      "The array or string is sorted (or can be sorted) - this is the biggest hint that two pointers might work",
+      "You need to find a pair of elements that satisfy some condition (sum, product, difference) - two pointers excel at pair problems",
+      "The problem asks about elements from both ends of the array - like palindrome checking or container problems",
+      "You're currently using nested loops to check all pairs - two pointers can often reduce O(n²) to O(n)",
+      "The problem mentions 'sorted array' and 'target' in the same sentence - classic two pointers territory",
+      "You need to compare or combine elements while moving inward or in the same direction through the data"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "167. Two Sum II - Input Array Is Sorted",
+        "link": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
+        "difficulty": "Medium",
+        "description": "The classic two pointers problem - find two numbers that add up to a target in a sorted array"
+      },
+      {
+        "title": "15. 3Sum",
+        "link": "https://leetcode.com/problems/3sum/",
+        "difficulty": "Medium",
+        "description": "Find all unique triplets that sum to zero - combines sorting with two pointers"
+      },
+      {
+        "title": "11. Container With Most Water",
+        "link": "https://leetcode.com/problems/container-with-most-water/",
+        "difficulty": "Medium",
+        "description": "Find two lines that form a container holding the most water - two pointers from both ends"
+      },
+      {
+        "title": "125. Valid Palindrome",
+        "link": "https://leetcode.com/problems/valid-palindrome/",
+        "difficulty": "Easy",
+        "description": "Check if a string is a palindrome using two pointers from both ends"
+      },
+      {
+        "title": "283. Move Zeroes",
+        "link": "https://leetcode.com/problems/move-zeroes/",
+        "difficulty": "Easy",
+        "description": "Move all zeros to the end while maintaining relative order - two pointers in same direction"
+      },
+      {
+        "title": "26. Remove Duplicates from Sorted Array",
+        "link": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
+        "difficulty": "Easy",
+        "description": "Remove duplicates in-place from a sorted array using two pointers"
+      },
+      {
+        "title": "977. Squares of a Sorted Array",
+        "link": "https://leetcode.com/problems/squares-of-a-sorted-array/",
+        "difficulty": "Easy",
+        "description": "Return squares of sorted array in sorted order - two pointers handle negative numbers"
+      },
+      {
+        "title": "18. 4Sum",
+        "link": "https://leetcode.com/problems/4sum/",
+        "difficulty": "Medium",
+        "description": "Find all unique quadruplets that sum to target - advanced two pointers with nested loops"
+      }
+    ]
+  }
+}

@@ -1,0 +1,670 @@
+{
+  "id": "dfs-bfs",
+  "title": "DFS & BFS (Graph Traversals)",
+  "description": "Master depth-first and breadth-first search for tree and graph traversal",
+  "difficulty": "intermediate",
+  "order": 9,
+  "tags": [
+    "graphs",
+    "trees",
+    "traversal",
+    "search"
+  ],
+  "documentation": {
+    "content": "# DFS & BFS: The Art of Exploration\n\nImagine you're exploring a maze. DFS (Depth-First Search) is like following one path as far as it goes before backtracking—you're the adventurer who explores every dead end. BFS (Breadth-First Search) is like exploring all nearby rooms first before venturing further—you're the methodical explorer who checks everything at your current level.\n\n## Two Ways to Explore\n\n**DFS (Depth-First Search)** goes deep before going wide. It's like reading a book by following every footnote before continuing the main text. Uses a stack (or recursion).\n\n**BFS (Breadth-First Search)** goes wide before going deep. It's like ripples in a pond, expanding outward in layers. Uses a queue.\n\n## When to Use DFS\n\n**Path finding** - Find if a path exists between two nodes\n**Cycle detection** - Detect cycles in graphs\n**Topological sorting** - Order tasks with dependencies\n**Connected components** - Find all connected parts\n**Backtracking problems** - Sudoku, N-Queens, maze solving\n**Tree traversals** - Inorder, preorder, postorder\n\n## When to Use BFS\n\n**Shortest path** - Find shortest path in unweighted graphs\n**Level-order traversal** - Process tree level by level\n**Minimum steps** - Problems asking for minimum moves/steps\n**Nearest neighbor** - Find closest node meeting criteria\n**Web crawling** - Explore pages level by level\n\n## How DFS Works\n\n1. Start at root/source node\n2. Mark current node as visited\n3. Explore first unvisited neighbor deeply\n4. When stuck, backtrack to previous node\n5. Repeat until all reachable nodes visited\n\n**Implementation**: Use recursion (implicit stack) or explicit stack\n\n## How BFS Works\n\n1. Start at root/source node\n2. Add to queue and mark as visited\n3. Dequeue node and process it\n4. Add all unvisited neighbors to queue\n5. Repeat until queue is empty\n\n**Implementation**: Always use a queue\n\n## The Performance\n\n**Time**: O(V + E) where V = vertices, E = edges\n**Space**: \n- DFS: O(h) for recursion depth (h = height)\n- BFS: O(w) for queue width (w = max width)\n\n## Common Mistakes\n\n❌ **Not marking nodes as visited** - Leads to infinite loops\n❌ **Using wrong structure** - Stack for BFS or queue for DFS\n❌ **Forgetting to check visited** - Before adding to stack/queue\n❌ **Not handling disconnected graphs** - May need to start DFS/BFS from multiple sources\n\n## Pro Tips\n\n💡 **DFS for existence, BFS for shortest** - DFS finds if path exists, BFS finds shortest path\n💡 **Recursion = implicit stack** - DFS with recursion is cleaner but watch stack overflow\n💡 **Track parent nodes** - To reconstruct the path after BFS\n💡 **Use visited set** - Faster than checking array every time\n\n## Real-World Applications\n\n**DFS:**\n- File system traversal\n- Maze solving\n- Dependency resolution\n- Garbage collection\n- Topological sorting\n\n**BFS:**\n- Social network (friends of friends)\n- GPS navigation (shortest path)\n- Web crawlers\n- Network broadcasting\n- Puzzle solving (minimum moves)\n\nDFS and BFS are the foundation of graph algorithms. Master these, and you'll unlock solutions to countless problems! 🌳🔍\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "vf-cxgUXcMk",
+      "title": "DFS & BFS - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "N2P7w22tN9c",
+      "title": "DFS & BFS - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "5o_kdj5pDqs",
+      "title": "DFS & BFS - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Which data structure does BFS use?",
+        "options": [
+          "Stack",
+          "Queue",
+          "Array",
+          "Hash Map"
+        ],
+        "correctAnswer": 1,
+        "explanation": "BFS uses a queue to process nodes level by level in FIFO order."
+      },
+      {
+        "id": "q2",
+        "question": "Which traversal finds the shortest path in an unweighted graph?",
+        "options": [
+          "DFS",
+          "BFS",
+          "Both",
+          "Neither"
+        ],
+        "correctAnswer": 1,
+        "explanation": "BFS finds the shortest path in unweighted graphs because it explores nodes level by level."
+      },
+      {
+        "id": "q3",
+        "question": "What is the time complexity of DFS and BFS?",
+        "options": [
+          "O(V)",
+          "O(E)",
+          "O(V + E)",
+          "O(V * E)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Both DFS and BFS have O(V + E) time complexity where V is vertices and E is edges."
+      },
+      {
+        "id": "q4",
+        "question": "Which traversal uses recursion naturally?",
+        "options": [
+          "BFS",
+          "DFS",
+          "Both",
+          "Neither"
+        ],
+        "correctAnswer": 1,
+        "explanation": "DFS naturally uses recursion because it explores deeply before backtracking, which matches the call stack behavior."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "number-of-islands",
+      "title": "Number of Islands",
+      "difficulty": "medium",
+      "description": "Given an m x n 2D binary grid which represents a map of '1's (land) and '0's (water), return the number of islands.\n\nAn island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.",
+      "constraints": [
+        "m == grid.length",
+        "n == grid[i].length",
+        "1 <= m, n <= 300",
+        "grid[i][j] is '0' or '1'"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "grid": [
+              [
+                "1",
+                "1",
+                "1",
+                "1",
+                "0"
+              ],
+              [
+                "1",
+                "1",
+                "0",
+                "1",
+                "0"
+              ],
+              [
+                "1",
+                "1",
+                "0",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "One large island"
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                "1",
+                "1",
+                "0",
+                "0",
+                "0"
+              ],
+              [
+                "1",
+                "1",
+                "0",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "1",
+                "0",
+                "0"
+              ],
+              [
+                "0",
+                "0",
+                "0",
+                "1",
+                "1"
+              ]
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "Three separate islands"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "grid": [
+              [
+                "1"
+              ]
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single cell island"
+        },
+        {
+          "input": {
+            "grid": [
+              [
+                "0"
+              ]
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "No islands"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function numIslands(grid) {\n  // Your code here\n  // Use DFS or BFS to explore each island\n  \n}",
+        "python": "def num_islands(grid):\n    # Your code here\n    # Use DFS or BFS to explore each island\n    pass",
+        "java": "class Solution {\n    public int numIslands(char[][] grid) {\n        // Your code here\n        // Use DFS or BFS to explore each island\n        \n    }\n}",
+        "c": "int numIslands(char** grid, int gridSize, int* gridColSize) {\n    // Your code here\n    // Use DFS or BFS to explore each island\n    \n}"
+      },
+      "solution": {
+        "javascript": "function numIslands(grid) {\n  if (!grid || grid.length === 0) return 0;\n  \n  let count = 0;\n  \n  function dfs(i, j) {\n    if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] === '0') {\n      return;\n    }\n    \n    grid[i][j] = '0'; // Mark as visited\n    \n    dfs(i + 1, j);\n    dfs(i - 1, j);\n    dfs(i, j + 1);\n    dfs(i, j - 1);\n  }\n  \n  for (let i = 0; i < grid.length; i++) {\n    for (let j = 0; j < grid[0].length; j++) {\n      if (grid[i][j] === '1') {\n        count++;\n        dfs(i, j);\n      }\n    }\n  }\n  \n  return count;\n}",
+        "python": "def num_islands(grid):\n    if not grid:\n        return 0\n    \n    count = 0\n    \n    def dfs(i, j):\n        if i < 0 or i >= len(grid) or j < 0 or j >= len(grid[0]) or grid[i][j] == '0':\n            return\n        \n        grid[i][j] = '0'  # Mark as visited\n        \n        dfs(i + 1, j)\n        dfs(i - 1, j)\n        dfs(i, j + 1)\n        dfs(i, j - 1)\n    \n    for i in range(len(grid)):\n        for j in range(len(grid[0])):\n            if grid[i][j] == '1':\n                count += 1\n                dfs(i, j)\n    \n    return count",
+        "java": "class Solution {\n    public int numIslands(char[][] grid) {\n        if (grid == null || grid.length == 0) return 0;\n        \n        int count = 0;\n        \n        for (int i = 0; i < grid.length; i++) {\n            for (int j = 0; j < grid[0].length; j++) {\n                if (grid[i][j] == '1') {\n                    count++;\n                    dfs(grid, i, j);\n                }\n            }\n        }\n        \n        return count;\n    }\n    \n    private void dfs(char[][] grid, int i, int j) {\n        if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] == '0') {\n            return;\n        }\n        \n        grid[i][j] = '0';\n        \n        dfs(grid, i + 1, j);\n        dfs(grid, i - 1, j);\n        dfs(grid, i, j + 1);\n        dfs(grid, i, j - 1);\n    }\n}",
+        "c": "void dfs(char** grid, int gridSize, int gridColSize, int i, int j) {\n    if (i < 0 || i >= gridSize || j < 0 || j >= gridColSize || grid[i][j] == '0') {\n        return;\n    }\n    \n    grid[i][j] = '0';\n    \n    dfs(grid, gridSize, gridColSize, i + 1, j);\n    dfs(grid, gridSize, gridColSize, i - 1, j);\n    dfs(grid, gridSize, gridColSize, i, j + 1);\n    dfs(grid, gridSize, gridColSize, i, j - 1);\n}\n\nint numIslands(char** grid, int gridSize, int* gridColSize) {\n    if (grid == NULL || gridSize == 0) return 0;\n    \n    int count = 0;\n    \n    for (int i = 0; i < gridSize; i++) {\n        for (int j = 0; j < gridColSize[i]; j++) {\n            if (grid[i][j] == '1') {\n                count++;\n                dfs(grid, gridSize, gridColSize[i], i, j);\n            }\n        }\n    }\n    \n    return count;\n}"
+      }
+    },
+    {
+      "id": "binary-tree-level-order",
+      "title": "Binary Tree Level Order Traversal",
+      "difficulty": "medium",
+      "description": "Given the root of a binary tree, return the level order traversal of its nodes' values (i.e., from left to right, level by level).",
+      "constraints": [
+        "The number of nodes in the tree is in range [0, 2000]",
+        "-1000 <= Node.val <= 1000"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "root": [
+              3,
+              9,
+              20,
+              null,
+              null,
+              15,
+              7
+            ]
+          },
+          "expectedOutput": [
+            [
+              3
+            ],
+            [
+              9,
+              20
+            ],
+            [
+              15,
+              7
+            ]
+          ],
+          "description": "Level by level traversal"
+        },
+        {
+          "input": {
+            "root": [
+              1
+            ]
+          },
+          "expectedOutput": [
+            [
+              1
+            ]
+          ],
+          "description": "Single node"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "root": []
+          },
+          "expectedOutput": [],
+          "description": "Empty tree"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function levelOrder(root) {\n  // Your code here\n  // Use BFS with a queue\n  \n}",
+        "python": "def level_order(root):\n    # Your code here\n    # Use BFS with a queue\n    pass",
+        "java": "class Solution {\n    public List<List<Integer>> levelOrder(TreeNode root) {\n        // Your code here\n        // Use BFS with a queue\n        \n    }\n}",
+        "c": "int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes) {\n    // Your code here\n    // Use BFS with a queue\n    \n}"
+      },
+      "solution": {
+        "javascript": "function levelOrder(root) {\n  if (!root) return [];\n  \n  const result = [];\n  const queue = [root];\n  \n  while (queue.length > 0) {\n    const levelSize = queue.length;\n    const currentLevel = [];\n    \n    for (let i = 0; i < levelSize; i++) {\n      const node = queue.shift();\n      currentLevel.push(node.val);\n      \n      if (node.left) queue.push(node.left);\n      if (node.right) queue.push(node.right);\n    }\n    \n    result.push(currentLevel);\n  }\n  \n  return result;\n}",
+        "python": "def level_order(root):\n    if not root:\n        return []\n    \n    result = []\n    queue = [root]\n    \n    while queue:\n        level_size = len(queue)\n        current_level = []\n        \n        for _ in range(level_size):\n            node = queue.pop(0)\n            current_level.append(node.val)\n            \n            if node.left:\n                queue.append(node.left)\n            if node.right:\n                queue.append(node.right)\n        \n        result.append(current_level)\n    \n    return result",
+        "java": "class Solution {\n    public List<List<Integer>> levelOrder(TreeNode root) {\n        List<List<Integer>> result = new ArrayList<>();\n        if (root == null) return result;\n        \n        Queue<TreeNode> queue = new LinkedList<>();\n        queue.offer(root);\n        \n        while (!queue.isEmpty()) {\n            int levelSize = queue.size();\n            List<Integer> currentLevel = new ArrayList<>();\n            \n            for (int i = 0; i < levelSize; i++) {\n                TreeNode node = queue.poll();\n                currentLevel.add(node.val);\n                \n                if (node.left != null) queue.offer(node.left);\n                if (node.right != null) queue.offer(node.right);\n            }\n            \n            result.add(currentLevel);\n        }\n        \n        return result;\n    }\n}",
+        "c": "int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes) {\n    if (!root) {\n        *returnSize = 0;\n        return NULL;\n    }\n    \n    int** result = (int**)malloc(2000 * sizeof(int*));\n    *returnColumnSizes = (int*)malloc(2000 * sizeof(int));\n    *returnSize = 0;\n    \n    struct TreeNode** queue = (struct TreeNode**)malloc(2000 * sizeof(struct TreeNode*));\n    int front = 0, rear = 0;\n    queue[rear++] = root;\n    \n    while (front < rear) {\n        int levelSize = rear - front;\n        result[*returnSize] = (int*)malloc(levelSize * sizeof(int));\n        (*returnColumnSizes)[*returnSize] = levelSize;\n        \n        for (int i = 0; i < levelSize; i++) {\n            struct TreeNode* node = queue[front++];\n            result[*returnSize][i] = node->val;\n            \n            if (node->left) queue[rear++] = node->left;\n            if (node->right) queue[rear++] = node->right;\n        }\n        \n        (*returnSize)++;\n    }\n    \n    free(queue);\n    return result;\n}"
+      }
+    },
+    {
+      "id": "number-of-islands-dfs",
+      "title": "Number of Islands",
+      "difficulty": "medium",
+      "description": "Solve the Number of Islands problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "clone-graph",
+      "title": "Clone Graph",
+      "difficulty": "medium",
+      "description": "Solve the Clone Graph problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "pacific-atlantic-water-flow",
+      "title": "Pacific Atlantic Water Flow",
+      "difficulty": "medium",
+      "description": "Solve the Pacific Atlantic Water Flow problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Not marking nodes as visited - causes infinite loops in graphs with cycles",
+      "Using wrong data structure - stack for BFS or queue for DFS gives incorrect results",
+      "Forgetting to check if node is null before accessing children",
+      "Not handling disconnected graphs - may need multiple DFS/BFS starts",
+      "Modifying the graph during traversal without proper tracking"
+    ],
+    "patternDetection": [
+      "Problem asks for 'shortest path' or 'minimum steps' - use BFS",
+      "Problem involves exploring all possibilities or paths - use DFS",
+      "Level-by-level processing needed - use BFS",
+      "Need to detect cycles or find connected components - use DFS",
+      "Tree traversal problems - both DFS and BFS applicable",
+      "Graph exploration or search problems - fundamental DFS/BFS application"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "200. Number of Islands",
+        "link": "https://leetcode.com/problems/number-of-islands/",
+        "difficulty": "Medium",
+        "description": "Count islands using DFS or BFS - classic graph problem"
+      },
+      {
+        "title": "102. Binary Tree Level Order Traversal",
+        "link": "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+        "difficulty": "Medium",
+        "description": "BFS to traverse tree level by level"
+      },
+      {
+        "title": "133. Clone Graph",
+        "link": "https://leetcode.com/problems/clone-graph/",
+        "difficulty": "Medium",
+        "description": "Deep copy a graph using DFS or BFS"
+      },
+      {
+        "title": "207. Course Schedule",
+        "link": "https://leetcode.com/problems/course-schedule/",
+        "difficulty": "Medium",
+        "description": "Detect cycle in directed graph using DFS"
+      },
+      {
+        "title": "994. Rotting Oranges",
+        "link": "https://leetcode.com/problems/rotting-oranges/",
+        "difficulty": "Medium",
+        "description": "Multi-source BFS to find minimum time"
+      },
+      {
+        "title": "127. Word Ladder",
+        "link": "https://leetcode.com/problems/word-ladder/",
+        "difficulty": "Hard",
+        "description": "Shortest transformation sequence using BFS"
+      },
+      {
+        "title": "785. Is Graph Bipartite",
+        "link": "https://leetcode.com/problems/is-graph-bipartite/",
+        "difficulty": "Medium",
+        "description": "Check if graph is bipartite using BFS or DFS with coloring"
+      }
+    ]
+  },
+  "walkthrough": {
+    "title": "Number of Islands",
+    "description": "Count the number of islands in a 2D grid using DFS to explore connected land cells",
+    "difficulty": "Medium",
+    "code": {
+      "javascript": "function numIslands(grid) {\n  if (!grid || grid.length === 0) return 0;\n  \n  const rows = grid.length;\n  const cols = grid[0].length;\n  let count = 0;\n  \n  function dfs(r, c) {\n    // Boundary check and water check\n    if (r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] === '0') {\n      return;\n    }\n    \n    // Mark as visited by changing to '0'\n    grid[r][c] = '0';\n    \n    // Explore all 4 directions\n    dfs(r + 1, c); // Down\n    dfs(r - 1, c); // Up\n    dfs(r, c + 1); // Right\n    dfs(r, c - 1); // Left\n  }\n  \n  // Scan entire grid\n  for (let r = 0; r < rows; r++) {\n    for (let c = 0; c < cols; c++) {\n      if (grid[r][c] === '1') {\n        count++;\n        dfs(r, c); // Sink the entire island\n      }\n    }\n  }\n  \n  return count;\n}",
+      "python": "def numIslands(grid):\n    if not grid:\n        return 0\n    \n    rows, cols = len(grid), len(grid[0])\n    count = 0\n    \n    def dfs(r, c):\n        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == '0':\n            return\n        \n        grid[r][c] = '0'  # Mark as visited\n        \n        # Explore all 4 directions\n        dfs(r + 1, c)\n        dfs(r - 1, c)\n        dfs(r, c + 1)\n        dfs(r, c - 1)\n    \n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == '1':\n                count += 1\n                dfs(r, c)\n    \n    return count",
+      "java": "public int numIslands(char[][] grid) {\n    if (grid == null || grid.length == 0) return 0;\n    \n    int rows = grid.length;\n    int cols = grid[0].length;\n    int count = 0;\n    \n    for (int r = 0; r < rows; r++) {\n        for (int c = 0; c < cols; c++) {\n            if (grid[r][c] == '1') {\n                count++;\n                dfs(grid, r, c);\n            }\n        }\n    }\n    \n    return count;\n}\n\nprivate void dfs(char[][] grid, int r, int c) {\n    if (r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c] == '0') {\n        return;\n    }\n    \n    grid[r][c] = '0';\n    \n    dfs(grid, r + 1, c);\n    dfs(grid, r - 1, c);\n    dfs(grid, r, c + 1);\n    dfs(grid, r, c - 1);\n}",
+      "c": "void dfs(char** grid, int rows, int cols, int r, int c) {\n    if (r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] == '0') {\n        return;\n    }\n    \n    grid[r][c] = '0';\n    \n    dfs(grid, rows, cols, r + 1, c);\n    dfs(grid, rows, cols, r - 1, c);\n    dfs(grid, rows, cols, r, c + 1);\n    dfs(grid, rows, cols, r, c - 1);\n}\n\nint numIslands(char** grid, int gridSize, int* gridColSize) {\n    if (gridSize == 0) return 0;\n    \n    int count = 0;\n    for (int r = 0; r < gridSize; r++) {\n        for (int c = 0; c < gridColSize[r]; c++) {\n            if (grid[r][c] == '1') {\n                count++;\n                dfs(grid, gridSize, gridColSize[r], r, c);\n            }\n        }\n    }\n    \n    return count;\n}"
+    },
+    "steps": [
+      {
+        "title": "Scan Grid for Land",
+        "explanation": "We iterate through every cell in the grid looking for land ('1').\\n\\nWhen we find unvisited land, we've discovered a new island! Increment count and explore it fully using DFS.",
+        "highlightLines": [
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31
+        ],
+        "visualization": "Grid:\\n1 1 0 0 0\\n1 1 0 0 0\\n0 0 1 0 0\\n0 0 0 1 1\\n\\nScanning... found '1' at (0,0)\\ncount = 1\\nNow explore this entire island!",
+        "insight": "The outer loops ensure we check every cell. The DFS ensures we don't count the same island twice!",
+        "complexity": {
+          "time": "O(m*n)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "DFS Base Case - Boundaries and Water",
+        "explanation": "Before exploring a cell, check if it's:\\n• Out of bounds\\n• Water ('0')\\n• Already visited (also marked as '0')\\n\\nIf any condition is true, stop exploring this path.",
+        "highlightLines": [
+          9,
+          10,
+          11
+        ],
+        "visualization": "Exploring from (0,0):\\n\\nCheck (0,0): Valid land ✓\\nCheck (-1,0): Out of bounds ✗\\nCheck (0,-1): Out of bounds ✗\\nCheck (1,0): Valid land ✓\\nCheck (0,1): Valid land ✓",
+        "insight": "These boundary checks prevent infinite recursion and ensure we only explore valid land cells!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Mark Cell as Visited",
+        "explanation": "Change the current cell from '1' to '0' to mark it as visited.\\n\\nThis prevents us from visiting the same cell twice and avoids infinite recursion!\\n\\nWe're essentially 'sinking' the island as we explore it.",
+        "highlightLines": [
+          14
+        ],
+        "visualization": "Before DFS:     After visiting (0,0):\\n1 1 0 0 0       0 1 0 0 0\\n1 1 0 0 0       1 1 0 0 0\\n0 0 1 0 0       0 0 1 0 0\\n0 0 0 1 1       0 0 0 1 1\\n\\nCell (0,0) is now marked as visited!",
+        "insight": "Modifying the grid in-place saves space! We don't need a separate visited array. If you need to preserve the original grid, use a Set to track visited cells.",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Explore All 4 Directions",
+        "explanation": "Recursively explore all 4 adjacent cells (up, down, left, right).\\n\\nThis is the heart of DFS - we go deep into each direction before backtracking!\\n\\nAll connected land cells will be marked as visited.",
+        "highlightLines": [
+          17,
+          18,
+          19,
+          20
+        ],
+        "visualization": "From (0,0), explore:\\n\\n    ↑ (-1,0) out of bounds\\n← (0,-1) | (0,0) | (0,1) →\\n    ↓ (1,0)\\n\\nThen from (0,1), explore its neighbors...\\nThis continues until entire island is explored!",
+        "insight": "DFS explores as far as possible along each branch before backtracking. This naturally explores all connected components (islands)!",
+        "complexity": {
+          "time": "O(4) per cell",
+          "space": "O(m*n) recursion"
+        }
+      },
+      {
+        "title": "Complete Island Exploration",
+        "explanation": "The DFS will recursively visit every land cell connected to the starting cell.\\n\\nWhen DFS returns, the entire island has been marked as visited ('0').\\n\\nWe continue scanning for more islands!\\n\\nTime: O(m*n) - visit each cell once\\nSpace: O(m*n) - recursion depth in worst case",
+        "highlightLines": [
+          29,
+          34
+        ],
+        "visualization": "Final state after all islands found:\\n\\nOriginal:       After DFS:\\n1 1 0 0 0       0 0 0 0 0\\n1 1 0 0 0       0 0 0 0 0\\n0 0 1 0 0       0 0 0 0 0\\n0 0 0 1 1       0 0 0 0 0\\n\\ncount = 3 islands found!",
+        "insight": "Each cell is visited at most once. Even though we have nested loops and recursion, the time complexity is still O(m*n)!",
+        "complexity": {
+          "time": "O(m*n)",
+          "space": "O(m*n)"
+        }
+      }
+    ]
+  }
+}

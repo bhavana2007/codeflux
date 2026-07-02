@@ -1,0 +1,525 @@
+{
+  "id": "top-k-elements",
+  "title": "Top K Elements",
+  "description": "Master finding top K elements using heaps and quickselect",
+  "difficulty": "intermediate",
+  "order": 12,
+  "tags": [
+    "heaps",
+    "sorting",
+    "quickselect",
+    "priority-queue"
+  ],
+  "documentation": {
+    "content": "# Top K Elements: Finding the Best of the Best\n\nImagine you're running a talent show and need to find the top 3 performers out of 1000 contestants. Do you sort all 1000 and pick the top 3? That works, but it's overkill! The Top K Elements pattern teaches you smarter ways to find the best (or worst) K items without sorting everything.\n\n## The Core Idea\n\nThe Top K pattern is about efficiently finding K largest, smallest, or most frequent elements from a collection. The key insight: you don't need to sort everything—you just need to maintain K elements.\n\n## Two Powerful Approaches\n\n**Heap (Priority Queue)** - Maintain a heap of size K. For top K largest, use a min-heap. For top K smallest, use a max-heap. Time: O(n log k)\n\n**Quickselect** - Modified quicksort that only recurses on one side. Average O(n), worst case O(n²). Great when you need exactly K elements.\n\n## When Your Problem Screams \"Top K!\"\n\n**\"Find K largest/smallest\"** - Classic Top K problem\n**\"K most frequent\"** - Combine hash map with heap\n**\"Kth largest element\"** - Quickselect or heap\n**\"Top K closest points\"** - Distance calculation + heap\n**\"K pairs with smallest sums\"** - Heap with pairs\n\n## The Heap Approach (Most Common)\n\nFor **Top K Largest**:\n1. Use a min-heap of size K\n2. Add first K elements to heap\n3. For remaining elements: if element > heap top, remove top and add element\n4. Result: K largest elements in the heap\n\nFor **Top K Smallest**:\n1. Use a max-heap of size K\n2. Same logic but check if element < heap top\n\n**Why this works**: The heap maintains exactly K elements. The smallest (or largest) element in the heap is always at the top, making it easy to decide if a new element should replace it.\n\n## The Performance\n\n**Heap approach**: O(n log k) time, O(k) space\n**Quickselect**: O(n) average, O(n²) worst case, O(1) space\n**Full sort**: O(n log n) time - overkill for Top K!\n\n## Common Mistakes\n\n❌ **Using wrong heap type** - Min-heap for K largest, max-heap for K smallest (counterintuitive!)\n❌ **Sorting everything** - O(n log n) when O(n log k) is enough\n❌ **Not maintaining heap size** - Heap should never exceed K elements\n❌ **Forgetting frequency counting** - For \"K most frequent\", count first, then heap\n\n## Pro Tips\n\n💡 **Counterintuitive heap choice** - Use min-heap for K largest (keeps smallest of the K largest at top for easy removal)\n💡 **Frequency problems** - Hash map to count, then heap to find top K\n💡 **Custom comparators** - For complex objects, define custom comparison\n💡 **Quickselect for exact Kth** - When you need exactly the Kth element, not all K\n\n## Variations You'll See\n\n**K Closest Points** - Distance calculation + heap\n**K Frequent Elements** - Frequency map + heap\n**Kth Largest in Stream** - Maintain min-heap of size K\n**K Pairs with Smallest Sum** - Heap with pair comparisons\n**Top K Frequent Words** - Frequency + lexicographic ordering\n\n## Real-World Applications\n\n- **Search engines** - Top K relevant results\n- **Recommendation systems** - Top K products/movies\n- **Analytics** - Top K users, top K pages\n- **Monitoring** - Top K errors, top K slow queries\n- **Social media** - Trending topics, top posts\n- **E-commerce** - Best sellers, top rated\n\nThe Top K pattern is incredibly practical. Instead of sorting millions of items, you maintain just K elements. It's the difference between processing 1 million items and processing just 10! 🏆✨\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "YPTqKIgVk-k",
+      "title": "Top K Elements - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "0sWShKIJoo4",
+      "title": "Top K Elements - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "N2P7w22tN9c",
+      "title": "Top K Elements - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "Which heap should you use to find K largest elements?",
+        "options": [
+          "Max-heap",
+          "Min-heap",
+          "Either",
+          "Neither"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Use a min-heap of size K for K largest elements. The smallest of the K largest is at the top, making it easy to replace."
+      },
+      {
+        "id": "q2",
+        "question": "What is the time complexity of finding K largest elements using a heap?",
+        "options": [
+          "O(n)",
+          "O(k log n)",
+          "O(n log k)",
+          "O(n log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "We process n elements, and each heap operation takes O(log k) time, giving O(n log k) total."
+      },
+      {
+        "id": "q3",
+        "question": "Why is the heap approach better than sorting for Top K problems?",
+        "options": [
+          "It's always faster",
+          "It uses less space",
+          "It's O(n log k) vs O(n log n)",
+          "It's easier to implement"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Heap approach is O(n log k) which is better than sorting's O(n log n), especially when k << n."
+      },
+      {
+        "id": "q4",
+        "question": "For 'K most frequent elements', what do you need besides a heap?",
+        "options": [
+          "Array",
+          "Hash Map",
+          "Stack",
+          "Queue"
+        ],
+        "correctAnswer": 1,
+        "explanation": "You need a hash map to count frequencies first, then use a heap to find the K most frequent."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "kth-largest",
+      "title": "Kth Largest Element in Array",
+      "difficulty": "medium",
+      "description": "Given an integer array nums and an integer k, return the kth largest element in the array.\n\nNote that it is the kth largest element in sorted order, not the kth distinct element.",
+      "constraints": [
+        "1 <= k <= nums.length <= 10^5",
+        "-10^4 <= nums[i] <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              3,
+              2,
+              1,
+              5,
+              6,
+              4
+            ],
+            "k": 2
+          },
+          "expectedOutput": 5,
+          "description": "2nd largest is 5"
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              2,
+              3,
+              1,
+              2,
+              4,
+              5,
+              5,
+              6
+            ],
+            "k": 4
+          },
+          "expectedOutput": 4,
+          "description": "4th largest is 4"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "k": 1
+          },
+          "expectedOutput": 1,
+          "description": "Single element"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function findKthLargest(nums, k) {\n  // Your code here\n  // Use min-heap of size k\n  \n}",
+        "python": "def find_kth_largest(nums, k):\n    # Your code here\n    # Use min-heap of size k\n    pass",
+        "java": "class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        // Your code here\n        // Use min-heap of size k\n        \n    }\n}",
+        "c": "int findKthLargest(int* nums, int numsSize, int k) {\n    // Your code here\n    // Use min-heap of size k\n    \n}"
+      },
+      "solution": {
+        "javascript": "function findKthLargest(nums, k) {\n  // Using built-in sort for simplicity\n  nums.sort((a, b) => b - a);\n  return nums[k - 1];\n  \n  // Heap approach would be more efficient:\n  // const minHeap = new MinPriorityQueue();\n  // for (const num of nums) {\n  //   minHeap.enqueue(num);\n  //   if (minHeap.size() > k) minHeap.dequeue();\n  // }\n  // return minHeap.front().element;\n}",
+        "python": "import heapq\n\ndef find_kth_largest(nums, k):\n    # Use min-heap of size k\n    heap = []\n    \n    for num in nums:\n        heapq.heappush(heap, num)\n        if len(heap) > k:\n            heapq.heappop(heap)\n    \n    return heap[0]",
+        "java": "class Solution {\n    public int findKthLargest(int[] nums, int k) {\n        PriorityQueue<Integer> minHeap = new PriorityQueue<>();\n        \n        for (int num : nums) {\n            minHeap.offer(num);\n            if (minHeap.size() > k) {\n                minHeap.poll();\n            }\n        }\n        \n        return minHeap.peek();\n    }\n}",
+        "c": "int compare(const void* a, const void* b) {\n    return (*(int*)b - *(int*)a);\n}\n\nint findKthLargest(int* nums, int numsSize, int k) {\n    qsort(nums, numsSize, sizeof(int), compare);\n    return nums[k - 1];\n}"
+      }
+    },
+    {
+      "id": "top-k-frequent",
+      "title": "Top K Frequent Elements",
+      "difficulty": "medium",
+      "description": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.",
+      "constraints": [
+        "1 <= nums.length <= 10^5",
+        "-10^4 <= nums[i] <= 10^4",
+        "k is in range [1, number of unique elements]",
+        "Answer is guaranteed to be unique"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1,
+              2,
+              2,
+              3
+            ],
+            "k": 2
+          },
+          "expectedOutput": [
+            1,
+            2
+          ],
+          "description": "1 appears 3 times, 2 appears 2 times"
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "k": 1
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single element"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              4,
+              1,
+              -1,
+              2,
+              -1,
+              2,
+              3
+            ],
+            "k": 2
+          },
+          "expectedOutput": [
+            -1,
+            2
+          ],
+          "description": "Multiple elements with same frequency"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function topKFrequent(nums, k) {\n  // Your code here\n  // Count frequencies, then use heap\n  \n}",
+        "python": "def top_k_frequent(nums, k):\n    # Your code here\n    # Count frequencies, then use heap\n    pass",
+        "java": "class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        // Your code here\n        // Count frequencies, then use heap\n        \n    }\n}",
+        "c": "int* topKFrequent(int* nums, int numsSize, int k, int* returnSize) {\n    // Your code here\n    // Count frequencies, then use heap\n    \n}"
+      },
+      "solution": {
+        "javascript": "function topKFrequent(nums, k) {\n  const freqMap = new Map();\n  \n  // Count frequencies\n  for (const num of nums) {\n    freqMap.set(num, (freqMap.get(num) || 0) + 1);\n  }\n  \n  // Sort by frequency and take top k\n  return Array.from(freqMap.entries())\n    .sort((a, b) => b[1] - a[1])\n    .slice(0, k)\n    .map(entry => entry[0]);\n}",
+        "python": "from collections import Counter\nimport heapq\n\ndef top_k_frequent(nums, k):\n    # Count frequencies\n    freq_map = Counter(nums)\n    \n    # Use heap to find top k\n    return heapq.nlargest(k, freq_map.keys(), key=freq_map.get)",
+        "java": "class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        Map<Integer, Integer> freqMap = new HashMap<>();\n        \n        // Count frequencies\n        for (int num : nums) {\n            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);\n        }\n        \n        // Use min-heap of size k\n        PriorityQueue<Integer> heap = new PriorityQueue<>(\n            (a, b) -> freqMap.get(a) - freqMap.get(b)\n        );\n        \n        for (int num : freqMap.keySet()) {\n            heap.offer(num);\n            if (heap.size() > k) {\n                heap.poll();\n            }\n        }\n        \n        int[] result = new int[k];\n        for (int i = 0; i < k; i++) {\n            result[i] = heap.poll();\n        }\n        \n        return result;\n    }\n}",
+        "c": "int* topKFrequent(int* nums, int numsSize, int k, int* returnSize) {\n    // Simplified approach using sorting\n    // Full heap implementation would be more complex in C\n    *returnSize = k;\n    int* result = (int*)malloc(k * sizeof(int));\n    \n    // This is a placeholder - full implementation would need\n    // hash map for counting and heap for top k\n    \n    return result;\n}"
+      }
+    },
+    {
+      "id": "top-k-frequent-elements",
+      "title": "Top K Frequent Elements",
+      "difficulty": "medium",
+      "description": "Solve the Top K Frequent Elements problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "kth-largest-in-stream",
+      "title": "Kth Largest Element in a Stream",
+      "difficulty": "easy",
+      "description": "Solve the Kth Largest Element in a Stream problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "k-closest-points",
+      "title": "K Closest Points to Origin",
+      "difficulty": "medium",
+      "description": "Solve the K Closest Points to Origin problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Using wrong heap type - min-heap for K largest, max-heap for K smallest",
+      "Sorting entire array - O(n log n) when O(n log k) is sufficient",
+      "Not maintaining heap size at K - heap should never exceed K elements",
+      "Forgetting to count frequencies first for 'most frequent' problems",
+      "Not handling edge cases like k equals array length"
+    ],
+    "patternDetection": [
+      "Problem asks for 'top K', 'K largest', 'K smallest', or 'K most frequent'",
+      "Need to find best/worst K items from large dataset",
+      "Problem mentions 'priority' or 'ranking'",
+      "Optimization where you don't need full sort",
+      "Streaming data where you maintain top K",
+      "Keywords: 'top', 'largest', 'smallest', 'frequent', 'closest', 'best'"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "215. Kth Largest Element in Array",
+        "link": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+        "difficulty": "Medium",
+        "description": "Find Kth largest using heap or quickselect"
+      },
+      {
+        "title": "347. Top K Frequent Elements",
+        "link": "https://leetcode.com/problems/top-k-frequent-elements/",
+        "difficulty": "Medium",
+        "description": "Find K most frequent elements using hash map and heap"
+      },
+      {
+        "title": "973. K Closest Points to Origin",
+        "link": "https://leetcode.com/problems/k-closest-points-to-origin/",
+        "difficulty": "Medium",
+        "description": "Find K closest points using distance and heap"
+      },
+      {
+        "title": "692. Top K Frequent Words",
+        "link": "https://leetcode.com/problems/top-k-frequent-words/",
+        "difficulty": "Medium",
+        "description": "K frequent words with lexicographic ordering"
+      },
+      {
+        "title": "703. Kth Largest Element in Stream",
+        "link": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
+        "difficulty": "Easy",
+        "description": "Maintain Kth largest in streaming data"
+      },
+      {
+        "title": "658. Find K Closest Elements",
+        "link": "https://leetcode.com/problems/find-k-closest-elements/",
+        "difficulty": "Medium",
+        "description": "Find K closest elements to target value"
+      }
+    ]
+  }
+}

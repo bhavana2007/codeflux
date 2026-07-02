@@ -1,0 +1,712 @@
+{
+  "paths": [
+    {
+      "id": "beginner",
+      "title": "🌱 Beginner Path",
+      "subtitle": "Master the Fundamentals",
+      "description": "Perfect for those starting their DSA journey. Build a strong foundation with arrays, strings, and basic problem-solving patterns.",
+      "duration": "30 days",
+      "difficulty": "Easy",
+      "estimatedHours": 60,
+      "prerequisites": "Basic programming knowledge in any language",
+      "outcomes": [
+        "Understand fundamental data structures",
+        "Master basic problem-solving patterns",
+        "Solve 50+ easy problems confidently",
+        "Build strong coding fundamentals"
+      ],
+      "modules": [
+        {
+          "moduleId": "two-pointers",
+          "week": 1,
+          "day": "1-4",
+          "focus": "Learn the two-pointer technique for array problems",
+          "problems": 5,
+          "estimatedTime": "8 hours"
+        },
+        {
+          "moduleId": "hashing",
+          "week": 1,
+          "day": "5-7",
+          "focus": "Master hash maps for O(1) lookups",
+          "problems": 4,
+          "estimatedTime": "6 hours"
+        },
+        {
+          "moduleId": "sliding-window",
+          "week": 2,
+          "day": "8-12",
+          "focus": "Understand fixed and variable window techniques",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "prefix-sum",
+          "week": 2,
+          "day": "13-14",
+          "focus": "Learn cumulative sum for range queries",
+          "problems": 3,
+          "estimatedTime": "4 hours"
+        },
+        {
+          "moduleId": "linked-lists",
+          "week": 3,
+          "day": "15-19",
+          "focus": "Master linked list manipulation",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "stacks-queues",
+          "week": 3,
+          "day": "20-21",
+          "focus": "Understand LIFO and FIFO data structures",
+          "problems": 4,
+          "estimatedTime": "6 hours"
+        },
+        {
+          "moduleId": "sorting-algorithms",
+          "week": 4,
+          "day": "22-25",
+          "focus": "Learn common sorting techniques",
+          "problems": 5,
+          "estimatedTime": "8 hours"
+        },
+        {
+          "moduleId": "binary-search",
+          "week": 4,
+          "day": "26-30",
+          "focus": "Master binary search and its variations",
+          "problems": 6,
+          "estimatedTime": "8 hours"
+        }
+      ],
+      "milestones": [
+        {
+          "day": 7,
+          "title": "Week 1 Complete",
+          "description": "You've mastered basic array techniques!"
+        },
+        {
+          "day": 14,
+          "title": "Halfway There",
+          "description": "You're building strong problem-solving skills!"
+        },
+        {
+          "day": 21,
+          "title": "Week 3 Complete",
+          "description": "Data structures are becoming second nature!"
+        },
+        {
+          "day": 30,
+          "title": "Beginner Path Complete! 🎉",
+          "description": "You've built a solid foundation. Ready for intermediate challenges!"
+        }
+      ]
+    },
+    {
+      "id": "intermediate",
+      "title": "🚀 Intermediate Path",
+      "subtitle": "Level Up Your Skills",
+      "description": "Take your problem-solving to the next level with advanced patterns, recursion, and dynamic programming.",
+      "duration": "45 days",
+      "difficulty": "Medium",
+      "estimatedHours": 90,
+      "prerequisites": "Completed Beginner Path or equivalent knowledge",
+      "outcomes": [
+        "Master advanced problem-solving patterns",
+        "Understand recursion and backtracking",
+        "Solve medium-level problems efficiently",
+        "Build interview-ready skills"
+      ],
+      "modules": [
+        {
+          "moduleId": "fast-slow-pointer",
+          "week": 1,
+          "day": "1-3",
+          "focus": "Learn cycle detection and middle finding",
+          "problems": 4,
+          "estimatedTime": "6 hours"
+        },
+        {
+          "moduleId": "binary-search",
+          "week": 1,
+          "day": "4-7",
+          "focus": "Advanced binary search variations",
+          "problems": 5,
+          "estimatedTime": "8 hours"
+        },
+        {
+          "moduleId": "tree-traversals",
+          "week": 2,
+          "day": "8-12",
+          "focus": "Master DFS, BFS, and tree patterns",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "dfs-bfs",
+          "week": 2,
+          "day": "13-14",
+          "focus": "Graph traversal fundamentals",
+          "problems": 4,
+          "estimatedTime": "6 hours"
+        },
+        {
+          "moduleId": "backtracking",
+          "week": 3,
+          "day": "15-21",
+          "focus": "Learn recursive exploration and pruning",
+          "problems": 7,
+          "estimatedTime": "12 hours"
+        },
+        {
+          "moduleId": "dynamic-programming",
+          "week": 4,
+          "day": "22-30",
+          "focus": "Master DP patterns and optimization",
+          "problems": 10,
+          "estimatedTime": "16 hours"
+        },
+        {
+          "moduleId": "heaps",
+          "week": 5,
+          "day": "31-35",
+          "focus": "Priority queues and heap operations",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "merge-intervals",
+          "week": 6,
+          "day": "36-38",
+          "focus": "Interval manipulation techniques",
+          "problems": 4,
+          "estimatedTime": "6 hours"
+        },
+        {
+          "moduleId": "monotonic-stack",
+          "week": 6,
+          "day": "39-42",
+          "focus": "Advanced stack patterns",
+          "problems": 5,
+          "estimatedTime": "8 hours"
+        },
+        {
+          "moduleId": "kadanes-algorithm",
+          "week": 7,
+          "day": "43-45",
+          "focus": "Maximum subarray problems",
+          "problems": 4,
+          "estimatedTime": "6 hours"
+        }
+      ],
+      "milestones": [
+        {
+          "day": 14,
+          "title": "Trees Mastered",
+          "description": "You're navigating tree problems like a pro!"
+        },
+        {
+          "day": 21,
+          "title": "Backtracking Unlocked",
+          "description": "Recursive thinking is becoming natural!"
+        },
+        {
+          "day": 30,
+          "title": "DP Conquered",
+          "description": "You've mastered one of the hardest topics!"
+        },
+        {
+          "day": 45,
+          "title": "Intermediate Path Complete! 🏆",
+          "description": "You're ready for advanced challenges and interviews!"
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "title": "⚡ Advanced Path",
+      "subtitle": "FAANG Interview Prep",
+      "description": "Master advanced algorithms and data structures. Prepare for top-tier tech company interviews with complex problem-solving.",
+      "duration": "60 days",
+      "difficulty": "Hard",
+      "estimatedHours": 120,
+      "prerequisites": "Completed Intermediate Path or strong DSA foundation",
+      "outcomes": [
+        "Solve hard-level problems confidently",
+        "Master advanced graph algorithms",
+        "Understand complex data structures",
+        "Be FAANG interview ready"
+      ],
+      "modules": [
+        {
+          "moduleId": "graph-algorithms",
+          "week": 1,
+          "day": "1-8",
+          "focus": "Dijkstra, Bellman-Ford, Floyd-Warshall, MST",
+          "problems": 8,
+          "estimatedTime": "14 hours"
+        },
+        {
+          "moduleId": "dynamic-programming",
+          "week": 2,
+          "day": "9-16",
+          "focus": "Advanced DP: state machines, bitmask DP",
+          "problems": 10,
+          "estimatedTime": "16 hours"
+        },
+        {
+          "moduleId": "tries",
+          "week": 3,
+          "day": "17-22",
+          "focus": "Prefix trees and string algorithms",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "union-find",
+          "week": 4,
+          "day": "23-28",
+          "focus": "Disjoint set union with path compression",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "top-k-elements",
+          "week": 5,
+          "day": "29-34",
+          "focus": "Heap-based selection algorithms",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "bit-manipulation",
+          "week": 6,
+          "day": "35-40",
+          "focus": "Bitwise operations and tricks",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "greedy",
+          "week": 7,
+          "day": "41-47",
+          "focus": "Greedy algorithms and proof techniques",
+          "problems": 7,
+          "estimatedTime": "12 hours"
+        },
+        {
+          "moduleId": "math-number-theory",
+          "week": 8,
+          "day": "48-53",
+          "focus": "Mathematical algorithms and number theory",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "backtracking",
+          "week": 9,
+          "day": "54-60",
+          "focus": "Complex backtracking and optimization",
+          "problems": 8,
+          "estimatedTime": "14 hours"
+        }
+      ],
+      "milestones": [
+        {
+          "day": 16,
+          "title": "Advanced DP Mastered",
+          "description": "You're solving complex optimization problems!"
+        },
+        {
+          "day": 28,
+          "title": "Graph Expert",
+          "description": "Advanced graph algorithms are your strength!"
+        },
+        {
+          "day": 40,
+          "title": "Two-Thirds Complete",
+          "description": "You're in the top tier of problem solvers!"
+        },
+        {
+          "day": 60,
+          "title": "Advanced Path Complete! 🌟",
+          "description": "You're FAANG interview ready! Time to ace those interviews!"
+        }
+      ]
+    },
+    {
+      "id": "google",
+      "title": "🔍 Google Track",
+      "subtitle": "Google Interview Preparation",
+      "description": "Focused preparation for Google interviews. Emphasis on algorithms, system design thinking, and Google-specific problem patterns.",
+      "duration": "40 days",
+      "difficulty": "Hard",
+      "estimatedHours": 80,
+      "prerequisites": "Strong foundation in DSA (Intermediate level or above)",
+      "outcomes": [
+        "Master Google interview patterns",
+        "Solve Google-tagged problems",
+        "Understand Google's evaluation criteria",
+        "Build confidence for Google interviews"
+      ],
+      "modules": [
+        {
+          "moduleId": "dynamic-programming",
+          "week": 1,
+          "day": "1-6",
+          "focus": "DP problems frequently asked at Google",
+          "problems": 8,
+          "estimatedTime": "12 hours"
+        },
+        {
+          "moduleId": "graph-algorithms",
+          "week": 2,
+          "day": "7-12",
+          "focus": "Graph problems (BFS, DFS, shortest paths)",
+          "problems": 8,
+          "estimatedTime": "12 hours"
+        },
+        {
+          "moduleId": "tree-traversals",
+          "week": 3,
+          "day": "13-17",
+          "focus": "Binary tree and BST problems",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "backtracking",
+          "week": 3,
+          "day": "18-21",
+          "focus": "Combinatorial problems and recursion",
+          "problems": 5,
+          "estimatedTime": "8 hours"
+        },
+        {
+          "moduleId": "sliding-window",
+          "week": 4,
+          "day": "22-25",
+          "focus": "String and array optimization",
+          "problems": 5,
+          "estimatedTime": "8 hours"
+        },
+        {
+          "moduleId": "heaps",
+          "week": 5,
+          "day": "26-30",
+          "focus": "Priority queue problems",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "tries",
+          "week": 6,
+          "day": "31-35",
+          "focus": "String matching and autocomplete",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "greedy",
+          "week": 6,
+          "day": "36-40",
+          "focus": "Optimization and scheduling problems",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        }
+      ],
+      "milestones": [
+        {
+          "day": 12,
+          "title": "Graph Mastery",
+          "description": "You're solving Google-level graph problems!"
+        },
+        {
+          "day": 25,
+          "title": "Halfway Milestone",
+          "description": "You're building Google interview confidence!"
+        },
+        {
+          "day": 40,
+          "title": "Google Track Complete! 🎯",
+          "description": "You're ready to ace your Google interview!"
+        }
+      ]
+    },
+    {
+      "id": "amazon",
+      "title": "📦 Amazon Track",
+      "subtitle": "Amazon Interview Preparation",
+      "description": "Tailored for Amazon interviews. Focus on practical problem-solving, system design, and Amazon's leadership principles.",
+      "duration": "35 days",
+      "difficulty": "Medium-Hard",
+      "estimatedHours": 70,
+      "prerequisites": "Solid understanding of data structures and algorithms",
+      "outcomes": [
+        "Master Amazon interview patterns",
+        "Solve Amazon-tagged problems",
+        "Understand Amazon's bar raiser process",
+        "Demonstrate leadership principles through code"
+      ],
+      "modules": [
+        {
+          "moduleId": "two-pointers",
+          "week": 1,
+          "day": "1-4",
+          "focus": "Array manipulation (frequently asked)",
+          "problems": 5,
+          "estimatedTime": "8 hours"
+        },
+        {
+          "moduleId": "hashing",
+          "week": 1,
+          "day": "5-7",
+          "focus": "Hash table problems",
+          "problems": 4,
+          "estimatedTime": "6 hours"
+        },
+        {
+          "moduleId": "linked-lists",
+          "week": 2,
+          "day": "8-12",
+          "focus": "Linked list manipulation",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "tree-traversals",
+          "week": 3,
+          "day": "13-18",
+          "focus": "Binary tree problems (Amazon favorite)",
+          "problems": 7,
+          "estimatedTime": "12 hours"
+        },
+        {
+          "moduleId": "dfs-bfs",
+          "week": 4,
+          "day": "19-23",
+          "focus": "Graph traversal and connectivity",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "dynamic-programming",
+          "week": 5,
+          "day": "24-30",
+          "focus": "DP optimization problems",
+          "problems": 8,
+          "estimatedTime": "14 hours"
+        },
+        {
+          "moduleId": "stacks-queues",
+          "week": 6,
+          "day": "31-35",
+          "focus": "Stack and queue applications",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        }
+      ],
+      "milestones": [
+        {
+          "day": 12,
+          "title": "Data Structures Solid",
+          "description": "You're mastering Amazon's favorite topics!"
+        },
+        {
+          "day": 23,
+          "title": "Trees & Graphs Done",
+          "description": "You're solving complex problems efficiently!"
+        },
+        {
+          "day": 35,
+          "title": "Amazon Track Complete! 📦",
+          "description": "You're ready for your Amazon interview!"
+        }
+      ]
+    },
+    {
+      "id": "microsoft",
+      "title": "🪟 Microsoft Track",
+      "subtitle": "Microsoft Interview Preparation",
+      "description": "Prepare for Microsoft interviews with focus on problem-solving, coding skills, and system design fundamentals.",
+      "duration": "35 days",
+      "difficulty": "Medium-Hard",
+      "estimatedHours": 70,
+      "prerequisites": "Good grasp of fundamental data structures",
+      "outcomes": [
+        "Master Microsoft interview patterns",
+        "Solve Microsoft-tagged problems",
+        "Understand Microsoft's interview process",
+        "Build strong coding fundamentals"
+      ],
+      "modules": [
+        {
+          "moduleId": "hashing",
+          "week": 1,
+          "day": "1-4",
+          "focus": "Hash maps and sets",
+          "problems": 5,
+          "estimatedTime": "8 hours"
+        },
+        {
+          "moduleId": "sliding-window",
+          "week": 1,
+          "day": "5-7",
+          "focus": "String and array problems",
+          "problems": 4,
+          "estimatedTime": "6 hours"
+        },
+        {
+          "moduleId": "linked-lists",
+          "week": 2,
+          "day": "8-12",
+          "focus": "Linked list operations",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "tree-traversals",
+          "week": 3,
+          "day": "13-18",
+          "focus": "Binary trees and BST",
+          "problems": 7,
+          "estimatedTime": "12 hours"
+        },
+        {
+          "moduleId": "dynamic-programming",
+          "week": 4,
+          "day": "19-26",
+          "focus": "DP patterns (Microsoft favorite)",
+          "problems": 9,
+          "estimatedTime": "16 hours"
+        },
+        {
+          "moduleId": "backtracking",
+          "week": 5,
+          "day": "27-31",
+          "focus": "Recursive problem solving",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "graph-algorithms",
+          "week": 6,
+          "day": "32-35",
+          "focus": "Graph problems and algorithms",
+          "problems": 5,
+          "estimatedTime": "8 hours"
+        }
+      ],
+      "milestones": [
+        {
+          "day": 12,
+          "title": "Fundamentals Strong",
+          "description": "You're building Microsoft-level skills!"
+        },
+        {
+          "day": 26,
+          "title": "DP Mastered",
+          "description": "You're solving optimization problems like a pro!"
+        },
+        {
+          "day": 35,
+          "title": "Microsoft Track Complete! 🪟",
+          "description": "You're ready for your Microsoft interview!"
+        }
+      ]
+    },
+    {
+      "id": "meta",
+      "title": "👥 Meta Track",
+      "subtitle": "Meta (Facebook) Interview Preparation",
+      "description": "Focused preparation for Meta interviews. Emphasis on scalability, optimization, and Meta-specific problem patterns.",
+      "duration": "40 days",
+      "difficulty": "Hard",
+      "estimatedHours": 80,
+      "prerequisites": "Strong DSA foundation and problem-solving skills",
+      "outcomes": [
+        "Master Meta interview patterns",
+        "Solve Meta-tagged problems",
+        "Understand Meta's evaluation criteria",
+        "Build scalable thinking"
+      ],
+      "modules": [
+        {
+          "moduleId": "hashing",
+          "week": 1,
+          "day": "1-4",
+          "focus": "Hash-based optimization",
+          "problems": 5,
+          "estimatedTime": "8 hours"
+        },
+        {
+          "moduleId": "tree-traversals",
+          "week": 1,
+          "day": "5-9",
+          "focus": "Binary tree problems (Meta favorite)",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "dfs-bfs",
+          "week": 2,
+          "day": "10-15",
+          "focus": "Graph traversal and connectivity",
+          "problems": 7,
+          "estimatedTime": "12 hours"
+        },
+        {
+          "moduleId": "dynamic-programming",
+          "week": 3,
+          "day": "16-23",
+          "focus": "Advanced DP patterns",
+          "problems": 9,
+          "estimatedTime": "16 hours"
+        },
+        {
+          "moduleId": "backtracking",
+          "week": 4,
+          "day": "24-28",
+          "focus": "Combinatorial problems",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "heaps",
+          "week": 5,
+          "day": "29-33",
+          "focus": "Priority queue optimization",
+          "problems": 6,
+          "estimatedTime": "10 hours"
+        },
+        {
+          "moduleId": "graph-algorithms",
+          "week": 6,
+          "day": "34-40",
+          "focus": "Advanced graph algorithms",
+          "problems": 8,
+          "estimatedTime": "14 hours"
+        }
+      ],
+      "milestones": [
+        {
+          "day": 15,
+          "title": "Graph Fundamentals",
+          "description": "You're mastering Meta's core topics!"
+        },
+        {
+          "day": 28,
+          "title": "Advanced Patterns",
+          "description": "You're solving complex Meta problems!"
+        },
+        {
+          "day": 40,
+          "title": "Meta Track Complete! 👥",
+          "description": "You're ready to ace your Meta interview!"
+        }
+      ]
+    }
+  ]
+}

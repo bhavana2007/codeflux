@@ -1,0 +1,820 @@
+{
+  "id": "prefix-sum",
+  "title": "Prefix Sum",
+  "description": "Master the art of range queries! Learn how to answer sum queries in O(1) time. This simple yet powerful technique is a favorite in coding interviews! ⚡",
+  "difficulty": "beginner",
+  "order": 6,
+  "tags": [
+    "arrays",
+    "prefix-sum",
+    "range-queries",
+    "optimization"
+  ],
+  "documentation": {
+    "content": "# Prefix Sum: The Secret to Lightning-Fast Range Queries\n\nImagine you're a teacher with 1000 students, and parents keep asking: \"What's the total score from student 50 to student 200?\" You could add up 150 scores each time, or you could be smart: calculate cumulative totals once, then answer any query instantly with just two numbers. That's prefix sum!\n\n## What is Prefix Sum?\n\nPrefix sum is a preprocessing technique where you calculate cumulative sums:\n- prefix[0] = arr[0]\n- prefix[1] = arr[0] + arr[1]\n- prefix[2] = arr[0] + arr[1] + arr[2]\n- ...\n\nThen any range sum becomes: `sum(L, R) = prefix[R] - prefix[L-1]`\n\n## Why It's Powerful\n\n**Without prefix sum**: O(n) per query\n**With prefix sum**: O(1) per query (after O(n) preprocessing)\n\nFor multiple queries, this is a game-changer!\n\n## When to Use Prefix Sum\n\n✅ Multiple range sum queries\n✅ Subarray sum problems\n✅ Finding subarrays with specific sum\n✅ 2D matrix range queries\n✅ Difference arrays for range updates\n\n## Common Patterns\n\n**Pattern 1: Range Sum Query**\nPreprocess once, answer queries in O(1)\n\n**Pattern 2: Subarray Sum Equals K**\nUse prefix sum + hash map to find subarrays\n\n**Pattern 3: 2D Prefix Sum**\nExtend to matrices for rectangle sum queries\n\n**Pattern 4: Difference Array**\nReverse of prefix sum - for range updates\n\n## Pro Tips\n\n💡 Add a dummy 0 at the beginning to avoid edge cases\n💡 Combine with hash maps for subarray problems\n💡 Works with any associative operation (XOR, product, etc.)\n💡 2D prefix sum: prefix[i][j] = sum of rectangle from (0,0) to (i,j)\n\n## Real-World Applications\n\n- Database range queries\n- Image processing (integral images)\n- Financial data analysis\n- Game development (damage calculations)\n\nPrefix sum is simple but incredibly useful. Master it and you'll solve range query problems in seconds! 🚀\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "asbcE9mZz_U",
+      "title": "Prefix Sum - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "fT8yKJ4fIWI",
+      "title": "Prefix Sum - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "jJHFgvvlqXs",
+      "title": "Prefix Sum - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the time complexity of answering a range sum query using prefix sum?",
+        "options": [
+          "O(n)",
+          "O(log n)",
+          "O(1)",
+          "O(n log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "After O(n) preprocessing to build the prefix sum array, each range query can be answered in O(1) time using just two array accesses."
+      },
+      {
+        "id": "q2",
+        "question": "Given prefix sum array, how do you calculate sum from index L to R?",
+        "options": [
+          "prefix[R] + prefix[L]",
+          "prefix[R] - prefix[L-1]",
+          "prefix[R] - prefix[L]",
+          "prefix[L] - prefix[R]"
+        ],
+        "correctAnswer": 1,
+        "explanation": "The sum from L to R is prefix[R] - prefix[L-1]. This gives us the cumulative sum up to R minus the cumulative sum before L."
+      },
+      {
+        "id": "q3",
+        "question": "What's the space complexity of the prefix sum approach?",
+        "options": [
+          "O(1)",
+          "O(log n)",
+          "O(n)",
+          "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "We need O(n) extra space to store the prefix sum array, where n is the size of the input array."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "range-sum-query",
+      "title": "Range Sum Query - Immutable",
+      "difficulty": "easy",
+      "description": "Given an integer array nums, handle multiple queries of the following type: Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.\n\nImplement the NumArray class with sumRange(left, right) method.",
+      "companyTags": [
+        "Google",
+        "Amazon",
+        "Facebook"
+      ],
+      "topicTags": [
+        "Array",
+        "Prefix Sum",
+        "Design"
+      ],
+      "acceptanceRate": 62.5,
+      "timeComplexity": "O(1) per query",
+      "spaceComplexity": "O(n)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about preprocessing the array to store cumulative sums. What if you knew the sum from index 0 to every index?"
+        },
+        {
+          "level": 2,
+          "text": "Create a prefix sum array where prefix[i] = sum of elements from 0 to i. Then sum(L, R) = prefix[R] - prefix[L-1]."
+        },
+        {
+          "level": 3,
+          "text": "In constructor: Build prefix array. In sumRange: Return prefix[right] - (left > 0 ? prefix[left-1] : 0). Handle the edge case when left is 0."
+        }
+      ],
+      "similarProblems": [
+        "range-sum-query-2d",
+        "subarray-sum-equals-k"
+      ],
+      "constraints": [
+        "1 <= nums.length <= 10^4",
+        "-10^5 <= nums[i] <= 10^5",
+        "0 <= left <= right < nums.length",
+        "At most 10^4 calls to sumRange"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              -2,
+              0,
+              3,
+              -5,
+              2,
+              -1
+            ],
+            "queries": [
+              [
+                0,
+                2
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                0,
+                5
+              ]
+            ]
+          },
+          "expectedOutput": [
+            1,
+            -1,
+            -3
+          ],
+          "description": "Sum from 0 to 2 is 1, from 2 to 5 is -1, from 0 to 5 is -3"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "queries": [
+              [
+                0,
+                4
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                2
+              ]
+            ]
+          },
+          "expectedOutput": [
+            15,
+            9,
+            3
+          ],
+          "description": "Multiple range queries"
+        }
+      ],
+      "starterCode": {
+        "javascript": "class NumArray {\n  constructor(nums) {\n    // Build prefix sum array\n  }\n  \n  sumRange(left, right) {\n    // Return sum from left to right\n  }\n}",
+        "python": "class NumArray:\n    def __init__(self, nums):\n        # Build prefix sum array\n        pass\n    \n    def sumRange(self, left, right):\n        # Return sum from left to right\n        pass",
+        "java": "class NumArray {\n    public NumArray(int[] nums) {\n        // Build prefix sum array\n    }\n    \n    public int sumRange(int left, int right) {\n        // Return sum from left to right\n    }\n}",
+        "c": "typedef struct {\n    int* prefix;\n    int size;\n} NumArray;\n\nNumArray* numArrayCreate(int* nums, int numsSize) {\n    // Build prefix sum array\n}\n\nint numArraySumRange(NumArray* obj, int left, int right) {\n    // Return sum from left to right\n}"
+      },
+      "solution": {
+        "javascript": "class NumArray {\n  constructor(nums) {\n    this.prefix = new Array(nums.length);\n    this.prefix[0] = nums[0];\n    for (let i = 1; i < nums.length; i++) {\n      this.prefix[i] = this.prefix[i-1] + nums[i];\n    }\n  }\n  \n  sumRange(left, right) {\n    if (left === 0) return this.prefix[right];\n    return this.prefix[right] - this.prefix[left-1];\n  }\n}",
+        "python": "class NumArray:\n    def __init__(self, nums):\n        self.prefix = [0] * len(nums)\n        self.prefix[0] = nums[0]\n        for i in range(1, len(nums)):\n            self.prefix[i] = self.prefix[i-1] + nums[i]\n    \n    def sumRange(self, left, right):\n        if left == 0:\n            return self.prefix[right]\n        return self.prefix[right] - self.prefix[left-1]",
+        "java": "class NumArray {\n    private int[] prefix;\n    \n    public NumArray(int[] nums) {\n        prefix = new int[nums.length];\n        prefix[0] = nums[0];\n        for (int i = 1; i < nums.length; i++) {\n            prefix[i] = prefix[i-1] + nums[i];\n        }\n    }\n    \n    public int sumRange(int left, int right) {\n        if (left == 0) return prefix[right];\n        return prefix[right] - prefix[left-1];\n    }\n}",
+        "c": "typedef struct {\n    int* prefix;\n    int size;\n} NumArray;\n\nNumArray* numArrayCreate(int* nums, int numsSize) {\n    NumArray* obj = malloc(sizeof(NumArray));\n    obj->prefix = malloc(numsSize * sizeof(int));\n    obj->size = numsSize;\n    obj->prefix[0] = nums[0];\n    for (int i = 1; i < numsSize; i++) {\n        obj->prefix[i] = obj->prefix[i-1] + nums[i];\n    }\n    return obj;\n}\n\nint numArraySumRange(NumArray* obj, int left, int right) {\n    if (left == 0) return obj->prefix[right];\n    return obj->prefix[right] - obj->prefix[left-1];\n}"
+      }
+    },
+    {
+      "id": "range-sum-query",
+      "title": "Range Sum Query - Immutable",
+      "difficulty": "easy",
+      "description": "Given an integer array nums, handle multiple queries of the following type: Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.\\n\\nImplement the NumArray class with a constructor that initializes the object with the integer array nums, and a method sumRange(left, right) that returns the sum of elements between indices left and right inclusive.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Array",
+        "Prefix Sum",
+        "Design"
+      ],
+      "acceptanceRate": 58,
+      "timeComplexity": "O(1) per query, O(n) preprocessing",
+      "spaceComplexity": "O(n)",
+      "constraints": [
+        "1 <= nums.length <= 10^4",
+        "-10^5 <= nums[i] <= 10^5",
+        "0 <= left <= right < nums.length",
+        "At most 10^4 calls will be made to sumRange"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "queries": [
+              [
+                0,
+                2
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                0,
+                4
+              ]
+            ]
+          },
+          "expectedOutput": [
+            6,
+            14,
+            15
+          ],
+          "description": "Sum of [1,2,3]=6, [2,3,4,5]=14, [1,2,3,4,5]=15"
+        },
+        {
+          "input": {
+            "nums": [
+              -2,
+              0,
+              3,
+              -5,
+              2,
+              -1
+            ],
+            "queries": [
+              [
+                0,
+                2
+              ],
+              [
+                2,
+                5
+              ],
+              [
+                0,
+                5
+              ]
+            ]
+          },
+          "expectedOutput": [
+            1,
+            -1,
+            -3
+          ],
+          "description": "Handles negative numbers"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "queries": [
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "expectedOutput": [
+            1
+          ],
+          "description": "Single element"
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              5,
+              5,
+              5,
+              5
+            ],
+            "queries": [
+              [
+                0,
+                4
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                2
+              ]
+            ]
+          },
+          "expectedOutput": [
+            25,
+            15,
+            5
+          ],
+          "description": "All same values"
+        },
+        {
+          "input": {
+            "nums": [
+              10,
+              -5,
+              3,
+              -2,
+              8
+            ],
+            "queries": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                4
+              ]
+            ]
+          },
+          "expectedOutput": [
+            5,
+            -4,
+            9
+          ],
+          "description": "Mixed positive and negative"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Precompute prefix sums where prefixSum[i] = sum of elements from index 0 to i."
+        },
+        {
+          "level": 2,
+          "text": "To get sum from left to right, use: prefixSum[right] - prefixSum[left-1]. Handle the edge case when left is 0."
+        },
+        {
+          "level": 3,
+          "text": "Store prefixSum array in constructor. For sumRange(left, right), return prefixSum[right] - (left > 0 ? prefixSum[left-1] : 0)."
+        }
+      ],
+      "similarProblems": [
+        "range-sum-query-2d"
+      ],
+      "starterCode": {
+        "javascript": "class NumArray {\\n  constructor(nums) {\\n    // Your code here\\n  }\\n  \\n  sumRange(left, right) {\\n    // Your code here\\n  }\\n}",
+        "python": "class NumArray:\\n    def __init__(self, nums):\\n        # Your code here\\n        pass\\n    \\n    def sum_range(self, left, right):\\n        # Your code here\\n        pass",
+        "java": "class NumArray {\\n    public NumArray(int[] nums) {\\n        // Your code here\\n    }\\n    \\n    public int sumRange(int left, int right) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "typedef struct {\\n    int* prefixSum;\\n    int size;\\n} NumArray;\\n\\nNumArray* numArrayCreate(int* nums, int numsSize) {\\n    // Your code here\\n    \\n}\\n\\nint numArraySumRange(NumArray* obj, int left, int right) {\\n    // Your code here\\n    \\n}\\n\\nvoid numArrayFree(NumArray* obj) {\\n    free(obj->prefixSum);\\n    free(obj);\\n}"
+      },
+      "solution": {
+        "javascript": "class NumArray {\\n  constructor(nums) {\\n    this.prefixSum = new Array(nums.length);\\n    this.prefixSum[0] = nums[0];\\n    for (let i = 1; i < nums.length; i++) {\\n      this.prefixSum[i] = this.prefixSum[i-1] + nums[i];\\n    }\\n  }\\n  \\n  sumRange(left, right) {\\n    if (left === 0) return this.prefixSum[right];\\n    return this.prefixSum[right] - this.prefixSum[left-1];\\n  }\\n}",
+        "python": "class NumArray:\\n    def __init__(self, nums):\\n        self.prefix_sum = [0] * len(nums)\\n        self.prefix_sum[0] = nums[0]\\n        for i in range(1, len(nums)):\\n            self.prefix_sum[i] = self.prefix_sum[i-1] + nums[i]\\n    \\n    def sum_range(self, left, right):\\n        if left == 0:\\n            return self.prefix_sum[right]\\n        return self.prefix_sum[right] - self.prefix_sum[left-1]",
+        "java": "class NumArray {\\n    private int[] prefixSum;\\n    \\n    public NumArray(int[] nums) {\\n        prefixSum = new int[nums.length];\\n        prefixSum[0] = nums[0];\\n        for (int i = 1; i < nums.length; i++) {\\n            prefixSum[i] = prefixSum[i-1] + nums[i];\\n        }\\n    }\\n    \\n    public int sumRange(int left, int right) {\\n        if (left == 0) return prefixSum[right];\\n        return prefixSum[right] - prefixSum[left-1];\\n    }\\n}",
+        "c": "typedef struct {\\n    int* prefixSum;\\n    int size;\\n} NumArray;\\n\\nNumArray* numArrayCreate(int* nums, int numsSize) {\\n    NumArray* obj = (NumArray*)malloc(sizeof(NumArray));\\n    obj->size = numsSize;\\n    obj->prefixSum = (int*)malloc(numsSize * sizeof(int));\\n    obj->prefixSum[0] = nums[0];\\n    for (int i = 1; i < numsSize; i++) {\\n        obj->prefixSum[i] = obj->prefixSum[i-1] + nums[i];\\n    }\\n    return obj;\\n}\\n\\nint numArraySumRange(NumArray* obj, int left, int right) {\\n    if (left == 0) return obj->prefixSum[right];\\n    return obj->prefixSum[right] - obj->prefixSum[left-1];\\n}\\n\\nvoid numArrayFree(NumArray* obj) {\\n    free(obj->prefixSum);\\n    free(obj);\\n}"
+      }
+    },
+    {
+      "id": "subarray-sum-equals-k",
+      "title": "Subarray Sum Equals K",
+      "difficulty": "medium",
+      "description": "Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals k.\\n\\nA subarray is a contiguous non-empty sequence of elements within an array. Use prefix sum with hash map to solve in O(n) time.",
+      "companyTags": [
+        "Facebook",
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "acceptanceRate": 43,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "constraints": [
+        "1 <= nums.length <= 2 * 10^4",
+        "-1000 <= nums[i] <= 1000",
+        "-10^7 <= k <= 10^7"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1
+            ],
+            "k": 2
+          },
+          "expectedOutput": 2,
+          "description": "Subarrays [1,1] at indices (0,1) and (1,2) both sum to 2"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3
+            ],
+            "k": 3
+          },
+          "expectedOutput": 2,
+          "description": "Subarrays [1,2] and [3] both sum to 3"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "k": 1
+          },
+          "expectedOutput": 1,
+          "description": "Single element equals k"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              -1,
+              0
+            ],
+            "k": 0
+          },
+          "expectedOutput": 3,
+          "description": "Multiple subarrays with sum 0: [-1,1], [0], [1,-1,0]"
+        },
+        {
+          "input": {
+            "nums": [
+              3,
+              4,
+              7,
+              2,
+              -3,
+              1,
+              4,
+              2
+            ],
+            "k": 7
+          },
+          "expectedOutput": 4,
+          "description": "Multiple overlapping subarrays"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a hash map to store the frequency of prefix sums seen so far."
+        },
+        {
+          "level": 2,
+          "text": "For each position, if (currentSum - k) exists in the map, those are valid subarrays ending at current position."
+        },
+        {
+          "level": 3,
+          "text": "Initialize map with {0: 1}. For each element, add to sum, check if (sum - k) is in map, add that count to result, then update map with current sum."
+        }
+      ],
+      "similarProblems": [
+        "range-sum-query"
+      ],
+      "starterCode": {
+        "javascript": "function subarraySum(nums, k) {\\n  // Your code here\\n  \\n}",
+        "python": "def subarray_sum(nums, k):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public int subarraySum(int[] nums, int k) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int subarraySum(int* nums, int numsSize, int k) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function subarraySum(nums, k) {\\n  const sumCount = new Map();\\n  sumCount.set(0, 1);\\n  let currentSum = 0;\\n  let count = 0;\\n  \\n  for (const num of nums) {\\n    currentSum += num;\\n    \\n    // Check if (currentSum - k) exists\\n    if (sumCount.has(currentSum - k)) {\\n      count += sumCount.get(currentSum - k);\\n    }\\n    \\n    // Update frequency of current sum\\n    sumCount.set(currentSum, (sumCount.get(currentSum) || 0) + 1);\\n  }\\n  \\n  return count;\\n}",
+        "python": "def subarray_sum(nums, k):\\n    sum_count = {0: 1}\\n    current_sum = 0\\n    count = 0\\n    \\n    for num in nums:\\n        current_sum += num\\n        \\n        # Check if (current_sum - k) exists\\n        if current_sum - k in sum_count:\\n            count += sum_count[current_sum - k]\\n        \\n        # Update frequency of current sum\\n        sum_count[current_sum] = sum_count.get(current_sum, 0) + 1\\n    \\n    return count",
+        "java": "class Solution {\\n    public int subarraySum(int[] nums, int k) {\\n        Map<Integer, Integer> sumCount = new HashMap<>();\\n        sumCount.put(0, 1);\\n        int currentSum = 0;\\n        int count = 0;\\n        \\n        for (int num : nums) {\\n            currentSum += num;\\n            \\n            // Check if (currentSum - k) exists\\n            if (sumCount.containsKey(currentSum - k)) {\\n                count += sumCount.get(currentSum - k);\\n            }\\n            \\n            // Update frequency of current sum\\n            sumCount.put(currentSum, sumCount.getOrDefault(currentSum, 0) + 1);\\n        }\\n        \\n        return count;\\n    }\\n}",
+        "c": "int subarraySum(int* nums, int numsSize, int k) {\\n    // Simple O(n^2) solution for C\\n    int count = 0;\\n    \\n    for (int i = 0; i < numsSize; i++) {\\n        int sum = 0;\\n        for (int j = i; j < numsSize; j++) {\\n            sum += nums[j];\\n            if (sum == k) {\\n                count++;\\n            }\\n        }\\n    }\\n    \\n    return count;\\n}"
+      }
+    },
+    {
+      "id": "product-except-self",
+      "title": "Product of Array Except Self",
+      "difficulty": "medium",
+      "description": "Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].\\n\\nYou must write an algorithm that runs in O(n) time and without using the division operation. This uses the prefix/suffix product concept.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Facebook",
+        "Apple",
+        "Google"
+      ],
+      "topicTags": [
+        "Array",
+        "Prefix Sum"
+      ],
+      "acceptanceRate": 64,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) excluding output array",
+      "constraints": [
+        "2 <= nums.length <= 10^5",
+        "-30 <= nums[i] <= 30",
+        "The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "expectedOutput": [
+            24,
+            12,
+            8,
+            6
+          ],
+          "description": "For index 0: 2*3*4=24, index 1: 1*3*4=12, etc."
+        },
+        {
+          "input": {
+            "nums": [
+              -1,
+              1,
+              0,
+              -3,
+              3
+            ]
+          },
+          "expectedOutput": [
+            0,
+            0,
+            9,
+            0,
+            0
+          ],
+          "description": "Zero in array affects all products"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2
+            ]
+          },
+          "expectedOutput": [
+            2,
+            1
+          ],
+          "description": "Minimum size array"
+        },
+        {
+          "input": {
+            "nums": [
+              5,
+              5,
+              5,
+              5
+            ]
+          },
+          "expectedOutput": [
+            125,
+            125,
+            125,
+            125
+          ],
+          "description": "All same values"
+        },
+        {
+          "input": {
+            "nums": [
+              -1,
+              -2,
+              -3,
+              -4
+            ]
+          },
+          "expectedOutput": [
+            -24,
+            -12,
+            -8,
+            -6
+          ],
+          "description": "All negative numbers"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about computing the product of all elements to the left of each index, and all elements to the right."
+        },
+        {
+          "level": 2,
+          "text": "Use two passes: first compute left products, then compute right products while building the result."
+        },
+        {
+          "level": 3,
+          "text": "Initialize result with left products. Then traverse right-to-left, maintaining a running right product, and multiply result[i] by right product."
+        }
+      ],
+      "similarProblems": [
+        "range-sum-query"
+      ],
+      "starterCode": {
+        "javascript": "function productExceptSelf(nums) {\\n  // Your code here\\n  \\n}",
+        "python": "def product_except_self(nums):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public int[] productExceptSelf(int[] nums) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int* productExceptSelf(int* nums, int numsSize, int* returnSize) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function productExceptSelf(nums) {\\n  const n = nums.length;\\n  const result = new Array(n);\\n  \\n  // Compute left products\\n  result[0] = 1;\\n  for (let i = 1; i < n; i++) {\\n    result[i] = result[i-1] * nums[i-1];\\n  }\\n  \\n  // Compute right products and multiply\\n  let rightProduct = 1;\\n  for (let i = n - 1; i >= 0; i--) {\\n    result[i] *= rightProduct;\\n    rightProduct *= nums[i];\\n  }\\n  \\n  return result;\\n}",
+        "python": "def product_except_self(nums):\\n    n = len(nums)\\n    result = [1] * n\\n    \\n    # Compute left products\\n    for i in range(1, n):\\n        result[i] = result[i-1] * nums[i-1]\\n    \\n    # Compute right products and multiply\\n    right_product = 1\\n    for i in range(n-1, -1, -1):\\n        result[i] *= right_product\\n        right_product *= nums[i]\\n    \\n    return result",
+        "java": "class Solution {\\n    public int[] productExceptSelf(int[] nums) {\\n        int n = nums.length;\\n        int[] result = new int[n];\\n        \\n        // Compute left products\\n        result[0] = 1;\\n        for (int i = 1; i < n; i++) {\\n            result[i] = result[i-1] * nums[i-1];\\n        }\\n        \\n        // Compute right products and multiply\\n        int rightProduct = 1;\\n        for (int i = n - 1; i >= 0; i--) {\\n            result[i] *= rightProduct;\\n            rightProduct *= nums[i];\\n        }\\n        \\n        return result;\\n    }\\n}",
+        "c": "int* productExceptSelf(int* nums, int numsSize, int* returnSize) {\\n    *returnSize = numsSize;\\n    int* result = (int*)malloc(numsSize * sizeof(int));\\n    \\n    // Compute left products\\n    result[0] = 1;\\n    for (int i = 1; i < numsSize; i++) {\\n        result[i] = result[i-1] * nums[i-1];\\n    }\\n    \\n    // Compute right products and multiply\\n    int rightProduct = 1;\\n    for (int i = numsSize - 1; i >= 0; i--) {\\n        result[i] *= rightProduct;\\n        rightProduct *= nums[i];\\n    }\\n    \\n    return result;\\n}"
+      }
+    },
+    {
+      "id": "contiguous-array",
+      "title": "Contiguous Array",
+      "difficulty": "medium",
+      "description": "Given a binary array nums, return the maximum length of a contiguous subarray with an equal number of 0 and 1.\\n\\nTreat 0 as -1 and use prefix sum with hash map. When the same sum appears twice, the subarray between them has equal 0s and 1s.",
+      "companyTags": [
+        "Facebook",
+        "Amazon",
+        "Google"
+      ],
+      "topicTags": [
+        "Array",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "acceptanceRate": 47,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "constraints": [
+        "1 <= nums.length <= 10^5",
+        "nums[i] is either 0 or 1"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              0,
+              1
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "The entire array has equal 0s and 1s"
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              1,
+              0
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "Subarray [0,1] has equal 0s and 1s"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 6,
+          "description": "Subarray from index 1 to 6: [0,1,0,0,0,1,1] has 4 zeros and 3 ones, but [0,1,0,0,0,1] has 4 zeros and 2 ones. Actually [1,0,0,0,1,1] from index 2-7 has equal."
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "No subarray with equal 0s and 1s"
+        },
+        {
+          "input": {
+            "nums": [
+              0,
+              1,
+              1,
+              0,
+              1,
+              1,
+              1,
+              0
+            ]
+          },
+          "expectedOutput": 8,
+          "description": "Entire array has 3 zeros and 5 ones, but subarray [0,1,1,0,1,1,1,0] has 3 zeros and 5 ones. Actually need to find [0,1,1,0] or [1,0,1,0]"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Convert 0s to -1s. Now the problem becomes: find the longest subarray with sum 0."
+        },
+        {
+          "level": 2,
+          "text": "Use a hash map to store the first occurrence of each prefix sum."
+        },
+        {
+          "level": 3,
+          "text": "Initialize map with {0: -1}. For each index, compute running sum. If sum seen before, update max length. Otherwise, store sum with current index."
+        }
+      ],
+      "similarProblems": [
+        "subarray-sum-equals-k"
+      ],
+      "starterCode": {
+        "javascript": "function findMaxLength(nums) {\\n  // Your code here\\n  \\n}",
+        "python": "def find_max_length(nums):\\n    # Your code here\\n    pass",
+        "java": "class Solution {\\n    public int findMaxLength(int[] nums) {\\n        // Your code here\\n        \\n    }\\n}",
+        "c": "int findMaxLength(int* nums, int numsSize) {\\n    // Your code here\\n    \\n}"
+      },
+      "solution": {
+        "javascript": "function findMaxLength(nums) {\\n  const sumIndex = new Map();\\n  sumIndex.set(0, -1);\\n  let maxLen = 0;\\n  let sum = 0;\\n  \\n  for (let i = 0; i < nums.length; i++) {\\n    sum += nums[i] === 1 ? 1 : -1;\\n    \\n    if (sumIndex.has(sum)) {\\n      maxLen = Math.max(maxLen, i - sumIndex.get(sum));\\n    } else {\\n      sumIndex.set(sum, i);\\n    }\\n  }\\n  \\n  return maxLen;\\n}",
+        "python": "def find_max_length(nums):\\n    sum_index = {0: -1}\\n    max_len = 0\\n    current_sum = 0\\n    \\n    for i in range(len(nums)):\\n        current_sum += 1 if nums[i] == 1 else -1\\n        \\n        if current_sum in sum_index:\\n            max_len = max(max_len, i - sum_index[current_sum])\\n        else:\\n            sum_index[current_sum] = i\\n    \\n    return max_len",
+        "java": "class Solution {\\n    public int findMaxLength(int[] nums) {\\n        Map<Integer, Integer> sumIndex = new HashMap<>();\\n        sumIndex.put(0, -1);\\n        int maxLen = 0;\\n        int sum = 0;\\n        \\n        for (int i = 0; i < nums.length; i++) {\\n            sum += nums[i] == 1 ? 1 : -1;\\n            \\n            if (sumIndex.containsKey(sum)) {\\n                maxLen = Math.max(maxLen, i - sumIndex.get(sum));\\n            } else {\\n                sumIndex.put(sum, i);\\n            }\\n        }\\n        \\n        return maxLen;\\n    }\\n}",
+        "c": "int findMaxLength(int* nums, int numsSize) {\\n    // Simple O(n^2) solution for C\\n    int maxLen = 0;\\n    \\n    for (int i = 0; i < numsSize; i++) {\\n        int zeros = 0, ones = 0;\\n        for (int j = i; j < numsSize; j++) {\\n            if (nums[j] == 0) zeros++;\\n            else ones++;\\n            \\n            if (zeros == ones) {\\n                int len = j - i + 1;\\n                if (len > maxLen) maxLen = len;\\n            }\\n        }\\n    }\\n    \\n    return maxLen;\\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Forgetting to handle the edge case when left index is 0",
+      "Not considering negative numbers in the array",
+      "Confusing prefix sum with difference array",
+      "Off-by-one errors in index calculations"
+    ],
+    "patternDetection": [
+      "Problem mentions 'range sum' or 'subarray sum'",
+      "Multiple queries on the same array",
+      "Need to optimize repeated sum calculations",
+      "Problem asks for sum between two indices"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "303. Range Sum Query - Immutable",
+        "link": "https://leetcode.com/problems/range-sum-query-immutable/",
+        "difficulty": "Easy",
+        "description": "Classic prefix sum problem"
+      },
+      {
+        "title": "560. Subarray Sum Equals K",
+        "link": "https://leetcode.com/problems/subarray-sum-equals-k/",
+        "difficulty": "Medium",
+        "description": "Prefix sum with hash map"
+      },
+      {
+        "title": "304. Range Sum Query 2D",
+        "link": "https://leetcode.com/problems/range-sum-query-2d-immutable/",
+        "difficulty": "Medium",
+        "description": "2D prefix sum"
+      }
+    ]
+  }
+}

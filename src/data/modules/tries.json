@@ -1,0 +1,525 @@
+{
+  "id": "tries",
+  "title": "Tries (Prefix Trees)",
+  "description": "Master trie data structure for efficient string operations",
+  "difficulty": "advanced",
+  "order": 16,
+  "tags": [
+    "tries",
+    "strings",
+    "trees",
+    "prefix"
+  ],
+  "documentation": {
+    "content": "# Tries: The Autocomplete Superpower\n\nImagine typing \"app\" in a search box and instantly seeing \"apple\", \"application\", \"appointment\". How does it find all words starting with \"app\" so fast? The answer is a trie (pronounced \"try\")—a tree where each path from root to leaf spells out a word.\n\n## The Story Behind Tries\n\nA trie, also called a prefix tree, is a tree data structure used for storing and retrieving strings efficiently. Each node represents a character, and paths from root to nodes spell out prefixes. It's called a trie because it's used for reTRIEval.\n\nThe genius of tries: common prefixes are stored once. \"app\", \"apple\", and \"application\" share the path a→p→p.\n\n## The Structure\n\nEach trie node contains:\n- **Children**: Map/array of child nodes (one per character)\n- **isEndOfWord**: Boolean marking if this node completes a word\n- **Optional**: Count, value, or other metadata\n\n## When to Use Tries\n\n**Autocomplete** - Find all words with given prefix\n**Spell checker** - Check if word exists, suggest corrections\n**IP routing** - Longest prefix matching\n**Dictionary operations** - Insert, search, delete words\n**Word games** - Boggle, Scrabble word validation\n**Phone directory** - T9 predictive text\n\n## Core Operations\n\n**Insert word** - Create path for each character: O(m) where m = word length\n**Search word** - Follow path, check isEndOfWord: O(m)\n**Search prefix** - Follow path, don't need isEndOfWord: O(m)\n**Delete word** - Mark isEndOfWord false, optionally prune: O(m)\n\n## The Performance\n\n**Time**: O(m) for insert/search/delete where m = word length\n**Space**: O(ALPHABET_SIZE * N * M) where N = number of words, M = average length\n\nTries trade space for speed—they use more memory but give you blazing fast lookups!\n\n## Common Mistakes\n\n❌ **Not marking end of word** - Can't distinguish \"app\" from \"apple\" prefix\n❌ **Wrong alphabet size** - 26 for lowercase, 52 for mixed case, 256 for ASCII\n❌ **Not handling empty string** - Edge case that breaks many implementations\n❌ **Memory leaks** - In languages without GC, must free nodes properly\n❌ **Inefficient child storage** - Array vs hash map trade-off\n\n## Pro Tips\n\n💡 **Array vs HashMap for children** - Array for small alphabet (26), HashMap for large/sparse\n💡 **Store count at nodes** - Track how many words pass through each node\n💡 **Lazy deletion** - Just mark isEndOfWord false, don't remove nodes\n💡 **Compressed tries** - Merge single-child chains to save space\n💡 **Ternary search tries** - Space-efficient variant\n\n## Real-World Applications\n\n- **Autocomplete** - Search engines, IDEs, mobile keyboards\n- **Spell checkers** - Word validation and suggestions\n- **IP routing** - Longest prefix matching in routers\n- **Genome analysis** - DNA sequence matching\n- **Text editors** - Word completion, syntax highlighting\n- **Phone contacts** - T9 predictive text\n\nTries are the secret sauce behind autocomplete and fast string operations. They're space-hungry but incredibly fast for prefix-based operations! 🌳🔤\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "3Sum8SIy4yI",
+      "title": "Tries - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "AXjmTQ8LEoI",
+      "title": "Tries - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "l7-JWnOh20w",
+      "title": "Tries - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the time complexity of searching for a word of length m in a trie?",
+        "options": [
+          "O(1)",
+          "O(m)",
+          "O(n)",
+          "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Searching in a trie takes O(m) time where m is the length of the word, independent of the number of words stored."
+      },
+      {
+        "id": "q2",
+        "question": "What does each node in a trie represent?",
+        "options": [
+          "A word",
+          "A character",
+          "A prefix",
+          "A suffix"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Each node in a trie represents a single character. Paths from root to nodes represent prefixes."
+      },
+      {
+        "id": "q3",
+        "question": "What is the main advantage of tries over hash maps?",
+        "options": [
+          "Less memory usage",
+          "Faster exact match",
+          "Prefix search operations",
+          "Simpler implementation"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Tries excel at prefix-based operations like autocomplete, which hash maps cannot do efficiently."
+      },
+      {
+        "id": "q4",
+        "question": "How do you mark that a word ends at a trie node?",
+        "options": [
+          "Delete the node",
+          "Use isEndOfWord boolean",
+          "Make children null",
+          "Store the word"
+        ],
+        "correctAnswer": 1,
+        "explanation": "A boolean flag (isEndOfWord) marks nodes where complete words end, distinguishing words from prefixes."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "implement-trie",
+      "title": "Implement Trie (Prefix Tree)",
+      "difficulty": "medium",
+      "description": "A trie (pronounced as try) or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. Implement the Trie class with insert, search, and startsWith methods.",
+      "constraints": [
+        "1 <= word.length, prefix.length <= 2000",
+        "word and prefix consist only of lowercase English letters",
+        "At most 30000 calls in total will be made to insert, search, and startsWith"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "operations": [
+              "insert apple",
+              "search apple",
+              "search app",
+              "startsWith app",
+              "insert app",
+              "search app"
+            ]
+          },
+          "expectedOutput": [
+            null,
+            true,
+            false,
+            true,
+            null,
+            true
+          ],
+          "description": "Basic trie operations"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "operations": [
+              "insert a",
+              "search a"
+            ]
+          },
+          "expectedOutput": [
+            null,
+            true
+          ],
+          "description": "Single character"
+        }
+      ],
+      "starterCode": {
+        "javascript": "class Trie {\n  constructor() {\n    // Your code here\n  }\n  \n  insert(word) {\n    // Your code here\n  }\n  \n  search(word) {\n    // Your code here\n  }\n  \n  startsWith(prefix) {\n    // Your code here\n  }\n}",
+        "python": "class Trie:\n    def __init__(self):\n        # Your code here\n        pass\n    \n    def insert(self, word):\n        # Your code here\n        pass\n    \n    def search(self, word):\n        # Your code here\n        pass\n    \n    def starts_with(self, prefix):\n        # Your code here\n        pass",
+        "java": "class Trie {\n    public Trie() {\n        // Your code here\n    }\n    \n    public void insert(String word) {\n        // Your code here\n    }\n    \n    public boolean search(String word) {\n        // Your code here\n    }\n    \n    public boolean startsWith(String prefix) {\n        // Your code here\n    }\n}",
+        "c": "typedef struct TrieNode {\n    struct TrieNode* children[26];\n    bool isEndOfWord;\n} TrieNode;\n\ntypedef struct {\n    TrieNode* root;\n} Trie;\n\nTrie* trieCreate() {\n    // Your code here\n}\n\nvoid trieInsert(Trie* obj, char* word) {\n    // Your code here\n}\n\nbool trieSearch(Trie* obj, char* word) {\n    // Your code here\n}\n\nbool trieStartsWith(Trie* obj, char* prefix) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "class TrieNode {\n  constructor() {\n    this.children = new Map();\n    this.isEndOfWord = false;\n  }\n}\n\nclass Trie {\n  constructor() {\n    this.root = new TrieNode();\n  }\n  \n  insert(word) {\n    let node = this.root;\n    for (const char of word) {\n      if (!node.children.has(char)) {\n        node.children.set(char, new TrieNode());\n      }\n      node = node.children.get(char);\n    }\n    node.isEndOfWord = true;\n  }\n  \n  search(word) {\n    let node = this.root;\n    for (const char of word) {\n      if (!node.children.has(char)) return false;\n      node = node.children.get(char);\n    }\n    return node.isEndOfWord;\n  }\n  \n  startsWith(prefix) {\n    let node = this.root;\n    for (const char of prefix) {\n      if (!node.children.has(char)) return false;\n      node = node.children.get(char);\n    }\n    return true;\n  }\n}",
+        "python": "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.is_end_of_word = False\n\nclass Trie:\n    def __init__(self):\n        self.root = TrieNode()\n    \n    def insert(self, word):\n        node = self.root\n        for char in word:\n            if char not in node.children:\n                node.children[char] = TrieNode()\n            node = node.children[char]\n        node.is_end_of_word = True\n    \n    def search(self, word):\n        node = self.root\n        for char in word:\n            if char not in node.children:\n                return False\n            node = node.children[char]\n        return node.is_end_of_word\n    \n    def starts_with(self, prefix):\n        node = self.root\n        for char in prefix:\n            if char not in node.children:\n                return False\n            node = node.children[char]\n        return True",
+        "java": "class TrieNode {\n    Map<Character, TrieNode> children = new HashMap<>();\n    boolean isEndOfWord = false;\n}\n\nclass Trie {\n    private TrieNode root;\n    \n    public Trie() {\n        root = new TrieNode();\n    }\n    \n    public void insert(String word) {\n        TrieNode node = root;\n        for (char c : word.toCharArray()) {\n            node.children.putIfAbsent(c, new TrieNode());\n            node = node.children.get(c);\n        }\n        node.isEndOfWord = true;\n    }\n    \n    public boolean search(String word) {\n        TrieNode node = root;\n        for (char c : word.toCharArray()) {\n            if (!node.children.containsKey(c)) return false;\n            node = node.children.get(c);\n        }\n        return node.isEndOfWord;\n    }\n    \n    public boolean startsWith(String prefix) {\n        TrieNode node = root;\n        for (char c : prefix.toCharArray()) {\n            if (!node.children.containsKey(c)) return false;\n            node = node.children.get(c);\n        }\n        return true;\n    }\n}",
+        "c": "typedef struct TrieNode {\n    struct TrieNode* children[26];\n    bool isEndOfWord;\n} TrieNode;\n\ntypedef struct {\n    TrieNode* root;\n} Trie;\n\nTrieNode* createNode() {\n    TrieNode* node = (TrieNode*)malloc(sizeof(TrieNode));\n    node->isEndOfWord = false;\n    for (int i = 0; i < 26; i++) {\n        node->children[i] = NULL;\n    }\n    return node;\n}\n\nTrie* trieCreate() {\n    Trie* trie = (Trie*)malloc(sizeof(Trie));\n    trie->root = createNode();\n    return trie;\n}\n\nvoid trieInsert(Trie* obj, char* word) {\n    TrieNode* node = obj->root;\n    for (int i = 0; word[i]; i++) {\n        int index = word[i] - 'a';\n        if (!node->children[index]) {\n            node->children[index] = createNode();\n        }\n        node = node->children[index];\n    }\n    node->isEndOfWord = true;\n}\n\nbool trieSearch(Trie* obj, char* word) {\n    TrieNode* node = obj->root;\n    for (int i = 0; word[i]; i++) {\n        int index = word[i] - 'a';\n        if (!node->children[index]) return false;\n        node = node->children[index];\n    }\n    return node->isEndOfWord;\n}\n\nbool trieStartsWith(Trie* obj, char* prefix) {\n    TrieNode* node = obj->root;\n    for (int i = 0; prefix[i]; i++) {\n        int index = prefix[i] - 'a';\n        if (!node->children[index]) return false;\n        node = node->children[index];\n    }\n    return true;\n}"
+      }
+    },
+    {
+      "id": "word-search-ii",
+      "title": "Word Search II",
+      "difficulty": "hard",
+      "description": "Given an m x n board of characters and a list of strings words, return all words on the board. Each word must be constructed from letters of sequentially adjacent cells.",
+      "constraints": [
+        "m == board.length",
+        "n == board[i].length",
+        "1 <= m, n <= 12",
+        "board[i][j] is a lowercase English letter"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "board": [
+              [
+                "o",
+                "a",
+                "a",
+                "n"
+              ],
+              [
+                "e",
+                "t",
+                "a",
+                "e"
+              ],
+              [
+                "i",
+                "h",
+                "k",
+                "r"
+              ],
+              [
+                "i",
+                "f",
+                "l",
+                "v"
+              ]
+            ],
+            "words": [
+              "oath",
+              "pea",
+              "eat",
+              "rain"
+            ]
+          },
+          "expectedOutput": [
+            "eat",
+            "oath"
+          ],
+          "description": "Find words that exist in board"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "board": [
+              [
+                "a"
+              ]
+            ],
+            "words": [
+              "a"
+            ]
+          },
+          "expectedOutput": [
+            "a"
+          ],
+          "description": "Single cell"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function findWords(board, words) {\n  // Your code here\n  // Build trie from words, then DFS on board\n  \n}",
+        "python": "def find_words(board, words):\n    # Your code here\n    # Build trie from words, then DFS on board\n    pass",
+        "java": "class Solution {\n    public List<String> findWords(char[][] board, String[] words) {\n        // Your code here\n        // Build trie from words, then DFS on board\n        \n    }\n}",
+        "c": "char** findWords(char** board, int boardSize, int* boardColSize, char** words, int wordsSize, int* returnSize) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function findWords(board, words) {\n  const trie = {};\n  for (const word of words) {\n    let node = trie;\n    for (const char of word) {\n      if (!node[char]) node[char] = {};\n      node = node[char];\n    }\n    node.word = word;\n  }\n  \n  const result = [];\n  \n  function dfs(i, j, node) {\n    const char = board[i][j];\n    if (!node[char]) return;\n    \n    const nextNode = node[char];\n    if (nextNode.word) {\n      result.push(nextNode.word);\n      delete nextNode.word;\n    }\n    \n    board[i][j] = '#';\n    \n    if (i > 0) dfs(i - 1, j, nextNode);\n    if (j > 0) dfs(i, j - 1, nextNode);\n    if (i < board.length - 1) dfs(i + 1, j, nextNode);\n    if (j < board[0].length - 1) dfs(i, j + 1, nextNode);\n    \n    board[i][j] = char;\n  }\n  \n  for (let i = 0; i < board.length; i++) {\n    for (let j = 0; j < board[0].length; j++) {\n      dfs(i, j, trie);\n    }\n  }\n  \n  return result;\n}",
+        "python": "def find_words(board, words):\n    trie = {}\n    for word in words:\n        node = trie\n        for char in word:\n            if char not in node:\n                node[char] = {}\n            node = node[char]\n        node['#'] = word\n    \n    result = []\n    \n    def dfs(i, j, node):\n        char = board[i][j]\n        if char not in node:\n            return\n        \n        next_node = node[char]\n        if '#' in next_node:\n            result.append(next_node['#'])\n            del next_node['#']\n        \n        board[i][j] = '*'\n        \n        if i > 0: dfs(i - 1, j, next_node)\n        if j > 0: dfs(i, j - 1, next_node)\n        if i < len(board) - 1: dfs(i + 1, j, next_node)\n        if j < len(board[0]) - 1: dfs(i, j + 1, next_node)\n        \n        board[i][j] = char\n    \n    for i in range(len(board)):\n        for j in range(len(board[0])):\n            dfs(i, j, trie)\n    \n    return result",
+        "java": "class Solution {\n    class TrieNode {\n        Map<Character, TrieNode> children = new HashMap<>();\n        String word = null;\n    }\n    \n    public List<String> findWords(char[][] board, String[] words) {\n        TrieNode root = new TrieNode();\n        for (String word : words) {\n            TrieNode node = root;\n            for (char c : word.toCharArray()) {\n                node.children.putIfAbsent(c, new TrieNode());\n                node = node.children.get(c);\n            }\n            node.word = word;\n        }\n        \n        List<String> result = new ArrayList<>();\n        for (int i = 0; i < board.length; i++) {\n            for (int j = 0; j < board[0].length; j++) {\n                dfs(board, i, j, root, result);\n            }\n        }\n        return result;\n    }\n    \n    private void dfs(char[][] board, int i, int j, TrieNode node, List<String> result) {\n        char c = board[i][j];\n        if (c == '#' || !node.children.containsKey(c)) return;\n        \n        node = node.children.get(c);\n        if (node.word != null) {\n            result.add(node.word);\n            node.word = null;\n        }\n        \n        board[i][j] = '#';\n        if (i > 0) dfs(board, i - 1, j, node, result);\n        if (j > 0) dfs(board, i, j - 1, node, result);\n        if (i < board.length - 1) dfs(board, i + 1, j, node, result);\n        if (j < board[0].length - 1) dfs(board, i, j + 1, node, result);\n        board[i][j] = c;\n    }\n}",
+        "c": "char** findWords(char** board, int boardSize, int* boardColSize, char** words, int wordsSize, int* returnSize) {\n    *returnSize = 0;\n    return NULL;\n}"
+      }
+    },
+    {
+      "id": "implement-trie",
+      "title": "Implement Trie (Prefix Tree)",
+      "difficulty": "medium",
+      "description": "Solve the Implement Trie (Prefix Tree) problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "word-search-ii",
+      "title": "Word Search II",
+      "difficulty": "hard",
+      "description": "Solve the Word Search II problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "design-add-search-words",
+      "title": "Design Add and Search Words Data Structure",
+      "difficulty": "medium",
+      "description": "Solve the Design Add and Search Words Data Structure problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Not marking end of word - cannot distinguish words from prefixes",
+      "Wrong alphabet size - 26 for lowercase only, adjust for other character sets",
+      "Not handling empty strings - edge case that breaks many implementations",
+      "Memory leaks in C/C++ - must properly free all nodes",
+      "Using array when HashMap is better - array wastes space for sparse alphabets"
+    ],
+    "patternDetection": [
+      "Problem involves prefix matching or autocomplete - trie is perfect",
+      "Need to store and search many strings efficiently",
+      "Dictionary operations with prefix queries",
+      "Word validation or spell checking",
+      "Finding all words with common prefix",
+      "Keywords: prefix, autocomplete, dictionary, words, search, starts with"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "208. Implement Trie",
+        "link": "https://leetcode.com/problems/implement-trie-prefix-tree/",
+        "difficulty": "Medium",
+        "description": "Classic trie implementation"
+      },
+      {
+        "title": "212. Word Search II",
+        "link": "https://leetcode.com/problems/word-search-ii/",
+        "difficulty": "Hard",
+        "description": "Find words in board using trie + DFS"
+      },
+      {
+        "title": "211. Design Add and Search Words Data Structure",
+        "link": "https://leetcode.com/problems/design-add-and-search-words-data-structure/",
+        "difficulty": "Medium",
+        "description": "Trie with wildcard search"
+      },
+      {
+        "title": "421. Maximum XOR of Two Numbers",
+        "link": "https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/",
+        "difficulty": "Medium",
+        "description": "Bitwise trie for XOR problems"
+      },
+      {
+        "title": "648. Replace Words",
+        "link": "https://leetcode.com/problems/replace-words/",
+        "difficulty": "Medium",
+        "description": "Use trie to find shortest root"
+      },
+      {
+        "title": "677. Map Sum Pairs",
+        "link": "https://leetcode.com/problems/map-sum-pairs/",
+        "difficulty": "Medium",
+        "description": "Trie with value aggregation"
+      }
+    ]
+  }
+}

@@ -1,0 +1,572 @@
+{
+  "id": "union-find",
+  "title": "Union Find (Disjoint Set)",
+  "description": "Master union-find data structure for connectivity problems",
+  "difficulty": "advanced",
+  "order": 15,
+  "tags": [
+    "union-find",
+    "disjoint-set",
+    "graphs",
+    "connectivity"
+  ],
+  "documentation": {
+    "content": "# Union Find: The Art of Grouping\n\nImagine you're organizing a social network. You want to quickly answer: \"Are Alice and Bob connected through friends?\" and \"Merge these two friend groups.\" Union Find (also called Disjoint Set Union) is the perfect tool—it tracks groups and merges them efficiently.\n\n## The Story Behind Union Find\n\nUnion Find is a data structure that tracks elements partitioned into disjoint (non-overlapping) sets. It supports two operations:\n\n**Find** - Which set does this element belong to?\n**Union** - Merge two sets into one\n\nThe genius: both operations can be done in nearly O(1) time with clever optimizations!\n\n## The Core Operations\n\n**Find(x)** - Find the representative (root) of x's set. All elements in the same set have the same root.\n\n**Union(x, y)** - Merge the sets containing x and y. Make one root point to the other.\n\n**Connected(x, y)** - Check if x and y are in the same set. Just check if Find(x) == Find(y).\n\n## The Two Key Optimizations\n\n**Path Compression** - During Find, make every node point directly to root. Flattens the tree.\n\n**Union by Rank/Size** - During Union, attach smaller tree under larger tree. Keeps trees shallow.\n\nWith both optimizations: O(α(n)) per operation, where α is inverse Ackermann function (effectively constant!).\n\n## When Your Problem Screams \"Union Find!\"\n\n**Connectivity** - Are two elements connected?\n**Dynamic connectivity** - Connections added over time\n**Grouping** - Partition elements into disjoint sets\n**Cycle detection** - In undirected graphs\n**Minimum spanning tree** - Kruskal's algorithm\n**Network connectivity** - Connected components\n\n## How It Actually Works\n\nLet's say we have elements 0-5:\n\nInitially: {0}, {1}, {2}, {3}, {4}, {5} (each in own set)\n\n**Union(0, 1)**: {0, 1}, {2}, {3}, {4}, {5}\n**Union(2, 3)**: {0, 1}, {2, 3}, {4}, {5}\n**Union(0, 2)**: {0, 1, 2, 3}, {4}, {5}\n**Find(1)** and **Find(3)**: Same root! They're connected.\n\n## Implementation\n\n```javascript\nclass UnionFind {\n  constructor(n) {\n    this.parent = Array.from({length: n}, (_, i) => i);\n    this.rank = new Array(n).fill(0);\n  }\n  \n  find(x) {\n    if (this.parent[x] !== x) {\n      this.parent[x] = this.find(this.parent[x]); // Path compression\n    }\n    return this.parent[x];\n  }\n  \n  union(x, y) {\n    const rootX = this.find(x);\n    const rootY = this.find(y);\n    \n    if (rootX === rootY) return false;\n    \n    // Union by rank\n    if (this.rank[rootX] < this.rank[rootY]) {\n      this.parent[rootX] = rootY;\n    } else if (this.rank[rootX] > this.rank[rootY]) {\n      this.parent[rootY] = rootX;\n    } else {\n      this.parent[rootY] = rootX;\n      this.rank[rootX]++;\n    }\n    \n    return true;\n  }\n}\n```\n\n## The Performance\n\n**Without optimizations**: O(n) per operation (worst case)\n**With path compression only**: O(log n) amortized\n**With both optimizations**: O(α(n)) ≈ O(1) amortized\n\nα(n) is inverse Ackermann function—grows so slowly it's effectively constant for all practical values!\n\n## Common Mistakes\n\n❌ **Not using path compression** - Makes Find slow\n❌ **Not using union by rank** - Creates tall trees\n❌ **Forgetting to find roots** - Must find roots before comparing\n❌ **Modifying parent directly** - Always use union() to merge\n❌ **Using on directed graphs** - Union Find is for undirected connectivity\n\n## Pro Tips\n\n💡 **Always use both optimizations** - Path compression + union by rank\n💡 **Count components** - Track number of disjoint sets\n💡 **Cycle detection** - If union returns false, cycle exists\n💡 **Kruskal's MST** - Union Find is essential\n💡 **Think in terms of groups** - Not individual connections\n\n## Classic Problems\n\n**Number of Connected Components** - Count disjoint sets\n**Redundant Connection** - Find edge that creates cycle\n**Accounts Merge** - Group accounts by common emails\n**Most Stones Removed** - Connected stones removal\n**Satisfiability of Equality Equations** - Transitive equality\n\n## Real-World Applications\n\n- **Social networks** - Friend groups, connected components\n- **Network connectivity** - Are two computers connected?\n- **Image processing** - Connected component labeling\n- **Kruskal's MST** - Minimum spanning tree algorithm\n- **Percolation** - Does water flow through?\n- **Maze generation** - Create random mazes\n\nUnion Find is elegant, efficient, and surprisingly simple. It's the go-to structure for dynamic connectivity problems! 🔗✨\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "IK30l-b4Bnk",
+      "title": "Union Find - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "aBxjDBC4M1U",
+      "title": "Union Find - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "UFJ2sO4uTSw",
+      "title": "Union Find - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What are the two main operations in Union Find?",
+        "options": [
+          "Insert and Delete",
+          "Find and Union",
+          "Push and Pop",
+          "Add and Remove"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Union Find supports Find (find set representative) and Union (merge two sets) operations."
+      },
+      {
+        "id": "q2",
+        "question": "What is path compression in Union Find?",
+        "options": [
+          "Compressing the input data",
+          "Making nodes point directly to root during Find",
+          "Reducing memory usage",
+          "Sorting the elements"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Path compression flattens the tree by making every node on the path point directly to the root during Find."
+      },
+      {
+        "id": "q3",
+        "question": "What is the amortized time complexity with both optimizations?",
+        "options": [
+          "O(1)",
+          "O(log n)",
+          "O(α(n)) ≈ O(1)",
+          "O(n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "With path compression and union by rank, operations take O(α(n)) time, where α is inverse Ackermann (effectively constant)."
+      },
+      {
+        "id": "q4",
+        "question": "What does union by rank do?",
+        "options": [
+          "Sorts elements by value",
+          "Attaches smaller tree under larger tree",
+          "Removes duplicate elements",
+          "Finds the median"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Union by rank attaches the tree with smaller rank under the tree with larger rank, keeping trees shallow."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "number-of-provinces",
+      "title": "Number of Provinces",
+      "difficulty": "medium",
+      "description": "There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.\n\nA province is a group of directly or indirectly connected cities and no other cities outside of the group.\n\nYou are given an n x n matrix isConnected where isConnected[i][j] = 1 if the ith city and the jth city are directly connected, and isConnected[i][j] = 0 otherwise.\n\nReturn the total number of provinces.",
+      "constraints": [
+        "1 <= n <= 200",
+        "n == isConnected.length",
+        "n == isConnected[i].length",
+        "isConnected[i][j] is 1 or 0",
+        "isConnected[i][i] == 1",
+        "isConnected[i][j] == isConnected[j][i]"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "isConnected": [
+              [
+                1,
+                1,
+                0
+              ],
+              [
+                1,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "Two provinces: {0,1} and {2}"
+        },
+        {
+          "input": {
+            "isConnected": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ]
+            ]
+          },
+          "expectedOutput": 3,
+          "description": "Three provinces: {0}, {1}, {2}"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "isConnected": [
+              [
+                1
+              ]
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Single city"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function findCircleNum(isConnected) {\n  // Your code here\n  // Use Union Find to group connected cities\n  \n}",
+        "python": "def find_circle_num(is_connected):\n    # Your code here\n    # Use Union Find to group connected cities\n    pass",
+        "java": "class Solution {\n    public int findCircleNum(int[][] isConnected) {\n        // Your code here\n        // Use Union Find to group connected cities\n        \n    }\n}",
+        "c": "int findCircleNum(int** isConnected, int isConnectedSize, int* isConnectedColSize) {\n    // Your code here\n    // Use Union Find to group connected cities\n    \n}"
+      },
+      "solution": {
+        "javascript": "function findCircleNum(isConnected) {\n  const n = isConnected.length;\n  const parent = Array.from({length: n}, (_, i) => i);\n  \n  function find(x) {\n    if (parent[x] !== x) {\n      parent[x] = find(parent[x]);\n    }\n    return parent[x];\n  }\n  \n  function union(x, y) {\n    const rootX = find(x);\n    const rootY = find(y);\n    if (rootX !== rootY) {\n      parent[rootX] = rootY;\n      return true;\n    }\n    return false;\n  }\n  \n  let provinces = n;\n  \n  for (let i = 0; i < n; i++) {\n    for (let j = i + 1; j < n; j++) {\n      if (isConnected[i][j] === 1) {\n        if (union(i, j)) provinces--;\n      }\n    }\n  }\n  \n  return provinces;\n}",
+        "python": "def find_circle_num(is_connected):\n    n = len(is_connected)\n    parent = list(range(n))\n    \n    def find(x):\n        if parent[x] != x:\n            parent[x] = find(parent[x])\n        return parent[x]\n    \n    def union(x, y):\n        root_x = find(x)\n        root_y = find(y)\n        if root_x != root_y:\n            parent[root_x] = root_y\n            return True\n        return False\n    \n    provinces = n\n    \n    for i in range(n):\n        for j in range(i + 1, n):\n            if is_connected[i][j] == 1:\n                if union(i, j):\n                    provinces -= 1\n    \n    return provinces",
+        "java": "class Solution {\n    private int[] parent;\n    \n    public int findCircleNum(int[][] isConnected) {\n        int n = isConnected.length;\n        parent = new int[n];\n        \n        for (int i = 0; i < n; i++) {\n            parent[i] = i;\n        }\n        \n        int provinces = n;\n        \n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                if (isConnected[i][j] == 1) {\n                    if (union(i, j)) provinces--;\n                }\n            }\n        }\n        \n        return provinces;\n    }\n    \n    private int find(int x) {\n        if (parent[x] != x) {\n            parent[x] = find(parent[x]);\n        }\n        return parent[x];\n    }\n    \n    private boolean union(int x, int y) {\n        int rootX = find(x);\n        int rootY = find(y);\n        \n        if (rootX != rootY) {\n            parent[rootX] = rootY;\n            return true;\n        }\n        return false;\n    }\n}",
+        "c": "int find(int* parent, int x) {\n    if (parent[x] != x) {\n        parent[x] = find(parent, parent[x]);\n    }\n    return parent[x];\n}\n\nbool unionSets(int* parent, int x, int y) {\n    int rootX = find(parent, x);\n    int rootY = find(parent, y);\n    \n    if (rootX != rootY) {\n        parent[rootX] = rootY;\n        return true;\n    }\n    return false;\n}\n\nint findCircleNum(int** isConnected, int isConnectedSize, int* isConnectedColSize) {\n    int n = isConnectedSize;\n    int* parent = (int*)malloc(n * sizeof(int));\n    \n    for (int i = 0; i < n; i++) {\n        parent[i] = i;\n    }\n    \n    int provinces = n;\n    \n    for (int i = 0; i < n; i++) {\n        for (int j = i + 1; j < n; j++) {\n            if (isConnected[i][j] == 1) {\n                if (unionSets(parent, i, j)) provinces--;\n            }\n        }\n    }\n    \n    free(parent);\n    return provinces;\n}"
+      }
+    },
+    {
+      "id": "redundant-connection",
+      "title": "Redundant Connection",
+      "difficulty": "medium",
+      "description": "In this problem, a tree is an undirected graph that is connected and has no cycles.\n\nYou are given a graph that started as a tree with n nodes labeled from 1 to n, with one additional edge added. The added edge has two different vertices chosen from 1 to n, and was not an edge that already existed.\n\nReturn an edge that can be removed so that the resulting graph is a tree of n nodes.",
+      "constraints": [
+        "n == edges.length",
+        "3 <= n <= 1000",
+        "edges[i].length == 2",
+        "1 <= ai < bi <= n",
+        "ai != bi",
+        "No repeated edges",
+        "The given graph is connected"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "edges": [
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                3
+              ]
+            ]
+          },
+          "expectedOutput": [
+            2,
+            3
+          ],
+          "description": "Edge [2,3] creates a cycle"
+        },
+        {
+          "input": {
+            "edges": [
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                3
+              ],
+              [
+                3,
+                4
+              ],
+              [
+                1,
+                4
+              ],
+              [
+                1,
+                5
+              ]
+            ]
+          },
+          "expectedOutput": [
+            1,
+            4
+          ],
+          "description": "Edge [1,4] creates a cycle"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "edges": [
+              [
+                1,
+                2
+              ],
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                4
+              ]
+            ]
+          },
+          "expectedOutput": [],
+          "description": "No redundant edge (shouldn't happen per constraints)"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function findRedundantConnection(edges) {\n  // Your code here\n  // Use Union Find to detect cycle\n  \n}",
+        "python": "def find_redundant_connection(edges):\n    # Your code here\n    # Use Union Find to detect cycle\n    pass",
+        "java": "class Solution {\n    public int[] findRedundantConnection(int[][] edges) {\n        // Your code here\n        // Use Union Find to detect cycle\n        \n    }\n}",
+        "c": "int* findRedundantConnection(int** edges, int edgesSize, int* edgesColSize, int* returnSize) {\n    // Your code here\n    // Use Union Find to detect cycle\n    \n}"
+      },
+      "solution": {
+        "javascript": "function findRedundantConnection(edges) {\n  const n = edges.length;\n  const parent = Array.from({length: n + 1}, (_, i) => i);\n  \n  function find(x) {\n    if (parent[x] !== x) {\n      parent[x] = find(parent[x]);\n    }\n    return parent[x];\n  }\n  \n  function union(x, y) {\n    const rootX = find(x);\n    const rootY = find(y);\n    \n    if (rootX === rootY) return false;\n    \n    parent[rootX] = rootY;\n    return true;\n  }\n  \n  for (const [u, v] of edges) {\n    if (!union(u, v)) {\n      return [u, v];\n    }\n  }\n  \n  return [];\n}",
+        "python": "def find_redundant_connection(edges):\n    n = len(edges)\n    parent = list(range(n + 1))\n    \n    def find(x):\n        if parent[x] != x:\n            parent[x] = find(parent[x])\n        return parent[x]\n    \n    def union(x, y):\n        root_x = find(x)\n        root_y = find(y)\n        \n        if root_x == root_y:\n            return False\n        \n        parent[root_x] = root_y\n        return True\n    \n    for u, v in edges:\n        if not union(u, v):\n            return [u, v]\n    \n    return []",
+        "java": "class Solution {\n    private int[] parent;\n    \n    public int[] findRedundantConnection(int[][] edges) {\n        int n = edges.length;\n        parent = new int[n + 1];\n        \n        for (int i = 0; i <= n; i++) {\n            parent[i] = i;\n        }\n        \n        for (int[] edge : edges) {\n            if (!union(edge[0], edge[1])) {\n                return edge;\n            }\n        }\n        \n        return new int[]{};\n    }\n    \n    private int find(int x) {\n        if (parent[x] != x) {\n            parent[x] = find(parent[x]);\n        }\n        return parent[x];\n    }\n    \n    private boolean union(int x, int y) {\n        int rootX = find(x);\n        int rootY = find(y);\n        \n        if (rootX == rootY) return false;\n        \n        parent[rootX] = rootY;\n        return true;\n    }\n}",
+        "c": "int find(int* parent, int x) {\n    if (parent[x] != x) {\n        parent[x] = find(parent, parent[x]);\n    }\n    return parent[x];\n}\n\nbool unionSets(int* parent, int x, int y) {\n    int rootX = find(parent, x);\n    int rootY = find(parent, y);\n    \n    if (rootX == rootY) return false;\n    \n    parent[rootX] = rootY;\n    return true;\n}\n\nint* findRedundantConnection(int** edges, int edgesSize, int* edgesColSize, int* returnSize) {\n    int* parent = (int*)malloc((edgesSize + 1) * sizeof(int));\n    \n    for (int i = 0; i <= edgesSize; i++) {\n        parent[i] = i;\n    }\n    \n    int* result = (int*)malloc(2 * sizeof(int));\n    *returnSize = 2;\n    \n    for (int i = 0; i < edgesSize; i++) {\n        if (!unionSets(parent, edges[i][0], edges[i][1])) {\n            result[0] = edges[i][0];\n            result[1] = edges[i][1];\n            free(parent);\n            return result;\n        }\n    }\n    \n    free(parent);\n    *returnSize = 0;\n    return result;\n}"
+      }
+    },
+    {
+      "id": "number-of-islands",
+      "title": "Number of Islands",
+      "difficulty": "medium",
+      "description": "Solve the Number of Islands problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "redundant-connection",
+      "title": "Redundant Connection",
+      "difficulty": "medium",
+      "description": "Solve the Redundant Connection problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "accounts-merge",
+      "title": "Accounts Merge",
+      "difficulty": "medium",
+      "description": "Solve the Accounts Merge problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Not using path compression - makes Find operations slow",
+      "Not using union by rank/size - creates tall trees",
+      "Forgetting to find roots before comparing - must call find() on both elements",
+      "Modifying parent array directly - always use union() to merge sets",
+      "Using Union Find for directed graphs - it's designed for undirected connectivity"
+    ],
+    "patternDetection": [
+      "Problem asks about connectivity or grouping",
+      "Need to merge sets dynamically",
+      "Cycle detection in undirected graphs",
+      "Connected components counting",
+      "Minimum spanning tree (Kruskal's algorithm)",
+      "Problems with 'connected', 'group', 'merge', 'union', 'disjoint'",
+      "Keywords: 'connected', 'components', 'groups', 'merge', 'union', 'cycle'"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "547. Number of Provinces",
+        "link": "https://leetcode.com/problems/number-of-provinces/",
+        "difficulty": "Medium",
+        "description": "Count connected components using Union Find"
+      },
+      {
+        "title": "684. Redundant Connection",
+        "link": "https://leetcode.com/problems/redundant-connection/",
+        "difficulty": "Medium",
+        "description": "Find edge that creates cycle using Union Find"
+      },
+      {
+        "title": "721. Accounts Merge",
+        "link": "https://leetcode.com/problems/accounts-merge/",
+        "difficulty": "Medium",
+        "description": "Group accounts by common emails"
+      },
+      {
+        "title": "990. Satisfiability of Equality Equations",
+        "link": "https://leetcode.com/problems/satisfiability-of-equality-equations/",
+        "difficulty": "Medium",
+        "description": "Check transitive equality using Union Find"
+      },
+      {
+        "title": "1319. Number of Operations to Make Network Connected",
+        "link": "https://leetcode.com/problems/number-of-operations-to-make-network-connected/",
+        "difficulty": "Medium",
+        "description": "Count components and redundant edges"
+      },
+      {
+        "title": "128. Longest Consecutive Sequence",
+        "link": "https://leetcode.com/problems/longest-consecutive-sequence/",
+        "difficulty": "Medium",
+        "description": "Can be solved with Union Find (also hash set)"
+      }
+    ]
+  }
+}

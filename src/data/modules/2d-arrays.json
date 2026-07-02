@@ -1,0 +1,274 @@
+{
+  "id": "2d-arrays",
+  "title": "2D Arrays & Matrix",
+  "description": "Master matrix manipulation, traversal patterns, and complex 2D array problems. Essential for technical interviews at top companies! 🎯",
+  "difficulty": "intermediate",
+  "order": 25,
+  "tags": [
+    "arrays",
+    "matrix",
+    "2d-arrays",
+    "traversal",
+    "patterns"
+  ],
+  "documentation": {
+    "content": "# 2D Arrays & Matrix Mastery\n\nImagine you're looking at a chessboard, a spreadsheet, or even a digital image. What do they all have in common? They're all represented as 2D arrays (matrices) in programming! Understanding how to navigate and manipulate these structures is crucial for solving real-world problems.\n\n## The Matrix Mindset\n\nA 2D array is simply an array of arrays. Think of it as a grid with rows and columns:\n\n```\nmatrix[row][column]\n  [1, 2, 3]\n  [4, 5, 6]\n  [7, 8, 9]\n```\n\n**Key Insight**: While we think in 2D, the computer stores this in 1D memory. Understanding this helps optimize your solutions!\n\n## Essential Traversal Patterns\n\n**Row-wise Traversal** - Like reading a book, left to right, top to bottom:\n```\n1 → 2 → 3\n4 → 5 → 6\n7 → 8 → 9\n```\nTime: O(m×n), Space: O(1)\n\n**Column-wise Traversal** - Top to bottom, then next column:\n```\n1 ↓ 2 ↓ 3 ↓\n4   5   6\n7   8   9\n```\n\n**Diagonal Traversal** - Following diagonals:\n```\n1 ↘ 2   3\n4   5 ↘ 6\n7   8   9\n```\n\n**Spiral Traversal** - The most elegant pattern:\n```\n1 → 2 → 3\n        ↓\n8 → 9   4\n↑       ↓\n7 ← 6 ← 5\n```\n\n## The Spiral Pattern - A Deep Dive\n\nSpiral traversal is like peeling an onion layer by layer. Here's the strategy:\n\n**Step 1**: Define boundaries (top, bottom, left, right)\n**Step 2**: Move right along top row\n**Step 3**: Move down along right column\n**Step 4**: Move left along bottom row\n**Step 5**: Move up along left column\n**Step 6**: Shrink boundaries and repeat\n\n**Pro Tip**: Always check if boundaries are valid before each direction!\n\n## Matrix Rotation Techniques\n\n**90° Clockwise Rotation**:\n1. Transpose the matrix (swap rows with columns)\n2. Reverse each row\n\n```\n[1,2,3]    Transpose    [1,4,7]    Reverse    [7,4,1]\n[4,5,6]  →            → [2,5,8]  →          → [8,5,2]\n[7,8,9]                 [3,6,9]               [9,6,3]\n```\n\n**90° Counter-Clockwise**:\n1. Transpose the matrix\n2. Reverse each column\n\n**180° Rotation**: Reverse all rows, then reverse the entire matrix\n\n## N-Queens Problem - The Classic\n\nPlace N queens on an N×N chessboard so no two queens attack each other.\n\n**Key Constraints**:\n- No two queens in same row\n- No two queens in same column\n- No two queens in same diagonal\n\n**Solution Strategy**:\n1. Use backtracking\n2. Place queen row by row\n3. Check if placement is safe\n4. If safe, move to next row\n5. If not safe, backtrack\n\n**Diagonal Check Trick**:\n- Main diagonal: row - col is constant\n- Anti-diagonal: row + col is constant\n\n## Matrix Search Strategies\n\n**Sorted Matrix Search** (row & column sorted):\nStart from top-right or bottom-left corner:\n- If target > current: move down\n- If target < current: move left\nTime: O(m + n)\n\n**Binary Search in Matrix**:\nTreat 2D array as 1D:\n- mid = (left + right) / 2\n- row = mid / columns\n- col = mid % columns\nTime: O(log(m×n))\n\n## Common Pitfalls\n\n❌ **Off-by-one errors** - Always double-check boundary conditions\n❌ **Confusing row/column** - Remember: matrix[row][col]\n❌ **Not handling empty matrix** - Check if matrix.length > 0\n❌ **Modifying while iterating** - Use a copy if needed\n❌ **Forgetting edge cases** - Single row, single column, 1×1 matrix\n\n## Performance Optimization\n\n💡 **In-place operations** - Modify the matrix directly to save space\n💡 **Direction arrays** - Use arrays for cleaner direction handling:\n```javascript\nconst dx = [-1, 1, 0, 0]; // up, down, left, right\nconst dy = [0, 0, -1, 1];\n```\n\n💡 **Visited tracking** - Use the matrix itself or a separate boolean array\n💡 **Early termination** - Stop as soon as you find the answer\n\n## Real-World Applications\n\n- **Image Processing** - Filters, rotations, transformations\n- **Game Development** - Board games, tile maps, collision detection\n- **Data Analysis** - Spreadsheet operations, pivot tables\n- **Computer Graphics** - Transformations, rendering\n- **Machine Learning** - Neural networks, convolutions\n- **Robotics** - Path planning, grid navigation\n\n## Interview Tips\n\n🎯 **Draw it out** - Visualize the problem on paper\n🎯 **Start simple** - Test with small matrices first\n🎯 **Think in layers** - Many problems involve processing layer by layer\n🎯 **Use symmetry** - Look for patterns and symmetries\n🎯 **Consider transpose** - Sometimes transposing simplifies the problem\n\n## Advanced Patterns\n\n**Wave Traversal**: Alternate between forward and backward\n**Zigzag Traversal**: Diagonal zigzag pattern\n**Boundary Traversal**: Only visit boundary elements\n**Layer-by-layer**: Process matrix in concentric layers\n\nMastering 2D arrays opens doors to solving complex problems elegantly. The key is visualization and practice. Start with simple traversals, then tackle rotations, and finally master the spiral pattern. You've got this! 🚀\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "SVFr1ZhrUcQ",
+      "title": "2D Arrays Fundamentals - English",
+      "duration": 720,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "Z0R2u6gd3GU",
+      "title": "Matrix Problems - Hindi",
+      "duration": 900,
+      "language": "Hindi"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the time complexity of spiral traversal of an m×n matrix?",
+        "options": [
+          "O(m + n)",
+          "O(m × n)",
+          "O(m² × n²)",
+          "O(log(m × n))"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Spiral traversal visits each element exactly once, so the time complexity is O(m × n) where m is rows and n is columns."
+      },
+      {
+        "id": "q2",
+        "question": "To rotate a matrix 90° clockwise, what operations do you perform?",
+        "options": [
+          "Reverse rows, then transpose",
+          "Transpose, then reverse each row",
+          "Reverse columns, then transpose",
+          "Transpose, then reverse columns"
+        ],
+        "correctAnswer": 1,
+        "explanation": "To rotate 90° clockwise: first transpose the matrix (swap rows with columns), then reverse each row."
+      },
+      {
+        "id": "q3",
+        "question": "In the N-Queens problem, how do you check if two queens are on the same diagonal?",
+        "options": [
+          "row1 == row2 || col1 == col2",
+          "row1 - col1 == row2 - col2 || row1 + col1 == row2 + col2",
+          "abs(row1 - row2) == abs(col1 - col2)",
+          "Both B and C are correct"
+        ],
+        "correctAnswer": 3,
+        "explanation": "Both methods work: (row - col) constant for main diagonal, (row + col) constant for anti-diagonal, OR absolute difference check."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "spiral-matrix",
+      "title": "Spiral Matrix Traversal",
+      "difficulty": "medium",
+      "description": "Given an m x n matrix, return all elements of the matrix in spiral order.\n\nSpiral order means starting from the top-left, move right along the first row, then down the last column, then left along the last row, then up the first column, and repeat for inner layers.",
+      "companyTags": ["Google", "Amazon", "Microsoft", "Facebook"],
+      "topicTags": ["Array", "Matrix", "Simulation"],
+      "constraints": [
+        "m == matrix.length",
+        "n == matrix[i].length",
+        "1 <= m, n <= 10",
+        "-100 <= matrix[i][j] <= 100"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "matrix": [[1,2,3],[4,5,6],[7,8,9]]
+          },
+          "expectedOutput": [1,2,3,6,9,8,7,4,5],
+          "description": "Spiral order: right(1,2,3) → down(6,9) → left(8,7) → up(4) → right(5)"
+        },
+        {
+          "input": {
+            "matrix": [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+          },
+          "expectedOutput": [1,2,3,4,8,12,11,10,9,5,6,7],
+          "description": "3x4 matrix spiral traversal"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function spiralOrder(matrix) {\n  // Define boundaries: top, bottom, left, right\n  // Move in spiral: right → down → left → up\n  // Shrink boundaries after each direction\n  \n}",
+        "python": "def spiral_order(matrix):\n    # Define boundaries: top, bottom, left, right\n    # Move in spiral: right → down → left → up\n    # Shrink boundaries after each direction\n    pass",
+        "java": "class Solution {\n    public List<Integer> spiralOrder(int[][] matrix) {\n        // Define boundaries: top, bottom, left, right\n        // Move in spiral: right → down → left → up\n        // Shrink boundaries after each direction\n        \n    }\n}",
+        "c": "int* spiralOrder(int** matrix, int matrixSize, int* matrixColSize, int* returnSize) {\n    // Define boundaries: top, bottom, left, right\n    // Move in spiral: right → down → left → up\n    // Shrink boundaries after each direction\n    \n}"
+      },
+      "solution": {
+        "javascript": "function spiralOrder(matrix) {\n  if (!matrix.length) return [];\n  \n  const result = [];\n  let top = 0, bottom = matrix.length - 1;\n  let left = 0, right = matrix[0].length - 1;\n  \n  while (top <= bottom && left <= right) {\n    // Move right\n    for (let col = left; col <= right; col++) {\n      result.push(matrix[top][col]);\n    }\n    top++;\n    \n    // Move down\n    for (let row = top; row <= bottom; row++) {\n      result.push(matrix[row][right]);\n    }\n    right--;\n    \n    // Move left (if still valid)\n    if (top <= bottom) {\n      for (let col = right; col >= left; col--) {\n        result.push(matrix[bottom][col]);\n      }\n      bottom--;\n    }\n    \n    // Move up (if still valid)\n    if (left <= right) {\n      for (let row = bottom; row >= top; row--) {\n        result.push(matrix[row][left]);\n      }\n      left++;\n    }\n  }\n  \n  return result;\n}",
+        "python": "def spiral_order(matrix):\n    if not matrix:\n        return []\n    \n    result = []\n    top, bottom = 0, len(matrix) - 1\n    left, right = 0, len(matrix[0]) - 1\n    \n    while top <= bottom and left <= right:\n        # Move right\n        for col in range(left, right + 1):\n            result.append(matrix[top][col])\n        top += 1\n        \n        # Move down\n        for row in range(top, bottom + 1):\n            result.append(matrix[row][right])\n        right -= 1\n        \n        # Move left (if still valid)\n        if top <= bottom:\n            for col in range(right, left - 1, -1):\n                result.append(matrix[bottom][col])\n            bottom -= 1\n        \n        # Move up (if still valid)\n        if left <= right:\n            for row in range(bottom, top - 1, -1):\n                result.append(matrix[row][left])\n            left += 1\n    \n    return result"
+      }
+    },
+    {
+      "id": "rotate-matrix",
+      "title": "Rotate Matrix 90 Degrees",
+      "difficulty": "medium",
+      "description": "You are given an n x n 2D matrix representing an image. Rotate the image by 90 degrees clockwise.\n\nYou have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.",
+      "companyTags": ["Amazon", "Microsoft", "Apple", "Adobe"],
+      "topicTags": ["Array", "Matrix", "Math"],
+      "constraints": [
+        "n == matrix.length == matrix[i].length",
+        "1 <= n <= 20",
+        "-1000 <= matrix[i][j] <= 1000"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "matrix": [[1,2,3],[4,5,6],[7,8,9]]
+          },
+          "expectedOutput": [[7,4,1],[8,5,2],[9,6,3]],
+          "description": "90° clockwise rotation"
+        },
+        {
+          "input": {
+            "matrix": [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+          },
+          "expectedOutput": [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]],
+          "description": "4x4 matrix rotation"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function rotate(matrix) {\n  // Step 1: Transpose the matrix\n  // Step 2: Reverse each row\n  \n}",
+        "python": "def rotate(matrix):\n    # Step 1: Transpose the matrix\n    # Step 2: Reverse each row\n    pass"
+      },
+      "solution": {
+        "javascript": "function rotate(matrix) {\n  const n = matrix.length;\n  \n  // Transpose\n  for (let i = 0; i < n; i++) {\n    for (let j = i; j < n; j++) {\n      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];\n    }\n  }\n  \n  // Reverse each row\n  for (let i = 0; i < n; i++) {\n    matrix[i].reverse();\n  }\n}",
+        "python": "def rotate(matrix):\n    n = len(matrix)\n    \n    # Transpose\n    for i in range(n):\n        for j in range(i, n):\n            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]\n    \n    # Reverse each row\n    for i in range(n):\n        matrix[i].reverse()"
+      }
+    },
+    {
+      "id": "n-queens",
+      "title": "N-Queens Problem",
+      "difficulty": "hard",
+      "description": "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.\n\nGiven an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.\n\nEach solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.",
+      "companyTags": ["Google", "Amazon", "Microsoft", "Facebook", "Apple"],
+      "topicTags": ["Array", "Backtracking", "Matrix"],
+      "constraints": [
+        "1 <= n <= 9"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "n": 4
+          },
+          "expectedOutput": [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]],
+          "description": "Two solutions for 4-queens"
+        },
+        {
+          "input": {
+            "n": 1
+          },
+          "expectedOutput": [["Q"]],
+          "description": "Single queen on 1x1 board"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function solveNQueens(n) {\n  // Use backtracking\n  // Track columns, diagonals, anti-diagonals\n  // Place queen row by row\n  \n}",
+        "python": "def solve_n_queens(n):\n    # Use backtracking\n    # Track columns, diagonals, anti-diagonals\n    # Place queen row by row\n    pass"
+      },
+      "solution": {
+        "javascript": "function solveNQueens(n) {\n  const result = [];\n  const board = Array(n).fill().map(() => Array(n).fill('.'));\n  const cols = new Set();\n  const diag1 = new Set(); // row - col\n  const diag2 = new Set(); // row + col\n  \n  function backtrack(row) {\n    if (row === n) {\n      result.push(board.map(r => r.join('')));\n      return;\n    }\n    \n    for (let col = 0; col < n; col++) {\n      if (cols.has(col) || diag1.has(row - col) || diag2.has(row + col)) {\n        continue;\n      }\n      \n      // Place queen\n      board[row][col] = 'Q';\n      cols.add(col);\n      diag1.add(row - col);\n      diag2.add(row + col);\n      \n      backtrack(row + 1);\n      \n      // Remove queen\n      board[row][col] = '.';\n      cols.delete(col);\n      diag1.delete(row - col);\n      diag2.delete(row + col);\n    }\n  }\n  \n  backtrack(0);\n  return result;\n}",
+        "python": "def solve_n_queens(n):\n    result = []\n    board = [['.' for _ in range(n)] for _ in range(n)]\n    cols = set()\n    diag1 = set()  # row - col\n    diag2 = set()  # row + col\n    \n    def backtrack(row):\n        if row == n:\n            result.append([''.join(r) for r in board])\n            return\n        \n        for col in range(n):\n            if col in cols or (row - col) in diag1 or (row + col) in diag2:\n                continue\n            \n            # Place queen\n            board[row][col] = 'Q'\n            cols.add(col)\n            diag1.add(row - col)\n            diag2.add(row + col)\n            \n            backtrack(row + 1)\n            \n            # Remove queen\n            board[row][col] = '.'\n            cols.remove(col)\n            diag1.remove(row - col)\n            diag2.remove(row + col)\n    \n    backtrack(0)\n    return result"
+      }
+    },
+    {
+      "id": "matrix-diagonal-sum",
+      "title": "Matrix Diagonal Sum",
+      "difficulty": "easy",
+      "description": "Given a square matrix mat, return the sum of the matrix diagonals.\n\nOnly include the sum of all the elements on the primary diagonal and all the elements on the secondary diagonal that are not part of the primary diagonal.",
+      "companyTags": ["Amazon", "Google"],
+      "topicTags": ["Array", "Matrix"],
+      "constraints": [
+        "n == mat.length == mat[i].length",
+        "1 <= n <= 100",
+        "1 <= mat[i][j] <= 100"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "mat": [[1,2,3],[4,5,6],[7,8,9]]
+          },
+          "expectedOutput": 25,
+          "description": "Primary diagonal: 1+5+9=15, Secondary: 3+5+7=15, Middle 5 counted once: 15+15-5=25"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function diagonalSum(mat) {\n  // Sum primary diagonal (i,i)\n  // Sum secondary diagonal (i, n-1-i)\n  // Subtract middle if n is odd\n  \n}"
+      },
+      "solution": {
+        "javascript": "function diagonalSum(mat) {\n  const n = mat.length;\n  let sum = 0;\n  \n  for (let i = 0; i < n; i++) {\n    sum += mat[i][i]; // Primary diagonal\n    sum += mat[i][n - 1 - i]; // Secondary diagonal\n  }\n  \n  // If odd size, subtract middle element (counted twice)\n  if (n % 2 === 1) {\n    sum -= mat[Math.floor(n / 2)][Math.floor(n / 2)];\n  }\n  \n  return sum;\n}"
+      }
+    },
+    {
+      "id": "search-2d-matrix",
+      "title": "Search in 2D Matrix",
+      "difficulty": "medium",
+      "description": "Write an efficient algorithm that searches for a value target in an m x n integer matrix. This matrix has the following properties:\n\n- Integers in each row are sorted from left to right.\n- The first integer of each row is greater than the last integer of the previous row.",
+      "companyTags": ["Amazon", "Microsoft", "Facebook"],
+      "topicTags": ["Array", "Binary Search", "Matrix"],
+      "constraints": [
+        "m == matrix.length",
+        "n == matrix[i].length",
+        "1 <= m, n <= 100",
+        "-10^4 <= matrix[i][j], target <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "matrix": [[1,3,5,7],[10,11,16,20],[23,30,34,60]],
+            "target": 3
+          },
+          "expectedOutput": true,
+          "description": "3 exists in the matrix"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function searchMatrix(matrix, target) {\n  // Treat 2D matrix as 1D sorted array\n  // Use binary search\n  // Convert mid to (row, col)\n  \n}"
+      },
+      "solution": {
+        "javascript": "function searchMatrix(matrix, target) {\n  const m = matrix.length;\n  const n = matrix[0].length;\n  let left = 0, right = m * n - 1;\n  \n  while (left <= right) {\n    const mid = Math.floor((left + right) / 2);\n    const row = Math.floor(mid / n);\n    const col = mid % n;\n    const midVal = matrix[row][col];\n    \n    if (midVal === target) return true;\n    if (midVal < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  \n  return false;\n}"
+      }
+    },
+    {
+      "id": "set-matrix-zeroes",
+      "title": "Set Matrix Zeroes",
+      "difficulty": "medium",
+      "description": "Given an m x n integer matrix, if an element is 0, set its entire row and column to 0's.\n\nYou must do it in place.",
+      "companyTags": ["Amazon", "Microsoft", "Apple", "Facebook"],
+      "topicTags": ["Array", "Matrix", "Hash Table"],
+      "constraints": [
+        "m == matrix.length",
+        "n == matrix[0].length",
+        "1 <= m, n <= 200",
+        "-2^31 <= matrix[i][j] <= 2^31 - 1"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "matrix": [[1,1,1],[1,0,1],[1,1,1]]
+          },
+          "expectedOutput": [[1,0,1],[0,0,0],[1,0,1]],
+          "description": "Middle element is 0, so row 1 and column 1 become 0"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function setZeroes(matrix) {\n  // Use first row and column as markers\n  // Track if first row/column need to be zeroed\n  \n}"
+      },
+      "solution": {
+        "javascript": "function setZeroes(matrix) {\n  const m = matrix.length, n = matrix[0].length;\n  let firstRowZero = false, firstColZero = false;\n  \n  // Check if first row has zero\n  for (let j = 0; j < n; j++) {\n    if (matrix[0][j] === 0) firstRowZero = true;\n  }\n  \n  // Check if first column has zero\n  for (let i = 0; i < m; i++) {\n    if (matrix[i][0] === 0) firstColZero = true;\n  }\n  \n  // Use first row and column as markers\n  for (let i = 1; i < m; i++) {\n    for (let j = 1; j < n; j++) {\n      if (matrix[i][j] === 0) {\n        matrix[i][0] = 0;\n        matrix[0][j] = 0;\n      }\n    }\n  }\n  \n  // Set zeros based on markers\n  for (let i = 1; i < m; i++) {\n    for (let j = 1; j < n; j++) {\n      if (matrix[i][0] === 0 || matrix[0][j] === 0) {\n        matrix[i][j] = 0;\n      }\n    }\n  }\n  \n  // Handle first row\n  if (firstRowZero) {\n    for (let j = 0; j < n; j++) matrix[0][j] = 0;\n  }\n  \n  // Handle first column\n  if (firstColZero) {\n    for (let i = 0; i < m; i++) matrix[i][0] = 0;\n  }\n}"
+      }
+    }
+  ]
+}

@@ -1,0 +1,572 @@
+{
+  "id": "monotonic-stack",
+  "title": "Monotonic Stack",
+  "description": "Unlock the power of maintaining order! Learn to find next greater/smaller elements in O(n) time. This elegant technique is a hidden gem in coding interviews! 📚🔥",
+  "difficulty": "intermediate",
+  "order": 14,
+  "tags": [
+    "stack",
+    "monotonic-stack",
+    "next-greater",
+    "optimization"
+  ],
+  "documentation": {
+    "content": "# Monotonic Stack: The Secret Weapon for Next Greater/Smaller Problems\n\nImagine you're standing in a line of people, and you want to know: \"Who's the next taller person behind me?\" You could check everyone one by one (O(n²)), or you could be clever and use a monotonic stack (O(n))!\n\n## What is a Monotonic Stack?\n\nA monotonic stack maintains elements in either:\n- **Increasing order**: Each new element is larger than the previous\n- **Decreasing order**: Each new element is smaller than the previous\n\nWhen a new element breaks the order, we pop elements until order is restored. Those popped elements have found their \"next greater\" or \"next smaller\"!\n\n## Why It's Powerful\n\n**Without monotonic stack**: O(n²) - check every pair\n**With monotonic stack**: O(n) - each element pushed and popped once\n\nIt's like magic for \"next greater/smaller\" problems!\n\n## The Core Idea\n\n```\nFor Next Greater Element:\n- Use decreasing stack (top is smallest)\n- When current > stack.top: pop and record answer\n- Push current element\n\nFor Next Smaller Element:\n- Use increasing stack (top is largest)\n- When current < stack.top: pop and record answer\n- Push current element\n```\n\n## Common Patterns\n\n**Pattern 1: Next Greater Element**\nFind the next element that's larger\n- Use decreasing monotonic stack\n- Pop when current > top\n\n**Pattern 2: Next Smaller Element**\nFind the next element that's smaller\n- Use increasing monotonic stack\n- Pop when current < top\n\n**Pattern 3: Previous Greater/Smaller**\nSame logic, but process from left to right\n- Stack stores indices or values\n- Answer is at the top when we can't pop\n\n**Pattern 4: Largest Rectangle**\nFind largest rectangle in histogram\n- Use increasing stack\n- Calculate area when popping\n\n## When to Use Monotonic Stack\n\n✅ Next greater/smaller element\n✅ Previous greater/smaller element\n✅ Largest rectangle problems\n✅ Stock span problems\n✅ Trapping rain water\n✅ Maximum/minimum in sliding window\n\n## Pro Tips\n\n💡 **Store indices, not values**: Often need position for calculations\n💡 **Process remaining stack**: After loop, handle elements still in stack\n💡 **Direction matters**: Left-to-right vs right-to-left gives different results\n💡 **Increasing vs Decreasing**: Choose based on what you're looking for\n💡 **Dummy elements**: Add -∞ or +∞ to simplify edge cases\n\n## Time & Space Complexity\n\n**Time**: O(n) - each element pushed and popped at most once\n**Space**: O(n) - stack can hold all elements in worst case\n\nMuch better than the naive O(n²) approach!\n\n## Real-World Applications\n\n- Stock price analysis (next higher/lower price)\n- Building skyline problems\n- Histogram analysis\n- Temperature forecasting\n- Range query optimization\n\n## The Template\n\n```javascript\nfunction nextGreater(arr) {\n  const stack = [];\n  const result = new Array(arr.length).fill(-1);\n  \n  for (let i = 0; i < arr.length; i++) {\n    while (stack.length > 0 && arr[i] > arr[stack[stack.length-1]]) {\n      const idx = stack.pop();\n      result[idx] = arr[i];\n    }\n    stack.push(i);\n  }\n  \n  return result;\n}\n```\n\n## Common Variations\n\n1. **Next Greater in Circular Array**: Process array twice\n2. **Daily Temperatures**: How many days until warmer?\n3. **Largest Rectangle in Histogram**: Use increasing stack\n4. **Trapping Rain Water**: Find boundaries using monotonic stack\n\n## Key Insight\n\nThe monotonic stack works because:\n- We maintain an invariant (increasing/decreasing order)\n- When invariant breaks, we've found our answer\n- Each element is processed exactly once\n\nIt's like having a sorted list that updates itself efficiently!\n\nMaster monotonic stack and you'll solve \"next greater/smaller\" problems in seconds! 🚀\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "K8ERldD2UoU",
+      "title": "Monotonic Stack - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "jTZ5varZry8",
+      "title": "Monotonic Stack - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "czQ0I9v3Z7w",
+      "title": "Monotonic Stack - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What type of monotonic stack should you use to find the next greater element?",
+        "options": [
+          "Increasing stack",
+          "Decreasing stack",
+          "Random stack",
+          "Sorted stack"
+        ],
+        "correctAnswer": 1,
+        "explanation": "For next greater element, use a decreasing monotonic stack. When current element is greater than stack top, pop elements - they've found their next greater element."
+      },
+      {
+        "id": "q2",
+        "question": "What is the time complexity of finding next greater elements using monotonic stack?",
+        "options": [
+          "O(n²)",
+          "O(n log n)",
+          "O(n)",
+          "O(1)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Each element is pushed and popped from the stack at most once, giving us O(n) time complexity. This is much better than the naive O(n²) approach."
+      },
+      {
+        "id": "q3",
+        "question": "Why do we often store indices instead of values in the monotonic stack?",
+        "options": [
+          "To save memory",
+          "To calculate distances and positions",
+          "To make code faster",
+          "It's a coding convention"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Storing indices allows us to calculate distances between elements and access the original values when needed. This is crucial for problems like 'Daily Temperatures' where we need to know how many days until a warmer temperature."
+      },
+      {
+        "id": "q4",
+        "question": "What happens to elements remaining in the stack after processing all elements?",
+        "options": [
+          "They are errors",
+          "They have no next greater/smaller element",
+          "They should be ignored",
+          "They need to be reprocessed"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Elements remaining in the stack after processing all elements have no next greater/smaller element (depending on the problem). Their answer is typically -1 or the array length."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "next-greater-element",
+      "title": "Next Greater Element I",
+      "difficulty": "easy",
+      "description": "You are given two arrays nums1 and nums2 where nums1 is a subset of nums2. For each element in nums1, find the next greater element in nums2.\n\nThe next greater element of x in nums2 is the first greater element to the right of x. If it doesn't exist, return -1.\n\nExample:\nInput: nums1 = [4,1,2], nums2 = [1,3,4,2]\nOutput: [-1,3,-1]\nExplanation: For 4, there's no next greater. For 1, next greater is 3. For 2, there's no next greater.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Bloomberg"
+      ],
+      "topicTags": [
+        "Array",
+        "Stack",
+        "Monotonic Stack",
+        "Hash Table"
+      ],
+      "acceptanceRate": 69.8,
+      "timeComplexity": "O(n + m)",
+      "spaceComplexity": "O(n)",
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about using a stack to keep track of elements for which we haven't found the next greater element yet. What order should the stack maintain?"
+        },
+        {
+          "level": 2,
+          "text": "Use a decreasing monotonic stack. Process nums2 from left to right. When current element is greater than stack top, pop and record the mapping. Use a hash map to store the next greater element for each number."
+        },
+        {
+          "level": 3,
+          "text": "Algorithm: 1) Create a map and stack. 2) For each num in nums2: while stack not empty and num > stack.top, map[stack.pop()] = num. 3) Push num to stack. 4) For each num in nums1, return map[num] or -1."
+        }
+      ],
+      "similarProblems": [
+        "next-greater-element-ii",
+        "daily-temperatures",
+        "largest-rectangle-histogram"
+      ],
+      "constraints": [
+        "1 <= nums1.length <= nums2.length <= 1000",
+        "0 <= nums1[i], nums2[i] <= 10^4",
+        "All integers in nums1 and nums2 are unique",
+        "nums1 is a subset of nums2"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums1": [
+              4,
+              1,
+              2
+            ],
+            "nums2": [
+              1,
+              3,
+              4,
+              2
+            ]
+          },
+          "expectedOutput": [
+            -1,
+            3,
+            -1
+          ],
+          "description": "Next greater elements for subset"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums1": [
+              2,
+              4
+            ],
+            "nums2": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "expectedOutput": [
+            3,
+            -1
+          ],
+          "description": "Sequential elements"
+        },
+        {
+          "input": {
+            "nums1": [
+              1,
+              3,
+              5,
+              2,
+              4
+            ],
+            "nums2": [
+              6,
+              5,
+              4,
+              3,
+              2,
+              1,
+              7
+            ]
+          },
+          "expectedOutput": [
+            7,
+            7,
+            7,
+            7,
+            7
+          ],
+          "description": "All have same next greater"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function nextGreaterElement(nums1, nums2) {\n  const map = new Map();\n  const stack = [];\n  \n  // Process nums2 to build next greater mapping\n  \n  // Build result for nums1\n  return nums1.map(num => map.get(num) ?? -1);\n}",
+        "python": "def nextGreaterElement(nums1, nums2):\n    next_greater = {}\n    stack = []\n    \n    # Process nums2 to build next greater mapping\n    \n    # Build result for nums1\n    return [next_greater.get(num, -1) for num in nums1]",
+        "java": "class Solution {\n    public int[] nextGreaterElement(int[] nums1, int[] nums2) {\n        Map<Integer, Integer> map = new HashMap<>();\n        Stack<Integer> stack = new Stack<>();\n        \n        // Process nums2 to build next greater mapping\n        \n        // Build result for nums1\n        int[] result = new int[nums1.length];\n        for (int i = 0; i < nums1.length; i++) {\n            result[i] = map.getOrDefault(nums1[i], -1);\n        }\n        return result;\n    }\n}",
+        "c": "#include <stdlib.h>\n\nint* nextGreaterElement(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {\n    // Add your monotonic stack logic here\n    *returnSize = nums1Size;\n    int* result = malloc(nums1Size * sizeof(int));\n    return result;\n}"
+      },
+      "solution": {
+        "javascript": "function nextGreaterElement(nums1, nums2) {\n  const map = new Map();\n  const stack = [];\n  \n  for (const num of nums2) {\n    while (stack.length > 0 && num > stack[stack.length - 1]) {\n      map.set(stack.pop(), num);\n    }\n    stack.push(num);\n  }\n  \n  return nums1.map(num => map.get(num) ?? -1);\n}",
+        "python": "def nextGreaterElement(nums1, nums2):\n    next_greater = {}\n    stack = []\n    \n    for num in nums2:\n        while stack and num > stack[-1]:\n            next_greater[stack.pop()] = num\n        stack.append(num)\n    \n    return [next_greater.get(num, -1) for num in nums1]",
+        "java": "class Solution {\n    public int[] nextGreaterElement(int[] nums1, int[] nums2) {\n        Map<Integer, Integer> map = new HashMap<>();\n        Stack<Integer> stack = new Stack<>();\n        \n        for (int num : nums2) {\n            while (!stack.isEmpty() && num > stack.peek()) {\n                map.put(stack.pop(), num);\n            }\n            stack.push(num);\n        }\n        \n        int[] result = new int[nums1.length];\n        for (int i = 0; i < nums1.length; i++) {\n            result[i] = map.getOrDefault(nums1[i], -1);\n        }\n        return result;\n    }\n}",
+        "c": "#include <stdlib.h>\n#include <string.h>\n\nint* nextGreaterElement(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {\n    int* result = malloc(nums1Size * sizeof(int));\n    *returnSize = nums1Size;\n    \n    for (int i = 0; i < nums1Size; i++) {\n        result[i] = -1;\n        int found = 0;\n        for (int j = 0; j < nums2Size; j++) {\n            if (nums2[j] == nums1[i]) found = 1;\n            if (found && nums2[j] > nums1[i]) {\n                result[i] = nums2[j];\n                break;\n            }\n        }\n    }\n    return result;\n}"
+      }
+    },
+    {
+      "id": "daily-temperatures",
+      "title": "Daily Temperatures",
+      "difficulty": "medium",
+      "description": "Solve the Daily Temperatures problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "next-greater-element",
+      "title": "Next Greater Element I",
+      "difficulty": "easy",
+      "description": "Solve the Next Greater Element I problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "largest-rectangle-histogram",
+      "title": "Largest Rectangle in Histogram",
+      "difficulty": "hard",
+      "description": "Solve the Largest Rectangle in Histogram problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "trapping-rain-water",
+      "title": "Trapping Rain Water",
+      "difficulty": "hard",
+      "description": "Solve the Trapping Rain Water problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Using wrong type of monotonic stack (increasing vs decreasing)",
+      "Forgetting to process remaining elements in stack",
+      "Not storing indices when position information is needed",
+      "Comparing values instead of indices when needed",
+      "Not handling edge cases (empty array, all elements same)"
+    ],
+    "patternDetection": [
+      "Problem mentions 'next greater' or 'next smaller'",
+      "Need to find nearest larger/smaller element",
+      "Problem involves comparing elements with their neighbors",
+      "Keywords: 'next', 'previous', 'nearest', 'greater', 'smaller', 'larger'",
+      "Histogram or bar chart related problems"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "496. Next Greater Element I",
+        "link": "https://leetcode.com/problems/next-greater-element-i/",
+        "difficulty": "Easy",
+        "description": "Basic next greater element"
+      },
+      {
+        "title": "503. Next Greater Element II",
+        "link": "https://leetcode.com/problems/next-greater-element-ii/",
+        "difficulty": "Medium",
+        "description": "Circular array variant"
+      },
+      {
+        "title": "739. Daily Temperatures",
+        "link": "https://leetcode.com/problems/daily-temperatures/",
+        "difficulty": "Medium",
+        "description": "Classic monotonic stack problem"
+      },
+      {
+        "title": "84. Largest Rectangle in Histogram",
+        "link": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
+        "difficulty": "Hard",
+        "description": "Advanced monotonic stack application"
+      }
+    ]
+  }
+}

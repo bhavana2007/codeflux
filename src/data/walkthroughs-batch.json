@@ -1,0 +1,55 @@
+{
+  "sliding-window": {
+    "title": "Longest Substring Without Repeating Characters",
+    "description": "Find the length of the longest substring without repeating characters using variable-size sliding window",
+    "difficulty": "Medium",
+    "code": {
+      "javascript": "function lengthOfLongestSubstring(s) {\n  const charSet = new Set();\n  let left = 0;\n  let maxLength = 0;\n  \n  for (let right = 0; right < s.length; right++) {\n    while (charSet.has(s[right])) {\n      charSet.delete(s[left]);\n      left++;\n    }\n    charSet.add(s[right]);\n    maxLength = Math.max(maxLength, right - left + 1);\n  }\n  \n  return maxLength;\n}",
+      "python": "def lengthOfLongestSubstring(s):\n    char_set = set()\n    left = 0\n    max_length = 0\n    \n    for right in range(len(s)):\n        while s[right] in char_set:\n            char_set.remove(s[left])\n            left += 1\n        char_set.add(s[right])\n        max_length = max(max_length, right - left + 1)\n    \n    return max_length",
+      "java": "public int lengthOfLongestSubstring(String s) {\n    Set<Character> charSet = new HashSet<>();\n    int left = 0;\n    int maxLength = 0;\n    \n    for (int right = 0; right < s.length(); right++) {\n        while (charSet.contains(s.charAt(right))) {\n            charSet.remove(s.charAt(left));\n            left++;\n        }\n        charSet.add(s.charAt(right));\n        maxLength = Math.max(maxLength, right - left + 1);\n    }\n    \n    return maxLength;\n}",
+      "c": "int lengthOfLongestSubstring(char* s) {\n    int charIndex[128] = {0};\n    int left = 0, maxLength = 0;\n    \n    for (int right = 0; s[right] != '\\0'; right++) {\n        if (charIndex[s[right]] > left) {\n            left = charIndex[s[right]];\n        }\n        charIndex[s[right]] = right + 1;\n        int currentLength = right - left + 1;\n        maxLength = currentLength > maxLength ? currentLength : maxLength;\n    }\n    \n    return maxLength;\n}"
+    },
+    "steps": [
+      {
+        "title": "Initialize Window and Tracking",
+        "explanation": "We start with a Set to track characters in our current window, and two pointers (left and right) both starting at 0.\n\nThe Set is crucial - it allows O(1) lookup to check if a character is already in our window. This is the key to detecting duplicates quickly!",
+        "highlightLines": [2, 3, 4],
+        "visualization": "s = \"abcabcbb\"\n     ↑\n   left=0, right=0\n   charSet = {}\n   maxLength = 0",
+        "insight": "Using a Set for O(1) duplicate detection is what makes this algorithm efficient.",
+        "complexity": {"time": "O(1)", "space": "O(1)"}
+      },
+      {
+        "title": "Expand Window by Moving Right",
+        "explanation": "We move the right pointer forward, expanding our window. Before adding the new character, we check if it's already in our Set.\n\nIf it's NOT in the Set, we're good! Add it and continue.\nIf it IS in the Set, we have a duplicate - time to shrink!",
+        "highlightLines": [6, 7],
+        "visualization": "s = \"abcabcbb\"\n     ↑↑↑\n   left=0, right=2\n   charSet = {a, b, c}\n   Current window: \"abc\" (length 3)",
+        "insight": "The right pointer always moves forward, exploring new characters.",
+        "complexity": {"time": "O(1) per iteration", "space": "O(k)"}
+      },
+      {
+        "title": "Shrink Window When Duplicate Found",
+        "explanation": "When we find a duplicate (s[right] is already in charSet), we enter the while loop.\n\nWe remove characters from the left side of the window until the duplicate is gone. This is the \"shrinking\" phase of the sliding window.\n\nExample: If window is \"abc\" and we try to add 'a', we remove characters from left until 'a' is gone.",
+        "highlightLines": [7, 8, 9, 10],
+        "visualization": "s = \"abcabcbb\"\n        ↑\n   right=3, trying to add 'a'\n   charSet = {a, b, c}\n   \n   Duplicate found! Shrink:\n   Remove 'a': charSet = {b, c}, left=1\n   Now we can add 'a' again",
+        "insight": "The while loop ensures we remove ALL characters up to and including the duplicate. This maintains the 'no repeating characters' invariant.",
+        "complexity": {"time": "O(1) amortized", "space": "O(k)"}
+      },
+      {
+        "title": "Add New Character and Update Max",
+        "explanation": "After ensuring no duplicates, we add the current character to our Set.\n\nThen we calculate the current window length (right - left + 1) and update maxLength if this window is longer than any we've seen before.\n\nThis is where we track our answer!",
+        "highlightLines": [11, 12],
+        "visualization": "s = \"abcabcbb\"\n        ↑\n   left=1, right=3\n   charSet = {b, c, a}\n   Current window: \"bca\" (length 3)\n   maxLength = max(3, 3) = 3",
+        "insight": "We update maxLength at every step, not just when we find something new. This ensures we don't miss the optimal answer.",
+        "complexity": {"time": "O(1)", "space": "O(k)"}
+      },
+      {
+        "title": "Continue Until End",
+        "explanation": "The right pointer continues moving forward until it reaches the end of the string.\n\nEach character is added to the Set at most once and removed at most once, giving us O(n) time complexity overall.\n\nFor \"abcabcbb\", the longest substring without repeating characters is \"abc\" with length 3.",
+        "highlightLines": [6, 14],
+        "visualization": "Final state:\ns = \"abcabcbb\"\n          ↑\n   left=6, right=7\n   charSet = {b}\n   maxLength = 3\n   \n   Answer: 3 (substring \"abc\" or \"bca\" or \"cab\")",
+        "insight": "Even though we have nested loops (for + while), each character is processed at most twice (once added, once removed), making this O(n) time!",
+        "complexity": {"time": "O(n) total", "space": "O(min(n, m))"}
+      }
+    ]
+  }
+}

@@ -1,0 +1,703 @@
+{
+  "id": "binary-search",
+  "title": "Binary Search",
+  "description": "Master binary search for efficient searching in sorted arrays and problem-solving",
+  "difficulty": "intermediate",
+  "order": 7,
+  "tags": [
+    "arrays",
+    "search",
+    "divide-conquer",
+    "optimization"
+  ],
+  "documentation": {
+    "content": "# Binary Search\n\nImagine you're looking for a word in a dictionary. Do you start from page 1 and flip through every single page? Of course not! You open somewhere in the middle, check if your word comes before or after, and eliminate half the dictionary in one go. That's binary search—the art of smart elimination.\n\n## The Aha! Moment\n\nPicture this: You're playing a guessing game where someone picks a number between 1 and 100, and you have to guess it. The naive approach? Start at 1, then 2, then 3... you might need 100 guesses! But what if you always guess the middle? \"Is it 50?\" \"Lower.\" \"Is it 25?\" \"Higher.\" \"Is it 37?\" With each guess, you cut the possibilities in half. That's binary search in action—you'll find any number in at most 7 guesses!\n\n## The Story Behind Binary Search\n\nBinary search is one of the oldest and most elegant algorithms in computer science. It's based on a simple principle: if your data is sorted, you can make intelligent decisions about where to look next. Instead of checking every element (O(n)), you can find your target in O(log n) time by repeatedly dividing your search space in half.\n\nThink of it like a detective narrowing down suspects. Each clue eliminates half the possibilities until only the culprit remains.\n\n## When Your Problem Screams \"Binary Search!\"\n\nYou'll know it's time for binary search when you see:\n\n**Sorted data** - This is the golden ticket. If your array or list is sorted, binary search is probably your friend.\n\n**\"Find the first/last occurrence\"** - Problems asking for boundaries or thresholds often use binary search.\n\n**Optimization problems** - \"Find the minimum/maximum value that satisfies a condition\" often translates to binary search on the answer.\n\n**Time constraints** - When O(n) is too slow but you have sorted data, binary search saves the day.\n\n## How It Actually Works\n\nLet's walk through it step by step:\n\n**Step 1: Set Your Boundaries**\nStart with two pointers: `left` at the beginning (index 0) and `right` at the end (last index).\n\n**Step 2: Find the Middle**\nCalculate the middle index: `mid = left + (right - left) / 2`. Why not `(left + right) / 2`? To avoid integer overflow!\n\n**Step 3: Make a Decision**\n- If `array[mid]` equals your target: Found it! Return `mid`.\n- If `array[mid]` is less than target: Your target must be in the right half. Set `left = mid + 1`.\n- If `array[mid]` is greater than target: Your target must be in the left half. Set `right = mid - 1`.\n\n**Step 4: Repeat Until Found (or Not)**\nKeep going until `left > right`. If you exit the loop without finding the target, it doesn't exist in the array.\n\n## The Performance Magic\n\n**Time**: O(log n) - This is the beauty of binary search. With each comparison, you eliminate half the remaining elements. For 1 million elements, you need at most 20 comparisons!\n\n**Space**: O(1) for iterative, O(log n) for recursive (due to call stack).\n\n## Real Developers, Real Mistakes\n\nEven experienced programmers trip up on these:\n\n❌ **Using `(left + right) / 2`** - This can cause integer overflow for large arrays. Always use `left + (right - left) / 2`.\n\n❌ **Wrong boundary updates** - Setting `left = mid` or `right = mid` instead of `mid + 1` or `mid - 1` can cause infinite loops.\n\n❌ **Forgetting the array must be sorted** - Binary search only works on sorted data. If it's not sorted, sort it first or use a different approach.\n\n❌ **Off-by-one errors** - The classic bug. Be careful with `<` vs `<=` in your loop condition.\n\n## Pro Tips from the Trenches\n\n💡 **Template matters** - Stick to one binary search template and master it. There are variations, but consistency prevents bugs.\n\n💡 **Think in terms of search space** - You're not just searching arrays. You can binary search on answers, on ranges, on any monotonic function.\n\n💡 **Visualize the elimination** - Draw it out. After each step, half the elements should be gone.\n\n💡 **Handle edge cases first** - Empty array? Single element? Target smaller than all elements? Check these upfront.\n\n## Beyond Basic Search\n\nBinary search isn't just for finding exact matches:\n\n**Finding boundaries** - First occurrence, last occurrence, insertion position\n**Search in rotated arrays** - Modified binary search handles rotation\n**Peak finding** - Find local maxima in O(log n)\n**Square root** - Binary search on the answer space\n**Capacity problems** - \"Minimum capacity to ship packages in D days\"\n\n## Where You'll Use This in Real Life\n\n- **Database indexing** - How databases find records lightning-fast\n- **Version control** - Git bisect uses binary search to find bug-introducing commits\n- **Game development** - Collision detection, pathfinding optimizations\n- **System design** - Load balancing, distributed systems\n- **Autocomplete** - Finding matching prefixes in sorted dictionaries\n\nBinary search is one of those algorithms that, once mastered, you'll see opportunities to use everywhere. It's elegant, efficient, and incredibly satisfying when it clicks. The key is recognizing when you can eliminate half your search space with each decision. Happy searching! 🔍✨\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "xrMppTpoqdw",
+      "title": "Binary Search - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "s5Cp_d5v6rI",
+      "title": "Binary Search - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "eGFMYw0wBew",
+      "title": "Binary Search - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the time complexity of binary search?",
+        "options": [
+          "O(n)",
+          "O(log n)",
+          "O(n log n)",
+          "O(1)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Binary search has O(log n) time complexity because it eliminates half the search space with each comparison."
+      },
+      {
+        "id": "q2",
+        "question": "What is the prerequisite for binary search to work?",
+        "options": [
+          "Array must be unsorted",
+          "Array must be sorted",
+          "Array must have unique elements",
+          "Array must be of even length"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Binary search requires the array to be sorted so it can make decisions about which half to search based on comparisons."
+      },
+      {
+        "id": "q3",
+        "question": "Why should you use 'left + (right - left) / 2' instead of '(left + right) / 2' for calculating mid?",
+        "options": [
+          "It's faster",
+          "It prevents integer overflow",
+          "It's more readable",
+          "It works with negative numbers"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Using 'left + (right - left) / 2' prevents integer overflow that can occur when left + right exceeds the maximum integer value."
+      },
+      {
+        "id": "q4",
+        "question": "In binary search, when should you update left = mid + 1?",
+        "options": [
+          "When target is less than mid element",
+          "When target is greater than mid element",
+          "When target equals mid element",
+          "Always"
+        ],
+        "correctAnswer": 1,
+        "explanation": "When the target is greater than the mid element, we know the target must be in the right half, so we set left = mid + 1."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "binary-search-basic",
+      "title": "Binary Search",
+      "difficulty": "easy",
+      "description": "Given a sorted array of integers and a target value, return the index of the target if it exists, otherwise return -1.\n\nYou must write an algorithm with O(log n) runtime complexity.",
+      "constraints": [
+        "1 <= nums.length <= 10^4",
+        "-10^4 < nums[i], target < 10^4",
+        "All integers in nums are unique",
+        "nums is sorted in ascending order"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              -1,
+              0,
+              3,
+              5,
+              9,
+              12
+            ],
+            "target": 9
+          },
+          "expectedOutput": 4,
+          "description": "9 exists in nums and its index is 4"
+        },
+        {
+          "input": {
+            "nums": [
+              -1,
+              0,
+              3,
+              5,
+              9,
+              12
+            ],
+            "target": 2
+          },
+          "expectedOutput": -1,
+          "description": "2 does not exist in nums so return -1"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              5
+            ],
+            "target": 5
+          },
+          "expectedOutput": 0,
+          "description": "Single element array"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "target": 1
+          },
+          "expectedOutput": 0,
+          "description": "Target at beginning"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "target": 5
+          },
+          "expectedOutput": 4,
+          "description": "Target at end"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function search(nums, target) {\n  // Your code here\n  // Use binary search with left and right pointers\n  \n}",
+        "python": "def search(nums, target):\n    # Your code here\n    # Use binary search with left and right pointers\n    pass",
+        "java": "class Solution {\n    public int search(int[] nums, int target) {\n        // Your code here\n        // Use binary search with left and right pointers\n        \n    }\n}",
+        "c": "int search(int* nums, int numsSize, int target) {\n    // Your code here\n    // Use binary search with left and right pointers\n    \n}"
+      },
+      "solution": {
+        "javascript": "function search(nums, target) {\n  let left = 0;\n  let right = nums.length - 1;\n  \n  while (left <= right) {\n    const mid = left + Math.floor((right - left) / 2);\n    \n    if (nums[mid] === target) {\n      return mid;\n    } else if (nums[mid] < target) {\n      left = mid + 1;\n    } else {\n      right = mid - 1;\n    }\n  }\n  \n  return -1;\n}",
+        "python": "def search(nums, target):\n    left = 0\n    right = len(nums) - 1\n    \n    while left <= right:\n        mid = left + (right - left) // 2\n        \n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    \n    return -1",
+        "java": "class Solution {\n    public int search(int[] nums, int target) {\n        int left = 0;\n        int right = nums.length - 1;\n        \n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            \n            if (nums[mid] == target) {\n                return mid;\n            } else if (nums[mid] < target) {\n                left = mid + 1;\n            } else {\n                right = mid - 1;\n            }\n        }\n        \n        return -1;\n    }\n}",
+        "c": "int search(int* nums, int numsSize, int target) {\n    int left = 0;\n    int right = numsSize - 1;\n    \n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        \n        if (nums[mid] == target) {\n            return mid;\n        } else if (nums[mid] < target) {\n            left = mid + 1;\n        } else {\n            right = mid - 1;\n        }\n    }\n    \n    return -1;\n}"
+      }
+    },
+    {
+      "id": "first-bad-version",
+      "title": "First Bad Version",
+      "difficulty": "easy",
+      "description": "You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.\n\nSuppose you have n versions [1, 2, ..., n] and you want to find out the first bad one, which causes all the following ones to be bad.\n\nYou are given an API bool isBadVersion(version) which returns whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API.",
+      "constraints": [
+        "1 <= bad <= n <= 2^31 - 1"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "n": 5,
+            "bad": 4
+          },
+          "expectedOutput": 4,
+          "description": "isBadVersion(3) -> false, isBadVersion(4) -> true, so 4 is the first bad version"
+        },
+        {
+          "input": {
+            "n": 1,
+            "bad": 1
+          },
+          "expectedOutput": 1,
+          "description": "Only one version and it's bad"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "n": 10,
+            "bad": 1
+          },
+          "expectedOutput": 1,
+          "description": "First version is bad"
+        },
+        {
+          "input": {
+            "n": 10,
+            "bad": 10
+          },
+          "expectedOutput": 10,
+          "description": "Last version is bad"
+        },
+        {
+          "input": {
+            "n": 100,
+            "bad": 50
+          },
+          "expectedOutput": 50,
+          "description": "Middle version is bad"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function firstBadVersion(n) {\n  // Your code here\n  // Use binary search to minimize API calls\n  // Call isBadVersion(mid) to check if version is bad\n  \n}",
+        "python": "def first_bad_version(n):\n    # Your code here\n    # Use binary search to minimize API calls\n    # Call is_bad_version(mid) to check if version is bad\n    pass",
+        "java": "class Solution {\n    public int firstBadVersion(int n) {\n        // Your code here\n        // Use binary search to minimize API calls\n        // Call isBadVersion(mid) to check if version is bad\n        \n    }\n}",
+        "c": "int firstBadVersion(int n) {\n    // Your code here\n    // Use binary search to minimize API calls\n    // Call isBadVersion(mid) to check if version is bad\n    \n}"
+      },
+      "solution": {
+        "javascript": "function firstBadVersion(n) {\n  let left = 1;\n  let right = n;\n  \n  while (left < right) {\n    const mid = left + Math.floor((right - left) / 2);\n    \n    if (isBadVersion(mid)) {\n      // First bad version is at mid or before\n      right = mid;\n    } else {\n      // First bad version is after mid\n      left = mid + 1;\n    }\n  }\n  \n  return left;\n}",
+        "python": "def first_bad_version(n):\n    left = 1\n    right = n\n    \n    while left < right:\n        mid = left + (right - left) // 2\n        \n        if is_bad_version(mid):\n            # First bad version is at mid or before\n            right = mid\n        else:\n            # First bad version is after mid\n            left = mid + 1\n    \n    return left",
+        "java": "class Solution {\n    public int firstBadVersion(int n) {\n        int left = 1;\n        int right = n;\n        \n        while (left < right) {\n            int mid = left + (right - left) / 2;\n            \n            if (isBadVersion(mid)) {\n                // First bad version is at mid or before\n                right = mid;\n            } else {\n                // First bad version is after mid\n                left = mid + 1;\n            }\n        }\n        \n        return left;\n    }\n}",
+        "c": "int firstBadVersion(int n) {\n    int left = 1;\n    int right = n;\n    \n    while (left < right) {\n        int mid = left + (right - left) / 2;\n        \n        if (isBadVersion(mid)) {\n            // First bad version is at mid or before\n            right = mid;\n        } else {\n            // First bad version is after mid\n            left = mid + 1;\n        }\n    }\n    \n    return left;\n}"
+      }
+    },
+    {
+      "id": "search-insert-position",
+      "title": "Search Insert Position",
+      "difficulty": "easy",
+      "description": "Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.\n\nYou must write an algorithm with O(log n) runtime complexity.",
+      "constraints": [
+        "1 <= nums.length <= 10^4",
+        "-10^4 <= nums[i] <= 10^4",
+        "nums contains distinct values sorted in ascending order",
+        "-10^4 <= target <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              5,
+              6
+            ],
+            "target": 5
+          },
+          "expectedOutput": 2,
+          "description": "5 is found at index 2"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              5,
+              6
+            ],
+            "target": 2
+          },
+          "expectedOutput": 1,
+          "description": "2 should be inserted at index 1"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              5,
+              6
+            ],
+            "target": 7
+          },
+          "expectedOutput": 4,
+          "description": "Insert at end"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              3,
+              5,
+              6
+            ],
+            "target": 0
+          },
+          "expectedOutput": 0,
+          "description": "Insert at beginning"
+        },
+        {
+          "input": {
+            "nums": [
+              1
+            ],
+            "target": 1
+          },
+          "expectedOutput": 0,
+          "description": "Single element, target found"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function searchInsert(nums, target) {\n  // Your code here\n  // Use binary search to find target or insertion position\n  \n}",
+        "python": "def search_insert(nums, target):\n    # Your code here\n    # Use binary search to find target or insertion position\n    pass",
+        "java": "class Solution {\n    public int searchInsert(int[] nums, int target) {\n        // Your code here\n        // Use binary search to find target or insertion position\n        \n    }\n}",
+        "c": "int searchInsert(int* nums, int numsSize, int target) {\n    // Your code here\n    // Use binary search to find target or insertion position\n    \n}"
+      },
+      "solution": {
+        "javascript": "function searchInsert(nums, target) {\n  let left = 0;\n  let right = nums.length - 1;\n  \n  while (left <= right) {\n    const mid = left + Math.floor((right - left) / 2);\n    \n    if (nums[mid] === target) {\n      return mid;\n    } else if (nums[mid] < target) {\n      left = mid + 1;\n    } else {\n      right = mid - 1;\n    }\n  }\n  \n  // If not found, left is the insertion position\n  return left;\n}",
+        "python": "def search_insert(nums, target):\n    left = 0\n    right = len(nums) - 1\n    \n    while left <= right:\n        mid = left + (right - left) // 2\n        \n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    \n    # If not found, left is the insertion position\n    return left",
+        "java": "class Solution {\n    public int searchInsert(int[] nums, int target) {\n        int left = 0;\n        int right = nums.length - 1;\n        \n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            \n            if (nums[mid] == target) {\n                return mid;\n            } else if (nums[mid] < target) {\n                left = mid + 1;\n            } else {\n                right = mid - 1;\n            }\n        }\n        \n        // If not found, left is the insertion position\n        return left;\n    }\n}",
+        "c": "int searchInsert(int* nums, int numsSize, int target) {\n    int left = 0;\n    int right = numsSize - 1;\n    \n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        \n        if (nums[mid] == target) {\n            return mid;\n        } else if (nums[mid] < target) {\n            left = mid + 1;\n        } else {\n            right = mid - 1;\n        }\n    }\n    \n    // If not found, left is the insertion position\n    return left;\n}"
+      }
+    },
+    {
+      "id": "find-peak-element",
+      "title": "Find Peak Element",
+      "difficulty": "medium",
+      "description": "A peak element is an element that is strictly greater than its neighbors.\n\nGiven a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.\n\nYou may imagine that nums[-1] = nums[n] = -∞. In other words, an element is always considered to be strictly greater than a neighbor that is outside the array.\n\nYou must write an algorithm that runs in O(log n) time.",
+      "companyTags": [
+        "Google",
+        "Microsoft",
+        "Amazon",
+        "Facebook"
+      ],
+      "topicTags": [
+        "Array",
+        "Binary Search"
+      ],
+      "acceptanceRate": 45,
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "1 <= nums.length <= 1000",
+        "-2^31 <= nums[i] <= 2^31 - 1",
+        "nums[i] != nums[i + 1] for all valid i"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              3,
+              1
+            ]
+          },
+          "expectedOutput": 2,
+          "description": "3 is a peak element and your function should return the index number 2"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2,
+              1,
+              3,
+              5,
+              6,
+              4
+            ]
+          },
+          "expectedOutput": 5,
+          "description": "Your function can return either index number 1 where the peak element is 2, or index number 5 where the peak element is 6"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "nums": [
+              1
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "Single element is always a peak"
+        },
+        {
+          "input": {
+            "nums": [
+              1,
+              2
+            ]
+          },
+          "expectedOutput": 1,
+          "description": "Last element is peak"
+        },
+        {
+          "input": {
+            "nums": [
+              2,
+              1
+            ]
+          },
+          "expectedOutput": 0,
+          "description": "First element is peak"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about how binary search can help. If the middle element is less than its right neighbor, there must be a peak on the right side."
+        },
+        {
+          "level": 2,
+          "text": "Use binary search. If nums[mid] < nums[mid+1], search right half (left = mid + 1). Otherwise, search left half (right = mid)."
+        },
+        {
+          "level": 3,
+          "text": "The key insight: if nums[mid] < nums[mid+1], the right side must have a peak (since nums[n] = -∞). Similarly for the left side."
+        }
+      ],
+      "similarProblems": [
+        "binary-search-basic",
+        "search-insert-position"
+      ],
+      "starterCode": {
+        "javascript": "function findPeakElement(nums) {\n  // Your code here\n  // Use binary search to find a peak in O(log n)\n  \n}",
+        "python": "def find_peak_element(nums):\n    # Your code here\n    # Use binary search to find a peak in O(log n)\n    pass",
+        "java": "class Solution {\n    public int findPeakElement(int[] nums) {\n        // Your code here\n        // Use binary search to find a peak in O(log n)\n        \n    }\n}",
+        "c": "int findPeakElement(int* nums, int numsSize) {\n    // Your code here\n    // Use binary search to find a peak in O(log n)\n    \n}"
+      },
+      "solution": {
+        "javascript": "function findPeakElement(nums) {\n  let left = 0;\n  let right = nums.length - 1;\n  \n  while (left < right) {\n    const mid = left + Math.floor((right - left) / 2);\n    \n    if (nums[mid] < nums[mid + 1]) {\n      // Peak is on the right side\n      left = mid + 1;\n    } else {\n      // Peak is on the left side or at mid\n      right = mid;\n    }\n  }\n  \n  return left;\n}",
+        "python": "def find_peak_element(nums):\n    left = 0\n    right = len(nums) - 1\n    \n    while left < right:\n        mid = left + (right - left) // 2\n        \n        if nums[mid] < nums[mid + 1]:\n            # Peak is on the right side\n            left = mid + 1\n        else:\n            # Peak is on the left side or at mid\n            right = mid\n    \n    return left",
+        "java": "class Solution {\n    public int findPeakElement(int[] nums) {\n        int left = 0;\n        int right = nums.length - 1;\n        \n        while (left < right) {\n            int mid = left + (right - left) / 2;\n            \n            if (nums[mid] < nums[mid + 1]) {\n                // Peak is on the right side\n                left = mid + 1;\n            } else {\n                // Peak is on the left side or at mid\n                right = mid;\n            }\n        }\n        \n        return left;\n    }\n}",
+        "c": "int findPeakElement(int* nums, int numsSize) {\n    int left = 0;\n    int right = numsSize - 1;\n    \n    while (left < right) {\n        int mid = left + (right - left) / 2;\n        \n        if (nums[mid] < nums[mid + 1]) {\n            // Peak is on the right side\n            left = mid + 1;\n        } else {\n            // Peak is on the left side or at mid\n            right = mid;\n        }\n    }\n    \n    return left;\n}"
+      }
+    },
+    {
+      "id": "sqrt-x",
+      "title": "Sqrt(x)",
+      "difficulty": "easy",
+      "description": "Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.\n\nYou must not use any built-in exponent function or operator.\n\nFor example, do not use pow(x, 0.5) in c++ or x ** 0.5 in python.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Apple",
+        "Bloomberg"
+      ],
+      "topicTags": [
+        "Math",
+        "Binary Search"
+      ],
+      "acceptanceRate": 38,
+      "timeComplexity": "O(log n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "0 <= x <= 2^31 - 1"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "x": 4
+          },
+          "expectedOutput": 2,
+          "description": "The square root of 4 is 2"
+        },
+        {
+          "input": {
+            "x": 8
+          },
+          "expectedOutput": 2,
+          "description": "The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "x": 0
+          },
+          "expectedOutput": 0,
+          "description": "Square root of 0 is 0"
+        },
+        {
+          "input": {
+            "x": 1
+          },
+          "expectedOutput": 1,
+          "description": "Square root of 1 is 1"
+        },
+        {
+          "input": {
+            "x": 2147395599
+          },
+          "expectedOutput": 46339,
+          "description": "Large number test case"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about binary search on the answer space. The answer is between 0 and x."
+        },
+        {
+          "level": 2,
+          "text": "Use binary search from 0 to x. For each mid, check if mid * mid <= x. Be careful with integer overflow!"
+        },
+        {
+          "level": 3,
+          "text": "To avoid overflow, instead of checking mid * mid <= x, check mid <= x / mid. Keep track of the last valid answer."
+        }
+      ],
+      "similarProblems": [
+        "binary-search-basic",
+        "find-peak-element"
+      ],
+      "starterCode": {
+        "javascript": "function mySqrt(x) {\n  // Your code here\n  // Use binary search on answer space [0, x]\n  \n}",
+        "python": "def my_sqrt(x):\n    # Your code here\n    # Use binary search on answer space [0, x]\n    pass",
+        "java": "class Solution {\n    public int mySqrt(int x) {\n        // Your code here\n        // Use binary search on answer space [0, x]\n        \n    }\n}",
+        "c": "int mySqrt(int x) {\n    // Your code here\n    // Use binary search on answer space [0, x]\n    \n}"
+      },
+      "solution": {
+        "javascript": "function mySqrt(x) {\n  if (x === 0 || x === 1) return x;\n  \n  let left = 1;\n  let right = x;\n  let result = 0;\n  \n  while (left <= right) {\n    const mid = left + Math.floor((right - left) / 2);\n    \n    // Avoid overflow by using division instead of multiplication\n    if (mid <= x / mid) {\n      result = mid;\n      left = mid + 1;\n    } else {\n      right = mid - 1;\n    }\n  }\n  \n  return result;\n}",
+        "python": "def my_sqrt(x):\n    if x == 0 or x == 1:\n        return x\n    \n    left = 1\n    right = x\n    result = 0\n    \n    while left <= right:\n        mid = left + (right - left) // 2\n        \n        # Avoid overflow by using division instead of multiplication\n        if mid <= x // mid:\n            result = mid\n            left = mid + 1\n        else:\n            right = mid - 1\n    \n    return result",
+        "java": "class Solution {\n    public int mySqrt(int x) {\n        if (x == 0 || x == 1) return x;\n        \n        int left = 1;\n        int right = x;\n        int result = 0;\n        \n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            \n            // Avoid overflow by using division instead of multiplication\n            if (mid <= x / mid) {\n                result = mid;\n                left = mid + 1;\n            } else {\n                right = mid - 1;\n            }\n        }\n        \n        return result;\n    }\n}",
+        "c": "int mySqrt(int x) {\n    if (x == 0 || x == 1) return x;\n    \n    int left = 1;\n    int right = x;\n    int result = 0;\n    \n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        \n        // Avoid overflow by using division instead of multiplication\n        if (mid <= x / mid) {\n            result = mid;\n            left = mid + 1;\n        } else {\n            right = mid - 1;\n        }\n    }\n    \n    return result;\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Using (left + right) / 2 for mid calculation - this can cause integer overflow. Always use left + (right - left) / 2",
+      "Wrong boundary updates - using left = mid or right = mid instead of mid + 1 or mid - 1 can cause infinite loops",
+      "Forgetting the array must be sorted - binary search only works on sorted data",
+      "Using wrong loop condition - < vs <= matters! Use <= when you want to check when left equals right",
+      "Not handling edge cases - empty array, single element, target not in array"
+    ],
+    "patternDetection": [
+      "The array or data is sorted - this is the biggest hint for binary search",
+      "Problem asks to find something in O(log n) time - binary search is the go-to algorithm",
+      "Looking for a boundary or threshold - first/last occurrence, insertion position",
+      "Optimization problems with monotonic functions - binary search on the answer",
+      "Problem mentions 'minimize API calls' or 'minimize comparisons' - binary search reduces operations",
+      "Search space can be divided into two halves based on a condition"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "704. Binary Search",
+        "link": "https://leetcode.com/problems/binary-search/",
+        "difficulty": "Easy",
+        "description": "Classic binary search implementation - find target in sorted array"
+      },
+      {
+        "title": "278. First Bad Version",
+        "link": "https://leetcode.com/problems/first-bad-version/",
+        "difficulty": "Easy",
+        "description": "Find the first bad version using binary search to minimize API calls"
+      },
+      {
+        "title": "35. Search Insert Position",
+        "link": "https://leetcode.com/problems/search-insert-position/",
+        "difficulty": "Easy",
+        "description": "Find target or return insertion position using binary search"
+      },
+      {
+        "title": "33. Search in Rotated Sorted Array",
+        "link": "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+        "difficulty": "Medium",
+        "description": "Modified binary search on rotated sorted array"
+      },
+      {
+        "title": "34. Find First and Last Position",
+        "link": "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+        "difficulty": "Medium",
+        "description": "Find boundaries using binary search - first and last occurrence"
+      },
+      {
+        "title": "69. Sqrt(x)",
+        "link": "https://leetcode.com/problems/sqrtx/",
+        "difficulty": "Easy",
+        "description": "Binary search on answer space to find square root"
+      },
+      {
+        "title": "153. Find Minimum in Rotated Sorted Array",
+        "link": "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/",
+        "difficulty": "Medium",
+        "description": "Find minimum element in rotated array using binary search"
+      },
+      {
+        "title": "162. Find Peak Element",
+        "link": "https://leetcode.com/problems/find-peak-element/",
+        "difficulty": "Medium",
+        "description": "Find peak element using binary search in O(log n)"
+      }
+    ]
+  },
+  "walkthrough": {
+    "title": "Search in Rotated Sorted Array",
+    "description": "Find target in a rotated sorted array in O(log n) time using modified binary search",
+    "difficulty": "Medium",
+    "code": {
+      "javascript": "function search(nums, target) {\n  let left = 0, right = nums.length - 1;\n  \n  while (left <= right) {\n    const mid = Math.floor((left + right) / 2);\n    \n    if (nums[mid] === target) return mid;\n    \n    // Determine which half is sorted\n    if (nums[left] <= nums[mid]) {\n      // Left half is sorted\n      if (nums[left] <= target && target < nums[mid]) {\n        right = mid - 1;\n      } else {\n        left = mid + 1;\n      }\n    } else {\n      // Right half is sorted\n      if (nums[mid] < target && target <= nums[right]) {\n        left = mid + 1;\n      } else {\n        right = mid - 1;\n      }\n    }\n  }\n  \n  return -1;\n}",
+      "python": "def search(nums, target):\n    left, right = 0, len(nums) - 1\n    \n    while left <= right:\n        mid = (left + right) // 2\n        \n        if nums[mid] == target:\n            return mid\n        \n        # Determine which half is sorted\n        if nums[left] <= nums[mid]:\n            # Left half is sorted\n            if nums[left] <= target < nums[mid]:\n                right = mid - 1\n            else:\n                left = mid + 1\n        else:\n            # Right half is sorted\n            if nums[mid] < target <= nums[right]:\n                left = mid + 1\n            else:\n                right = mid - 1\n    \n    return -1",
+      "java": "public int search(int[] nums, int target) {\n    int left = 0, right = nums.length - 1;\n    \n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        \n        if (nums[mid] == target) return mid;\n        \n        if (nums[left] <= nums[mid]) {\n            if (nums[left] <= target && target < nums[mid]) {\n                right = mid - 1;\n            } else {\n                left = mid + 1;\n            }\n        } else {\n            if (nums[mid] < target && target <= nums[right]) {\n                left = mid + 1;\n            } else {\n                right = mid - 1;\n            }\n        }\n    }\n    \n    return -1;\n}",
+      "c": "int search(int* nums, int numsSize, int target) {\n    int left = 0, right = numsSize - 1;\n    \n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        \n        if (nums[mid] == target) return mid;\n        \n        if (nums[left] <= nums[mid]) {\n            if (nums[left] <= target && target < nums[mid]) {\n                right = mid - 1;\n            } else {\n                left = mid + 1;\n            }\n        } else {\n            if (nums[mid] < target && target <= nums[right]) {\n                left = mid + 1;\n            } else {\n                right = mid - 1;\n            }\n        }\n    }\n    \n    return -1;\n}"
+    },
+    "steps": [
+      {
+        "title": "Setup Binary Search Pointers",
+        "explanation": "We initialize left and right pointers like standard binary search.\\n\\nThe twist: the array is rotated! Example: [4,5,6,7,0,1,2] was originally [0,1,2,4,5,6,7] rotated at index 4.\\n\\nKey insight: At least one half of the array is always sorted!",
+        "highlightLines": [
+          2
+        ],
+        "visualization": "Array: [4,5,6,7,0,1,2], target = 0\\n        ↑         ↑\\n      left=0    right=6\\n\\nOriginal: [0,1,2,4,5,6,7]\\nRotated:  [4,5,6,7,0,1,2]",
+        "insight": "Even though the array is rotated, we can still use binary search by identifying which half is properly sorted!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Find Middle and Check Target",
+        "explanation": "Calculate mid point and check if it's our target (lucky case!).\\n\\nIf not, we need to determine which half to search. This is where it differs from standard binary search.",
+        "highlightLines": [
+          5,
+          7
+        ],
+        "visualization": "Array: [4,5,6,7,0,1,2]\\n            ↑\\n          mid=3\\n          nums[mid]=7\\n\\nTarget is 0, not 7. Continue searching...",
+        "insight": "The mid calculation is the same as standard binary search. The magic happens in deciding which half to search!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Identify Sorted Half",
+        "explanation": "Compare nums[left] with nums[mid]:\\n\\n• If nums[left] <= nums[mid]: Left half is sorted\\n• Otherwise: Right half is sorted\\n\\nThis works because the rotation point creates exactly one unsorted boundary!",
+        "highlightLines": [
+          10
+        ],
+        "visualization": "Array: [4,5,6,7,0,1,2]\\n        ↑     ↑\\n      left  mid\\n      4  <=  7\\n\\nLeft half [4,5,6,7] is sorted!\\nRight half [0,1,2] has the rotation point",
+        "insight": "The rotation creates exactly ONE discontinuity. So one half must be perfectly sorted!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Search in Sorted Half",
+        "explanation": "If the sorted half contains our target (check with range comparison), search there.\\n\\nOtherwise, the target must be in the other half!\\n\\nFor left sorted: if nums[left] <= target < nums[mid], go left.\\nFor right sorted: if nums[mid] < target <= nums[right], go right.",
+        "highlightLines": [
+          12,
+          13,
+          14,
+          15,
+          18,
+          19,
+          20,
+          21
+        ],
+        "visualization": "Array: [4,5,6,7,0,1,2], target=0\\nLeft half [4,5,6,7] is sorted\\n\\nIs 0 in range [4,7]? NO\\nSo search right half!\\n\\nNew range: [0,1,2]\\n            ↑\\n          mid=1, found 0!",
+        "insight": "We use the sorted half's properties to make an informed decision about where to search next. This maintains O(log n) complexity!",
+        "complexity": {
+          "time": "O(1)",
+          "space": "O(1)"
+        }
+      },
+      {
+        "title": "Repeat Until Found or Exhausted",
+        "explanation": "Continue halving the search space until we find the target or left > right.\\n\\nEach iteration eliminates half the remaining elements, giving us O(log n) time complexity!\\n\\nThis is as efficient as searching a normal sorted array.",
+        "highlightLines": [
+          4,
+          26
+        ],
+        "visualization": "Iteration trace for [4,5,6,7,0,1,2], target=0:\\n\\n1. [4,5,6,7,0,1,2] mid=7, search right\\n2. [0,1,2] mid=1, search left\\n3. [0] mid=0, FOUND at index 4!\\n\\nTotal iterations: 3 = log₂(7)",
+        "insight": "Despite the rotation, we maintain O(log n) complexity by always eliminating half the search space!",
+        "complexity": {
+          "time": "O(log n)",
+          "space": "O(1)"
+        }
+      }
+    ]
+  }
+}

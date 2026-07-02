@@ -1,0 +1,601 @@
+{
+  "id": "merge-intervals",
+  "title": "Merge Intervals",
+  "description": "Master interval merging and overlapping range problems",
+  "difficulty": "intermediate",
+  "order": 11,
+  "tags": [
+    "intervals",
+    "sorting",
+    "arrays",
+    "greedy"
+  ],
+  "documentation": {
+    "content": "# Merge Intervals: The Art of Combining Ranges\n\nImagine you're a calendar app trying to find free time slots. You have meetings at [9-10], [9:30-11], and [2-3]. How do you figure out when you're actually busy? You merge overlapping intervals! [9-10] and [9:30-11] overlap, so they become [9-11]. That's the merge intervals pattern.\n\n## The Story Behind Merge Intervals\n\nInterval problems appear everywhere in real life—scheduling meetings, booking hotel rooms, merging time ranges, finding conflicts. The key insight is that if you sort intervals by start time, overlapping intervals will be adjacent, making them easy to merge.\n\n## The Core Idea\n\nAn interval is just a pair [start, end]. Two intervals overlap if one starts before the other ends. The merge intervals pattern is about:\n\n1. **Sort intervals** by start time\n2. **Iterate through sorted intervals**\n3. **Merge overlapping intervals** as you go\n4. **Keep track of merged result**\n\n## When Your Problem Screams \"Merge Intervals!\"\n\n**Overlapping ranges** - Meetings, bookings, time slots\n**Interval conflicts** - Finding free time, detecting overlaps\n**Range merging** - Combining continuous segments\n**Interval insertion** - Adding new interval to existing set\n**Coverage problems** - What ranges are covered?\n\n## How It Actually Works\n\nLet's merge [[1,3], [2,6], [8,10], [15,18]]:\n\n**Step 1**: Already sorted by start time ✓\n\n**Step 2**: Start with first interval [1,3]\n\n**Step 3**: Check [2,6] - does 2 <= 3? Yes! Merge to [1,6]\n\n**Step 4**: Check [8,10] - does 8 <= 6? No! Add [1,6] to result, start new interval [8,10]\n\n**Step 5**: Check [15,18] - does 15 <= 10? No! Add [8,10] to result, add [15,18]\n\n**Result**: [[1,6], [8,10], [15,18]]\n\n## The Performance\n\n**Time**: O(n log n) - Dominated by sorting\n**Space**: O(n) - For the result array\n\n## Common Mistakes\n\n❌ **Forgetting to sort** - Intervals must be sorted by start time first\n❌ **Wrong overlap condition** - Use `newStart <= currentEnd`, not `<`\n❌ **Not updating end correctly** - Use `max(currentEnd, newEnd)` when merging\n❌ **Modifying input array** - Create new array for result\n\n## Pro Tips\n\n💡 **Sort first, always** - Makes overlaps adjacent and easy to detect\n💡 **Track current interval** - Keep merging into current until no overlap\n💡 **Use max for end** - When merging, new end is max of both ends\n💡 **Edge cases matter** - Empty array, single interval, no overlaps\n\n## Variations You'll See\n\n**Insert Interval** - Add new interval and merge\n**Non-overlapping Intervals** - Remove minimum to make non-overlapping\n**Meeting Rooms** - Can person attend all meetings?\n**Meeting Rooms II** - Minimum conference rooms needed\n**Interval List Intersections** - Find overlaps between two lists\n\n## Real-World Applications\n\n- **Calendar apps** - Merging busy times, finding free slots\n- **Resource scheduling** - CPU time slices, room bookings\n- **Network traffic** - Merging packet time ranges\n- **Video editing** - Merging clip segments\n- **Database queries** - Range queries and index merging\n\nMerge intervals is one of those patterns that once you see it, you'll recognize it everywhere. The key is sorting first, then merging as you go! 📅✨\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "Q7ErM0JfSPM",
+      "title": "Merge Intervals - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "2JzRBPFYbKE",
+      "title": "Merge Intervals - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "3b_rP1f7WcE",
+      "title": "Merge Intervals - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the first step in solving merge intervals problems?",
+        "options": [
+          "Merge all intervals",
+          "Sort intervals by start time",
+          "Find overlaps",
+          "Count intervals"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Sorting intervals by start time ensures overlapping intervals are adjacent, making them easy to merge."
+      },
+      {
+        "id": "q2",
+        "question": "When do two intervals [a,b] and [c,d] overlap (assuming sorted by start)?",
+        "options": [
+          "c > b",
+          "c <= b",
+          "c < b",
+          "c == b"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Intervals overlap if the second interval's start (c) is less than or equal to the first interval's end (b)."
+      },
+      {
+        "id": "q3",
+        "question": "What is the time complexity of merge intervals?",
+        "options": [
+          "O(n)",
+          "O(n log n)",
+          "O(n²)",
+          "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Time complexity is O(n log n) due to sorting. The merging step itself is O(n)."
+      },
+      {
+        "id": "q4",
+        "question": "When merging [1,5] and [3,7], what is the merged interval?",
+        "options": [
+          "[1,5]",
+          "[3,7]",
+          "[1,7]",
+          "[3,5]"
+        ],
+        "correctAnswer": 2,
+        "explanation": "The merged interval takes the minimum start (1) and maximum end (7), resulting in [1,7]."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "merge-intervals-basic",
+      "title": "Merge Intervals",
+      "difficulty": "medium",
+      "description": "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
+      "constraints": [
+        "1 <= intervals.length <= 10^4",
+        "intervals[i].length == 2",
+        "0 <= starti <= endi <= 10^4"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "intervals": [
+              [
+                1,
+                3
+              ],
+              [
+                2,
+                6
+              ],
+              [
+                8,
+                10
+              ],
+              [
+                15,
+                18
+              ]
+            ]
+          },
+          "expectedOutput": [
+            [
+              1,
+              6
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              15,
+              18
+            ]
+          ],
+          "description": "Merge [1,3] and [2,6] into [1,6]"
+        },
+        {
+          "input": {
+            "intervals": [
+              [
+                1,
+                4
+              ],
+              [
+                4,
+                5
+              ]
+            ]
+          },
+          "expectedOutput": [
+            [
+              1,
+              5
+            ]
+          ],
+          "description": "Intervals touching at boundary merge"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "intervals": [
+              [
+                1,
+                4
+              ]
+            ]
+          },
+          "expectedOutput": [
+            [
+              1,
+              4
+            ]
+          ],
+          "description": "Single interval"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function merge(intervals) {\n  // Your code here\n  // Sort by start time, then merge overlapping\n  \n}",
+        "python": "def merge(intervals):\n    # Your code here\n    # Sort by start time, then merge overlapping\n    pass",
+        "java": "class Solution {\n    public int[][] merge(int[][] intervals) {\n        // Your code here\n        // Sort by start time, then merge overlapping\n        \n    }\n}",
+        "c": "int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes) {\n    // Your code here\n    // Sort by start time, then merge overlapping\n    \n}"
+      },
+      "solution": {
+        "javascript": "function merge(intervals) {\n  if (intervals.length <= 1) return intervals;\n  \n  intervals.sort((a, b) => a[0] - b[0]);\n  \n  const result = [intervals[0]];\n  \n  for (let i = 1; i < intervals.length; i++) {\n    const current = intervals[i];\n    const last = result[result.length - 1];\n    \n    if (current[0] <= last[1]) {\n      last[1] = Math.max(last[1], current[1]);\n    } else {\n      result.push(current);\n    }\n  }\n  \n  return result;\n}",
+        "python": "def merge(intervals):\n    if len(intervals) <= 1:\n        return intervals\n    \n    intervals.sort(key=lambda x: x[0])\n    \n    result = [intervals[0]]\n    \n    for i in range(1, len(intervals)):\n        current = intervals[i]\n        last = result[-1]\n        \n        if current[0] <= last[1]:\n            last[1] = max(last[1], current[1])\n        else:\n            result.append(current)\n    \n    return result",
+        "java": "class Solution {\n    public int[][] merge(int[][] intervals) {\n        if (intervals.length <= 1) return intervals;\n        \n        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);\n        \n        List<int[]> result = new ArrayList<>();\n        result.add(intervals[0]);\n        \n        for (int i = 1; i < intervals.length; i++) {\n            int[] current = intervals[i];\n            int[] last = result.get(result.size() - 1);\n            \n            if (current[0] <= last[1]) {\n                last[1] = Math.max(last[1], current[1]);\n            } else {\n                result.add(current);\n            }\n        }\n        \n        return result.toArray(new int[result.size()][]);\n    }\n}",
+        "c": "int compare(const void* a, const void* b) {\n    return (*(int**)a)[0] - (*(int**)b)[0];\n}\n\nint** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes) {\n    if (intervalsSize <= 1) {\n        *returnSize = intervalsSize;\n        *returnColumnSizes = intervalsColSize;\n        return intervals;\n    }\n    \n    qsort(intervals, intervalsSize, sizeof(int*), compare);\n    \n    int** result = (int**)malloc(intervalsSize * sizeof(int*));\n    *returnColumnSizes = (int*)malloc(intervalsSize * sizeof(int));\n    \n    result[0] = (int*)malloc(2 * sizeof(int));\n    result[0][0] = intervals[0][0];\n    result[0][1] = intervals[0][1];\n    (*returnColumnSizes)[0] = 2;\n    *returnSize = 1;\n    \n    for (int i = 1; i < intervalsSize; i++) {\n        int* current = intervals[i];\n        int* last = result[*returnSize - 1];\n        \n        if (current[0] <= last[1]) {\n            last[1] = current[1] > last[1] ? current[1] : last[1];\n        } else {\n            result[*returnSize] = (int*)malloc(2 * sizeof(int));\n            result[*returnSize][0] = current[0];\n            result[*returnSize][1] = current[1];\n            (*returnColumnSizes)[*returnSize] = 2;\n            (*returnSize)++;\n        }\n    }\n    \n    return result;\n}"
+      }
+    },
+    {
+      "id": "insert-interval",
+      "title": "Insert Interval",
+      "difficulty": "medium",
+      "description": "You are given an array of non-overlapping intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti.\n\nYou are also given an interval newInterval = [start, end] that represents the start and end of another interval.\n\nInsert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).",
+      "constraints": [
+        "0 <= intervals.length <= 10^4",
+        "intervals[i].length == 2",
+        "0 <= starti <= endi <= 10^5",
+        "intervals is sorted by starti in ascending order",
+        "newInterval.length == 2",
+        "0 <= start <= end <= 10^5"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "intervals": [
+              [
+                1,
+                3
+              ],
+              [
+                6,
+                9
+              ]
+            ],
+            "newInterval": [
+              2,
+              5
+            ]
+          },
+          "expectedOutput": [
+            [
+              1,
+              5
+            ],
+            [
+              6,
+              9
+            ]
+          ],
+          "description": "New interval merges with first interval"
+        },
+        {
+          "input": {
+            "intervals": [
+              [
+                1,
+                2
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                6,
+                7
+              ],
+              [
+                8,
+                10
+              ],
+              [
+                12,
+                16
+              ]
+            ],
+            "newInterval": [
+              4,
+              8
+            ]
+          },
+          "expectedOutput": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              10
+            ],
+            [
+              12,
+              16
+            ]
+          ],
+          "description": "New interval merges multiple intervals"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "intervals": [],
+            "newInterval": [
+              5,
+              7
+            ]
+          },
+          "expectedOutput": [
+            [
+              5,
+              7
+            ]
+          ],
+          "description": "Empty intervals"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function insert(intervals, newInterval) {\n  // Your code here\n  \n}",
+        "python": "def insert(intervals, new_interval):\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public int[][] insert(int[][] intervals, int[] newInterval) {\n        // Your code here\n        \n    }\n}",
+        "c": "int** insert(int** intervals, int intervalsSize, int* intervalsColSize, int* newInterval, int newIntervalSize, int* returnSize, int** returnColumnSizes) {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function insert(intervals, newInterval) {\n  const result = [];\n  let i = 0;\n  \n  // Add all intervals before newInterval\n  while (i < intervals.length && intervals[i][1] < newInterval[0]) {\n    result.push(intervals[i]);\n    i++;\n  }\n  \n  // Merge overlapping intervals\n  while (i < intervals.length && intervals[i][0] <= newInterval[1]) {\n    newInterval[0] = Math.min(newInterval[0], intervals[i][0]);\n    newInterval[1] = Math.max(newInterval[1], intervals[i][1]);\n    i++;\n  }\n  result.push(newInterval);\n  \n  // Add remaining intervals\n  while (i < intervals.length) {\n    result.push(intervals[i]);\n    i++;\n  }\n  \n  return result;\n}",
+        "python": "def insert(intervals, new_interval):\n    result = []\n    i = 0\n    \n    # Add all intervals before new_interval\n    while i < len(intervals) and intervals[i][1] < new_interval[0]:\n        result.append(intervals[i])\n        i += 1\n    \n    # Merge overlapping intervals\n    while i < len(intervals) and intervals[i][0] <= new_interval[1]:\n        new_interval[0] = min(new_interval[0], intervals[i][0])\n        new_interval[1] = max(new_interval[1], intervals[i][1])\n        i += 1\n    result.append(new_interval)\n    \n    # Add remaining intervals\n    while i < len(intervals):\n        result.append(intervals[i])\n        i += 1\n    \n    return result",
+        "java": "class Solution {\n    public int[][] insert(int[][] intervals, int[] newInterval) {\n        List<int[]> result = new ArrayList<>();\n        int i = 0;\n        \n        // Add all intervals before newInterval\n        while (i < intervals.length && intervals[i][1] < newInterval[0]) {\n            result.add(intervals[i]);\n            i++;\n        }\n        \n        // Merge overlapping intervals\n        while (i < intervals.length && intervals[i][0] <= newInterval[1]) {\n            newInterval[0] = Math.min(newInterval[0], intervals[i][0]);\n            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);\n            i++;\n        }\n        result.add(newInterval);\n        \n        // Add remaining intervals\n        while (i < intervals.length) {\n            result.add(intervals[i]);\n            i++;\n        }\n        \n        return result.toArray(new int[result.size()][]);\n    }\n}",
+        "c": "int** insert(int** intervals, int intervalsSize, int* intervalsColSize, int* newInterval, int newIntervalSize, int* returnSize, int** returnColumnSizes) {\n    int** result = (int**)malloc((intervalsSize + 1) * sizeof(int*));\n    *returnColumnSizes = (int*)malloc((intervalsSize + 1) * sizeof(int));\n    *returnSize = 0;\n    int i = 0;\n    \n    // Add all intervals before newInterval\n    while (i < intervalsSize && intervals[i][1] < newInterval[0]) {\n        result[*returnSize] = (int*)malloc(2 * sizeof(int));\n        result[*returnSize][0] = intervals[i][0];\n        result[*returnSize][1] = intervals[i][1];\n        (*returnColumnSizes)[*returnSize] = 2;\n        (*returnSize)++;\n        i++;\n    }\n    \n    // Merge overlapping intervals\n    while (i < intervalsSize && intervals[i][0] <= newInterval[1]) {\n        newInterval[0] = intervals[i][0] < newInterval[0] ? intervals[i][0] : newInterval[0];\n        newInterval[1] = intervals[i][1] > newInterval[1] ? intervals[i][1] : newInterval[1];\n        i++;\n    }\n    result[*returnSize] = (int*)malloc(2 * sizeof(int));\n    result[*returnSize][0] = newInterval[0];\n    result[*returnSize][1] = newInterval[1];\n    (*returnColumnSizes)[*returnSize] = 2;\n    (*returnSize)++;\n    \n    // Add remaining intervals\n    while (i < intervalsSize) {\n        result[*returnSize] = (int*)malloc(2 * sizeof(int));\n        result[*returnSize][0] = intervals[i][0];\n        result[*returnSize][1] = intervals[i][1];\n        (*returnColumnSizes)[*returnSize] = 2;\n        (*returnSize)++;\n        i++;\n    }\n    \n    return result;\n}"
+      }
+    },
+    {
+      "id": "merge-intervals-basic",
+      "title": "Merge Intervals",
+      "difficulty": "medium",
+      "description": "Solve the Merge Intervals problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "insert-interval",
+      "title": "Insert Interval",
+      "difficulty": "medium",
+      "description": "Solve the Insert Interval problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    },
+    {
+      "id": "meeting-rooms-ii",
+      "title": "Meeting Rooms II",
+      "difficulty": "medium",
+      "description": "Solve the Meeting Rooms II problem using appropriate techniques.",
+      "companyTags": [
+        "Amazon",
+        "Google",
+        "Microsoft"
+      ],
+      "topicTags": [
+        "Algorithm",
+        "Data Structure"
+      ],
+      "acceptanceRate": 50,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)",
+      "constraints": [
+        "Standard constraints apply"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Example test case 2"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 1"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 2"
+        },
+        {
+          "input": {},
+          "expectedOutput": null,
+          "description": "Hidden test case 3"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Think about the problem structure"
+        },
+        {
+          "level": 2,
+          "text": "Consider using appropriate data structures"
+        },
+        {
+          "level": 3,
+          "text": "Optimize your solution"
+        }
+      ],
+      "similarProblems": [],
+      "starterCode": {
+        "javascript": "function solve() {\n  // Your code here\n  \n}",
+        "python": "def solve():\n    # Your code here\n    pass",
+        "java": "class Solution {\n    public void solve() {\n        // Your code here\n        \n    }\n}",
+        "c": "void solve() {\n    // Your code here\n    \n}"
+      },
+      "solution": {
+        "javascript": "function solve() {\n  // Solution implementation\n  return null;\n}",
+        "python": "def solve():\n    # Solution implementation\n    return None",
+        "java": "class Solution {\n    public void solve() {\n        // Solution implementation\n    }\n}",
+        "c": "void solve() {\n    // Solution implementation\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Forgetting to sort intervals by start time before merging",
+      "Using wrong overlap condition - should be newStart <= currentEnd, not <",
+      "Not updating end correctly when merging - use max(currentEnd, newEnd)",
+      "Modifying input array instead of creating new result array",
+      "Not handling edge cases like empty array or single interval"
+    ],
+    "patternDetection": [
+      "Problem involves time ranges, meetings, or bookings - merge intervals pattern",
+      "Need to find overlapping or non-overlapping ranges",
+      "Scheduling or calendar problems",
+      "Problem asks to merge, combine, or consolidate ranges",
+      "Finding conflicts or free time slots",
+      "Keywords: 'intervals', 'ranges', 'overlapping', 'merge', 'schedule'"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "56. Merge Intervals",
+        "link": "https://leetcode.com/problems/merge-intervals/",
+        "difficulty": "Medium",
+        "description": "Classic merge intervals problem"
+      },
+      {
+        "title": "57. Insert Interval",
+        "link": "https://leetcode.com/problems/insert-interval/",
+        "difficulty": "Medium",
+        "description": "Insert and merge new interval into sorted list"
+      },
+      {
+        "title": "252. Meeting Rooms",
+        "link": "https://leetcode.com/problems/meeting-rooms/",
+        "difficulty": "Easy",
+        "description": "Check if person can attend all meetings"
+      },
+      {
+        "title": "253. Meeting Rooms II",
+        "link": "https://leetcode.com/problems/meeting-rooms-ii/",
+        "difficulty": "Medium",
+        "description": "Find minimum conference rooms needed"
+      },
+      {
+        "title": "435. Non-overlapping Intervals",
+        "link": "https://leetcode.com/problems/non-overlapping-intervals/",
+        "difficulty": "Medium",
+        "description": "Remove minimum intervals to make non-overlapping"
+      },
+      {
+        "title": "986. Interval List Intersections",
+        "link": "https://leetcode.com/problems/interval-list-intersections/",
+        "difficulty": "Medium",
+        "description": "Find intersections between two interval lists"
+      }
+    ]
+  }
+}

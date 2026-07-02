@@ -1,0 +1,583 @@
+{
+  "id": "stacks-queues",
+  "title": "Stacks & Queues",
+  "description": "Master stack and queue data structures for efficient operations",
+  "difficulty": "beginner",
+  "order": 4,
+  "tags": [
+    "stacks",
+    "queues",
+    "data-structures",
+    "LIFO",
+    "FIFO"
+  ],
+  "documentation": {
+    "content": "# Stacks & Queues: The Order Keepers\n\nImagine you're at a cafeteria. The stack of plates works one way—you take from the top and add to the top. But the line of people? That's a queue—first person in line gets served first. These simple ideas power some of the most elegant algorithms in computer science.\n\n## The Story Behind Stacks\n\nA stack is a Last-In-First-Out (LIFO) data structure. Think of it like a stack of books—you can only add or remove from the top. The last book you put on is the first one you'll take off.\n\n**Real-world stacks:**\n- Browser back button (last page visited is first to go back to)\n- Undo feature in editors (last action is first to undo)\n- Function call stack (last function called is first to return)\n- Plates in a cafeteria\n\n## The Story Behind Queues\n\nA queue is a First-In-First-Out (FIFO) data structure. Like a line at a coffee shop—the first person in line is the first to be served.\n\n**Real-world queues:**\n- Print job queue (first document sent is first to print)\n- Customer service lines\n- Task scheduling in operating systems\n- Breadth-first search in graphs\n\n## Stack Operations\n\n**Push** - Add element to top: O(1)\n**Pop** - Remove element from top: O(1)\n**Peek/Top** - View top element without removing: O(1)\n**isEmpty** - Check if stack is empty: O(1)\n\n## Queue Operations\n\n**Enqueue** - Add element to rear: O(1)\n**Dequeue** - Remove element from front: O(1)\n**Front** - View front element: O(1)\n**isEmpty** - Check if queue is empty: O(1)\n\n## When to Use Stacks\n\n**Parentheses matching** - Check if brackets are balanced\n**Expression evaluation** - Convert infix to postfix, evaluate expressions\n**Backtracking** - DFS, maze solving, undo operations\n**Function calls** - Recursion uses implicit stack\n**String reversal** - Push all chars, pop them out\n\n## When to Use Queues\n\n**BFS traversal** - Level-order tree/graph traversal\n**Task scheduling** - Process tasks in order\n**Buffer management** - Streaming data, IO buffers\n**Sliding window** - Maintain elements in window\n**Cache implementation** - LRU cache with queue\n\n## Common Mistakes\n\n❌ **Stack overflow** - Pushing too many elements without checking capacity\n❌ **Queue underflow** - Trying to dequeue from empty queue\n❌ **Not checking isEmpty** - Causes errors when accessing empty structures\n❌ **Using wrong structure** - Stack for BFS or queue for DFS won't work\n❌ **Inefficient queue** - Using array with shift() is O(n), use circular buffer\n\n## Pro Tips\n\n💡 **Implement stack with array** - Use push/pop methods, they're O(1)\n💡 **Implement queue with linked list** - Efficient enqueue/dequeue\n💡 **Circular queue** - Use array with two pointers, no shifting needed\n💡 **Two stacks = one queue** - Classic interview problem\n💡 **Monotonic stack/queue** - Keep elements in sorted order for optimization\n\n## Stack vs Queue Decision\n\n**Use Stack when:**\n- You need to reverse order\n- You're doing backtracking\n- You need to remember previous states\n- LIFO order makes sense\n\n**Use Queue when:**\n- You need to maintain order\n- You're doing level-by-level processing\n- FIFO order makes sense\n- You're implementing BFS\n\n## Real-World Applications\n\n**Stacks:**\n- Browser history (back/forward buttons)\n- Text editor undo/redo\n- Compiler syntax checking\n- Expression evaluation calculators\n- Depth-first search algorithms\n\n**Queues:**\n- Operating system task scheduling\n- Printer job management\n- Network packet routing\n- Breadth-first search algorithms\n- Message queues in distributed systems\n\nStacks and queues are the building blocks of many complex algorithms. Master these, and you'll see them everywhere! 📚🎯\n"
+  },
+  "videos": [
+    {
+      "id": "video-1",
+      "youtubeId": "wjI1WNcIntg",
+      "title": "Stacks & Queues - English",
+      "duration": 600,
+      "language": "English"
+    },
+    {
+      "id": "video-2",
+      "youtubeId": "Qs3l4dqS8-0",
+      "title": "Stacks & Queues - Hindi",
+      "duration": 600,
+      "language": "Hindi"
+    },
+    {
+      "id": "video-3",
+      "youtubeId": "aGCZJUaGzXo",
+      "title": "Stacks & Queues - Telugu",
+      "duration": 600,
+      "language": "Telugu"
+    }
+  ],
+  "quiz": {
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the time complexity of push and pop operations in a stack?",
+        "options": [
+          "O(n)",
+          "O(log n)",
+          "O(1)",
+          "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": "Both push and pop operations in a stack are O(1) because we only access the top element."
+      },
+      {
+        "id": "q2",
+        "question": "Which data structure follows FIFO (First-In-First-Out) principle?",
+        "options": [
+          "Stack",
+          "Queue",
+          "Tree",
+          "Graph"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Queue follows FIFO principle where the first element added is the first one to be removed."
+      },
+      {
+        "id": "q3",
+        "question": "Which traversal algorithm typically uses a queue?",
+        "options": [
+          "Depth-First Search",
+          "Breadth-First Search",
+          "Preorder",
+          "Inorder"
+        ],
+        "correctAnswer": 1,
+        "explanation": "BFS uses a queue to process nodes level by level, while DFS uses a stack."
+      },
+      {
+        "id": "q4",
+        "question": "What happens when you try to pop from an empty stack?",
+        "options": [
+          "Returns null",
+          "Stack underflow error",
+          "Returns 0",
+          "Creates new element"
+        ],
+        "correctAnswer": 1,
+        "explanation": "Attempting to pop from an empty stack causes a stack underflow error. Always check isEmpty() first."
+      }
+    ]
+  },
+  "problems": [
+    {
+      "id": "valid-parentheses",
+      "title": "Valid Parentheses",
+      "difficulty": "easy",
+      "description": "Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. An input string is valid if: Open brackets must be closed by the same type of brackets, and open brackets must be closed in the correct order.",
+      "constraints": [
+        "1 <= s.length <= 10^4",
+        "s consists of parentheses only '()[]{}'."
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "()[]{}"
+          },
+          "expectedOutput": true,
+          "description": "All brackets are properly closed"
+        },
+        {
+          "input": {
+            "s": "(]"
+          },
+          "expectedOutput": false,
+          "description": "Mismatched bracket types"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "([)]"
+          },
+          "expectedOutput": false,
+          "description": "Incorrect closing order"
+        }
+      ],
+      "starterCode": {
+        "javascript": "function isValid(s) {\n  // Your code here\n  // Use a stack to track opening brackets\n  \n}",
+        "python": "def is_valid(s):\n    # Your code here\n    # Use a stack to track opening brackets\n    pass",
+        "java": "class Solution {\n    public boolean isValid(String s) {\n        // Your code here\n        // Use a stack to track opening brackets\n        \n    }\n}",
+        "c": "bool isValid(char* s) {\n    // Your code here\n    // Use a stack to track opening brackets\n    \n}"
+      },
+      "solution": {
+        "javascript": "function isValid(s) {\n  const stack = [];\n  const pairs = {\n    '(': ')',\n    '[': ']',\n    '{': '}'\n  };\n  \n  for (const char of s) {\n    if (pairs[char]) {\n      stack.push(char);\n    } else {\n      const top = stack.pop();\n      if (pairs[top] !== char) return false;\n    }\n  }\n  \n  return stack.length === 0;\n}",
+        "python": "def is_valid(s):\n    stack = []\n    pairs = {\n        '(': ')',\n        '[': ']',\n        '{': '}'\n    }\n    \n    for char in s:\n        if char in pairs:\n            stack.append(char)\n        else:\n            if not stack:\n                return False\n            top = stack.pop()\n            if pairs[top] != char:\n                return False\n    \n    return len(stack) == 0",
+        "java": "class Solution {\n    public boolean isValid(String s) {\n        Stack<Character> stack = new Stack<>();\n        Map<Character, Character> pairs = new HashMap<>();\n        pairs.put('(', ')');\n        pairs.put('[', ']');\n        pairs.put('{', '}');\n        \n        for (char c : s.toCharArray()) {\n            if (pairs.containsKey(c)) {\n                stack.push(c);\n            } else {\n                if (stack.isEmpty()) return false;\n                char top = stack.pop();\n                if (pairs.get(top) != c) return false;\n            }\n        }\n        \n        return stack.isEmpty();\n    }\n}",
+        "c": "bool isValid(char* s) {\n    int n = strlen(s);\n    char stack[n];\n    int top = -1;\n    \n    for (int i = 0; s[i]; i++) {\n        if (s[i] == '(' || s[i] == '[' || s[i] == '{') {\n            stack[++top] = s[i];\n        } else {\n            if (top == -1) return false;\n            char opening = stack[top--];\n            if ((s[i] == ')' && opening != '(') ||\n                (s[i] == ']' && opening != '[') ||\n                (s[i] == '}' && opening != '{')) {\n                return false;\n            }\n        }\n    }\n    \n    return top == -1;\n}"
+      }
+    },
+    {
+      "id": "implement-queue-using-stacks",
+      "title": "Implement Queue using Stacks",
+      "difficulty": "easy",
+      "description": "Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).",
+      "constraints": [
+        "1 <= x <= 9",
+        "At most 100 calls will be made to push, pop, peek, and empty",
+        "All calls to pop and peek are valid"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "operations": [
+              "push 1",
+              "push 2",
+              "peek",
+              "pop",
+              "empty"
+            ]
+          },
+          "expectedOutput": [
+            null,
+            null,
+            1,
+            1,
+            false
+          ],
+          "description": "Basic queue operations"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "operations": [
+              "push 1",
+              "pop",
+              "empty"
+            ]
+          },
+          "expectedOutput": [
+            null,
+            1,
+            true
+          ],
+          "description": "Queue becomes empty"
+        }
+      ],
+      "starterCode": {
+        "javascript": "class MyQueue {\n  constructor() {\n    // Your code here\n  }\n  \n  push(x) {\n    // Your code here\n  }\n  \n  pop() {\n    // Your code here\n  }\n  \n  peek() {\n    // Your code here\n  }\n  \n  empty() {\n    // Your code here\n  }\n}",
+        "python": "class MyQueue:\n    def __init__(self):\n        # Your code here\n        pass\n    \n    def push(self, x):\n        # Your code here\n        pass\n    \n    def pop(self):\n        # Your code here\n        pass\n    \n    def peek(self):\n        # Your code here\n        pass\n    \n    def empty(self):\n        # Your code here\n        pass",
+        "java": "class MyQueue {\n    public MyQueue() {\n        // Your code here\n    }\n    \n    public void push(int x) {\n        // Your code here\n    }\n    \n    public int pop() {\n        // Your code here\n    }\n    \n    public int peek() {\n        // Your code here\n    }\n    \n    public boolean empty() {\n        // Your code here\n    }\n}",
+        "c": "typedef struct {\n    int stack1[100];\n    int stack2[100];\n    int top1;\n    int top2;\n} MyQueue;\n\nMyQueue* myQueueCreate() {\n    // Your code here\n}\n\nvoid myQueuePush(MyQueue* obj, int x) {\n    // Your code here\n}\n\nint myQueuePop(MyQueue* obj) {\n    // Your code here\n}\n\nint myQueuePeek(MyQueue* obj) {\n    // Your code here\n}\n\nbool myQueueEmpty(MyQueue* obj) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "class MyQueue {\n  constructor() {\n    this.stack1 = [];\n    this.stack2 = [];\n  }\n  \n  push(x) {\n    this.stack1.push(x);\n  }\n  \n  pop() {\n    if (this.stack2.length === 0) {\n      while (this.stack1.length > 0) {\n        this.stack2.push(this.stack1.pop());\n      }\n    }\n    return this.stack2.pop();\n  }\n  \n  peek() {\n    if (this.stack2.length === 0) {\n      while (this.stack1.length > 0) {\n        this.stack2.push(this.stack1.pop());\n      }\n    }\n    return this.stack2[this.stack2.length - 1];\n  }\n  \n  empty() {\n    return this.stack1.length === 0 && this.stack2.length === 0;\n  }\n}",
+        "python": "class MyQueue:\n    def __init__(self):\n        self.stack1 = []\n        self.stack2 = []\n    \n    def push(self, x):\n        self.stack1.append(x)\n    \n    def pop(self):\n        if not self.stack2:\n            while self.stack1:\n                self.stack2.append(self.stack1.pop())\n        return self.stack2.pop()\n    \n    def peek(self):\n        if not self.stack2:\n            while self.stack1:\n                self.stack2.append(self.stack1.pop())\n        return self.stack2[-1]\n    \n    def empty(self):\n        return len(self.stack1) == 0 and len(self.stack2) == 0",
+        "java": "class MyQueue {\n    private Stack<Integer> stack1;\n    private Stack<Integer> stack2;\n    \n    public MyQueue() {\n        stack1 = new Stack<>();\n        stack2 = new Stack<>();\n    }\n    \n    public void push(int x) {\n        stack1.push(x);\n    }\n    \n    public int pop() {\n        if (stack2.isEmpty()) {\n            while (!stack1.isEmpty()) {\n                stack2.push(stack1.pop());\n            }\n        }\n        return stack2.pop();\n    }\n    \n    public int peek() {\n        if (stack2.isEmpty()) {\n            while (!stack1.isEmpty()) {\n                stack2.push(stack1.pop());\n            }\n        }\n        return stack2.peek();\n    }\n    \n    public boolean empty() {\n        return stack1.isEmpty() && stack2.isEmpty();\n    }\n}",
+        "c": "typedef struct {\n    int stack1[100];\n    int stack2[100];\n    int top1;\n    int top2;\n} MyQueue;\n\nMyQueue* myQueueCreate() {\n    MyQueue* q = (MyQueue*)malloc(sizeof(MyQueue));\n    q->top1 = -1;\n    q->top2 = -1;\n    return q;\n}\n\nvoid myQueuePush(MyQueue* obj, int x) {\n    obj->stack1[++obj->top1] = x;\n}\n\nint myQueuePop(MyQueue* obj) {\n    if (obj->top2 == -1) {\n        while (obj->top1 >= 0) {\n            obj->stack2[++obj->top2] = obj->stack1[obj->top1--];\n        }\n    }\n    return obj->stack2[obj->top2--];\n}\n\nint myQueuePeek(MyQueue* obj) {\n    if (obj->top2 == -1) {\n        while (obj->top1 >= 0) {\n            obj->stack2[++obj->top2] = obj->stack1[obj->top1--];\n        }\n    }\n    return obj->stack2[obj->top2];\n}\n\nbool myQueueEmpty(MyQueue* obj) {\n    return obj->top1 == -1 && obj->top2 == -1;\n}"
+      }
+    },
+    {
+      "id": "min-stack",
+      "title": "Min Stack",
+      "difficulty": "medium",
+      "description": "Design a stack that supports push, pop, top, and retrieving the minimum element in constant time. Implement the MinStack class with push(val), pop(), top(), and getMin() methods.",
+      "constraints": [
+        "-2^31 <= val <= 2^31 - 1",
+        "Methods pop, top and getMin will always be called on non-empty stacks",
+        "At most 3 * 10^4 calls will be made to push, pop, top, and getMin"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "operations": [
+              "push -2",
+              "push 0",
+              "push -3",
+              "getMin",
+              "pop",
+              "top",
+              "getMin"
+            ]
+          },
+          "expectedOutput": [
+            null,
+            null,
+            null,
+            -3,
+            null,
+            0,
+            -2
+          ],
+          "description": "Track minimum element"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "operations": [
+              "push 1",
+              "push 2",
+              "getMin"
+            ]
+          },
+          "expectedOutput": [
+            null,
+            null,
+            1
+          ],
+          "description": "Minimum is first element"
+        }
+      ],
+      "starterCode": {
+        "javascript": "class MinStack {\n  constructor() {\n    // Your code here\n  }\n  \n  push(val) {\n    // Your code here\n  }\n  \n  pop() {\n    // Your code here\n  }\n  \n  top() {\n    // Your code here\n  }\n  \n  getMin() {\n    // Your code here\n  }\n}",
+        "python": "class MinStack:\n    def __init__(self):\n        # Your code here\n        pass\n    \n    def push(self, val):\n        # Your code here\n        pass\n    \n    def pop(self):\n        # Your code here\n        pass\n    \n    def top(self):\n        # Your code here\n        pass\n    \n    def get_min(self):\n        # Your code here\n        pass",
+        "java": "class MinStack {\n    public MinStack() {\n        // Your code here\n    }\n    \n    public void push(int val) {\n        // Your code here\n    }\n    \n    public void pop() {\n        // Your code here\n    }\n    \n    public int top() {\n        // Your code here\n    }\n    \n    public int getMin() {\n        // Your code here\n    }\n}",
+        "c": "typedef struct {\n    int stack[30000];\n    int minStack[30000];\n    int top;\n} MinStack;\n\nMinStack* minStackCreate() {\n    // Your code here\n}\n\nvoid minStackPush(MinStack* obj, int val) {\n    // Your code here\n}\n\nvoid minStackPop(MinStack* obj) {\n    // Your code here\n}\n\nint minStackTop(MinStack* obj) {\n    // Your code here\n}\n\nint minStackGetMin(MinStack* obj) {\n    // Your code here\n}"
+      },
+      "solution": {
+        "javascript": "class MinStack {\n  constructor() {\n    this.stack = [];\n    this.minStack = [];\n  }\n  \n  push(val) {\n    this.stack.push(val);\n    if (this.minStack.length === 0 || val <= this.minStack[this.minStack.length - 1]) {\n      this.minStack.push(val);\n    }\n  }\n  \n  pop() {\n    const val = this.stack.pop();\n    if (val === this.minStack[this.minStack.length - 1]) {\n      this.minStack.pop();\n    }\n  }\n  \n  top() {\n    return this.stack[this.stack.length - 1];\n  }\n  \n  getMin() {\n    return this.minStack[this.minStack.length - 1];\n  }\n}",
+        "python": "class MinStack:\n    def __init__(self):\n        self.stack = []\n        self.min_stack = []\n    \n    def push(self, val):\n        self.stack.append(val)\n        if not self.min_stack or val <= self.min_stack[-1]:\n            self.min_stack.append(val)\n    \n    def pop(self):\n        val = self.stack.pop()\n        if val == self.min_stack[-1]:\n            self.min_stack.pop()\n    \n    def top(self):\n        return self.stack[-1]\n    \n    def get_min(self):\n        return self.min_stack[-1]",
+        "java": "class MinStack {\n    private Stack<Integer> stack;\n    private Stack<Integer> minStack;\n    \n    public MinStack() {\n        stack = new Stack<>();\n        minStack = new Stack<>();\n    }\n    \n    public void push(int val) {\n        stack.push(val);\n        if (minStack.isEmpty() || val <= minStack.peek()) {\n            minStack.push(val);\n        }\n    }\n    \n    public void pop() {\n        int val = stack.pop();\n        if (val == minStack.peek()) {\n            minStack.pop();\n        }\n    }\n    \n    public int top() {\n        return stack.peek();\n    }\n    \n    public int getMin() {\n        return minStack.peek();\n    }\n}",
+        "c": "typedef struct {\n    int stack[30000];\n    int minStack[30000];\n    int top;\n    int minTop;\n} MinStack;\n\nMinStack* minStackCreate() {\n    MinStack* obj = (MinStack*)malloc(sizeof(MinStack));\n    obj->top = -1;\n    obj->minTop = -1;\n    return obj;\n}\n\nvoid minStackPush(MinStack* obj, int val) {\n    obj->stack[++obj->top] = val;\n    if (obj->minTop == -1 || val <= obj->minStack[obj->minTop]) {\n        obj->minStack[++obj->minTop] = val;\n    }\n}\n\nvoid minStackPop(MinStack* obj) {\n    int val = obj->stack[obj->top--];\n    if (val == obj->minStack[obj->minTop]) {\n        obj->minTop--;\n    }\n}\n\nint minStackTop(MinStack* obj) {\n    return obj->stack[obj->top];\n}\n\nint minStackGetMin(MinStack* obj) {\n    return obj->minStack[obj->minTop];\n}"
+      }
+    },
+    {
+      "id": "valid-parentheses",
+      "title": "Valid Parentheses",
+      "difficulty": "easy",
+      "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\nAn input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.\n3. Every close bracket has a corresponding open bracket of the same type.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Google",
+        "Facebook"
+      ],
+      "topicTags": [
+        "String",
+        "Stack"
+      ],
+      "acceptanceRate": 40,
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)",
+      "constraints": [
+        "1 <= s.length <= 10^4",
+        "s consists of parentheses only '()[]{}'."
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "s": "()"
+          },
+          "expectedOutput": true,
+          "description": "Valid pair of parentheses"
+        },
+        {
+          "input": {
+            "s": "()[]{}"
+          },
+          "expectedOutput": true,
+          "description": "Multiple valid pairs"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "s": "(]"
+          },
+          "expectedOutput": false,
+          "description": "Mismatched brackets"
+        },
+        {
+          "input": {
+            "s": "([)]"
+          },
+          "expectedOutput": false,
+          "description": "Incorrect order"
+        },
+        {
+          "input": {
+            "s": "{[]}"
+          },
+          "expectedOutput": true,
+          "description": "Nested brackets"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use a stack! When you see an opening bracket, push it. When you see a closing bracket, check if it matches the top of the stack."
+        },
+        {
+          "level": 2,
+          "text": "Create a map of closing to opening brackets: {')': '(', '}': '{', ']': '['}. For each character, if it's opening, push; if closing, pop and check match."
+        },
+        {
+          "level": 3,
+          "text": "After processing all characters, the stack should be empty for a valid string."
+        }
+      ],
+      "similarProblems": [
+        "generate-parentheses",
+        "longest-valid-parentheses"
+      ],
+      "starterCode": {
+        "javascript": "function isValid(s) {\n  // Your code here\n  // Use a stack to track opening brackets\n  \n}",
+        "python": "def is_valid(s):\n    # Your code here\n    # Use a stack to track opening brackets\n    pass",
+        "java": "class Solution {\n    public boolean isValid(String s) {\n        // Your code here\n        // Use a stack to track opening brackets\n        \n    }\n}",
+        "c": "bool isValid(char* s) {\n    // Your code here\n    // Use a stack to track opening brackets\n    \n}"
+      },
+      "solution": {
+        "javascript": "function isValid(s) {\n  const stack = [];\n  const pairs = {\n    ')': '(',\n    '}': '{',\n    ']': '['\n  };\n  \n  for (const char of s) {\n    if (char === '(' || char === '{' || char === '[') {\n      stack.push(char);\n    } else {\n      if (stack.length === 0 || stack.pop() !== pairs[char]) {\n        return false;\n      }\n    }\n  }\n  \n  return stack.length === 0;\n}",
+        "python": "def is_valid(s):\n    stack = []\n    pairs = {\n        ')': '(',\n        '}': '{',\n        ']': '['\n    }\n    \n    for char in s:\n        if char in '({[':\n            stack.append(char)\n        else:\n            if not stack or stack.pop() != pairs[char]:\n                return False\n    \n    return len(stack) == 0",
+        "java": "class Solution {\n    public boolean isValid(String s) {\n        Stack<Character> stack = new Stack<>();\n        Map<Character, Character> pairs = new HashMap<>();\n        pairs.put(')', '(');\n        pairs.put('}', '{');\n        pairs.put(']', '[');\n        \n        for (char c : s.toCharArray()) {\n            if (c == '(' || c == '{' || c == '[') {\n                stack.push(c);\n            } else {\n                if (stack.isEmpty() || stack.pop() != pairs.get(c)) {\n                    return false;\n                }\n            }\n        }\n        \n        return stack.isEmpty();\n    }\n}",
+        "c": "bool isValid(char* s) {\n    int len = strlen(s);\n    char stack[len];\n    int top = -1;\n    \n    for (int i = 0; i < len; i++) {\n        char c = s[i];\n        \n        if (c == '(' || c == '{' || c == '[') {\n            stack[++top] = c;\n        } else {\n            if (top == -1) return false;\n            \n            char opening = stack[top--];\n            if ((c == ')' && opening != '(') ||\n                (c == '}' && opening != '{') ||\n                (c == ']' && opening != '[')) {\n                return false;\n            }\n        }\n    }\n    \n    return top == -1;\n}"
+      }
+    },
+    {
+      "id": "implement-queue-using-stacks",
+      "title": "Implement Queue using Stacks",
+      "difficulty": "easy",
+      "description": "Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).\n\nImplement the MyQueue class:\n- void push(int x) Pushes element x to the back of the queue.\n- int pop() Removes the element from the front of the queue and returns it.\n- int peek() Returns the element at the front of the queue.\n- boolean empty() Returns true if the queue is empty, false otherwise.",
+      "companyTags": [
+        "Amazon",
+        "Microsoft",
+        "Bloomberg",
+        "Apple"
+      ],
+      "topicTags": [
+        "Stack",
+        "Queue",
+        "Design"
+      ],
+      "acceptanceRate": 62,
+      "timeComplexity": "O(1) amortized",
+      "spaceComplexity": "O(n)",
+      "constraints": [
+        "1 <= x <= 9",
+        "At most 100 calls will be made to push, pop, peek, and empty",
+        "All the calls to pop and peek are valid"
+      ],
+      "exampleTestCases": [
+        {
+          "input": {
+            "operations": [
+              "MyQueue",
+              "push",
+              "push",
+              "peek",
+              "pop",
+              "empty"
+            ],
+            "values": [
+              [],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [],
+              [],
+              []
+            ]
+          },
+          "expectedOutput": [
+            null,
+            null,
+            null,
+            1,
+            1,
+            false
+          ],
+          "description": "Create queue, push 1, push 2, peek (returns 1), pop (returns 1), check empty (false)"
+        }
+      ],
+      "hiddenTestCases": [
+        {
+          "input": {
+            "operations": [
+              "MyQueue",
+              "push",
+              "pop",
+              "empty"
+            ],
+            "values": [
+              [],
+              [
+                1
+              ],
+              [],
+              []
+            ]
+          },
+          "expectedOutput": [
+            null,
+            null,
+            1,
+            true
+          ],
+          "description": "Single element queue"
+        },
+        {
+          "input": {
+            "operations": [
+              "MyQueue",
+              "push",
+              "push",
+              "push",
+              "pop",
+              "pop"
+            ],
+            "values": [
+              [],
+              [
+                1
+              ],
+              [
+                2
+              ],
+              [
+                3
+              ],
+              [],
+              []
+            ]
+          },
+          "expectedOutput": [
+            null,
+            null,
+            null,
+            null,
+            1,
+            2
+          ],
+          "description": "Multiple operations"
+        },
+        {
+          "input": {
+            "operations": [
+              "MyQueue",
+              "empty"
+            ],
+            "values": [
+              [],
+              []
+            ]
+          },
+          "expectedOutput": [
+            null,
+            true
+          ],
+          "description": "Empty queue check"
+        }
+      ],
+      "hints": [
+        {
+          "level": 1,
+          "text": "Use two stacks: one for pushing (input stack) and one for popping (output stack)."
+        },
+        {
+          "level": 2,
+          "text": "When popping or peeking, if the output stack is empty, transfer all elements from input stack to output stack. This reverses the order!"
+        },
+        {
+          "level": 3,
+          "text": "Push is O(1). Pop/peek are O(1) amortized because each element is moved at most once from input to output stack."
+        }
+      ],
+      "similarProblems": [
+        "implement-stack-using-queues",
+        "design-circular-queue"
+      ],
+      "starterCode": {
+        "javascript": "class MyQueue {\n  constructor() {\n    // Your code here\n    // Use two stacks\n  }\n  \n  push(x) {\n    // Your code here\n  }\n  \n  pop() {\n    // Your code here\n  }\n  \n  peek() {\n    // Your code here\n  }\n  \n  empty() {\n    // Your code here\n  }\n}",
+        "python": "class MyQueue:\n    def __init__(self):\n        # Your code here\n        # Use two stacks\n        pass\n    \n    def push(self, x):\n        # Your code here\n        pass\n    \n    def pop(self):\n        # Your code here\n        pass\n    \n    def peek(self):\n        # Your code here\n        pass\n    \n    def empty(self):\n        # Your code here\n        pass",
+        "java": "class MyQueue {\n    // Your code here\n    // Use two stacks\n    \n    public MyQueue() {\n        \n    }\n    \n    public void push(int x) {\n        \n    }\n    \n    public int pop() {\n        \n    }\n    \n    public int peek() {\n        \n    }\n    \n    public boolean empty() {\n        \n    }\n}",
+        "c": "typedef struct {\n    // Your code here\n    // Use two stacks\n} MyQueue;\n\nMyQueue* myQueueCreate() {\n    \n}\n\nvoid myQueuePush(MyQueue* obj, int x) {\n    \n}\n\nint myQueuePop(MyQueue* obj) {\n    \n}\n\nint myQueuePeek(MyQueue* obj) {\n    \n}\n\nbool myQueueEmpty(MyQueue* obj) {\n    \n}\n\nvoid myQueueFree(MyQueue* obj) {\n    \n}"
+      },
+      "solution": {
+        "javascript": "class MyQueue {\n  constructor() {\n    this.inputStack = [];\n    this.outputStack = [];\n  }\n  \n  push(x) {\n    this.inputStack.push(x);\n  }\n  \n  pop() {\n    this._transferIfNeeded();\n    return this.outputStack.pop();\n  }\n  \n  peek() {\n    this._transferIfNeeded();\n    return this.outputStack[this.outputStack.length - 1];\n  }\n  \n  empty() {\n    return this.inputStack.length === 0 && this.outputStack.length === 0;\n  }\n  \n  _transferIfNeeded() {\n    if (this.outputStack.length === 0) {\n      while (this.inputStack.length > 0) {\n        this.outputStack.push(this.inputStack.pop());\n      }\n    }\n  }\n}",
+        "python": "class MyQueue:\n    def __init__(self):\n        self.input_stack = []\n        self.output_stack = []\n    \n    def push(self, x):\n        self.input_stack.append(x)\n    \n    def pop(self):\n        self._transfer_if_needed()\n        return self.output_stack.pop()\n    \n    def peek(self):\n        self._transfer_if_needed()\n        return self.output_stack[-1]\n    \n    def empty(self):\n        return len(self.input_stack) == 0 and len(self.output_stack) == 0\n    \n    def _transfer_if_needed(self):\n        if not self.output_stack:\n            while self.input_stack:\n                self.output_stack.append(self.input_stack.pop())",
+        "java": "class MyQueue {\n    private Stack<Integer> inputStack;\n    private Stack<Integer> outputStack;\n    \n    public MyQueue() {\n        inputStack = new Stack<>();\n        outputStack = new Stack<>();\n    }\n    \n    public void push(int x) {\n        inputStack.push(x);\n    }\n    \n    public int pop() {\n        transferIfNeeded();\n        return outputStack.pop();\n    }\n    \n    public int peek() {\n        transferIfNeeded();\n        return outputStack.peek();\n    }\n    \n    public boolean empty() {\n        return inputStack.isEmpty() && outputStack.isEmpty();\n    }\n    \n    private void transferIfNeeded() {\n        if (outputStack.isEmpty()) {\n            while (!inputStack.isEmpty()) {\n                outputStack.push(inputStack.pop());\n            }\n        }\n    }\n}",
+        "c": "#define MAX_SIZE 100\n\ntypedef struct {\n    int inputStack[MAX_SIZE];\n    int outputStack[MAX_SIZE];\n    int inputTop;\n    int outputTop;\n} MyQueue;\n\nMyQueue* myQueueCreate() {\n    MyQueue* queue = (MyQueue*)malloc(sizeof(MyQueue));\n    queue->inputTop = -1;\n    queue->outputTop = -1;\n    return queue;\n}\n\nvoid myQueuePush(MyQueue* obj, int x) {\n    obj->inputStack[++obj->inputTop] = x;\n}\n\nvoid transferIfNeeded(MyQueue* obj) {\n    if (obj->outputTop == -1) {\n        while (obj->inputTop != -1) {\n            obj->outputStack[++obj->outputTop] = obj->inputStack[obj->inputTop--];\n        }\n    }\n}\n\nint myQueuePop(MyQueue* obj) {\n    transferIfNeeded(obj);\n    return obj->outputStack[obj->outputTop--];\n}\n\nint myQueuePeek(MyQueue* obj) {\n    transferIfNeeded(obj);\n    return obj->outputStack[obj->outputTop];\n}\n\nbool myQueueEmpty(MyQueue* obj) {\n    return obj->inputTop == -1 && obj->outputTop == -1;\n}\n\nvoid myQueueFree(MyQueue* obj) {\n    free(obj);\n}"
+      }
+    }
+  ],
+  "resources": {
+    "commonMistakes": [
+      "Not checking isEmpty before pop/dequeue - causes underflow errors",
+      "Using array.shift() for queue in JavaScript - O(n) operation, use linked list or circular buffer",
+      "Forgetting to update both pointers in circular queue",
+      "Stack overflow from pushing too many elements without capacity check",
+      "Using wrong data structure - stack for BFS or queue for DFS"
+    ],
+    "patternDetection": [
+      "Problem mentions 'valid parentheses' or 'balanced brackets' - use stack",
+      "Need to reverse something - stack is perfect",
+      "Level-by-level processing or BFS - use queue",
+      "Backtracking or DFS - use stack (or recursion which uses implicit stack)",
+      "Need to track minimum/maximum in O(1) - use auxiliary stack",
+      "Keywords: LIFO, FIFO, undo, redo, backtrack, level-order, recent, history"
+    ],
+    "leetcodeProblems": [
+      {
+        "title": "20. Valid Parentheses",
+        "link": "https://leetcode.com/problems/valid-parentheses/",
+        "difficulty": "Easy",
+        "description": "Classic stack problem for bracket matching"
+      },
+      {
+        "title": "155. Min Stack",
+        "link": "https://leetcode.com/problems/min-stack/",
+        "difficulty": "Medium",
+        "description": "Design stack with O(1) getMin operation"
+      },
+      {
+        "title": "232. Implement Queue using Stacks",
+        "link": "https://leetcode.com/problems/implement-queue-using-stacks/",
+        "difficulty": "Easy",
+        "description": "Use two stacks to implement queue"
+      },
+      {
+        "title": "225. Implement Stack using Queues",
+        "link": "https://leetcode.com/problems/implement-stack-using-queues/",
+        "difficulty": "Easy",
+        "description": "Use queues to implement stack"
+      },
+      {
+        "title": "739. Daily Temperatures",
+        "link": "https://leetcode.com/problems/daily-temperatures/",
+        "difficulty": "Medium",
+        "description": "Monotonic stack for next greater element"
+      },
+      {
+        "title": "84. Largest Rectangle in Histogram",
+        "link": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
+        "difficulty": "Hard",
+        "description": "Advanced stack problem"
+      }
+    ]
+  }
+}
